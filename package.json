@@ -1,0 +1,12 @@
+{
+  "name": "grocery-list",
+  "version": "1.0.0",
+  "description": "a grocery-list",
+  "main": "./app/scripts/main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "devDependencies": {
+    "electron": "^15.3.0"
+  }
+}
