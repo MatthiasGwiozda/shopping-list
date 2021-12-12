@@ -12,6 +12,9 @@
 
 # Todos
 - Create menu with routings
+    - DONE: inject menu - items
+    - create html - pages for routes
+    - link html - pages with the routes
 
 
 # electron-quick-start
