@@ -24,8 +24,8 @@
 # Todos
 - Create menu with routings
     - ~~inject menu - items~~
-    - style Menu
-    - insert icons into menu
+    - ~~style Menu~~
+    - ~~insert icons into menu~~
     - create html - pages for routes
     - link html - pages with the routes
 
