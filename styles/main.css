@@ -1,3 +1,7 @@
-/* styles.css */
+/* styles, which are relevant for all routes */
+@import url('./menu.css');
 
-/* Add styles here to customize the appearance of your app */
+body {
+    margin: 0px;
+    font-family: arial;
+}

@@ -3,36 +3,50 @@ import constants from './constants';
 const routes: Route[] = [
     {
         name: 'Shopping List',
-        routePath: 'shoppingList'
+        routePath: 'shoppingList',
+        icon: '📝'
     },
     {
         name: 'Items',
-        routePath: 'items'
+        routePath: 'items',
+        icon: '🥔'
     },
     {
         name: 'Categories',
-        routePath: 'categories'
+        routePath: 'categories',
+        icon: '🆎'
     },
     {
         name: 'Shops',
-        routePath: 'shops'
+        routePath: 'shops',
+        icon: '🏪'
     },
     {
         name: 'meals',
-        routePath: 'meals'
+        routePath: 'meals',
+        icon: '🥗'
     }
 ];
+
+/**
+ * creates the menu - div element.
+ */
+function createMenuElement() {
+    const menu = document.createElement('div');
+    menu.id = constants.menuId;
+    document.body.prepend(menu);
+}
 
 /**
  * creates the menu and injects it into the
  * document.
  */
 export function injectMenuElements() {
+    createMenuElement();
     const menuRouteElements = routes.map(route => {
         const routeEl = document.createElement('a');
         routeEl.href = './' + route.routePath;
-        routeEl.innerText = route.name;
-        routeEl.classList.add('menuRouteElement')
+        routeEl.innerHTML =  `<span class='icon'>${route.icon}</span>` + route.name;
         return routeEl
     });
     menuRouteElements.forEach(
@@ -42,5 +56,6 @@ export function injectMenuElements() {
 
 interface Route {
     name: string,
-    routePath: string
+    routePath: string,
+    icon: string
 }

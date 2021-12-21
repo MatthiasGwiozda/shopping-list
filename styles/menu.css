@@ -1,0 +1,26 @@
+@import url("./variables.css");
+
+#menu {
+    display: flex;
+    flex-direction: column;
+    width: 14vw;
+    background-color: var(--menu-background-color);
+}
+
+#menu a {
+    width: 100%;
+    height: calc(20vh - 1px);
+    color: white;
+    border: solid white 0px;
+    border-bottom-width: 1px;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    font-size: 17px;
+}
+
+#menu span.icon {
+    font-size: 30px;
+}

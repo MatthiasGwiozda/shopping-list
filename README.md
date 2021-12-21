@@ -8,11 +8,24 @@
         - Data Binding
     - disadvantages of using the frameworks
         - more overhead in the application.
-- De we use
+- How is routing implemented? --> decission: since it is a small application we don't have to worry about boilerplate - code. A html - skeleton is lightweight and custom css can be used in specific html - pages.
+    - plain HTML pages
+        - advantages
+            - routing mechanism of the browser is used
+        - disadvantages
+            - boilerplate html - pages must be created
+    - inject html into a dynamic container. The html - content can be generated through a script dependent of the current route
+        - advantage
+            - no boilerplate - code
+        - disadvantages
+            - routing mechanism of the browser won't be used
+        
 
 # Todos
 - Create menu with routings
-    - DONE: inject menu - items
+    - ~~inject menu - items~~
+    - style Menu
+    - insert icons into menu
     - create html - pages for routes
     - link html - pages with the routes
 
