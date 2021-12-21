@@ -5,3 +5,12 @@ body {
     margin: 0px;
     font-family: arial;
 }
+
+/* container and menu alignment */
+#container {
+    display: flex;
+}
+
+#content {
+    margin-left: 7px;
+}

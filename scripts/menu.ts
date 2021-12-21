@@ -34,7 +34,7 @@ const routes: Route[] = [
 function createMenuElement() {
     const menu = document.createElement('div');
     menu.id = constants.menuId;
-    document.body.prepend(menu);
+    document.getElementById(constants.containerId).prepend(menu);
 }
 
 /**
@@ -46,7 +46,7 @@ export function injectMenuElements() {
     const menuRouteElements = routes.map(route => {
         const routeEl = document.createElement('a');
         routeEl.href = './' + route.routePath;
-        routeEl.innerHTML =  `<span class='icon'>${route.icon}</span>` + route.name;
+        routeEl.innerHTML = `<span class='icon'>${route.icon}</span>` + route.name;
         return routeEl
     });
     menuRouteElements.forEach(
