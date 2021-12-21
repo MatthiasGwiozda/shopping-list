@@ -45,7 +45,7 @@ export function injectMenuElements() {
     createMenuElement();
     const menuRouteElements = routes.map(route => {
         const routeEl = document.createElement('a');
-        routeEl.href = './' + route.routePath;
+        routeEl.href = `./${constants.componentsFolderName}/${route.routePath}/index.html`
         routeEl.innerHTML = `<span class='icon'>${route.icon}</span>` + route.name;
         return routeEl
     });
