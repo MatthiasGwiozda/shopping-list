@@ -29,8 +29,9 @@
     - create skeleton-component
         - ~~create folder~~
         - add typescript - file to html (transpiler should recognize the new components - folder for skripts)
+    - make effect for menu - item, which is currently active
     - create html - pages for routes
-    - link html - pages with the routes
+        - link html - pages with the routes
 
 
 # electron-quick-start
