@@ -3,7 +3,7 @@
 #menu {
     display: flex;
     flex-direction: column;
-    width: 14vw;
+    width: 90px;
     background-color: var(--menu-background-color);
 }
 
