@@ -2,6 +2,8 @@
 import { app, BrowserWindow } from 'electron';
 import Database from "./Database";
 import * as path from 'path';
+import PathUtilities from './utilities/PathUtilities';
+import constants from './constants';
 
 Database.initializeDatabase();
 
@@ -18,7 +20,7 @@ function createWindow() {
   })
 
   // and load the index.html of the app.
-  mainWindow.loadFile(path.join(__dirname, '../index.html'))
+  mainWindow.loadFile(PathUtilities.getPath(`${constants.componentsFolderName}/startPage/index.html`));
 
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()

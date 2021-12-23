@@ -1,5 +1,5 @@
 import constants from './constants';
-import { join } from 'path';
+import PathUtilities from './utilities/PathUtilities';
 
 const routes: Route[] = [
     {
@@ -46,7 +46,7 @@ export function injectMenuElements() {
     createMenuElement();
     const menuRouteElements = routes.map(route => {
         const routeEl = document.createElement('a');
-        routeEl.href = join(__dirname, '../', `/${constants.componentsFolderName}/${route.routePath}/index.html`);
+        routeEl.href = PathUtilities.getPath(`${constants.componentsFolderName}/${route.routePath}/index.html`);
         routeEl.innerHTML = `<span class='icon'>${route.icon}</span>` + route.name;
         return routeEl
     });

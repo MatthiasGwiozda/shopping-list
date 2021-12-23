@@ -1,5 +1,5 @@
 import { readFileSync, existsSync } from 'fs'
-import { join } from 'path';
+import PathUtilities from './PathUtilities';
 
 /**
  * all the files, which can be accessed through
@@ -18,7 +18,7 @@ export default class FileUtilities {
             [Files.database]: Files.database,
             [Files.structureSql]: 'sql/' + Files.structureSql,
         }
-        return join(__dirname + '/../../' + filePath[file]);
+        return PathUtilities.getPath(filePath[file]);
     }
 
     static getFileContent(file: Files): string {
