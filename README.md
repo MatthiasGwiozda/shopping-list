@@ -1,3 +1,13 @@
+# installation
+Run this commant in the terminal:
+
+    npm install
+
+# start app
+Run this commant in the terminal:
+
+    npm run start
+
 # questions
 - Do I use react / vue --> decission: first I start without react or vue.
     - advantages of using the frameworks
