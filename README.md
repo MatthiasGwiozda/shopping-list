@@ -32,8 +32,6 @@ Run this commant in the terminal:
         
 
 # Todos
-- Create menu with routings
-    - create all html - pages for routes in the file "menu.ts"
 - remove static elements in the head of the components html - files, if possible
 
 
