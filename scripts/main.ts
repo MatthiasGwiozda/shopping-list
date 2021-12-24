@@ -20,7 +20,7 @@ function createWindow() {
   })
 
   // and load the index.html of the app.
-  mainWindow.loadFile(PathUtilities.getPath(`${constants.componentsFolderName}/startPage/index.html`));
+  mainWindow.loadFile(PathUtilities.getPath(`${constants.componentsFolderName}/shoppingList/index.html`));
 
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()

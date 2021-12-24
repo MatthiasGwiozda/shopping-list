@@ -32,7 +32,7 @@ Run this commant in the terminal:
         
 
 # Todos
-- remove static elements in the head of the components html - files, if possible
+- implement categories - view
 
 
 # electron-quick-start
