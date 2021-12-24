@@ -6,4 +6,6 @@ import ComponentUtilities from "./utilities/ComponentUtilities";
 window.addEventListener('DOMContentLoaded', () => {
   injectMenuElements();
   ComponentUtilities.injectComponentScript();
+  // a static title
+  document.title = 'Grocery-list';
 })
