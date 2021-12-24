@@ -1,5 +1,5 @@
 // Modules to control application life and create native browser window
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, session } from 'electron';
 import Database from "./Database";
 import * as path from 'path';
 import PathUtilities from './utilities/PathUtilities';
@@ -30,6 +30,18 @@ function createWindow() {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
+  /**
+   * Set the CSP - header for security reasons
+   */
+  session.defaultSession.webRequest.onHeadersReceived((details, callback) => {
+    callback({
+      responseHeaders: {
+        ...details.responseHeaders,
+        'Content-Security-Policy': ['default-src \'self\'']
+      }
+    })
+  })
+
   createWindow()
 
   app.on('activate', function () {
