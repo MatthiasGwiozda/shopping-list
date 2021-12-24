@@ -21,6 +21,10 @@
     font-size: 17px;
 }
 
+#menu a.active {
+    background-color: var(--menu-background-color-active);
+}
+
 #menu span.icon {
     font-size: 30px;
 }
