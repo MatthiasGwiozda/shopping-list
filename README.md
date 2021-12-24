@@ -33,9 +33,8 @@ Run this commant in the terminal:
 
 # Todos
 - Create menu with routings
-    - make effect for menu - item, which is currently active
-    - create html - pages for routes
-        - link html - pages with the routes
+    - create all html - pages for routes in the file "menu.ts"
+- remove static elements in the head of the components html - files, if possible
 
 
 # electron-quick-start
