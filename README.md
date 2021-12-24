@@ -33,6 +33,7 @@ Run this commant in the terminal:
 
 # Todos
 - implement categories - view
+    - create reuseable table - component, which can INSERT, UPDATE and DELETE elements
 
 
 # electron-quick-start
