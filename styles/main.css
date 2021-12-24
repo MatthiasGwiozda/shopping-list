@@ -13,4 +13,9 @@ body {
 
 #content {
     margin-left: 7px;
+    flex-grow: 1;
+}
+
+h1 {
+    text-align: center;
 }
