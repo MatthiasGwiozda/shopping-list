@@ -1,0 +1,53 @@
+/* editable-list styles */
+.editable-list {
+    width: 100%;
+}
+
+.editable-list td:not(:first-child) {
+    text-align: center;
+}
+
+.editable-list td {
+    border: solid #c8c8c8;
+    border-width: 2.5px 0px 2.5px 0px;
+    height: 45px;
+}
+
+.editable-list td.addElementTD {
+    border: none;
+}
+
+.editable-list button.edit {
+    width: 35px;
+    font-size: 22px;
+    padding: 0;
+    border-radius: 10px;
+    margin-left: 7px;
+    background-color: #ffbc00;
+}
+
+.editable-list button.delete {
+    width: 35px;
+    height: 35px;
+    font-size: 15px;
+    padding: 0;
+    border-radius: 10px;
+    background-color: red;
+}
+
+.editable-list button.add {
+    font-size: 17px;
+    padding: 4px;
+    border-radius: 5px;
+    background-color: white;
+    border-color: #e1e1e1;
+}
+
+.editable-list .element-name {
+    display: flex;
+    align-items: center;
+}
+
+.editable-list th:first-child {
+    text-align: left;
+}
