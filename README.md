@@ -8,6 +8,14 @@ Run this commant in the terminal:
 
     npm run start
 
+# Definition of keywords
+## components
+components in this context are simple html pages with JavaScript - logic and css styles. They can be accessed through the main menu of the application.
+
+## elements
+Elements are reusable pieces of code, which includes html and JavaScript. 
+An example: An element can be used in a component to manipulate the data in the database, which is related to the component.
+
 # questions
 - Do I use react / vue --> decission: first I start without react or vue.
     - advantages of using the frameworks
