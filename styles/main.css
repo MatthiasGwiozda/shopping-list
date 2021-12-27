@@ -1,5 +1,6 @@
 /* styles, which are relevant for all routes */
 @import url('./menu.css');
+@import url('./components/editableList.css');
 
 body {
     margin: 0px;

@@ -1,31 +1,31 @@
 import constants from './constants';
-import ComponentUtilities from './utilities/ComponentUtilities';
-import PathUtilities from './utilities/PathUtilities';
+import ComponentUtilities, { Components } from './utilities/ComponentUtilities';
 
+const anchorComponentAttribute = 'data-component';
 const componentRoutes: ComponentRoute[] = [
     {
         name: 'Shopping List',
-        routePath: 'shoppingList',
+        component: Components.shoppingList,
         icon: '📝'
     },
     {
         name: 'Items',
-        routePath: 'items',
+        component: Components.items,
         icon: '🥔'
     },
     {
         name: 'Categories',
-        routePath: 'categories',
+        component: Components.categories,
         icon: '🆎'
     },
     {
         name: 'Shops',
-        routePath: 'shops',
+        component: Components.shops,
         icon: '🏪'
     },
     {
         name: 'meals',
-        routePath: 'meals',
+        component: Components.meals,
         icon: '🥗'
     }
 ];
@@ -39,32 +39,45 @@ function createMenuElement() {
     document.getElementById(constants.containerId).prepend(menu);
 }
 
-function isCurrentRoute(route: ComponentRoute) {
-    return route.routePath == ComponentUtilities.getCurrentActiveComponent()
+function setActiveMenuItem(routeEl: HTMLElement) {
+    const activeClass = 'active';
+    const anchors = document.querySelectorAll(`#${constants.menuId} > a`);
+    anchors.forEach(anchor => {
+        anchor.classList.remove(activeClass);
+    })
+    routeEl.classList.add(activeClass);
+}
+
+function goToRoute(component: Components) {
+    ComponentUtilities.injectComponent(component, document.getElementById(constants.contentId));
+    setActiveMenuItem(document.querySelector(`#${constants.menuId} > a[${anchorComponentAttribute}=${component}]`));
 }
 
 /**
  * creates the menu and injects it into the
  * document.
+ * additionally opens the default component
  */
 export function injectMenuElements() {
     createMenuElement();
-    const menuRouteElements = componentRoutes.map(route => {
+    const menuRouteElements = componentRoutes.map(componentRoute => {
         const routeEl = document.createElement('a');
-        routeEl.href = PathUtilities.getPath(`${constants.componentsFolderName}/${route.routePath}/index.html`);
-        routeEl.innerHTML = `<span class='icon'>${route.icon}</span>` + route.name;
-        if (isCurrentRoute(route)) {
-            routeEl.classList.add('active');
+        routeEl.setAttribute(anchorComponentAttribute, componentRoute.component);
+        routeEl.onclick = () => {
+            goToRoute(componentRoute.component);
         }
+        routeEl.innerHTML = `<span class='icon'>${componentRoute.icon}</span>` + componentRoute.name;
         return routeEl
     });
     menuRouteElements.forEach(
         node => document.getElementById(constants.menuId).appendChild(node)
     );
+    // now open the default - component
+    goToRoute(Components.shoppingList);
 }
 
 interface ComponentRoute {
     name: string,
-    routePath: string,
+    component: Components,
     icon: string
 }

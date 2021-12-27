@@ -48,6 +48,8 @@ An example: An element can be used in a component to manipulate the data in the 
 # Todos
 - implement routing as SPA.
     - remove "elements". Everything should be a component
+        - test: what happens with a script when a component is unloaded and loaded again?
+            - the script is not loaded again, as it is in the node - cache
 - implement categories - view
     - create reuseable table - component, which can INSERT, UPDATE and DELETE elements
         - pass data from the database in the reusable element

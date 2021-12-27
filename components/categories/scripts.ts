@@ -1,4 +1,4 @@
-import EditableList from "../../elements/editableList/scripts";
+import EditableList from "../editableList/scripts";
 
 // create editableList for categories
 function createEditableList() {

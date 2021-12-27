@@ -2,7 +2,6 @@
 import { app, BrowserWindow, session } from 'electron';
 import * as path from 'path';
 import PathUtilities from './utilities/PathUtilities';
-import constants from './constants';
 
 function createWindow() {
   // Create the browser window.
@@ -19,7 +18,7 @@ function createWindow() {
   })
 
   // and load the index.html of the app.
-  mainWindow.loadFile(PathUtilities.getPath(`${constants.componentsFolderName}/shoppingList/index.html`));
+  mainWindow.loadFile(PathUtilities.getPath(`index.html`));
 
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()
