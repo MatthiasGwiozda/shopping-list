@@ -7,5 +7,10 @@
     "exclude": [
         "node_modules"
     ],
-    "include": ["scripts/**/*.ts", "components/**/*.ts", "elements/**/*.ts"]
+    "include": [
+        "scripts/**/*.ts",
+        "components/**/*.ts",
+        "elements/**/*.ts",
+        "types/**/*.ts"
+    ]
 }

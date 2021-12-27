@@ -1,11 +1,8 @@
 // Modules to control application life and create native browser window
 import { app, BrowserWindow, session } from 'electron';
-import Database from "./Database";
 import * as path from 'path';
 import PathUtilities from './utilities/PathUtilities';
 import constants from './constants';
-
-Database.initializeDatabase();
 
 function createWindow() {
   // Create the browser window.

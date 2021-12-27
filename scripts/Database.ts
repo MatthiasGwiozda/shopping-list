@@ -1,4 +1,5 @@
 import * as sqlite3 from 'sqlite3';
+import Category from '../types/Category';
 import FileUtilities, { Files } from './utilities/FileUtilities';
 
 export default class Database {
@@ -36,5 +37,12 @@ export default class Database {
                 await Database.runQuery(singleQuery);
             }
         }
+    }
+
+    static async selectAllCategories(): Promise<Category[]> {
+        return await Database.runQuery(`
+        SELECT *
+            FROM goods_categories;
+        `);
     }
 }
