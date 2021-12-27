@@ -10,11 +10,10 @@ Run this commant in the terminal:
 
 # Definition of keywords
 ## components
-components in this context are simple html pages with JavaScript - logic and css styles. They can be accessed through the main menu of the application.
+components in this context are simple html pages with JavaScript - logic and css styles. Some of them can be accessed through the main menu of the application.
 
-## elements
-Elements are reusable pieces of code, which includes html and JavaScript. 
-An example: An element can be used in a component to manipulate the data in the database, which is related to the component.
+In general components are reusable pieces of code, which includes html and JavaScript.
+Components may be designed to only be used once on the page. A component may be used multiple times, just like javaScript functions.
 
 # questions
 - Do I use react / vue --> decission: first I start without react or vue.
@@ -50,6 +49,8 @@ An example: An element can be used in a component to manipulate the data in the 
     - remove "elements". Everything should be a component
         - test: what happens with a script when a component is unloaded and loaded again?
             - the script is not loaded again, as it is in the node - cache
+            - when we remove the script from cache, there could be unexpected behaviour when using the same
+            component twice at the same time. It's better to use a function to inject the element into the container. Additionally the component should be able to be loaded twice (even at the same time).
 - implement categories - view
     - create reuseable table - component, which can INSERT, UPDATE and DELETE elements
         - pass data from the database in the reusable element
