@@ -10,7 +10,6 @@
     "include": [
         "scripts/**/*.ts",
         "components/**/*.ts",
-        "elements/**/*.ts",
         "types/**/*.ts"
     ]
 }

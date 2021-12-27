@@ -45,20 +45,9 @@ Components may be designed to only be used once on the page. A component may be 
 - allow side - dishes to have side - dishes themselves. This can be useful for dips, which includes one "base sauce" for all dips: https://lieblingsgeschmack.de/5-blitz-sossen-fuer-raclette-und-fondue/
 
 # Todos
-- implement routing as SPA.
-    - remove "elements". Everything should be a component
-        - test: what happens with a script when a component is unloaded and loaded again?
-            - the script is not loaded again, as it is in the node - cache
-            - when we remove the script from cache, there could be unexpected behaviour when using the same
-            component twice at the same time. It's better to use a function to inject the element into the container. Additionally the component should be able to be loaded twice (even at the same time).
-            - implement Component - class in all components + skeleton
 - implement categories - view
     - create reuseable table - component, which can INSERT, UPDATE and DELETE elements
         - pass data from the database in the reusable element
-            - Problem: when accessing the database in a component, the app is crashing after multiple db - queries have run 
-                - https://stackoverflow.com/questions/32504307/how-to-use-sqlite3-module-with-electron ?
-                
-
 
 # electron-quick-start
 
