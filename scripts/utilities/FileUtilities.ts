@@ -7,23 +7,16 @@ import PathUtilities from './PathUtilities';
  * The filenames must be unique!
  */
 export enum Files {
-    structureSql = 'structure.sql',
+    structureSql = 'sql/structure.sql',
     database = 'groceryList.db',
-    editableListHtml = 'editableList.html',
-    editableListstyles = 'editableListstyles.css'
+    editableListHtml = 'elements/editableList/index.html',
+    editableListstyles = 'elements/editableList/style.css'
 }
 
 export default class FileUtilities {
 
     public static getFilePath(file: Files): string {
-        const editableListPath = 'elements/editableList/';
-        const filePath: { [key in Files]: string } = {
-            [Files.database]: Files.database,
-            [Files.structureSql]: 'sql/' + Files.structureSql,
-            [Files.editableListHtml]: editableListPath + Files.editableListHtml,
-            [Files.editableListstyles]: editableListPath + Files.editableListstyles,
-        }
-        return PathUtilities.getPath(filePath[file]);
+        return PathUtilities.getPath(file);
     }
 
     static getFileContent(file: Files): string {
