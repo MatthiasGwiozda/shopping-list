@@ -1,8 +1,16 @@
-import EditableList from "../editableList/scripts";
+import ComponentUtilities, { Components } from "../../scripts/utilities/ComponentUtilities";
+import Component from "../Component";
 
-// create editableList for categories
-function createEditableList() {
-    const editableListContainer = document.getElementById("categoriesList");
-    new EditableList().insertEditableList(editableListContainer);
+export default class Categories extends Component {
+    constructor(container: HTMLElement) {
+        super(container);
+        this.createEditableList();
+    }
+    // create editableList for categories
+    private createEditableList() {
+        ComponentUtilities.injectComponent(
+            Components.editableList,
+            this.container.querySelector<HTMLElement>("#categoriesList")
+        );
+    }
 }
-createEditableList();

@@ -51,6 +51,7 @@ Components may be designed to only be used once on the page. A component may be 
             - the script is not loaded again, as it is in the node - cache
             - when we remove the script from cache, there could be unexpected behaviour when using the same
             component twice at the same time. It's better to use a function to inject the element into the container. Additionally the component should be able to be loaded twice (even at the same time).
+            - implement Component - class in all components + skeleton
 - implement categories - view
     - create reuseable table - component, which can INSERT, UPDATE and DELETE elements
         - pass data from the database in the reusable element

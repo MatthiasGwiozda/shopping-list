@@ -1,9 +1,11 @@
+import Component from "../../components/Component";
 import constants from "../constants";
 import FileUtilities from "./FileUtilities";
 import PathUtilities from "./PathUtilities";
 
 /**
- * all Components, which are available in the app
+ * all Components, which are available in the app.
+ * they can be found in the folder "components"
  */
 export enum Components {
     categories = 'categories',
@@ -33,16 +35,10 @@ export default abstract class ComponentUtilities {
      * This function injects the scripts.ts - file of the component, which is currently active.
      * Note that the script will not be "unloaded", when the component is removed from the dom.
      */
-    private static injectComponentScript(component: Components) {
+    private static injectComponentScript<T extends Component>(component: Components, htmlElement: HTMLElement): T {
         const scriptPath = PathUtilities.getPath(this.getComponentFilePath(component, FileType.script));
-        /**
-         * first delete the cache for the component. When a component is loaded twice,
-         * the script remains in the cache. through this function the complete script
-         * will be loaded again.
-         * @see https://stackoverflow.com/a/16060619/6458608
-         */
-        delete require.cache[require.resolve(scriptPath)];
-        require(scriptPath);
+        const componentClass: new (container: HTMLElement) => T = require(scriptPath).default;
+        return new componentClass(htmlElement);
     }
 
     private static injectHtmlToElement(component: Components, htmlElement: HTMLElement) {
@@ -52,8 +48,11 @@ export default abstract class ComponentUtilities {
         htmlElement.innerHTML = tempEl.innerHTML;
     }
 
-    public static injectComponent(component: Components, htmlElement: HTMLElement) {
+    /**
+     * @returns the instance of the component, which was 
+     */
+    public static injectComponent<T extends Component>(component: Components, htmlElement: HTMLElement): T {
         this.injectHtmlToElement(component, htmlElement);
-        this.injectComponentScript(component);
+        return this.injectComponentScript(component, htmlElement);
     }
 }

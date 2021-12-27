@@ -1,7 +1,3 @@
-import ComponentUtilities, { Components } from "../../scripts/utilities/ComponentUtilities";
+import Component from "../Component";
 
-export default class EditableList {
-    insertEditableList(htmlElement: HTMLElement) {
-        ComponentUtilities.injectComponent(Components.editableList, htmlElement);
-    }
-}
+export default class EditableList extends Component { }
