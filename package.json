@@ -15,5 +15,8 @@
   },
   "dependencies": {
     "sqlite3": "^5.0.2"
+  },
+  "engines": {
+    "node": ">=14.15.3"
   }
 }

@@ -8,4 +8,3 @@
 
 
 - test, if installing this repository from scratch works fine.
-- document node version
