@@ -1,5 +1,6 @@
+import { Components } from '../types/components/Components';
 import constants from './constants';
-import ComponentUtilities, { Components } from './utilities/ComponentUtilities';
+import ComponentUtilities from './utilities/ComponentUtilities';
 
 const anchorComponentAttribute = 'data-component';
 const componentRoutes: ComponentRoute[] = [

@@ -1,20 +1,9 @@
 import Component from "../../components/Component";
+import ComponentClasses from "../../types/components/componentClasses";
+import { ComponentParameters, Components } from "../../types/components/Components";
 import constants from "../constants";
 import FileUtilities from "./FileUtilities";
 import PathUtilities from "./PathUtilities";
-
-/**
- * all Components, which are available in the app.
- * they can be found in the folder "components"
- */
-export enum Components {
-    categories = 'categories',
-    items = 'items',
-    meals = 'meals',
-    shoppingList = 'shoppingList',
-    shops = 'shops',
-    editableList = 'editableList'
-}
 
 enum FileType {
     script = 'scripts.js',
@@ -35,10 +24,10 @@ export default abstract class ComponentUtilities {
      * This function injects the scripts.ts - file of the component, which is currently active.
      * Note that the script will not be "unloaded", when the component is removed from the dom.
      */
-    private static injectComponentScript<T extends Component>(component: Components, htmlElement: HTMLElement): T {
+    private static injectComponentScript<T extends Component>(component: Components, htmlElement: HTMLElement, componentParameter): T {
         const scriptPath = PathUtilities.getPath(this.getComponentFilePath(component, FileType.script));
-        const componentClass: new (container: HTMLElement) => T = require(scriptPath).default;
-        return new componentClass(htmlElement);
+        const componentClass: new (container: HTMLElement, componentParameter: any) => T = require(scriptPath).default;
+        return new componentClass(htmlElement, componentParameter);
     }
 
     private static injectHtmlToElement(component: Components, htmlElement: HTMLElement) {
@@ -49,10 +38,15 @@ export default abstract class ComponentUtilities {
     }
 
     /**
-     * @returns the instance of the component, which was 
+     * In general this function allows the user to 
+     * insert a component into the given htmlElement.
+     * This function may for example be used in a component to inject other components.
+     * @returns the instance of the component, which was defined in the components - parameter.
      */
-    public static injectComponent<T extends Component>(component: Components, htmlElement: HTMLElement): T {
+    public static injectComponent<C extends Components>(
+        component: C, htmlElement: HTMLElement, componentParameter?: ComponentParameters[C]
+    ): ComponentClasses[C] {
         this.injectHtmlToElement(component, htmlElement);
-        return this.injectComponentScript(component, htmlElement);
+        return this.injectComponentScript(component, htmlElement, componentParameter);
     }
 }

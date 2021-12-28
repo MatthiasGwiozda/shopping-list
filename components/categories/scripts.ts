@@ -1,4 +1,5 @@
-import ComponentUtilities, { Components } from "../../scripts/utilities/ComponentUtilities";
+import ComponentUtilities from "../../scripts/utilities/ComponentUtilities";
+import { Components } from "../../types/components/Components";
 import Component from "../Component";
 
 export default class Categories extends Component {
