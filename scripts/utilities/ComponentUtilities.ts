@@ -1,5 +1,4 @@
 import Component from "../../components/Component";
-import ComponentClasses from "../../types/components/componentClasses";
 import { ComponentParameters, Components } from "../../types/components/Components";
 import constants from "../constants";
 import FileUtilities from "./FileUtilities";
@@ -24,7 +23,7 @@ export default abstract class ComponentUtilities {
      * This function injects the scripts.ts - file of the component, which is currently active.
      * Note that the script will not be "unloaded", when the component is removed from the dom.
      */
-    private static injectComponentScript<T extends Component>(component: Components, htmlElement: HTMLElement, componentParameter): T {
+    private static injectComponentScript<T extends Component<any>>(component: Components, htmlElement: HTMLElement, componentParameter): T {
         const scriptPath = PathUtilities.getPath(this.getComponentFilePath(component, FileType.script));
         const componentClass: new (container: HTMLElement, componentParameter: any) => T = require(scriptPath).default;
         return new componentClass(htmlElement, componentParameter);
@@ -45,7 +44,7 @@ export default abstract class ComponentUtilities {
      */
     public static injectComponent<C extends Components>(
         component: C, htmlElement: HTMLElement, componentParameter?: ComponentParameters[C]
-    ): ComponentClasses[C] {
+    ): Component<C> {
         this.injectHtmlToElement(component, htmlElement);
         return this.injectComponentScript(component, htmlElement, componentParameter);
     }

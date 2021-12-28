@@ -15,10 +15,10 @@ export enum Components {
  * Parameters for the Components
  */
 export type ComponentParameters = {
-    [Components.categories]: never
-    [Components.items]: never
-    [Components.meals]: never
-    [Components.shoppingList]: never
-    [Components.shops]: never
-    [Components.editableList]: never
+    [Components.categories]: any
+    [Components.items]: any
+    [Components.meals]: any
+    [Components.shoppingList]: any
+    [Components.shops]: any
+    [Components.editableList]: any
 }

@@ -2,9 +2,9 @@ import ComponentUtilities from "../../scripts/utilities/ComponentUtilities";
 import { Components } from "../../types/components/Components";
 import Component from "../Component";
 
-export default class Categories extends Component {
-    constructor(container: HTMLElement) {
-        super(container);
+export default class Categories extends Component<Components.categories> {
+    constructor(container: HTMLElement, componentParameters) {
+        super(container, componentParameters);
         this.createEditableList();
     }
     // create editableList for categories
