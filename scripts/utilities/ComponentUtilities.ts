@@ -46,6 +46,8 @@ export default abstract class ComponentUtilities {
         component: C, htmlElement: HTMLElement, componentParameter?: ComponentParameters[C]
     ): Component<C> {
         this.injectHtmlToElement(component, htmlElement);
-        return this.injectComponentScript(component, htmlElement, componentParameter);
+        const instance = this.injectComponentScript(component, htmlElement, componentParameter);
+        instance.rendered();
+        return instance;
     }
 }

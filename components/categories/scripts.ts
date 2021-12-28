@@ -3,8 +3,7 @@ import { Components } from "../../types/components/Components";
 import Component from "../Component";
 
 export default class Categories extends Component<Components.categories> {
-    constructor(container: HTMLElement, componentParameters) {
-        super(container, componentParameters);
+    rendered() {
         this.createEditableList();
     }
     // create editableList for categories
