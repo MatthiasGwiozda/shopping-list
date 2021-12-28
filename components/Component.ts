@@ -10,13 +10,13 @@ import { ComponentParameters, Components } from "../types/components/Components"
  */
 export default abstract class Component<C extends Components> {
     /**
+     * The constructor of a class, which extends the Component - class must use the default - constructor, so
+     * that this two parameters will always be provided.
+     * 
      * @param container the container, in which the element was loaded.
      * Every component may be loaded more than once at the same time.
      * through this parameter the Component is able to identify the actual HTMLElement
      * for it's "instance".
-     * 
-     * The constructor of a class, which extends the Component - class must use the default - constructor, so
-     * that this two parameters will always be provided.
      */
     constructor(protected container: HTMLElement, protected componentParameters: ComponentParameters[C]) { }
     /**

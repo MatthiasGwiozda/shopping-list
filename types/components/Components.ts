@@ -20,5 +20,12 @@ export type ComponentParameters = {
     [Components.meals]: any
     [Components.shoppingList]: any
     [Components.shops]: any
-    [Components.editableList]: any
+    [Components.editableList]: {
+        /**
+         * the columns, which will be included in the EditableList.
+         * The value of the column is the value, which is shown in a single cell
+         * of the table.
+         */
+        tableContent: { [columnName: string]: any }[]
+    }
 }
