@@ -20,6 +20,7 @@ first I start without react or vue.
         - when a page is reloaded, sqlite is not usable anymore.
             - https://github.com/mapbox/node-sqlite3/issues/1370#issuecomment-969309591
             - https://github.com/electron/electron/issues/18397
+        - chrome reloads the complete page. This computation is expensive
 - inject html into a dynamic container. The html - content can be generated through a script dependent of the current route
     - advantage
         - no boilerplate - code
