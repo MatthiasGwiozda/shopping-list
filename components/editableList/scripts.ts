@@ -50,7 +50,7 @@ export default class EditableList extends Component<Components.editableList> {
             rows.push(tr);
         })
         const tbody = this.container.querySelector('tbody');
-        rows.forEach(row => tbody.prepend(row))
+        rows.forEach(row => tbody.append(row))
     }
 
     private insertRows() {
