@@ -1,9 +1,8 @@
 # Todos
-- create function in HtmlUtilities, which creates a Html - Element with given innerHtml.
-    - use the function where it is currently rational.
 - implement categories - view
     - create reuseable table - component, which can INSERT, UPDATE and DELETE elements
-        - pass data from the database in the reusable element as parameter
+        - implement DELETE functionality
+        - implement UPDATE functionality
 
 
 
