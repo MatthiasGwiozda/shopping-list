@@ -2,8 +2,10 @@
     "compilerOptions": {
         "module": "commonjs",
         "outDir": "lib",
-        "sourceMap": true
+        "inlineSourceMap": true,
+        "inlineSources": true
     },
+
     "exclude": [
         "node_modules"
     ],
