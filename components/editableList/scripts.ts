@@ -32,7 +32,7 @@ export default class EditableList extends Component<Components.editableList> {
     }
 
     private insertData() {
-        const { tableContent } = this.componentParameters;
+        const { tableContent, deleteElement } = this.componentParameters;
         let rows: HTMLElement[] = [];
         tableContent.forEach(row => {
             const tds = HtmlUtilities.makeHtmlElementsFromContent(Object.values(row), 'td');
@@ -43,8 +43,14 @@ export default class EditableList extends Component<Components.editableList> {
                 tr.append(td);
             }
             deleteButtonTd.append(deleteButton);
-            deleteButton.onclick = () => {
-                // implement deletion - logic for this element
+            deleteButton.onclick = async () => {
+                const res = await deleteElement(row);
+                if (res.result) {
+                    // refresh component and load data again
+                }
+                if (res.message) {
+                    alert(res.message);
+                }
             }
             tr.append(deleteButtonTd);
             rows.push(tr);

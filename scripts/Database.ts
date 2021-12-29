@@ -13,11 +13,15 @@ export default class Database {
             .filter(query => query != '');
     }
 
-    private static runQuery<T>(query): Promise<T[]> {
-        return new Promise(function (resolve) {
+    private static runQuery<T>(query, params: any[] = []): Promise<T[]> {
+        return new Promise(function (resolve, reject) {
             Database.db.serialize(function () {
-                Database.db.all(query, (err, rows) => {
-                    resolve(rows);
+                Database.db.all(query, params, (err, rows) => {
+                    if (err != null) {
+                        reject()
+                    } else {
+                        resolve(rows);
+                    }
                 });
             });
         });
@@ -31,6 +35,12 @@ export default class Database {
     static async initializeDatabase() {
         const databaseMissing = FileUtilities.getFileContent(Files.database) == null;
         Database.db = new sqlite3.Database(Files.database);
+        /**
+         * for some insane reason foreign key checks are not enabled by default in the
+         * sqlite3 - package.
+         * @see https://github.com/mapbox/node-sqlite3/issues/896#issuecomment-337873296
+         */
+        await this.runQuery("PRAGMA foreign_keys = ON");
         if (databaseMissing) {
             const structureSql = Database.getDatabaseStructure();
             for (let singleQuery of structureSql) {
@@ -44,5 +54,17 @@ export default class Database {
         SELECT *
             FROM goods_categories;
         `);
+    }
+
+    static async deleteCategory(categoryObject: Category): Promise<boolean> {
+        try {
+            await this.runQuery(`
+            DELETE FROM goods_categories
+                WHERE category = ?
+            `, [categoryObject.category]);
+        } catch (e) {
+            return false;
+        }
+        return true;
     }
 }

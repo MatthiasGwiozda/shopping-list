@@ -1,3 +1,4 @@
+import { EditableListParams } from "./editableList";
 
 /**
  * all Components, which are available in the app.
@@ -20,12 +21,5 @@ export type ComponentParameters = {
     [Components.meals]: any
     [Components.shoppingList]: any
     [Components.shops]: any
-    [Components.editableList]: {
-        /**
-         * the columns, which will be included in the EditableList.
-         * The value of the column is the value, which is shown in a single cell
-         * of the table.
-         */
-        tableContent: { [columnName: string]: any }[]
-    }
+    [Components.editableList]: EditableListParams
 }
