@@ -18,6 +18,10 @@ export default class FileUtilities {
         return PathUtilities.getPath(file);
     }
 
+    /**
+     * @param file the path of the file relative from the project root - directory.
+     * @returns the content of the file.
+     */
     static getFileContent(file: string): string {
         const filePath = FileUtilities.getFilePath(file);
         if (existsSync(filePath)) {
