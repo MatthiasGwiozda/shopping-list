@@ -1,9 +1,9 @@
 # Todos
 - implement categories - view
     - create reuseable table - component, which can INSERT, UPDATE and DELETE elements
-        - implement UPDATE functionality
         - implement INSERT functionality
-        
+        - implement UPDATE functionality
+
         - tests at the end:
             - what if all elements are deleted and the page is reloaded?
                 - no error should be visible in the console
