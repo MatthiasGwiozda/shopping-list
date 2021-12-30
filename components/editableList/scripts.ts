@@ -30,6 +30,14 @@ export default class EditableList extends Component<Components.editableList> {
         }
     }
 
+    private getStringRepresentation(element: TableContent[0]): string {
+        let str = '';
+        for (const key in element) {
+            str += `${key}: ${element[key]}\n`
+        }
+        return str;
+    }
+
     private insertData(tableContent: TableContent) {
         const { deleteElement } = this.componentParameters;
         let rows: HTMLElement[] = [];
@@ -43,13 +51,15 @@ export default class EditableList extends Component<Components.editableList> {
             }
             deleteButtonTd.append(deleteButton);
             deleteButton.onclick = async () => {
-                const res = await deleteElement(row);
-                if (res.result) {
-                    // remove the row
-                    tr.remove();
-                }
-                if (res.message) {
-                    alert(res.message);
+                if (confirm('Are you sure to delete this element? \n' + this.getStringRepresentation(row))) {
+                    const res = await deleteElement(row);
+                    if (res.result) {
+                        // remove the row
+                        tr.remove();
+                    }
+                    if (res.message) {
+                        alert(res.message);
+                    }
                 }
             }
             tr.append(deleteButtonTd);
