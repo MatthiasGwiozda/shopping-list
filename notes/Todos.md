@@ -1,17 +1,14 @@
 # Todos
 - implement categories - view
     - create reuseable table - component, which can INSERT, UPDATE and DELETE elements
-        - implement DELETE functionality
-            - tests:
-                - delete was successful
-                    - data should reload
-                - item is used in another component (ON DELETE RESTRICT)
-                    - error message should be shown
-                - what if all elements are deleted and the page is reloaded?
-                    - no error should be visible in the console
-                - test at the end: initialization of empty database
         - implement UPDATE functionality
         - implement INSERT functionality
+        
+        - tests at the end:
+            - what if all elements are deleted and the page is reloaded?
+                - no error should be visible in the console
+                - only the "add new elements icon should be shown"
+            - initialization of empty database
 
 - Menu should be fixed, whenn scolling down on a large page
 
