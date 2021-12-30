@@ -1,7 +1,7 @@
 
 interface ActionResult {
     /**
-     * iWhether the action was successful or not
+     * Whether the action was successful or not
      */
     result: boolean,
     /**

@@ -45,8 +45,8 @@ export default class EditableList extends Component<Components.editableList> {
             deleteButton.onclick = async () => {
                 const res = await deleteElement(row);
                 if (res.result) {
-                    // refresh component and load data again
-                    this.reloadComponent();
+                    // remove the row
+                    tr.remove();
                 }
                 if (res.message) {
                     alert(res.message);
