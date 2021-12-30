@@ -27,6 +27,8 @@ export default abstract class Component<C extends Components> {
      * Every component may be loaded more than once at the same time.
      * through this parameter the Component is able to identify the actual HTMLElement
      * for it's "instance".
+     * 
+     * @param componentParameters the parameters, which can be passed into a component
      */
     constructor(
         protected container: HTMLElement,
