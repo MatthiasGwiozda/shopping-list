@@ -43,7 +43,6 @@ export default class EditableList extends Component<Components.editableList> {
             }
             deleteButtonTd.append(deleteButton);
             deleteButton.onclick = async () => {
-                console.log('delete clicked');
                 const res = await deleteElement(row);
                 if (res.result) {
                     // refresh component and load data again

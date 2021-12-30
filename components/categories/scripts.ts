@@ -1,5 +1,4 @@
 import Database from "../../scripts/Database";
-import ComponentUtilities from "../../scripts/utilities/ComponentUtilities";
 import Category from "../../types/Category";
 import { Components } from "../../types/components/Components";
 import Component from "../Component";
@@ -10,7 +9,7 @@ export default class Categories extends Component<Components.categories> {
     }
     // create editableList for categories
     private async createEditableList() {
-        ComponentUtilities.injectComponent(
+        Component.injectComponent(
             Components.editableList,
             this.container.querySelector<HTMLElement>("#categoriesList"),
             {

@@ -1,6 +1,6 @@
+import Component from '../components/Component';
 import { Components } from '../types/components/Components';
 import constants from './constants';
-import ComponentUtilities from './utilities/ComponentUtilities';
 
 const anchorComponentAttribute = 'data-component';
 const componentRoutes: ComponentRoute[] = [
@@ -50,7 +50,7 @@ function setActiveMenuItem(routeEl: HTMLElement) {
 }
 
 function goToRoute(component: Components) {
-    ComponentUtilities.injectComponent(component, document.getElementById(constants.contentId));
+    Component.injectComponent(component, document.getElementById(constants.contentId));
     setActiveMenuItem(document.querySelector(`#${constants.menuId} > a[${anchorComponentAttribute}=${component}]`));
 }
 
