@@ -59,10 +59,24 @@ export default class EditableList extends Component<Components.editableList> {
         rows.forEach(row => tbody.append(row))
     }
 
+    /**
+     * when called, the table will be shown in the dom.
+     */
+    private showTable() {
+        this.container.querySelector('table').classList.add('show');
+    }
+
     private async insertRows() {
         const { getTableContent } = this.componentParameters;
         const tableContent = await getTableContent();
-        this.insertColumns(tableContent);
-        this.insertData(tableContent);
+        /**
+         * it can happen that an editableList is called and no elements are
+         * returned by "getTableContent".
+         */
+        if (tableContent.length) {
+            this.insertColumns(tableContent);
+            this.insertData(tableContent);
+            this.showTable();
+        }
     }
 }
