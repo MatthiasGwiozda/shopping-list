@@ -14,7 +14,7 @@ export default class Categories extends Component<Components.categories> {
             Components.editableList,
             this.container.querySelector<HTMLElement>("#categoriesList"),
             {
-                tableContent: await Database.selectAllCategories(),
+                getTableContent: async () => await Database.selectAllCategories(),
                 deleteElement: async function (category: Category) {
                     const result = await Database.deleteCategory(category);
                     return {

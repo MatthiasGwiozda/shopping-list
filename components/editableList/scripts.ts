@@ -1,7 +1,7 @@
 import constants from "../../scripts/constants";
-import FileUtilities from "../../scripts/utilities/FileUtilities";
 import HtmlUtilities from "../../scripts/utilities/htmlUtilities";
 import { Components } from "../../types/components/Components";
+import { TableContent } from "../../types/components/editableList";
 import Component from "../Component";
 
 export default class EditableList extends Component<Components.editableList> {
@@ -22,8 +22,7 @@ export default class EditableList extends Component<Components.editableList> {
      * it is assumed that every element in the array
      * has the same keys in every object.
      */
-    private insertColumns() {
-        const { tableContent } = this.componentParameters;
+    private insertColumns(tableContent: TableContent) {
         const ths = HtmlUtilities.makeHtmlElementsFromContent(Object.keys(tableContent[0]), 'th');
         const tableHeadRow = this.container.querySelector('thead > tr');
         for (const th of ths) {
@@ -31,8 +30,8 @@ export default class EditableList extends Component<Components.editableList> {
         }
     }
 
-    private insertData() {
-        const { tableContent, deleteElement } = this.componentParameters;
+    private insertData(tableContent: TableContent) {
+        const { deleteElement } = this.componentParameters;
         let rows: HTMLElement[] = [];
         tableContent.forEach(row => {
             const tds = HtmlUtilities.makeHtmlElementsFromContent(Object.values(row), 'td');
@@ -44,9 +43,11 @@ export default class EditableList extends Component<Components.editableList> {
             }
             deleteButtonTd.append(deleteButton);
             deleteButton.onclick = async () => {
+                console.log('delete clicked');
                 const res = await deleteElement(row);
                 if (res.result) {
                     // refresh component and load data again
+                    this.reloadComponent();
                 }
                 if (res.message) {
                     alert(res.message);
@@ -59,8 +60,10 @@ export default class EditableList extends Component<Components.editableList> {
         rows.forEach(row => tbody.append(row))
     }
 
-    private insertRows() {
-        this.insertColumns();
-        this.insertData();
+    private async insertRows() {
+        const { getTableContent } = this.componentParameters;
+        const tableContent = await getTableContent();
+        this.insertColumns(tableContent);
+        this.insertData(tableContent);
     }
 }

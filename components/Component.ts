@@ -1,3 +1,4 @@
+import ComponentUtilities from "../scripts/utilities/ComponentUtilities";
 import { ComponentParameters, Components } from "../types/components/Components";
 
 /**
@@ -18,9 +19,21 @@ export default abstract class Component<C extends Components> {
      * through this parameter the Component is able to identify the actual HTMLElement
      * for it's "instance".
      */
-    constructor(protected container: HTMLElement, protected componentParameters: ComponentParameters[C]) { }
+    constructor(
+        protected container: HTMLElement,
+        protected componentParameters: ComponentParameters[C],
+        private readonly component: Components
+    ) { }
     /**
      * this function will be called once when a Component was rendered in the dom.
      */
     public abstract rendered(): void;
+
+    /**
+     * reloads the component with the parameters, which were
+     * initially provided.
+     */
+    protected reloadComponent() {
+        ComponentUtilities.injectComponent(this.component, this.container, this.componentParameters);
+    }
 }

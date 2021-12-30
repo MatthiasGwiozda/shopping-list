@@ -10,13 +10,15 @@ interface ActionResult {
     message?: string
 }
 
+export type TableContent = { [columnName: string]: any }[]
+
 export interface EditableListParams {
     /**
      * the columns, which will be included in the EditableList.
      * The value of the column is the value, which is shown in a single cell
      * of the table.
      */
-    tableContent: { [columnName: string]: any }[],
+    getTableContent: () => Promise<TableContent>,
     /**
      * when the user wishes to delete an element, this function
      * will be called with the element, which should be deleted, passed as parameter

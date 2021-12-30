@@ -25,8 +25,8 @@ export default abstract class ComponentUtilities {
      */
     private static injectComponentScript<T extends Component<any>>(component: Components, htmlElement: HTMLElement, componentParameter): T {
         const scriptPath = PathUtilities.getPath(this.getComponentFilePath(component, FileType.script));
-        const componentClass: new (container: HTMLElement, componentParameter: any) => T = require(scriptPath).default;
-        return new componentClass(htmlElement, componentParameter);
+        const componentClass: new (container: HTMLElement, componentParameter: any, component: Components) => T = require(scriptPath).default;
+        return new componentClass(htmlElement, componentParameter, component);
     }
 
     private static injectHtmlToElement(component: Components, htmlElement: HTMLElement) {
