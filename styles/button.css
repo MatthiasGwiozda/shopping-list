@@ -1,0 +1,14 @@
+button {
+    font-size: 17px;
+    padding: 4px;
+    border-radius: 5px;
+}
+
+button.default {
+    background-color: white;
+    border-color: #e1e1e1;
+}
+
+button.danger {
+    background-color: red;
+}

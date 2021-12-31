@@ -18,6 +18,8 @@
     height: 45px;
 }
 
+/*
+todo: move in button.css
 .editable-list button.edit {
     width: 35px;
     font-size: 22px;
@@ -26,23 +28,7 @@
     margin-left: 7px;
     background-color: #ffbc00;
 }
-
-.editable-list button.delete {
-    width: 35px;
-    height: 35px;
-    font-size: 15px;
-    padding: 0;
-    border-radius: 10px;
-    background-color: red;
-}
-
-button.add {
-    font-size: 17px;
-    padding: 4px;
-    border-radius: 5px;
-    background-color: white;
-    border-color: #e1e1e1;
-}
+*/
 
 .editable-list .element-name {
     display: flex;
