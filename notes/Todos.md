@@ -3,7 +3,6 @@
     - create reuseable table - component, which can INSERT, UPDATE and DELETE elements
         - implement INSERT functionality
             - Tests:
-                - when the list is long, the website should not jump when reloading the component.
                 - insert new element when no elements were inserted, yet
                 - insert new element while there were elements in the database.
                 - don't allow to add multiple elements?
@@ -15,6 +14,9 @@
                 - no error should be visible in the console
                 - only the "add new elements icon should be shown"
             - initialization of empty database
+            - delete
+            - insert
+            - update
 
 - Menu should be fixed, whenn scolling down on a large page
 
