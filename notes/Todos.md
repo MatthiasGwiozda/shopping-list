@@ -1,11 +1,6 @@
 # Todos
 - implement categories - view
     - create reuseable table - component, which can INSERT, UPDATE and DELETE elements
-        - implement INSERT functionality
-            - Tests:
-                - insert new element when no elements were inserted, yet
-                - insert new element while there were elements in the database.
-                - don't allow to add multiple elements?
         - implement UPDATE functionality
         - move "gethtmlFromFile" function: move in Components - class and create new "partials - folder" in the skeleton. Files should always be in the same foldername for each component.
 
@@ -16,6 +11,8 @@
             - initialization of empty database
             - delete
             - insert
+                - insert new element when no elements were inserted, yet
+                - insert new element while there are already elements in the database.
             - update
 
 - Menu should be fixed, whenn scolling down on a large page
