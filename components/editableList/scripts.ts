@@ -146,7 +146,7 @@ export default class EditableList extends Component<Components.editableList> {
         this.addToTableRow([saveButton, cancelButton], tr);
     }
 
-    private insertAddElementButton(tableContent: TableContent) {
+    private insertAddElementButton() {
         const button = this.gethtmlFromFile(EditableListFiles.addNewButton);
         button.onclick = async () => {
             // show form to add new element
@@ -182,6 +182,6 @@ export default class EditableList extends Component<Components.editableList> {
         const tableContent = await getTableContent();
         this.insertColumns();
         this.insertData(tableContent);
-        this.insertAddElementButton(tableContent);
+        this.insertAddElementButton();
     }
 }
