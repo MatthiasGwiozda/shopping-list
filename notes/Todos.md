@@ -2,8 +2,6 @@
 - implement categories - view
     - create reuseable table - component, which can INSERT, UPDATE and DELETE elements
         - implement INSERT functionality
-            - create "new element" form, which asks for all input - parameters. All Fields should be required at first.
-            - create function for insertion of an element
             - Tests:
                 - insert new element when no elements were inserted, yet
                 - insert new element while there were elements in the database.
