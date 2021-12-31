@@ -23,8 +23,8 @@ export default class EditableList extends Component<Components.editableList> {
         return html.firstChild as HTMLElement;
     }
 
-    private getTableContentKeys(tableContent: TableContent): string[] {
-        return Object.keys(tableContent[0]);
+    private getElementKeys(): string[] {
+        return this.componentParameters.elementKeys as string[];
     }
 
     /**
@@ -32,8 +32,8 @@ export default class EditableList extends Component<Components.editableList> {
      * it is assumed that every element in the array
      * has the same keys in every object.
      */
-    private insertColumns(tableContent: TableContent) {
-        const ths = HtmlUtilities.makeHtmlElementsFromContent(this.getTableContentKeys(tableContent), 'th');
+    private insertColumns() {
+        const ths = HtmlUtilities.makeHtmlElementsFromContent(this.getElementKeys(), 'th');
         const tableHeadRow = this.container.querySelector('thead > tr');
         for (const th of ths) {
             tableHeadRow.prepend(th);
@@ -80,13 +80,6 @@ export default class EditableList extends Component<Components.editableList> {
             rows.push(tr);
         })
         rows.forEach(row => this.addToTableBody(row))
-    }
-
-    /**
-     * when called, the table will be shown in the dom.
-     */
-    private showTable() {
-        this.container.querySelector('table').classList.add('show');
     }
 
     private getFormSubmitFunction() {
@@ -141,7 +134,7 @@ export default class EditableList extends Component<Components.editableList> {
             /**
              * the keys, which needs to be inserted
              */
-            const keys = this.getTableContentKeys(tableContent);
+            const keys = this.getElementKeys();
             // create new tr
             const tr = document.createElement('tr');
             const formId = this.createForm();
@@ -170,15 +163,8 @@ export default class EditableList extends Component<Components.editableList> {
     private async insertRows() {
         const { getTableContent } = this.componentParameters;
         const tableContent = await getTableContent();
-        /**
-         * it can happen that an editableList is called and no elements are
-         * returned by "getTableContent".
-         */
-        if (tableContent.length) {
-            this.insertColumns(tableContent);
-            this.insertData(tableContent);
-            this.showTable();
-        }
+        this.insertColumns();
+        this.insertData(tableContent);
         this.insertAddElementButton(tableContent);
     }
 }

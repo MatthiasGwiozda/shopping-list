@@ -11,9 +11,9 @@ export interface ActionResult {
 }
 
 export type TableContent = { [columnName: string]: any }[]
-type ManipulationFunction = (element: any) => Promise<ActionResult>;
+type ManipulationFunction<ElementType> = (element: ElementType) => Promise<ActionResult>;
 
-export interface EditableListParams {
+export interface EditableListParams<ElementType> {
     /**
      * the columns, which will be included in the EditableList.
      * The value of the column is the value, which is shown in a single cell
@@ -26,10 +26,14 @@ export interface EditableListParams {
      * into the function.
      * When an error occours, 
      */
-    deleteElement: ManipulationFunction,
+    deleteElement: ManipulationFunction<ElementType>,
     /**
      * is called when the user typed in the data
      * for a new element and clicked on the save - button.
      */
-    insertElement: ManipulationFunction
+    insertElement: ManipulationFunction<ElementType>,
+    /**
+     * the keys of the elements, which are managed by this editableList
+     */
+    elementKeys: (keyof ElementType)[];
 }

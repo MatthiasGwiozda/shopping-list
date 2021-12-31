@@ -21,5 +21,5 @@ export type ComponentParameters = {
     [Components.meals]: any
     [Components.shoppingList]: any
     [Components.shops]: any
-    [Components.editableList]: EditableListParams
+    [Components.editableList]: EditableListParams<any>
 }

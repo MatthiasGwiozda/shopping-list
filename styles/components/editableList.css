@@ -1,11 +1,6 @@
 /* editable-list styles */
 .editable-list {
     width: 100%;
-    display: none;
-}
-
-.editable-list.show {
-    display: table;
 }
 
 .editable-list td:not(:first-child) {

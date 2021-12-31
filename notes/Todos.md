@@ -3,11 +3,11 @@
     - create reuseable table - component, which can INSERT, UPDATE and DELETE elements
         - implement INSERT functionality
             - Tests:
+                - inputs should be focusable after alert - box was shown (switch to https://www.electronjs.org/docs/latest/api/dialog ?)
                 - insert new element when no elements were inserted, yet
                 - insert new element while there were elements in the database.
                 - when the list is long, the website should not jump when reloading the component.
                 - don't allow to add multiple elements?
-                - inputs should be focusable after alert - box was shown (switch to https://www.electronjs.org/docs/latest/api/dialog ?)
         - implement UPDATE functionality
         - move "gethtmlFromFile" function: move in Components - class and create new "partials - folder" in the skeleton. Files should always be in the same foldername for each component.
 
