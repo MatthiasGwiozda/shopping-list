@@ -68,7 +68,7 @@ export default class EditableList extends Component<Components.editableList> {
             }
             deleteButtonTd.append(deleteButton);
             deleteButton.onclick = async () => {
-                if (confirm('Are you sure to delete this element? \n' + this.getStringRepresentation(row))) {
+                if (DialogUtilities.confirm('Are you sure to delete this element? \n' + this.getStringRepresentation(row))) {
                     const res = await deleteElement(row);
                     if (res.result) {
                         // remove the row
@@ -83,7 +83,7 @@ export default class EditableList extends Component<Components.editableList> {
         rows.forEach(row => this.addToTableBody(row))
     }
 
-    private getFormSubmitFunction() {
+    private getFormSubmitFunction(formId: string) {
         const { insertElement } = this.componentParameters
         const { reloadComponent, showMessageOfActionResult } = this;
         const instance = this;
@@ -99,6 +99,7 @@ export default class EditableList extends Component<Components.editableList> {
             const res = await insertElement(element);
             showMessageOfActionResult(res);
             if (res.result) {
+                instance.removeForm(formId);
                 reloadComponent.apply(instance);
             }
         }
@@ -110,11 +111,12 @@ export default class EditableList extends Component<Components.editableList> {
     private createForm(): string {
         const form = document.createElement('form');
         this.container.append(form);
-        form.onsubmit = this.getFormSubmitFunction();
+        const formId = (+new Date()).toString();
+        form.onsubmit = this.getFormSubmitFunction(formId);
         /**
          * a random number for the form - id
          */
-        return form.id = (+new Date()).toString();
+        return form.id = formId;
     }
 
     private addToTableRow(elements: HTMLElement[], tr: HTMLElement) {
@@ -128,6 +130,10 @@ export default class EditableList extends Component<Components.editableList> {
         tbody.append(element);
     }
 
+    private removeForm(formId: string) {
+        document.getElementById(formId).remove();
+    }
+
     /**
      * creates the save and cancel - button
      */
@@ -136,7 +142,7 @@ export default class EditableList extends Component<Components.editableList> {
         saveButton.setAttribute('form', formId);
         const cancelButton = this.gethtmlFromFile(EditableListFiles.deleteButton);
         cancelButton.title = 'cancel';
-        cancelButton.onclick = () => tr.remove();
+        cancelButton.onclick = () => { tr.remove(); this.removeForm(formId); };
         this.addToTableRow([saveButton, cancelButton], tr);
     }
 

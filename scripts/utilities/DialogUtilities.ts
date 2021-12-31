@@ -14,4 +14,18 @@ export default abstract class DialogUtilities {
             message
         })
     }
+
+    static confirm(message: string): boolean {
+        const buttonIndex = dialog.showMessageBoxSync({
+            message,
+            buttons: [
+                'OK',
+                'cancel'
+            ]
+        });
+        /**
+         * the button with the index 0 is the ok - button
+         */
+        return buttonIndex == 0;
+    }
 }
