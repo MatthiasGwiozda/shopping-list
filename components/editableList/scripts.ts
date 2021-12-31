@@ -88,9 +88,9 @@ export default class EditableList extends Component<Components.editableList> {
         rows.forEach(row => this.addToTableBody(row))
     }
 
-    private getFormSubmitFunction(formId: string) {
+    private getFormSubmitFunction(formId: string, tr: HTMLElement) {
         const { insertElement } = this.componentParameters
-        const { reloadComponent, showMessageOfActionResult } = this;
+        const { showMessageOfActionResult } = this;
         const instance = this;
         /**
          * the value of "this" is getting changed in an onsubmit - event.
@@ -105,7 +105,10 @@ export default class EditableList extends Component<Components.editableList> {
             showMessageOfActionResult(res);
             if (res.result) {
                 instance.removeForm(formId);
-                reloadComponent.apply(instance);
+                tr.remove();
+                instance.addToTableBody(
+                    instance.getTableRowForItem(element)
+                );
             }
         }
     }
@@ -113,11 +116,11 @@ export default class EditableList extends Component<Components.editableList> {
     /**
      * @returns the unique id of the form
      */
-    private createForm(): string {
+    private createForm(tr: HTMLElement): string {
         const form = document.createElement('form');
         this.container.append(form);
         const formId = (+new Date()).toString();
-        form.onsubmit = this.getFormSubmitFunction(formId);
+        form.onsubmit = this.getFormSubmitFunction(formId, tr);
         /**
          * a random number for the form - id
          */
@@ -161,7 +164,7 @@ export default class EditableList extends Component<Components.editableList> {
             const keys = this.getElementKeys();
             // create new tr
             const tr = document.createElement('tr');
-            const formId = this.createForm();
+            const formId = this.createForm(tr);
             for (const key of keys) {
                 const input = document.createElement('input');
                 input.setAttribute('form', formId);
