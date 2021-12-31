@@ -12,3 +12,7 @@ button.default {
 button.danger {
     background-color: red;
 }
+
+button.success {
+    background-color: #46d000;
+}
