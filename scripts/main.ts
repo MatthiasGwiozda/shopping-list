@@ -2,6 +2,7 @@
 import { app, BrowserWindow, session } from 'electron';
 import * as path from 'path';
 import PathUtilities from './utilities/PathUtilities';
+require('@electron/remote/main').initialize()
 
 function createWindow() {
   // Create the browser window.
@@ -22,6 +23,7 @@ function createWindow() {
 
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()
+  require("@electron/remote/main").enable(mainWindow.webContents)
 }
 
 // This method will be called when Electron has finished

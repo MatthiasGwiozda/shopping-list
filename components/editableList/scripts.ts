@@ -1,4 +1,5 @@
 import constants from "../../scripts/constants";
+import DialogUtilities from "../../scripts/utilities/DialogUtilities";
 import HtmlUtilities from "../../scripts/utilities/htmlUtilities";
 import { Components } from "../../types/components/Components";
 import { ActionResult, TableContent } from "../../types/components/editableList";
@@ -50,7 +51,7 @@ export default class EditableList extends Component<Components.editableList> {
 
     private async showMessageOfActionResult(res: ActionResult) {
         if (res.message) {
-            alert(res.message);
+            DialogUtilities.alert(res.message);
         }
     }
 
