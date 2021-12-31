@@ -117,15 +117,27 @@ export default class EditableList extends Component<Components.editableList> {
         return form.id = (+new Date()).toString();
     }
 
-    private addToTableRow(element: HTMLElement, tr: HTMLElement) {
+    private addToTableRow(elements: HTMLElement[], tr: HTMLElement) {
         const td = document.createElement('td');
-        td.append(element);
+        elements.forEach((element) => td.append(element));
         tr.append(td);
     }
 
     private addToTableBody(element: HTMLElement) {
         const tbody = this.container.querySelector('tbody');
         tbody.append(element);
+    }
+
+    /**
+     * creates the save and cancel - button
+     */
+    private createAddNewElementActions(formId: string, tr: HTMLElement) {
+        const saveButton = this.gethtmlFromFile(EditableListFiles.saveButton);
+        saveButton.setAttribute('form', formId);
+        const cancelButton = this.gethtmlFromFile(EditableListFiles.deleteButton);
+        cancelButton.title = 'cancel';
+        cancelButton.onclick = () => tr.remove();
+        this.addToTableRow([saveButton, cancelButton], tr);
     }
 
     private insertAddElementButton(tableContent: TableContent) {
@@ -151,11 +163,9 @@ export default class EditableList extends Component<Components.editableList> {
                  * parameter to pass into the editableList - component.
                  */
                 input.setAttribute('type', 'text');
-                this.addToTableRow(input, tr);
+                this.addToTableRow([input], tr);
             }
-            const saveButton = this.gethtmlFromFile(EditableListFiles.saveButton);
-            saveButton.setAttribute('form', formId);
-            this.addToTableRow(saveButton, tr);
+            this.createAddNewElementActions(formId, tr);
             this.addToTableBody(tr);
         }
         this.container.append(button);

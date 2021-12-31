@@ -4,6 +4,10 @@ button {
     border-radius: 5px;
 }
 
+button ~ button {
+    margin-left: 5px;
+}
+
 button.default {
     background-color: white;
     border-color: #e1e1e1;
