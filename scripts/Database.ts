@@ -67,4 +67,16 @@ export default class Database {
         }
         return true;
     }
+
+    static async insertCategory(categoryObject: Category): Promise<boolean> {
+        try {
+            await this.runQuery(`
+            INSERT INTO goods_categories (category)
+                VALUES (?)
+            `, [categoryObject.category]);
+        } catch (e) {
+            return false;
+        }
+        return true;
+    }
 }

@@ -15,12 +15,10 @@ export default abstract class HtmlUtilities {
     /**
      * @returns an HTMLElement with the given innerText
      */
-    static createElement(htmlTag: string, innerText?: string): HTMLElement {
+    static createElement<K extends HTMLElement>(htmlTag: string, innerText: string): K {
         const el = document.createElement(htmlTag);
-        if (innerText != null) {
-            el.innerHTML = this.getAsHtmlString(innerText);
-        }
-        return el;
+        el.innerHTML = this.getAsHtmlString(innerText);
+        return el as K;
     }
 
     /**
@@ -44,7 +42,7 @@ export default abstract class HtmlUtilities {
      * html - elements you want to use through the container.
      */
     static getFileAsHtmlElement(file: string): HTMLElement {
-        const div = this.createElement('div');
+        const div = document.createElement('div');
         div.innerHTML = FileUtilities.getFileContent(file);
         return div;
     }

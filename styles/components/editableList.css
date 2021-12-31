@@ -18,10 +18,6 @@
     height: 45px;
 }
 
-.editable-list td.addElementTD {
-    border: none;
-}
-
 .editable-list button.edit {
     width: 35px;
     font-size: 22px;
@@ -40,7 +36,7 @@
     background-color: red;
 }
 
-.editable-list button.add {
+button.add {
     font-size: 17px;
     padding: 4px;
     border-radius: 5px;

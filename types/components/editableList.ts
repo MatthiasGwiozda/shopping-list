@@ -1,5 +1,5 @@
 
-interface ActionResult {
+export interface ActionResult {
     /**
      * Whether the action was successful or not
      */
@@ -11,6 +11,7 @@ interface ActionResult {
 }
 
 export type TableContent = { [columnName: string]: any }[]
+type ManipulationFunction = (element: any) => Promise<ActionResult>;
 
 export interface EditableListParams {
     /**
@@ -25,5 +26,10 @@ export interface EditableListParams {
      * into the function.
      * When an error occours, 
      */
-    deleteElement: (element: any) => Promise<ActionResult>
+    deleteElement: ManipulationFunction,
+    /**
+     * is called when the user typed in the data
+     * for a new element and clicked on the save - button.
+     */
+    insertElement: ManipulationFunction
 }

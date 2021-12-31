@@ -20,6 +20,13 @@ export default class Categories extends Component<Components.categories> {
                         result,
                         message: result ? null : 'The category could not be deleted. Maybe it is used in an item or a shop. Delete it there first'
                     }
+                },
+                insertElement: async function (category: Category) {
+                    const result = await Database.insertCategory(category);
+                    return {
+                        result,
+                        message: result ? null : 'An error occoured while saving the category. Maybe the category already exists?'
+                    }
                 }
             }
         );
