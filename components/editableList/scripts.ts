@@ -55,31 +55,36 @@ export default class EditableList extends Component<Components.editableList> {
         }
     }
 
-    private insertData(tableContent: TableContent) {
+    /**
+     * @returns a tr - element with the data contained in the item.
+     */
+    private getTableRowForItem(item: TableContent[0]): HTMLElement {
         const { deleteElement } = this.componentParameters;
-        let rows: HTMLElement[] = [];
-        tableContent.forEach(row => {
-            const tds = HtmlUtilities.makeHtmlElementsFromContent(Object.values(row), 'td');
-            const tr = document.createElement('tr');
-            const deleteButtonTd = document.createElement('td');
-            const deleteButton = this.gethtmlFromFile(EditableListFiles.deleteButton);
-            for (const td of tds) {
-                tr.append(td);
-            }
-            deleteButtonTd.append(deleteButton);
-            deleteButton.onclick = async () => {
-                if (DialogUtilities.confirm('Are you sure to delete this element? \n' + this.getStringRepresentation(row))) {
-                    const res = await deleteElement(row);
-                    if (res.result) {
-                        // remove the row
-                        tr.remove();
-                    }
-                    this.showMessageOfActionResult(res);
+        const tds = HtmlUtilities.makeHtmlElementsFromContent(Object.values(item), 'td');
+        const tr = document.createElement('tr');
+        const deleteButtonTd = document.createElement('td');
+        const deleteButton = this.gethtmlFromFile(EditableListFiles.deleteButton);
+        for (const td of tds) {
+            tr.append(td);
+        }
+        deleteButtonTd.append(deleteButton);
+        deleteButton.onclick = async () => {
+            if (DialogUtilities.confirm('Are you sure to delete this element? \n' + this.getStringRepresentation(item))) {
+                const res = await deleteElement(item);
+                if (res.result) {
+                    // remove the row
+                    tr.remove();
                 }
+                this.showMessageOfActionResult(res);
             }
-            tr.append(deleteButtonTd);
-            rows.push(tr);
-        })
+        }
+        tr.append(deleteButtonTd);
+        return tr;
+    }
+
+    private insertData(tableContent: TableContent) {
+        let rows: HTMLElement[] = [];
+        tableContent.forEach(row => rows.push(this.getTableRowForItem(row)));
         rows.forEach(row => this.addToTableBody(row))
     }
 
