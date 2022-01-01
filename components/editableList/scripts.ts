@@ -50,16 +50,16 @@ export default class EditableList extends Component<Components.editableList> {
     }
 
     /**
-     * @param item the item, which should be deleted when the button is clicked
-     * @param tr the row, which will be removed when an item was successfully deleted.
+     * @param element the element, which should be deleted when the button is clicked
+     * @param tr the row, which will be removed when an element was successfully deleted.
      * @returns the delete - button
      */
-    private getDeleteButton(item: TableContent[0], tr: HTMLElement): HTMLElement {
+    private getDeleteButton(element: TableContent[0], tr: HTMLElement): HTMLElement {
         const { deleteElement } = this.componentParameters;
         const deleteButton = this.gethtmlFromFile(EditableListFiles.deleteButton);
         deleteButton.onclick = async () => {
-            if (DialogUtilities.confirm('Are you sure to delete this element? \n' + this.getStringRepresentation(item))) {
-                const res = await deleteElement(item);
+            if (DialogUtilities.confirm('Are you sure to delete this element? \n' + this.getStringRepresentation(element))) {
+                const res = await deleteElement(element);
                 if (res.result) {
                     // remove the row
                     tr.remove();
@@ -71,11 +71,11 @@ export default class EditableList extends Component<Components.editableList> {
     }
 
     /**
-     * @returns the edit - button for a specific item.
+     * @returns the edit - button for a specific element.
      * @param tr the row, which will be edited, when the edit - button was clicked
-     * @param item the item, which will be edited.
+     * @param element the element, which will be edited.
      */
-    private getEditButton(item: TableContent[0], tr: HTMLElement): HTMLElement {
+    private getEditButton(element: TableContent[0], tr: HTMLElement): HTMLElement {
         const editButton = this.gethtmlFromFile(EditableListFiles.editButton);
         editButton.onclick = async () => {
             /**
@@ -83,7 +83,7 @@ export default class EditableList extends Component<Components.editableList> {
              * an element.
              */
             const { tr: editTR, firstInput } = this.createFormInTableRow({
-                item,
+                element,
                 oldTr: tr
             });
             tr.replaceWith(editTR);
@@ -93,19 +93,19 @@ export default class EditableList extends Component<Components.editableList> {
     }
 
     /**
-     * @returns a tr - element with the data contained in the item.
+     * @returns a tr - element with the data contained in the element.
      */
-    private getTableRowForItem(item: TableContent[0]): HTMLElement {
-        // first create the content of the item
-        const tds = HtmlUtilities.makeHtmlElementsFromContent(Object.values(item), 'td');
+    private getTableRowForElement(element: TableContent[0]): HTMLElement {
+        // first create the content of the element
+        const tds = HtmlUtilities.makeHtmlElementsFromContent(Object.values(element), 'td');
         const tr = document.createElement('tr');
         for (const td of tds) {
             tr.append(td);
         }
         // create the edit - button
-        const editButton = this.getEditButton(item, tr);
+        const editButton = this.getEditButton(element, tr);
         // now create the delete - button.
-        const deleteButton = this.getDeleteButton(item, tr);
+        const deleteButton = this.getDeleteButton(element, tr);
         this.addToTableRow([editButton, deleteButton], tr);
         return tr;
     }
@@ -116,13 +116,13 @@ export default class EditableList extends Component<Components.editableList> {
      */
     private insertData(tableContent: TableContent) {
         let rows: HTMLElement[] = [];
-        tableContent.forEach(row => rows.push(this.getTableRowForItem(row)));
+        tableContent.forEach(row => rows.push(this.getTableRowForElement(row)));
         rows.forEach(row => this.addToTableBody(row))
     }
 
     /**
      * @param oldElement when the oldElement is given, it is assumed that an update
-     * should take place. Otherwise an item will be inserted.
+     * should take place. Otherwise an element will be inserted.
      * @param tr the table - row where the input - fields are included.
      */
     private getFormSubmitFunction(formId: string, tr: HTMLElement, oldElement: TableContent[0] = null) {
@@ -147,8 +147,8 @@ export default class EditableList extends Component<Components.editableList> {
             showMessageOfActionResult(res);
             if (res.result) {
                 instance.removeForm(formId);
-                const newItemRow = instance.getTableRowForItem(newElement);
-                tr.replaceWith(newItemRow);
+                const newElementRow = instance.getTableRowForElement(newElement);
+                tr.replaceWith(newElementRow);
             }
         }
     }
@@ -225,7 +225,7 @@ export default class EditableList extends Component<Components.editableList> {
         const keys = this.getElementKeys();
         // create new tr
         const tr = document.createElement('tr');
-        const formId = this.createForm(tr, updateElement?.item);
+        const formId = this.createForm(tr, updateElement?.element);
         let firstInput: HTMLElement;
         for (const key of keys) {
             const input = document.createElement('input');
@@ -289,7 +289,7 @@ interface InsertOrUpdateButtonResponse {
 }
 
 interface UpdateElement {
-    item: TableContent[0],
+    element: TableContent[0],
     /**
      * the original table - row before the update took place.
      */
