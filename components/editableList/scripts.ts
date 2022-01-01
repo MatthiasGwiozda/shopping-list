@@ -242,6 +242,11 @@ export default class EditableList<EditableListElement> extends Component<Compone
              */
             input.setAttribute('type', 'text');
             input.required = true;
+            /**
+             * at first there is a limit of 100 chars in every input.
+             * This may change in the future.
+             */
+            input.maxLength = 100;
             if (updateElement != null) {
                 // every input should get the current value
                 input.value = updateElement.element[key];
