@@ -10,7 +10,6 @@ export interface ActionResult {
     message?: string
 }
 
-export type TableContent = { [columnName: string]: any }[]
 type ManipulationFunction<ElementType> = (element: ElementType) => Promise<ActionResult>;
 
 export interface EditableListParams<ElementType> {
@@ -19,7 +18,7 @@ export interface EditableListParams<ElementType> {
      * The value of the column is the value, which is shown in a single cell
      * of the table.
      */
-    getTableContent: () => Promise<TableContent>,
+    getTableContent: () => Promise<ElementType[]>,
     /**
      * when the user wishes to delete an element, this function
      * will be called with the element, which should be deleted, passed as parameter

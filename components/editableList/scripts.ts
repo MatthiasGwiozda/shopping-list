@@ -2,7 +2,7 @@ import constants from "../../scripts/constants";
 import DialogUtilities from "../../scripts/utilities/DialogUtilities";
 import HtmlUtilities from "../../scripts/utilities/htmlUtilities";
 import { Components } from "../../types/components/Components";
-import { ActionResult, TableContent } from "../../types/components/editableList";
+import { ActionResult } from "../../types/components/editableList";
 import Component from "../Component";
 
 enum EditableListFiles {
@@ -12,7 +12,7 @@ enum EditableListFiles {
     editButton = 'editButton.html'
 }
 
-export default class EditableList extends Component<Components.editableList> {
+export default class EditableList<EditableListElement> extends Component<Components.editableList> {
 
     rendered() {
         this.insertElementsAndActions();
@@ -35,7 +35,7 @@ export default class EditableList extends Component<Components.editableList> {
         }
     }
 
-    private getStringRepresentation(element: TableContent[0]): string {
+    private getStringRepresentation(element: EditableListElement): string {
         let str = '';
         for (const key in element) {
             str += `${key}: ${element[key]}\n`
@@ -54,7 +54,7 @@ export default class EditableList extends Component<Components.editableList> {
      * @param tr the row, which will be removed when an element was successfully deleted.
      * @returns the delete - button
      */
-    private getDeleteButton(element: TableContent[0], tr: HTMLElement): HTMLElement {
+    private getDeleteButton(element: EditableListElement, tr: HTMLElement): HTMLElement {
         const { deleteElement } = this.componentParameters;
         const deleteButton = this.gethtmlFromFile(EditableListFiles.deleteButton);
         deleteButton.onclick = async () => {
@@ -75,7 +75,7 @@ export default class EditableList extends Component<Components.editableList> {
      * @param tr the row, which will be edited, when the edit - button was clicked
      * @param element the element, which will be edited.
      */
-    private getEditButton(element: TableContent[0], tr: HTMLElement): HTMLElement {
+    private getEditButton(element: EditableListElement, tr: HTMLElement): HTMLElement {
         const editButton = this.gethtmlFromFile(EditableListFiles.editButton);
         editButton.onclick = async () => {
             /**
@@ -95,7 +95,7 @@ export default class EditableList extends Component<Components.editableList> {
     /**
      * @returns a tr - element with the data contained in the element.
      */
-    private getTableRowForElement(element: TableContent[0]): HTMLElement {
+    private getTableRowForElement(element: EditableListElement): HTMLElement {
         // first create the content of the element
         const tds = HtmlUtilities.makeHtmlElementsFromContent(Object.values(element), 'td');
         const tr = document.createElement('tr');
@@ -114,7 +114,7 @@ export default class EditableList extends Component<Components.editableList> {
      * inserts the current data in the table based
      * on the tableContent.
      */
-    private insertData(tableContent: TableContent) {
+    private insertData(tableContent: EditableListElement[]) {
         let rows: HTMLElement[] = [];
         tableContent.forEach(row => rows.push(this.getTableRowForElement(row)));
         rows.forEach(row => this.addToTableBody(row))
@@ -125,7 +125,7 @@ export default class EditableList extends Component<Components.editableList> {
      * should take place. Otherwise an element will be inserted.
      * @param tr the table - row where the input - fields are included.
      */
-    private getFormSubmitFunction(formId: string, tr: HTMLElement, oldElement: TableContent[0] = null) {
+    private getFormSubmitFunction(formId: string, tr: HTMLElement, oldElement: EditableListElement = null) {
         const { insertElement, updateElement } = this.componentParameters
         const { showMessageOfActionResult } = this;
         const instance = this;
@@ -136,7 +136,7 @@ export default class EditableList extends Component<Components.editableList> {
         return async function (this: GlobalEventHandlers, e: SubmitEvent) {
             e.preventDefault();
             const formData = new FormData(e.target as HTMLFormElement);
-            const newElement = {};
+            const newElement = {} as EditableListElement;
             formData.forEach((value, key) => newElement[key] = value);
             let res: ActionResult;
             if (oldElement != null) {
@@ -159,7 +159,7 @@ export default class EditableList extends Component<Components.editableList> {
      * when this parameter was set to null it is assumed that a form
      * for a new element was created.
      */
-    private createForm(tr: HTMLElement, element: TableContent[0]): string {
+    private createForm(tr: HTMLElement, element: EditableListElement): string {
         const form = document.createElement('form');
         this.container.append(form);
         const formId = (+new Date()).toString();
@@ -217,7 +217,7 @@ export default class EditableList extends Component<Components.editableList> {
      * when this parameter is not used, it is assumed that a form
      * for a new element should be created.
      */
-    private createFormInTableRow(updateElement?: UpdateElement): InsertOrUpdateButtonResponse {
+    private createFormInTableRow(updateElement?: UpdateElement<EditableListElement>): InsertOrUpdateButtonResponse {
         // show form to add new element
         /**
          * the keys, which needs to be inserted
@@ -263,7 +263,7 @@ export default class EditableList extends Component<Components.editableList> {
      * Inserts the addNewButton at the top and bottom of the
      * table.
      */
-    private insertAddNewButtons(tableContent: TableContent) {
+    private insertAddNewButtons(tableContent: EditableListElement[]) {
         if (tableContent.length) {
             /**
              * When there is at least one element,
@@ -288,8 +288,8 @@ interface InsertOrUpdateButtonResponse {
     firstInput: HTMLElement
 }
 
-interface UpdateElement {
-    element: TableContent[0],
+interface UpdateElement<ElementType> {
+    element: ElementType,
     /**
      * the original table - row before the update took place.
      */
