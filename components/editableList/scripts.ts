@@ -15,7 +15,7 @@ enum EditableListFiles {
 export default class EditableList extends Component<Components.editableList> {
 
     rendered() {
-        this.insertRows();
+        this.insertElementsAndActions();
     }
 
     private getElementKeys(): string[] {
@@ -274,7 +274,7 @@ export default class EditableList extends Component<Components.editableList> {
         this.container.prepend(this.getAddNewButton());
     }
 
-    private async insertRows() {
+    private async insertElementsAndActions() {
         const { getTableContent } = this.componentParameters;
         const tableContent = await getTableContent();
         this.insertColumns();
