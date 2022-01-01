@@ -5,6 +5,7 @@
     flex-direction: column;
     width: 90px;
     background-color: var(--menu-background-color);
+    position: fixed;
 }
 
 #menu a {

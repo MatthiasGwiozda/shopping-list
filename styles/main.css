@@ -16,8 +16,9 @@ body {
 }
 
 #content {
-    margin-left: 7px;
+    margin-left: 97px;
     flex-grow: 1;
+    max-width: calc(100vw - 90px);
 }
 
 h1 {
