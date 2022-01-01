@@ -1,7 +1,6 @@
 # Todos
 - implement categories - view
     - create reuseable table - component, which can INSERT, UPDATE and DELETE elements
-        - move "gethtmlFromFile" function: move in Components - class and create new "partials - folder" in the skeleton. Files should always be in the same foldername for each component.
         - implement UPDATE functionality
 
         - tests at the end:

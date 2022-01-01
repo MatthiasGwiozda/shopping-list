@@ -17,13 +17,6 @@ export default class EditableList extends Component<Components.editableList> {
         this.insertRows();
     }
 
-    private gethtmlFromFile(file: EditableListFiles): HTMLElement {
-        const html = HtmlUtilities.getFileAsHtmlElement(
-            `${constants.componentsFolderName}/${Components.editableList}/partials/${file}`
-        )
-        return html.firstChild as HTMLElement;
-    }
-
     private getElementKeys(): string[] {
         return this.componentParameters.elementKeys as string[];
     }

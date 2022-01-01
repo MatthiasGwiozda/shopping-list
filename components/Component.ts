@@ -1,5 +1,6 @@
 import constants from "../scripts/constants";
 import FileUtilities from "../scripts/utilities/FileUtilities";
+import HtmlUtilities from "../scripts/utilities/HtmlUtilities";
 import PathUtilities from "../scripts/utilities/PathUtilities";
 import { ComponentParameters, Components } from "../types/components/Components";
 
@@ -46,6 +47,21 @@ export default abstract class Component<C extends Components> {
      */
     protected reloadComponent() {
         Component.injectComponent(this.component, this.container, this.componentParameters);
+    }
+
+    /**
+     * @param file the filename, which lies in the partials - folder of the component.
+     * @returns the html - element, which is included in the requested file.
+     * Note that a html - partial may only have one top level node.
+     * multiple top level nodes will not be returned by this function.
+     * @remarks when no parials - folder exists for the current component, you have
+     * to create it.
+     */
+    protected gethtmlFromFile(file: string): HTMLElement {
+        const html = HtmlUtilities.getFileAsHtmlElement(
+            `${constants.componentsFolderName}/${this.component}/partials/${file}`
+        )
+        return html.firstChild as HTMLElement;
     }
 
     /**
