@@ -2,7 +2,6 @@
 - implement categories - view
     - create reuseable table - component, which can INSERT, UPDATE and DELETE elements
         - UPDATE: 
-            - optimize styling of edit - button. It Should be the same width as the delete - button
             - insert the old values in the input - fields when clicking on the "update" button
             
         
