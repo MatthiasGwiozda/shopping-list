@@ -147,7 +147,7 @@ export default class EditableList extends Component<Components.editableList> {
         this.addToTableRow([saveButton, cancelButton], tr);
     }
 
-    private insertAddElementButton() {
+    private getAddNewButton(): HTMLElement {
         const button = this.gethtmlFromFile(EditableListFiles.addNewButton);
         button.onclick = async () => {
             // show form to add new element
@@ -180,7 +180,22 @@ export default class EditableList extends Component<Components.editableList> {
             this.addToTableBody(tr);
             firstInput.focus();
         }
-        this.container.append(button);
+        return button;
+    }
+
+    /**
+     * Inserts the addNewButton at the top and bottom of the
+     * table.
+     */
+    private insertAddNewButtons(tableContent: TableContent) {
+        if (tableContent.length) {
+            /**
+             * When there is at least one element,
+             * the button should appear additionally at the bottom of the page.
+             */
+            this.container.append(this.getAddNewButton());
+        }
+        this.container.prepend(this.getAddNewButton());
     }
 
     private async insertRows() {
@@ -188,6 +203,6 @@ export default class EditableList extends Component<Components.editableList> {
         const tableContent = await getTableContent();
         this.insertColumns();
         this.insertData(tableContent);
-        this.insertAddElementButton();
+        this.insertAddNewButtons(tableContent);
     }
 }
