@@ -158,8 +158,12 @@ export default class EditableList extends Component<Components.editableList> {
             // create new tr
             const tr = document.createElement('tr');
             const formId = this.createForm(tr);
+            let firstInput: HTMLElement;
             for (const key of keys) {
                 const input = document.createElement('input');
+                if (firstInput == null) {
+                    firstInput = input;
+                }
                 input.setAttribute('form', formId);
                 input.setAttribute('placeholder', key);
                 input.setAttribute('name', key);
@@ -174,6 +178,7 @@ export default class EditableList extends Component<Components.editableList> {
             }
             this.createAddNewElementActions(formId, tr);
             this.addToTableBody(tr);
+            firstInput.focus();
         }
         this.container.append(button);
     }
