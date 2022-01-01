@@ -1,7 +1,11 @@
 # Todos
 - implement categories - view
     - create reuseable table - component, which can INSERT, UPDATE and DELETE elements
-        - refactor "item" should be called element? or use another semantic name.
+        - UPDATE: 
+            - optimize styling of edit - button. It Should be the same width as the delete - button
+            - insert the old values in the input - fields when clicking on the "update" button
+            
+        
 
         - tests at the end:
             - what if all elements are deleted and the page is reloaded?
