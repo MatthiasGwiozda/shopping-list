@@ -235,13 +235,17 @@ export default class EditableList<EditableListElement> extends Component<Compone
             input.setAttribute('form', formId);
             input.setAttribute('placeholder', key);
             input.setAttribute('name', key);
-            input.required = true;
             /**
              * @todo: the type of certain attributes could
              * be different from 'text'. This could be a new
              * parameter to pass into the editableList - component.
              */
             input.setAttribute('type', 'text');
+            input.required = true;
+            if (updateElement != null) {
+                // every input should get the current value
+                input.value = updateElement.element[key];
+            }
             this.addToTableRow([input], tr);
         }
         this.createFormActions(formId, tr, updateElement?.oldTr);

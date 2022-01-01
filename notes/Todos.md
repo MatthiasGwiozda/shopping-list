@@ -1,11 +1,6 @@
 # Todos
 - implement categories - view
-    - create reuseable table - component, which can INSERT, UPDATE and DELETE elements
-        - UPDATE: 
-            - insert the old values in the input - fields when clicking on the "update" button
-            
-        
-
+    - create reuseable table - component, which can INSERT, UPDATE and DELETE elements      
         - tests at the end:
             - what if all elements are deleted and the page is reloaded?
                 - no error should be visible in the console
