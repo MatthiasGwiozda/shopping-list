@@ -30,7 +30,7 @@ export default class Categories extends Component<Components.categories> {
                 const result = await Database.updateCategory(oldCategory, newCategory);
                 return {
                     result,
-                    message: result ? null : 'Update could not be performed.'
+                    message: result ? null : 'An error occoured. Maybe the category already exists?'
                 }
             },
             elementKeys: [
