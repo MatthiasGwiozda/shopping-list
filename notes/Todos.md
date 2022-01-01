@@ -1,7 +1,7 @@
 # Todos
 - implement categories - view
     - create reuseable table - component, which can INSERT, UPDATE and DELETE elements
-        - implement UPDATE functionality
+        - refactor "item" should be called element? or use another semantic name.
 
         - tests at the end:
             - what if all elements are deleted and the page is reloaded?
@@ -12,7 +12,9 @@
             - insert
                 - insert new element when no elements were inserted, yet
                 - insert new element while there are already elements in the database.
+                - the "cancel" - button should remove the row.
             - update
+                - the "cancel" - button should show the current element.
 
 - Menu should be fixed, whenn scolling down on a large page
 

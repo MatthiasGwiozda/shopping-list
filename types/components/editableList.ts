@@ -33,6 +33,10 @@ export interface EditableListParams<ElementType> {
      */
     insertElement: ManipulationFunction<ElementType>,
     /**
+     * Function to update the contents of an element.
+     */
+    updateElement: (oldElement: ElementType, newElement: ElementType) => Promise<ActionResult>
+    /**
      * the keys of the elements, which are managed by this editableList
      */
     elementKeys: (keyof ElementType)[];

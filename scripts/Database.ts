@@ -79,4 +79,17 @@ export default class Database {
         }
         return true;
     }
+
+    static async updateCategory(oldCategory: Category, newCategory: Category) {
+        try {
+            await this.runQuery(`
+            UPDATE goods_categories
+                SET category = ?
+                    WHERE category = ?
+            `, [newCategory.category, oldCategory.category]);
+        } catch (e) {
+            return false;
+        }
+        return true;
+    }
 }

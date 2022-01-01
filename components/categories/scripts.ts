@@ -26,6 +26,13 @@ export default class Categories extends Component<Components.categories> {
                     message: result ? null : 'An error occoured while saving the category. Maybe the category already exists?'
                 }
             },
+            updateElement: async function (oldCategory, newCategory) {
+                const result = await Database.updateCategory(oldCategory, newCategory);
+                return {
+                    result,
+                    message: result ? null : 'Update could not be performed.'
+                }
+            },
             elementKeys: [
                 "category"
             ]
