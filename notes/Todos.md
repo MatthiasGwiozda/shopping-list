@@ -1,4 +1,8 @@
 # Todos
+- create shops with editableList
+    - make shops editable
+    - create element to change the order of the categories in the shops
+    - automatically add a newly created category to the goods_categories_shop_order - table?
 
 # Optimization / nice to have
 - create Skript (plop?) to create new Component
