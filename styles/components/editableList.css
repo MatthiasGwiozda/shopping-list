@@ -13,6 +13,10 @@
     height: 45px;
 }
 
+.editable-list td:last-child {
+    min-width: 80px
+}
+
 .editable-list button.edit {
     width: 35px;
 }
