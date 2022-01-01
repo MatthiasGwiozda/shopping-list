@@ -9,7 +9,8 @@ enum EditableListFiles {
     deleteButton = 'deleteButton.html',
     addNewButton = 'addNewButton.html',
     saveButton = 'saveButton.html',
-    editButton = 'editButton.html'
+    editButton = 'editButton.html',
+    cancelButton = 'cancelButton.html'
 }
 
 export default class EditableList<EditableListElement> extends Component<Components.editableList> {
@@ -197,8 +198,7 @@ export default class EditableList<EditableListElement> extends Component<Compone
     private createFormActions(formId: string, tr: HTMLElement, oldTr?: HTMLElement) {
         const saveButton = this.gethtmlFromFile(EditableListFiles.saveButton);
         saveButton.setAttribute('form', formId);
-        const cancelButton = this.gethtmlFromFile(EditableListFiles.deleteButton);
-        cancelButton.title = 'cancel';
+        const cancelButton = this.gethtmlFromFile(EditableListFiles.cancelButton);
         cancelButton.onclick = () => {
             if (oldTr == null) {
                 // remove the row only when it's a "insert"

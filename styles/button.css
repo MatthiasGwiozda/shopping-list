@@ -4,7 +4,7 @@ button {
     border-radius: 5px;
 }
 
-button + button {
+button+button {
     margin-left: 5px;
 }
 
@@ -17,6 +17,15 @@ button.danger {
     background-color: red;
 }
 
+button.warn {
+    background-color: yellow;
+}
+
 button.success {
     background-color: #46d000;
+}
+
+button.square {
+    width: 35px;
+    height: 35px;
 }

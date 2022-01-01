@@ -17,16 +17,6 @@
     min-width: 80px
 }
 
-.editable-list button.edit {
-    width: 35px;
-}
-
-
-.editable-list .element-name {
-    display: flex;
-    align-items: center;
-}
-
 .editable-list th:first-child {
     text-align: left;
 }
