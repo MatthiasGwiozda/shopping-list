@@ -20,3 +20,7 @@
 .editable-list th:first-child {
     text-align: left;
 }
+
+.editable-list input {
+    width: calc(100% - 10px);
+}
