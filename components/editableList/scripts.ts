@@ -29,8 +29,10 @@ export default class EditableList<EditableListElement> extends Component<Compone
      * has the same keys in every object.
      */
     private insertColumns() {
-        const ths = HtmlUtilities.makeHtmlElementsFromContent(this.getElementKeys(), 'th');
+        let ths = HtmlUtilities.makeHtmlElementsFromContent(this.getElementKeys(), 'th');
         const tableHeadRow = this.container.querySelector('thead > tr');
+        // reverse the elements, because the column - names are getting PREPENDED to the tableHeadRow
+        ths = ths.reverse();
         for (const th of ths) {
             tableHeadRow.prepend(th);
         }
