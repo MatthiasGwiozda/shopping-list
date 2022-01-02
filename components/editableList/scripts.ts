@@ -19,6 +19,10 @@ export default class EditableList<EditableListElement> extends Component<Compone
         this.insertElementsAndActions();
     }
 
+    /**
+     * @returns the keys of the element in the order which
+     * were defined in the parameter "elementKeys".
+     */
     private getElementKeys(): string[] {
         return this.componentParameters.elementKeys as string[];
     }
@@ -99,8 +103,12 @@ export default class EditableList<EditableListElement> extends Component<Compone
      * @returns a tr - element with the data contained in the element.
      */
     private getTableRowForElement(element: EditableListElement): HTMLElement {
+        const elementWithSortedKeys = {} as EditableListElement;
+        for (const key of this.getElementKeys()) {
+            elementWithSortedKeys[key] = element[key];
+        }
         // first create the content of the element
-        const tds = HtmlUtilities.makeHtmlElementsFromContent(Object.values(element), 'td');
+        const tds = HtmlUtilities.makeHtmlElementsFromContent(Object.values(elementWithSortedKeys), 'td');
         const tr = document.createElement('tr');
         for (const td of tds) {
             tr.append(td);
