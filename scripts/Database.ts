@@ -1,5 +1,6 @@
 import * as sqlite3 from 'sqlite3';
 import Category from '../types/Category';
+import Shop from '../types/Shop';
 import FileUtilities, { Files } from './utilities/FileUtilities';
 
 export default class Database {
@@ -87,6 +88,62 @@ export default class Database {
                 SET category = ?
                     WHERE category = ?
             `, [newCategory.category, oldCategory.category]);
+        } catch (e) {
+            return false;
+        }
+        return true;
+    }
+
+    static async selectAllShops(): Promise<Shop[]> {
+        return await Database.runQuery(`
+        SELECT shop_name, street, house_number, postal_code, shop_id
+            FROM shops;
+        `);
+    }
+
+    static async deleteShop(shop: Shop): Promise<boolean> {
+        try {
+            await this.runQuery(`
+            DELETE FROM shops
+                WHERE house_number = ?
+                AND postal_code = ?
+                AND shop_name = ?
+                AND street = ?
+            `, [shop.house_number, shop.postal_code, shop.shop_name, shop.street]);
+        } catch (e) {
+            return false;
+        }
+        return true;
+    }
+
+    static async insertShop(shop: Shop): Promise<boolean> {
+        try {
+            await this.runQuery(`
+            INSERT INTO shops (house_number, postal_code, shop_name, street)
+                VALUES (?, ?, ?, ?)
+            `, [shop.house_number, shop.postal_code, shop.shop_name, shop.street]);
+        } catch (e) {
+            return false;
+        }
+        return true;
+    }
+
+    static async updateShop(oldShop: Shop, newShop: Shop) {
+        try {
+            await this.runQuery(`
+            UPDATE shops
+                SET house_number = ?,
+                postal_code = ?,
+                shop_name = ?,
+                street = ?
+                    WHERE house_number = ?
+                    AND postal_code = ?
+                    AND shop_name = ?
+                    AND street = ?
+            `, [
+                newShop.house_number, newShop.postal_code, newShop.shop_name, newShop.street,
+                oldShop.house_number, oldShop.postal_code, oldShop.shop_name, oldShop.street,
+            ]);
         } catch (e) {
             return false;
         }

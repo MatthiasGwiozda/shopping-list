@@ -95,8 +95,7 @@ CREATE TABLE `shops` (
   `postal_code` varchar(5) NOT NULL,
   `street` varchar(45) NOT NULL,
   `house_number` varchar(10) NOT NULL,
-  `shop_id` int(1) NOT NULL,
-  PRIMARY KEY (`shop_name`,`postal_code`,`street`,`house_number`)
+  `shop_id` INTEGER PRIMARY KEY
 );
 
-CREATE UNIQUE INDEX `shop_id_UNIQUE` ON `shops`(`shop_id`);
+CREATE UNIQUE INDEX `shop_id_UNIQUE` ON `shops`(`shop_name`, `postal_code`, `street`, `house_number`);
