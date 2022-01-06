@@ -36,7 +36,10 @@ export interface EditableListParams<ElementType> {
      */
     updateElement: (oldElement: ElementType, newElement: ElementType) => Promise<ActionResult>
     /**
-     * the keys of the elements, which are managed by this editableList
+     * The keys of this object are equal to the keys in the object of the ElementType.
+     * When a key is not present in the set, it will not be shown in the
+     * editableList.
+     * The values of the elements will be the names of the columns in the editable list.
      */
-    elementKeys: (keyof ElementType)[];
+    elementKeys: { [key in keyof ElementType]?: string };
 }

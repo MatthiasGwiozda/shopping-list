@@ -29,12 +29,12 @@ export default class Shops extends Component<Components.shops> {
                     message: result ? null : 'An error occoured. Maybe the shop already exists?'
                 }
             },
-            elementKeys: [
-                "shop_name",
-                "street",
-                "house_number",
-                "postal_code",
-            ]
+            elementKeys: {
+                shop_name: "Name",
+                street: "street",
+                house_number: "house number",
+                postal_code: "postal code"
+            }
         }
         Component.injectComponent(
             Components.editableList,

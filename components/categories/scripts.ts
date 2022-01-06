@@ -33,9 +33,9 @@ export default class Categories extends Component<Components.categories> {
                     message: result ? null : 'An error occoured. Maybe the category already exists?'
                 }
             },
-            elementKeys: [
-                "category"
-            ]
+            elementKeys: {
+                category: "category"
+            }
         }
 
         Component.injectComponent(

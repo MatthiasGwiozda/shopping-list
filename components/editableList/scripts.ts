@@ -22,9 +22,14 @@ export default class EditableList<EditableListElement> extends Component<Compone
     /**
      * @returns the keys of the element in the order which
      * were defined in the parameter "elementKeys".
+     * @param humanReadable when this parameter is set to "false" (default - value),
+     * the function will return the actual keys of the EditableListElement.
+     * When "true" is used, the function will return
+     * the values, which are human - readable.
      */
-    private getElementKeys(): string[] {
-        return this.componentParameters.elementKeys as string[];
+    private getElementKeys(humanReadable = false): string[] {
+        const { elementKeys } = this.componentParameters;
+        return humanReadable ? Object.values(elementKeys) : Object.keys(elementKeys);
     }
 
     /**
@@ -33,7 +38,7 @@ export default class EditableList<EditableListElement> extends Component<Compone
      * has the same keys in every object.
      */
     private insertColumns() {
-        let ths = HtmlUtilities.makeHtmlElementsFromContent(this.getElementKeys(), 'th');
+        let ths = HtmlUtilities.makeHtmlElementsFromContent(this.getElementKeys(true), 'th');
         const tableHeadRow = this.container.querySelector('thead > tr');
         // reverse the elements, because the column - names are getting PREPENDED to the tableHeadRow
         ths = ths.reverse();
@@ -251,7 +256,8 @@ export default class EditableList<EditableListElement> extends Component<Compone
                 firstInput = input;
             }
             input.setAttribute('form', formId);
-            input.setAttribute('placeholder', key);
+            // the placeholder should use the human - readable keys of the element
+            input.setAttribute('placeholder', this.componentParameters.elementKeys[key]);
             input.setAttribute('name', key);
             /**
              * @todo: the type of certain attributes could
