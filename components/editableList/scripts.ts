@@ -132,13 +132,20 @@ export default class EditableList<EditableListElement> extends Component<Compone
     }
 
     /**
+     * focuses the next input in the document, if one was found.
+     */
+    private focusNextInput() {
+        this.container.querySelector('input')?.focus();
+    }
+
+    /**
      * @param oldElement when the oldElement is given, it is assumed that an update
      * should take place. Otherwise an element will be inserted.
      * @param tr the table - row where the input - fields are included.
      */
     private getFormSubmitFunction(formId: string, tr: HTMLElement, oldElement: EditableListElement = null) {
         const { insertElement, updateElement } = this.componentParameters
-        const { showMessageOfActionResult } = this;
+        const { showMessageOfActionResult, focusNextInput } = this;
         const instance = this;
         /**
          * the value of "this" is getting changed in an onsubmit - event.
@@ -160,6 +167,7 @@ export default class EditableList<EditableListElement> extends Component<Compone
                 instance.removeForm(formId);
                 const newElementRow = instance.getTableRowForElement(newElement);
                 tr.replaceWith(newElementRow);
+                focusNextInput.apply(instance);
             }
         }
     }
