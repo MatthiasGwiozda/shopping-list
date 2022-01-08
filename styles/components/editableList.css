@@ -24,3 +24,7 @@
 .editable-list input {
     width: calc(100% - 10px);
 }
+
+.editable-list .additionalActionActive {
+    background-color: lightgrey;
+}

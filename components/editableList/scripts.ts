@@ -132,7 +132,6 @@ export default class EditableList<EditableListElement> extends Component<Compone
             let actionButtonTr: HTMLElement;
             actionButton.onclick = () => {
                 actionButton.classList.toggle('active');
-                tr.classList.toggle(EditableList.activeAdditionalActionClass);
                 if (actionButtonTr != null) {
                     actionButtonTr.remove();
                     actionButtonTr = null;
