@@ -34,7 +34,11 @@ export default class Shops extends Component<Components.shops> {
                 street: "street",
                 house_number: "house number",
                 postal_code: "postal code"
-            }
+            },
+            additionalEditableListActions: [{
+                buttonIcon: '🆎',
+                component: Components.editableListSortableCategories
+            }]
         }
         Component.injectComponent(
             Components.editableList,

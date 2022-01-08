@@ -10,7 +10,8 @@ enum EditableListFiles {
     addNewButton = 'addNewButton.html',
     saveButton = 'saveButton.html',
     editButton = 'editButton.html',
-    cancelButton = 'cancelButton.html'
+    cancelButton = 'cancelButton.html',
+    additionalActionButton = 'additionalActionButton.html'
 }
 
 export default class EditableList<EditableListElement> extends Component<Components.editableList> {
@@ -105,6 +106,45 @@ export default class EditableList<EditableListElement> extends Component<Compone
     }
 
     /**
+     * @returns the number of all the columns in this editableList.
+     * 1 column is reserved for the actions
+     */
+    private getNumberOfColumns(): number {
+        return this.getElementKeys().length + 1;
+    }
+
+    /**
+     * Inserts the actions to the table - row.
+     * The following actions are inserted through this function:
+     * - editbutton
+     * - deletebutton
+     * - additionalEditableListActions (this is a parameter, of the EditableList - class)
+     */
+    private insertActionsToRow(element: EditableListElement, tr: HTMLTableRowElement) {
+        // create the edit - button
+        const editButton = this.getEditButton(element, tr);
+        // now create the delete - button.
+        const deleteButton = this.getDeleteButton(element, tr);
+        const actions = [editButton, deleteButton];
+        // now handle the additional actions
+        this.componentParameters.additionalEditableListActions?.forEach(action => {
+            const { component, buttonIcon } = action;
+            const actionButton = this.gethtmlFromFile(EditableListFiles.additionalActionButton);
+            actionButton.innerText = buttonIcon;
+            actionButton.onclick = () => {
+                const actionButtonTr = document.createElement('tr');
+                const actionButtonTd = document.createElement('td');
+                actionButtonTd.colSpan = this.getNumberOfColumns();
+                actionButtonTr.append(actionButtonTd);
+                tr.after(actionButtonTr);
+                Component.injectComponent<any>(component, actionButtonTd, element);
+            }
+            actions.push(actionButton);
+        });
+        this.addToTableRow(actions, tr);
+    }
+
+    /**
      * @returns a tr - element with the data contained in the element.
      */
     private getTableRowForElement(element: EditableListElement): HTMLElement {
@@ -118,11 +158,7 @@ export default class EditableList<EditableListElement> extends Component<Compone
         for (const td of tds) {
             tr.append(td);
         }
-        // create the edit - button
-        const editButton = this.getEditButton(element, tr);
-        // now create the delete - button.
-        const deleteButton = this.getDeleteButton(element, tr);
-        this.addToTableRow([editButton, deleteButton], tr);
+        this.insertActionsToRow(element, tr);
         return tr;
     }
 

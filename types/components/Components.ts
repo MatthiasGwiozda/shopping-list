@@ -1,7 +1,10 @@
+import Shop from "../Shop";
 import { EditableListParams } from "./editableList";
 
 /**
  * all Components, which are available in the app.
+ * please note that the string must equal the foldername
+ * of the component.
  */
 export enum Components {
     categories = 'categories',
@@ -9,7 +12,8 @@ export enum Components {
     meals = 'meals',
     shoppingList = 'shoppingList',
     shops = 'shops',
-    editableList = 'editableList'
+    editableList = 'editableList',
+    editableListSortableCategories = 'editableListSortableCategories'
 }
 
 /**
@@ -30,4 +34,8 @@ export type ComponentParameters = {
     [Components.shoppingList]: PlaceholderParameter
     [Components.shops]: PlaceholderParameter
     [Components.editableList]: EditableListParams<any>
+    /**
+     * the component 
+     */
+    [Components.editableListSortableCategories]: Shop
 }

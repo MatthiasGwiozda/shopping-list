@@ -1,3 +1,4 @@
+import { Components } from "./Components";
 
 export interface ActionResult {
     /**
@@ -42,4 +43,18 @@ export interface EditableListParams<ElementType> {
      * The values of the elements will be the names of the columns in the editable list.
      */
     elementKeys: { [key in keyof ElementType]?: string };
+    additionalEditableListActions?: {
+        /**
+         * The component, which will get the
+         * element (ElementType) as componentParameter.
+         * 
+         * Please take care of the fact, that the component used here
+         * may only get the element to be edited as parameter.
+         * 
+         * This component will be rendered right under the element for
+         * which the action - button was clicked.
+         */
+        component: Components,
+        buttonIcon: string
+    }[];
 }

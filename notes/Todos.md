@@ -7,6 +7,11 @@
                 - Additionally the Class "EditableListAction" must have the abstract property "buttonIcon", which the EditableList uses to get the icon for the action.
                 - The EditableList - Component will then have a new Parameter from Type EditableListAction[]
                 - The component will be rendered below the element, for which the action - button was klicked.
+            - TESTS:
+                - editableList without additional actions
+                - editableList with additional actions
+                - edit - button
+                - delete - button
 
 
 
