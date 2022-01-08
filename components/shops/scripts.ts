@@ -37,6 +37,7 @@ export default class Shops extends Component<Components.shops> {
             },
             additionalEditableListActions: [{
                 buttonIcon: '🆎',
+                buttonTitle: 'Edit categories - order',
                 component: Components.editableListSortableCategories
             }]
         }

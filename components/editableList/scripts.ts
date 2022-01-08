@@ -128,9 +128,10 @@ export default class EditableList<EditableListElement> extends Component<Compone
         const actions = [editButton, deleteButton];
         // now handle the additional actions
         this.componentParameters.additionalEditableListActions?.forEach(action => {
-            const { component, buttonIcon } = action;
+            const { component, buttonIcon, buttonTitle } = action;
             const actionButton = this.gethtmlFromFile(EditableListFiles.additionalActionButton);
             actionButton.innerText = buttonIcon;
+            actionButton.title = buttonTitle;
             actionButton.onclick = () => {
                 const actionButtonTr = document.createElement('tr');
                 const actionButtonTd = document.createElement('td');

@@ -55,6 +55,7 @@ export interface EditableListParams<ElementType> {
          * which the action - button was clicked.
          */
         component: Components,
-        buttonIcon: string
+        buttonIcon: string,
+        buttonTitle: string
     }[];
 }
