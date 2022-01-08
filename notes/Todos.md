@@ -2,13 +2,13 @@
 - create shops with editableList
     - create element to change the order of the categories in the shops
         - add the possibility to create additional actions in an editableList.
-            - the button must be a toggle - button. When klicked multiple times the
-            element will open / close
+            - optimize styling
             - TESTS:
                 - editableList without additional actions
                 - editableList with additional actions
                 - edit - button
                 - delete - button
+                - the additional action button must be a toggle - button. When klicked multiple times the element will open / close
 
 
 
