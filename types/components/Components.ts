@@ -34,8 +34,5 @@ export type ComponentParameters = {
     [Components.shoppingList]: PlaceholderParameter
     [Components.shops]: PlaceholderParameter
     [Components.editableList]: EditableListParams<any>
-    /**
-     * the component 
-     */
     [Components.editableListSortableCategories]: Shop
 }
