@@ -83,7 +83,7 @@ export default abstract class Component<C extends Components> {
         /**
          * the type is a reference to the constructor of the Components - class.
          */
-        const componentClass: ComponentConstructor<T> = require(scriptPath).default;
+        const componentClass: ComponentConstructor<T, any> = require(scriptPath).default;
         return new componentClass(htmlElement, componentParameter, component);
     }
 
