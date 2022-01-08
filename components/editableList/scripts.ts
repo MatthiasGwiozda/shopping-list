@@ -15,6 +15,7 @@ enum EditableListFiles {
 }
 
 export default class EditableList<EditableListElement> extends Component<Components.editableList> {
+    static readonly activeAdditionalActionClass = 'additionalActionActive';
 
     rendered() {
         this.insertElementsAndActions();
@@ -114,6 +115,44 @@ export default class EditableList<EditableListElement> extends Component<Compone
     }
 
     /**
+     * @param tr the row for the element
+     * @param otherActionButtons the buttons, which will be disabled when activating an additional - action
+     * @returns the buttons for the additional actions
+     */
+    private getAdditionalActionButtons(
+        element: EditableListElement,
+        tr: HTMLTableRowElement,
+        otherActionButtons: HTMLButtonElement[]
+    ): HTMLButtonElement[] {
+        return this.componentParameters.additionalEditableListActions?.map(action => {
+            const { component, buttonIcon, buttonTitle } = action;
+            const actionButton = this.gethtmlFromFile<HTMLButtonElement>(EditableListFiles.additionalActionButton);
+            actionButton.innerText = buttonIcon;
+            actionButton.title = buttonTitle;
+            let actionButtonTr: HTMLElement;
+            actionButton.onclick = () => {
+                actionButton.classList.toggle('active');
+                tr.classList.toggle(EditableList.activeAdditionalActionClass);
+                if (actionButtonTr != null) {
+                    actionButtonTr.remove();
+                    actionButtonTr = null;
+                    otherActionButtons.forEach(button => button.disabled = false);
+                } else {
+                    otherActionButtons.forEach(button => button.disabled = true);
+                    actionButtonTr = document.createElement('tr');
+                    actionButtonTr.classList.add(EditableList.activeAdditionalActionClass);
+                    const actionButtonTd = document.createElement('td');
+                    actionButtonTd.colSpan = this.getNumberOfColumns();
+                    actionButtonTr.append(actionButtonTd);
+                    tr.after(actionButtonTr);
+                    Component.injectComponent<any>(component, actionButtonTd, element);
+                }
+            }
+            return actionButton;
+        });
+    }
+
+    /**
      * Inserts the actions to the table - row.
      * The following actions are inserted through this function:
      * - editbutton
@@ -125,34 +164,12 @@ export default class EditableList<EditableListElement> extends Component<Compone
         const editButton = this.getEditButton(element, tr);
         // now create the delete - button.
         const deleteButton = this.getDeleteButton(element, tr);
-        const actions = [editButton, deleteButton];
+        let actions = [editButton, deleteButton];
         // now handle the additional actions
-        this.componentParameters.additionalEditableListActions?.forEach(action => {
-            const { component, buttonIcon, buttonTitle } = action;
-            const actionButton = this.gethtmlFromFile<HTMLButtonElement>(EditableListFiles.additionalActionButton);
-            actionButton.innerText = buttonIcon;
-            actionButton.title = buttonTitle;
-            let actionButtonTr: HTMLElement;
-            actionButton.onclick = () => {
-                actionButton.classList.toggle('active');
-                if (actionButtonTr != null) {
-                    actionButtonTr.remove();
-                    actionButtonTr = null;
-                    editButton.disabled = false;
-                    deleteButton.disabled = false;
-                } else {
-                    editButton.disabled = true;
-                    deleteButton.disabled = true;
-                    actionButtonTr = document.createElement('tr');
-                    const actionButtonTd = document.createElement('td');
-                    actionButtonTd.colSpan = this.getNumberOfColumns();
-                    actionButtonTr.append(actionButtonTd);
-                    tr.after(actionButtonTr);
-                    Component.injectComponent<any>(component, actionButtonTd, element);
-                }
-            }
-            actions.push(actionButton);
-        });
+        const additionalActionButtons = this.getAdditionalActionButtons(element, tr, [editButton, deleteButton]);
+        if (additionalActionButtons != null) {
+            actions = actions.concat(additionalActionButtons);
+        }
         this.addToTableRow(actions, tr);
     }
 
