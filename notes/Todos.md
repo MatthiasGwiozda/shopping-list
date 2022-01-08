@@ -1,7 +1,8 @@
 # Todos
 - create shops with editableList
     - create element to change the order of the categories in the shops
-        - implement ordering of categories for shops
+        - Implement ordering of categories for shops with dragable elements. The changes should be save imediately
+        after an category have been dropped to another position.
 
 
 
