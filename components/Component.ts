@@ -58,11 +58,11 @@ export default abstract class Component<C extends Components> {
      * @remarks when no parials - folder exists for the current component, you have
      * to create it.
      */
-    protected gethtmlFromFile(file: string): HTMLElement {
+    protected gethtmlFromFile<El extends HTMLElement>(file: string): El {
         const html = HtmlUtilities.getFileAsHtmlElement(
             `${constants.componentsFolderName}/${this.component}/partials/${file}`
         )
-        return html.firstChild as HTMLElement;
+        return html.firstChild as El;
     }
 
     /**

@@ -67,9 +67,9 @@ export default class EditableList<EditableListElement> extends Component<Compone
      * @param tr the row, which will be removed when an element was successfully deleted.
      * @returns the delete - button
      */
-    private getDeleteButton(element: EditableListElement, tr: HTMLElement): HTMLElement {
+    private getDeleteButton(element: EditableListElement, tr: HTMLElement): HTMLButtonElement {
         const { deleteElement } = this.componentParameters;
-        const deleteButton = this.gethtmlFromFile(EditableListFiles.deleteButton);
+        const deleteButton = this.gethtmlFromFile<HTMLButtonElement>(EditableListFiles.deleteButton);
         deleteButton.onclick = async () => {
             if (DialogUtilities.confirm('Are you sure to delete this element? \n' + this.getStringRepresentation(element))) {
                 const res = await deleteElement(element);
@@ -88,8 +88,8 @@ export default class EditableList<EditableListElement> extends Component<Compone
      * @param tr the row, which will be edited, when the edit - button was clicked
      * @param element the element, which will be edited.
      */
-    private getEditButton(element: EditableListElement, tr: HTMLElement): HTMLElement {
-        const editButton = this.gethtmlFromFile(EditableListFiles.editButton);
+    private getEditButton(element: EditableListElement, tr: HTMLElement): HTMLButtonElement {
+        const editButton = this.gethtmlFromFile<HTMLButtonElement>(EditableListFiles.editButton);
         editButton.onclick = async () => {
             /**
              * editTR: the tableRow with the input - fields to update
@@ -129,16 +129,27 @@ export default class EditableList<EditableListElement> extends Component<Compone
         // now handle the additional actions
         this.componentParameters.additionalEditableListActions?.forEach(action => {
             const { component, buttonIcon, buttonTitle } = action;
-            const actionButton = this.gethtmlFromFile(EditableListFiles.additionalActionButton);
+            const actionButton = this.gethtmlFromFile<HTMLButtonElement>(EditableListFiles.additionalActionButton);
             actionButton.innerText = buttonIcon;
             actionButton.title = buttonTitle;
+            let actionButtonTr: HTMLElement;
             actionButton.onclick = () => {
-                const actionButtonTr = document.createElement('tr');
-                const actionButtonTd = document.createElement('td');
-                actionButtonTd.colSpan = this.getNumberOfColumns();
-                actionButtonTr.append(actionButtonTd);
-                tr.after(actionButtonTr);
-                Component.injectComponent<any>(component, actionButtonTd, element);
+                actionButton.classList.toggle('active');
+                if (actionButtonTr != null) {
+                    actionButtonTr.remove();
+                    actionButtonTr = null;
+                    editButton.disabled = false;
+                    deleteButton.disabled = false;
+                } else {
+                    editButton.disabled = true;
+                    deleteButton.disabled = true;
+                    actionButtonTr = document.createElement('tr');
+                    const actionButtonTd = document.createElement('td');
+                    actionButtonTd.colSpan = this.getNumberOfColumns();
+                    actionButtonTr.append(actionButtonTd);
+                    tr.after(actionButtonTr);
+                    Component.injectComponent<any>(component, actionButtonTd, element);
+                }
             }
             actions.push(actionButton);
         });
