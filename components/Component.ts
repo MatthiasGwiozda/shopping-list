@@ -2,6 +2,7 @@ import constants from "../scripts/constants";
 import FileUtilities from "../scripts/utilities/FileUtilities";
 import HtmlUtilities from "../scripts/utilities/HtmlUtilities";
 import PathUtilities from "../scripts/utilities/PathUtilities";
+import ComponentConstructor from "../types/components/ComponentConstructor";
 import { ComponentParameters, Components } from "../types/components/Components";
 
 enum FileType {
@@ -82,7 +83,7 @@ export default abstract class Component<C extends Components> {
         /**
          * the type is a reference to the constructor of the Components - class.
          */
-        const componentClass: new (container: HTMLElement, componentParameter: any, component: Components) => T = require(scriptPath).default;
+        const componentClass: ComponentConstructor<T> = require(scriptPath).default;
         return new componentClass(htmlElement, componentParameter, component);
     }
 
