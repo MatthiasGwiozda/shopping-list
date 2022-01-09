@@ -37,3 +37,13 @@ In general components are reusable pieces of code, which includes html and JavaS
 Components may be designed to only be used once on the page. A component may be used multiple times, just like javaScript functions.
 
 A component can even use other components. The injectComponent function in the ComponentUtilities can be used by the "hosting" component for this purpose.
+
+# Should categories be directly assigned to shops and vice versa, when creating new shops or categories?
+- advantages:
+    - the user must not take care of the assignement himself. If the user wishes, he can change the order of the categories in a shop.
+- disadvantages:
+    - when deleting categories, the assignement to the shop must be dropped
+        - actually this is not a problem we could use "ON DELETE CASCADE" only for the shops -> categories foreign key. This way the usery may delete categories, even if they are assigned to a shop.
+
+## decission
+- yes :)

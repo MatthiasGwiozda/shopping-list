@@ -1,11 +1,15 @@
 # Todos
 - create shops with editableList
     - create element to change the order of the categories in the shops
-        - Implement ordering of categories for shops with dragable elements. The changes should be save imediately
+        - Implement ordering of categories for shops with dragable elements. The changes should be saved imediately
         after an category have been dropped to another position.
+            - TESTS
+                - all categories should be shown when clicking on the order - button
+                - The user should be able to delete a category, which is used in a shop.
+                
 
 
-
+    
     - automatically add a newly created category to the goods_categories_shop_order - table?
     - add google - maps link from shop - adress
 
@@ -13,3 +17,5 @@
 - create Skript (plop?) to create new Component
 - create electron skeleton with current Components - architecture
 - test, if installing this repository from scratch works fine.
+- test, if starting the app with an empty database works fine
+    - categories_shop_order (ON DELETE CASCADE)
