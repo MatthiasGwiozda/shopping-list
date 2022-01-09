@@ -23,8 +23,8 @@ CREATE TABLE `goods_categories_shop_order` (
   `order` tinyint(1) NOT NULL,
   PRIMARY KEY (`shop_id`,`category`),
 
-  CONSTRAINT `goods_categories_shop_order_ibfk_1` FOREIGN KEY (`category`) REFERENCES `goods_categories` (`category`) ON DELETE RESTRICT ON UPDATE CASCADE,
-  CONSTRAINT `goods_categories_shop_order_ibfk_2` FOREIGN KEY (`shop_id`) REFERENCES `shops` (`shop_id`) ON DELETE RESTRICT ON UPDATE CASCADE
+  CONSTRAINT `goods_categories_shop_order_ibfk_1` FOREIGN KEY (`category`) REFERENCES `goods_categories` (`category`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `goods_categories_shop_order_ibfk_2` FOREIGN KEY (`shop_id`) REFERENCES `shops` (`shop_id`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE `goods_shops` (
