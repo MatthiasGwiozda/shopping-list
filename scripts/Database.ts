@@ -69,6 +69,24 @@ export default class Database {
         return true;
     }
 
+    private static async assignAllShopsToNewCategory(categoryObject: Category): Promise<void> {
+        await this.runQuery(`
+        INSERT INTO goods_categories_shop_order (shop_id, category, \`order\`)
+            SELECT shops.shop_id, ? AS category, COALESCE(orders.next, 1) AS 'order'
+            FROM shops
+                LEFT JOIN (
+                    SELECT max(\`order\`) + 1 AS next, shop_id
+                        FROM goods_categories_shop_order
+                            GROUP BY shop_id
+                ) AS orders
+                ON shops.shop_id = orders.shop_id;
+            `, [categoryObject.category]);
+    }
+
+    /**
+     * creates a new category. Additionally adds the categories
+     * to all shops in the goods_categories_shop_order - table.
+     */
     static async insertCategory(categoryObject: Category): Promise<boolean> {
         try {
             await this.runQuery(`
@@ -78,6 +96,12 @@ export default class Database {
         } catch (e) {
             return false;
         }
+        /**
+         * possible optimization for the future: inserting new categories
+         * could be a transaction together with assigning the categories
+         * to all the shops. Either both queries succeed or both fail.
+         */
+        await this.assignAllShopsToNewCategory(categoryObject);
         return true;
     }
 
