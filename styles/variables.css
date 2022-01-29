@@ -1,4 +1,5 @@
 :root {
+    --darkGrey: #7d7d7d;
     --menu-background-color: rgb(41, 41, 41);
-    --menu-background-color-active: #7d7d7d;
+    --menu-background-color-active: var(--darkGrey);
 }

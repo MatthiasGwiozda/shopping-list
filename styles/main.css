@@ -2,6 +2,7 @@
 @import url('./menu.css');
 @import url('./components/editableList.css');
 @import url('./components/categories.css');
+@import url('./components/editableListSortableCategories.css');
 @import url('button.css');
 @import url('input.css');
 

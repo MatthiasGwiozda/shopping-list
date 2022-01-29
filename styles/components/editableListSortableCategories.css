@@ -1,0 +1,9 @@
+.categoryOrder {
+    padding: 0px 15px;
+}
+
+.categoryOrder p {
+    border: solid var(--darkGrey) 2px;
+    margin: 3px 0px;
+    padding: 7px;
+}

@@ -1,4 +1,5 @@
 import * as sqlite3 from 'sqlite3';
+import CategoriesShopOrder from '../types/CategoriesShopOrder';
 import Category from '../types/Category';
 import Shop from '../types/Shop';
 import FileUtilities, { Files } from './utilities/FileUtilities';
@@ -81,6 +82,29 @@ export default class Database {
                 ) AS orders
                 ON shops.shop_id = orders.shop_id;
             `, [categoryObject.category]);
+    }
+
+    private static async selectShopId(shop: Shop): Promise<number> {
+        const res = await this.runQuery<{ shop_id: number }>(`
+        SELECT shop_id
+            FROM shops
+                WHERE shop_name = ?
+                AND postal_code = ?
+                AND street = ?
+                AND house_number = ?
+        `, [shop.shop_name, shop.postal_code, shop.street, shop.house_number]);
+        return res[0]?.shop_id;
+    }
+
+    static async selectGoodsCategoriesShopOrder(shop: Shop): Promise<CategoriesShopOrder[]> {
+        const shopId = await this.selectShopId(shop);
+        const categoriesShopOrder = await this.runQuery<CategoriesShopOrder>(`
+        SELECT category, \`order\`
+            FROM goods_categories_shop_order
+                WHERE shop_id = ?
+                    ORDER BY \`order\`;
+        `, [shopId]);
+        return categoriesShopOrder;
     }
 
     /**
