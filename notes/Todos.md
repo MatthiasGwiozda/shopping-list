@@ -2,14 +2,17 @@
 - create shops with editableList
     - create element to change the order of the categories in the shops
         - Implement ordering of categories for shops with dragable elements. The changes should be saved imediately
-        after an category have been dropped to another position.
+        after an category have been dropped to another position. When an element is dropped on another element, the dragged element should appear on top of the element, on which is was dropped.
             - TESTS
+                - When dragging a category to the same category, nothing should change
+                - When dragging a category to another shop, nothing should change. The drag should not even be possible.
                 - all categories should be shown when clicking on the order - button
                 - The user should be able to delete a category, which is used in a shop.
+                - add new shop when there are no categories in the database, yet
+                - When creating a new shop: all categories should be assigned in the goods_categories_shop_order table
+                - When creating a new category: all Shops should get this category in the goods_categories_shop_order table
                 
 
-
-    
     - automatically add a newly created category to the goods_categories_shop_order - table?
     - add google - maps link from shop - adress
 
