@@ -3,7 +3,6 @@ import Component from "../Component";
 import Database from "../../scripts/Database"
 
 export default class editableListSortableCategories extends Component<Components.editableListSortableCategories> {
-    private static readonly dataTransferElement = 'transferCategory';
     private static currentDraggedElement: HTMLParagraphElement;
 
     rendered() {
