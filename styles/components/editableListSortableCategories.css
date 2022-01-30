@@ -8,3 +8,9 @@
     padding: 7px;
     cursor: grab;
 }
+
+.categoryOrder p.dragover {
+    border-top-color: green;
+    border-top-width: 4px;
+    border-top-style: dashed;
+}

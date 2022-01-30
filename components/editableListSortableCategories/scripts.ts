@@ -4,6 +4,7 @@ import Database from "../../scripts/Database"
 
 export default class editableListSortableCategories extends Component<Components.editableListSortableCategories> {
     private static currentDraggedElement: HTMLParagraphElement;
+    private static readonly dragoverClass = 'dragover';
 
     rendered() {
         this.showCategories();
@@ -20,7 +21,14 @@ export default class editableListSortableCategories extends Component<Components
         p.ondragstart = function (e) {
             editableListSortableCategories.currentDraggedElement = p;
         }
+        p.ondragenter = function () {
+            p.classList.add(editableListSortableCategories.dragoverClass);
+        }
+        p.ondragleave = function () {
+            p.classList.remove(editableListSortableCategories.dragoverClass);
+        }
         p.ondrop = function () {
+            p.classList.remove(editableListSortableCategories.dragoverClass);
             const fromElement = editableListSortableCategories.currentDraggedElement;
             const toElement = p;
             if (fromElement != toElement) {
