@@ -20,7 +20,7 @@ export default class Database {
             Database.db.serialize(function () {
                 Database.db.all(query, params, (err, rows) => {
                     if (err != null) {
-                        reject()
+                        reject(err)
                     } else {
                         resolve(rows);
                     }
@@ -105,6 +105,105 @@ export default class Database {
                     ORDER BY \`order\`;
         `, [shopId]);
         return categoriesShopOrder;
+    }
+
+    private static async moveCategoryShopOrderDown(fromCategory: string, toCategory: string, shopId: number): Promise<boolean> {
+        try {
+            await this.runQuery(`
+            WITH shopId AS (
+                SELECT ? AS id
+            ), fromCategory AS (
+                SELECT \`order\`, category
+                    FROM goods_categories_shop_order
+                        WHERE category = ?
+                        AND shop_id = (SELECT id FROM shopId)
+            ), toCategory AS (
+                SELECT \`order\`
+                    FROM goods_categories_shop_order
+                        WHERE category = ?
+                        AND shop_id = (SELECT id FROM shopId)
+            )
+            UPDATE goods_categories_shop_order
+                SET \`order\` = 
+                IIF(
+                    category = (SELECT category FROM fromCategory),
+                    (SELECT \`order\` - 1 FROM toCategory),
+                    \`order\` - 1
+                )
+                    WHERE \`order\` BETWEEN (SELECT \`order\` FROM fromCategory) AND (SELECT \`order\` - 1 FROM toCategory)
+                    AND shop_id = (SELECT id FROM shopId);
+            
+            `, [shopId, fromCategory, toCategory])
+        } catch (e) {
+            return false;
+        }
+        return true;
+    }
+
+    private static async moveCategoryShopOrderUp(fromCategory: string, toCategory: string, shopId: number): Promise<boolean> {
+        try {
+            await this.runQuery(`
+
+            WITH shopId AS (
+                SELECT ? AS id
+            ), fromCategory AS (
+                SELECT \`order\`, category
+                    FROM goods_categories_shop_order
+                        WHERE category = ?
+                        AND shop_id = (SELECT id FROM shopId)
+            ), toCategory AS (
+                SELECT \`order\`
+                    FROM goods_categories_shop_order
+                        WHERE category = ?
+                        AND shop_id = (SELECT id FROM shopId)
+            )
+            UPDATE goods_categories_shop_order
+                SET \`order\` = 
+                IIF(
+                    category = (SELECT category FROM fromCategory),
+                    (SELECT \`order\` FROM toCategory),
+                    \`order\` + 1
+                )
+                    WHERE \`order\` BETWEEN (SELECT \`order\` + 1 FROM toCategory) AND (SELECT \`order\` FROM fromCategory) 
+                    AND shop_id = (SELECT id FROM shopId);
+
+            `, [shopId, fromCategory, toCategory]);
+
+            /**
+             * yes, I know that this should be a transaction together with the query on top..
+             * @todo find out how to make a transaction out of both queries.
+             */
+            await this.runQuery(`
+            UPDATE goods_categories_shop_order
+            SET \`order\` = \`order\` + 1
+                WHERE category = ?
+                AND shop_id = ?;
+            `, [toCategory, shopId]);
+        } catch (e) {
+            return false;
+        }
+        return true;
+    }
+
+    private static async getOrderOfCategory(category: string, shop: Shop): Promise<number> {
+        const categories = await this.selectGoodsCategoriesShopOrder(shop);
+        return categories.find(
+            (c) => c.category == category
+        ).order;
+    }
+
+    /**
+     * moves the "fromCategory" to the top of "toCategory".
+     */
+    static async moveCategoryShopOrder(fromCategory: string, toCategory: string, shop: Shop): Promise<boolean> {
+        const fromOrder = await this.getOrderOfCategory(fromCategory, shop);
+        const toOrder = await this.getOrderOfCategory(toCategory, shop);
+        const shopId = await this.selectShopId(shop);
+        if (fromOrder > toOrder) {
+            return await this.moveCategoryShopOrderUp(fromCategory, toCategory, shopId);
+        } else {
+            return await this.moveCategoryShopOrderDown(fromCategory, toCategory, shopId);
+        }
     }
 
     /**

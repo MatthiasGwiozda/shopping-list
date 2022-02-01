@@ -18,6 +18,7 @@ export default class editableListSortableCategories extends Component<Components
         const p = document.createElement('p');
         p.draggable = true;
         p.innerText = category;
+        const { componentParameters } = this;
         p.ondragstart = function (e) {
             editableListSortableCategories.currentDraggedElement = p;
         }
@@ -27,12 +28,16 @@ export default class editableListSortableCategories extends Component<Components
         p.ondragleave = function () {
             p.classList.remove(editableListSortableCategories.dragoverClass);
         }
-        p.ondrop = function () {
+        p.ondrop = async function () {
             p.classList.remove(editableListSortableCategories.dragoverClass);
             const fromElement = editableListSortableCategories.currentDraggedElement;
             const toElement = p;
             if (fromElement != toElement) {
                 // switch the order
+                const res = await Database.moveCategoryShopOrder(fromElement.innerText, toElement.innerText, componentParameters);
+                if (res) {
+                    toElement.before(fromElement);
+                }
             }
         }
         p.ondragover = function (e) {
