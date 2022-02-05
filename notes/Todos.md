@@ -1,9 +1,9 @@
 # Todos
-- create shops with editableList
-    - add google - maps link from shop - adress
+
 
 # Optimization / nice to have
 - Implement search - form
+- add google - maps link from shop - adress
 - create Skript (plop?) to create new Component
 - create electron skeleton with current Components - architecture
 - test, if installing this repository from scratch works fine.
