@@ -1,7 +1,22 @@
 # Todos
+create component to edit goods
+    - allow to use select - fields (category) in editableList for specified columns
+
+Questions:
+- Which fields should be editable in the items?
+    - item - name
+        - Simple input
+    - category for the item
+        - as select - field
+    - if the item can be used in meals or not
+        - as Checkbox
+    - goods_shops - Table: in which shop is the good available?
+        - as additionalEditableListAction: List with all shops and a checkbox to toggle the availability of an item in the shop
 
 
 # Optimization / nice to have
+- allow sorting of columns in editableList.
+- set a fixed width for actions - column so that the buttons are not "jumping" when editing elements.
 - Implement search - form
 - add google - maps link from shop - adress
 - create Skript (plop?) to create new Component
