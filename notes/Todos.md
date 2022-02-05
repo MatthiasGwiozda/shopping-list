@@ -3,7 +3,6 @@
     - create element to change the order of the categories in the shops
         - Implement ordering of categories for shops with dragable elements. The changes should be saved imediately
         after an category have been dropped to another position. When an element is dropped on another element, the dragged element should appear on top of the element, on which is was dropped.
-            - Next TODO: in moveCategoryShopOrderUp: get the order of the toElement first and update the fromElement statically to have a single update - transaction
             - TESTS
                 - When dragging a category to the same category, nothing should change
                 - When dragging a category to another shop, nothing should change. The drag should not even be possible.
