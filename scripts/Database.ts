@@ -142,43 +142,59 @@ export default class Database {
 
     private static async moveCategoryShopOrderUp(fromCategory: string, toCategory: string, shopId: number): Promise<boolean> {
         try {
-            await this.runQuery(`
 
-            WITH shopId AS (
-                SELECT ? AS id
-            ), fromCategory AS (
-                SELECT \`order\`, category
+            /**
+             * a query to get the order and category - name.
+             * Parameters:
+             * - category-name
+             * - shop_id
+             */
+            const categoryShopOrderQuery = `
+            SELECT \`order\`, category
                     FROM goods_categories_shop_order
                         WHERE category = ?
-                        AND shop_id = (SELECT id FROM shopId)
+                        AND shop_id = ?
+            `;
+            /**
+             * the toCategory - order must be pulled beforehand from the database.
+             * The results of With - clauses in sqlite are updated for each row.
+             * A single UPDATE - query, which selects the data itself, is therfore not sufficient.
+             * When the order of the toCategory is updated before the
+             * fromCategory - order, the orders of the fromCategory and
+             * toCategory would be the same.
+             */
+            const [{ order: toCategoryOrder }] = await this.runQuery<CategoriesShopOrder>(
+                categoryShopOrderQuery,
+                [toCategory, shopId]
+            );
+
+            await this.runQuery(`
+            WITH fromCategory AS (
+                ${categoryShopOrderQuery}
             ), toCategory AS (
-                SELECT \`order\`
-                    FROM goods_categories_shop_order
-                        WHERE category = ?
-                        AND shop_id = (SELECT id FROM shopId)
+                ${categoryShopOrderQuery}
             )
             UPDATE goods_categories_shop_order
                 SET \`order\` = 
                 IIF(
                     category = (SELECT category FROM fromCategory),
-                    (SELECT \`order\` FROM toCategory),
+                    ?,
                     \`order\` + 1
                 )
-                    WHERE \`order\` BETWEEN (SELECT \`order\` + 1 FROM toCategory) AND (SELECT \`order\` FROM fromCategory) 
-                    AND shop_id = (SELECT id FROM shopId);
+                    WHERE \`order\` BETWEEN (SELECT \`order\` FROM toCategory) AND (SELECT \`order\` FROM fromCategory) 
+                    AND shop_id = ?;
 
-            `, [shopId, fromCategory, toCategory]);
+            `, [
+                // fromCategory
+                fromCategory, shopId,
+                // toCategory
+                toCategory, shopId,
+                // IIF - block
+                toCategoryOrder,
+                // shopId
+                shopId
+            ]);
 
-            /**
-             * yes, I know that this should be a transaction together with the query on top..
-             * @todo find out how to make a transaction out of both queries.
-             */
-            await this.runQuery(`
-            UPDATE goods_categories_shop_order
-            SET \`order\` = \`order\` + 1
-                WHERE category = ?
-                AND shop_id = ?;
-            `, [toCategory, shopId]);
         } catch (e) {
             return false;
         }
