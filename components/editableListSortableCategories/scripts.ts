@@ -5,6 +5,11 @@ import Database from "../../scripts/Database"
 export default class editableListSortableCategories extends Component<Components.editableListSortableCategories> {
     private static currentDraggedElement: HTMLParagraphElement;
     private static readonly dragoverClass = 'dragover';
+    /**
+     * all the category - elements, which are
+     * managed through this instance.
+     */
+    private categoryElements: HTMLParagraphElement[] = [];
 
     rendered() {
         this.showCategories();
@@ -19,7 +24,7 @@ export default class editableListSortableCategories extends Component<Components
         p.draggable = true;
         p.innerText = category;
         const { componentParameters } = this;
-        p.ondragstart = function (e) {
+        p.ondragstart = function () {
             editableListSortableCategories.currentDraggedElement = p;
         }
         p.ondragenter = function () {
@@ -40,9 +45,16 @@ export default class editableListSortableCategories extends Component<Components
                 }
             }
         }
-        p.ondragover = function (e) {
-            e.preventDefault();
+        /**
+         * allows the drag, if the paragraph is a html - element of
+         * this editableListSortableCategories - instance.
+         */
+        p.ondragover = (e) => {
+            if (this.categoryElements.includes(editableListSortableCategories.currentDraggedElement)) {
+                e.preventDefault();
+            }
         }
+        this.categoryElements.push(p);
         return p;
     }
 
