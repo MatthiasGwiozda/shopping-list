@@ -1,6 +1,6 @@
 import Database from "../../scripts/Database";
 import { Components } from "../../types/components/Components";
-import { EditableListParams } from "../../types/components/editableList";
+import { EditableListParams, PossibleInputTypes } from "../../types/components/editableList";
 import Shop from "../../types/Shop";
 import Component from "../Component";
 
@@ -30,10 +30,22 @@ export default class Shops extends Component<Components.shops> {
                 }
             },
             elementKeys: {
-                shop_name: "Name",
-                street: "street",
-                house_number: "house number",
-                postal_code: "postal code"
+                shop_name: {
+                    columnName: "Name",
+                    inputType: PossibleInputTypes.text
+                },
+                street: {
+                    columnName: "street",
+                    inputType: PossibleInputTypes.text
+                },
+                house_number: {
+                    columnName: "house number",
+                    inputType: PossibleInputTypes.text
+                },
+                postal_code: {
+                    columnName: "postal code",
+                    inputType: PossibleInputTypes.text
+                }
             },
             additionalEditableListActions: [{
                 buttonIcon: '🆎',

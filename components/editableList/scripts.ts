@@ -2,7 +2,7 @@ import constants from "../../scripts/constants";
 import DialogUtilities from "../../scripts/utilities/DialogUtilities";
 import HtmlUtilities from "../../scripts/utilities/htmlUtilities";
 import { Components } from "../../types/components/Components";
-import { ActionResult } from "../../types/components/editableList";
+import { ActionResult, PossibleInputTypes } from "../../types/components/editableList";
 import Component from "../Component";
 
 enum EditableListFiles {
@@ -31,7 +31,10 @@ export default class EditableList<EditableListElement> extends Component<Compone
      */
     private getElementKeys(humanReadable = false): string[] {
         const { elementKeys } = this.componentParameters;
-        return humanReadable ? Object.values(elementKeys) : Object.keys(elementKeys);
+        const humanReadableKeys = Object.values(elementKeys).map(
+            ({ columnName }) => columnName
+        );
+        return humanReadable ? humanReadableKeys : Object.keys(elementKeys);
     }
 
     /**
@@ -315,30 +318,38 @@ export default class EditableList<EditableListElement> extends Component<Compone
         const formId = this.createForm(tr, updateElement?.element);
         let firstInput: HTMLElement;
         for (const key of keys) {
-            const input = document.createElement('input');
+            const { columnName, inputType, selectInputValues } = this.componentParameters.elementKeys[key];
+            let input: HTMLSelectElement | HTMLInputElement;
+            if (inputType == PossibleInputTypes.select) {
+                input = document.createElement('select');
+                selectInputValues.forEach(inputValue => {
+                    const select = document.createElement('option');
+                    select.value = inputValue;
+                    select.innerText = inputValue;
+                    input.appendChild(select);
+                })
+            } else if (inputType == PossibleInputTypes.text) {
+                input = document.createElement('input');
+                input.setAttribute('type', 'text');
+                /**
+                 * at first there is a limit of 100 chars in every input.
+                 * This may change in the future.
+                 */
+                input.maxLength = 100;
+            }
+
+            if (updateElement != null) {
+                // every input should get the current value
+                input.value = updateElement.element[key];
+            }
             if (firstInput == null) {
                 firstInput = input;
             }
             input.setAttribute('form', formId);
             // the placeholder should use the human - readable keys of the element
-            input.setAttribute('placeholder', this.componentParameters.elementKeys[key]);
+            input.setAttribute('placeholder', columnName);
             input.setAttribute('name', key);
-            /**
-             * @todo: the type of certain attributes could
-             * be different from 'text'. This could be a new
-             * parameter to pass into the editableList - component.
-             */
-            input.setAttribute('type', 'text');
             input.required = true;
-            /**
-             * at first there is a limit of 100 chars in every input.
-             * This may change in the future.
-             */
-            input.maxLength = 100;
-            if (updateElement != null) {
-                // every input should get the current value
-                input.value = updateElement.element[key];
-            }
             this.addToTableRow([input], tr);
         }
         this.createFormActions(formId, tr, updateElement?.oldTr);

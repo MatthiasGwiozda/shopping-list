@@ -11,6 +11,14 @@ export interface ActionResult {
     message?: string
 }
 
+/**
+ * every Input - type which can be used in the editableList element. 
+ */
+export enum PossibleInputTypes {
+    text = "text",
+    select = "select"
+}
+
 type ManipulationFunction<ElementType> = (element: ElementType) => Promise<ActionResult>;
 
 export interface EditableListParams<ElementType> {
@@ -40,9 +48,21 @@ export interface EditableListParams<ElementType> {
      * The keys of this object are equal to the keys in the object of the ElementType.
      * When a key is not present in the set, it will not be shown in the
      * editableList.
-     * The values of the elements will be the names of the columns in the editable list.
      */
-    elementKeys: { [key in keyof ElementType]?: string };
+    elementKeys: {
+        [key in keyof ElementType]?: {
+            /**
+             * the name of the column in the editable list.
+             */
+            columnName: string;
+            inputType: PossibleInputTypes,
+            /**
+             * When using PossibleInputTypes.select, you must provide this property
+             * to define the values, which can be selected in the input - field.
+             */
+            selectInputValues?: string[]
+        }
+    };
     additionalEditableListActions?: {
         /**
          * The component, which will get the

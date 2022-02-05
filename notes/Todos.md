@@ -1,6 +1,7 @@
 # Todos
 create component to edit goods
     - allow to use select - fields (category) in editableList for specified columns
+    - allow to use checkbox - fields in editableList for specified columns
 
 Questions:
 - Which fields should be editable in the items?
