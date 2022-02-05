@@ -15,6 +15,10 @@ export default class editableListSortableCategories extends Component<Components
         this.showCategories();
     }
 
+    private paragraphOfCurrentInstanceDragged(): boolean {
+        return this.categoryElements.includes(editableListSortableCategories.currentDraggedElement);
+    }
+
     /**
      * @param category the name of the category
      * @returns the paragraph for the given category
@@ -27,8 +31,10 @@ export default class editableListSortableCategories extends Component<Components
         p.ondragstart = function () {
             editableListSortableCategories.currentDraggedElement = p;
         }
-        p.ondragenter = function () {
-            p.classList.add(editableListSortableCategories.dragoverClass);
+        p.ondragenter = () => {
+            if (this.paragraphOfCurrentInstanceDragged()) {
+                p.classList.add(editableListSortableCategories.dragoverClass);
+            }
         }
         p.ondragleave = function () {
             p.classList.remove(editableListSortableCategories.dragoverClass);
@@ -50,7 +56,7 @@ export default class editableListSortableCategories extends Component<Components
          * this editableListSortableCategories - instance.
          */
         p.ondragover = (e) => {
-            if (this.categoryElements.includes(editableListSortableCategories.currentDraggedElement)) {
+            if (this.paragraphOfCurrentInstanceDragged()) {
                 e.preventDefault();
             }
         }
