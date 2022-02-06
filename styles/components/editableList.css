@@ -28,7 +28,8 @@
     text-align: left;
 }
 
-.editable-list input {
+.editable-list input,
+.editable-list select {
     width: calc(100% - 10px);
 }
 

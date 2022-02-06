@@ -1,7 +1,11 @@
-input {
+input, select {
     height: 25px;
     border-radius: 5px;
     padding: 3px;
     border-width: 2px;
     border-color: #00000080;
+}
+
+select {
+    box-sizing: content-box;
 }

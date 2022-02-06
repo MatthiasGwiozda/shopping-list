@@ -1,7 +1,6 @@
 # Todos
 create component to edit goods
     - allow to use select - fields (category) in editableList for specified columns
-        - style input - field
         - merge branch at the end
 
     - allow to use checkbox - fields in editableList for specified columns
