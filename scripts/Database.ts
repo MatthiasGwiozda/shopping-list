@@ -1,6 +1,7 @@
 import * as sqlite3 from 'sqlite3';
 import CategoriesShopOrder from '../types/CategoriesShopOrder';
 import Category from '../types/Category';
+import Item from '../types/Item';
 import Shop from '../types/Shop';
 import FileUtilities, { Files } from './utilities/FileUtilities';
 
@@ -329,6 +330,81 @@ export default class Database {
                 newShop.house_number, newShop.postal_code, newShop.shop_name, newShop.street,
                 oldShop.house_number, oldShop.postal_code, oldShop.shop_name, oldShop.street,
             ]);
+        } catch (e) {
+            return false;
+        }
+        return true;
+    }
+
+    static async selectAllItems(): Promise<Item[]> {
+        const items: Item[] = await Database.runQuery(`
+        SELECT goods.name, goods.category, food.name IS NOT NULL AS food
+            FROM goods
+                LEFT JOIN food ON food.name = goods.name;
+        `);
+        return items.map(item => {
+            /**
+             * food should be a boolean in the application - context.
+             */
+            return { ...item, food: !!item.food }
+        })
+    }
+
+    static async deleteItem(item: Item): Promise<boolean> {
+        try {
+            await this.runQuery(`
+            DELETE FROM goods
+	            WHERE name = ?;
+            `, [item.name]);
+        } catch (e) {
+            return false;
+        }
+        return true;
+    }
+
+    static async setItemAsFood(item: Item) {
+        await this.runQuery(`
+        INSERT INTO food (name)
+            VALUES (?);
+        `, [item.name]);
+    }
+
+    static async insertItem(item: Item): Promise<boolean> {
+        try {
+            await this.runQuery(`
+            INSERT INTO goods (name, category)
+	            VALUES (?, ?);
+            `, [item.name, item.category]);
+
+            if (item.food) {
+                await this.setItemAsFood(item);
+            }
+        } catch (e) {
+            return false;
+        }
+        return true;
+    }
+
+    static async updateItem(oldItem: Item, newItem: Item) {
+        try {
+            await this.runQuery(`
+            UPDATE goods
+                SET name = ?,
+                category = ?
+                    WHERE name = ?;
+            `, [newItem.name, newItem.category, oldItem.name]);
+
+            if (newItem.food && !oldItem.food) {
+                await this.setItemAsFood(newItem);
+            }
+
+            if (!newItem.food) {
+                await this.runQuery(`
+                DELETE FROM food
+	                WHERE name = ?;
+                `, [newItem.name]);
+            }
+
         } catch (e) {
             return false;
         }

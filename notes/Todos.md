@@ -21,6 +21,7 @@ Questions:
 
 # Optimization / nice to have
 - allow sorting of columns in editableList.
+- disable the pages, which should not be useable when certain elements are not added, yet
 - set a fixed width for actions - column so that the buttons are not "jumping" when editing elements.
 - Implement search - form
 - add google - maps link from shop - adress
