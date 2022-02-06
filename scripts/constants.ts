@@ -11,7 +11,11 @@ const constants = Object.freeze({
     /**
      * The name of the folder, which contains all "sub html - pages"
      */
-    componentsFolderName: 'components'
+    componentsFolderName: 'components',
+    icons: {
+        category: '🆎',
+        shop: '🏪'
+    }
 });
 
 export default constants;

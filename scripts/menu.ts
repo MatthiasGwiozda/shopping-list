@@ -17,12 +17,12 @@ const componentRoutes: ComponentRoute[] = [
     {
         name: 'Categories',
         component: Components.categories,
-        icon: '🆎'
+        icon: constants.icons.category
     },
     {
         name: 'Shops',
         component: Components.shops,
-        icon: '🏪'
+        icon: constants.icons.shop
     },
     {
         name: 'meals',

@@ -1,3 +1,4 @@
+import constants from "../../scripts/constants";
 import Database from "../../scripts/Database";
 import { Components } from "../../types/components/Components";
 import { EditableListParams, PossibleInputTypes } from "../../types/components/editableList";
@@ -48,7 +49,7 @@ export default class Shops extends Component<Components.shops> {
                 }
             },
             additionalEditableListActions: [{
-                buttonIcon: '🆎',
+                buttonIcon: constants.icons.category,
                 buttonTitle: 'Edit categories - order',
                 component: Components.editableListSortableCategories
             }]
