@@ -1,7 +1,7 @@
 CREATE TABLE `food` (
   `name` varchar(100) NOT NULL,
   PRIMARY KEY (`name`),
-  CONSTRAINT `food_goods` FOREIGN KEY (`name`) REFERENCES `goods` (`name`) ON DELETE RESTRICT ON UPDATE CASCADE
+  CONSTRAINT `food_goods` FOREIGN KEY (`name`) REFERENCES `goods` (`name`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE `goods` (
