@@ -3,6 +3,13 @@
     width: 100%;
 }
 
+.editable-list thead {
+    position: sticky;
+    top: 0;
+    background-color: lightgrey;
+    height: 50px;
+}
+
 .editable-list td:not(:first-child) {
     text-align: center;
 }
@@ -21,7 +28,8 @@
     text-align: left;
 }
 
-.editable-list input {
+.editable-list input,
+.editable-list select {
     width: calc(100% - 10px);
 }
 

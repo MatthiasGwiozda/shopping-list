@@ -1,7 +1,7 @@
 import Database from "../../scripts/Database";
 import Category from "../../types/Category";
 import { Components } from "../../types/components/Components";
-import { EditableListParams } from "../../types/components/editableList";
+import { EditableListParams, PossibleInputTypes } from "../../types/components/editableList";
 import Component from "../Component";
 
 export default class Categories extends Component<Components.categories> {
@@ -34,7 +34,10 @@ export default class Categories extends Component<Components.categories> {
                 }
             },
             elementKeys: {
-                category: "category"
+                category: {
+                    columnName: "category",
+                    inputType: PossibleInputTypes.text
+                }
             }
         }
 
