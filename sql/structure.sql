@@ -11,15 +11,6 @@ CREATE TABLE `goods_categories` (
   PRIMARY KEY (`category`)
 );
 
-CREATE TABLE `goods_shops` (
-  `name` varchar(100) NOT NULL,
-  `shop_id` int(1) NOT NULL,
-  PRIMARY KEY (`name`,`shop_id`),
-
-  CONSTRAINT `goods_shops_good` FOREIGN KEY (`name`) REFERENCES `goods` (`name`) ON DELETE RESTRICT ON UPDATE CASCADE,
-  CONSTRAINT `goods_shops_shop` FOREIGN KEY (`shop_id`) REFERENCES `shops` (`shop_id`) ON DELETE RESTRICT ON UPDATE CASCADE
-);
-
 CREATE TABLE `meals` (
   `name` varchar(100) NOT NULL,
   `recipe` varchar(2000) DEFAULT NULL,
@@ -98,4 +89,12 @@ CREATE TABLE `meals_food` (
 
   CONSTRAINT `meals_food_food` FOREIGN KEY (`food`) REFERENCES `food` (`name`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `meals_food_meal` FOREIGN KEY (`meal`) REFERENCES `meals` (`name`) ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
+CREATE TABLE "goods_shops" (
+	"name"	varchar(100) NOT NULL,
+	"shop_id"	int(1) NOT NULL,
+	CONSTRAINT "goods_shops_good" FOREIGN KEY("name") REFERENCES "goods"("name") ON DELETE CASCADE ON UPDATE CASCADE,
+	CONSTRAINT "goods_shops_shop" FOREIGN KEY("shop_id") REFERENCES "shops"("shop_id") ON DELETE CASCADE ON UPDATE CASCADE,
+	PRIMARY KEY("name","shop_id")
 );
