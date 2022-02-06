@@ -297,6 +297,14 @@ export default class Database {
             `, [shop.house_number, shop.postal_code, shop.shop_name, shop.street]);
     }
 
+    private static async assignAllItemsToNewShop(shop: Shop) {
+        await this.runQuery(`
+        INSERT INTO goods_shops(name, shop_id)
+            SELECT name, ?
+                FROM goods;
+        `, [await this.selectShopId(shop)])
+    }
+
     /**
      * creates a new shop.
      * Additionaly assignes all the current categories to this new shop.
@@ -311,6 +319,7 @@ export default class Database {
             return false;
         }
         await this.assignAllCategoriesToNewShop(shop);
+        await this.assignAllItemsToNewShop(shop);
         return true;
     }
 
@@ -369,6 +378,14 @@ export default class Database {
         `, [item.name]);
     }
 
+    private static async assignAllShopsToNewItem(item: Item) {
+        await this.runQuery(`
+        INSERT INTO goods_shops (name, shop_id)
+            SELECT ?, shop_id
+                FROM shops;
+        `, [item.name]);
+    }
+
     static async insertItem(item: Item): Promise<boolean> {
         try {
             await this.runQuery(`
@@ -382,6 +399,7 @@ export default class Database {
         } catch (e) {
             return false;
         }
+        await this.assignAllShopsToNewItem(item);
         return true;
     }
 
