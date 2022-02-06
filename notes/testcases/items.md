@@ -1,3 +1,5 @@
 - when deleting an item, which is used in the foods - table, it should anyways be deleted without errors.
 - when removing "food" from the item, the item should be deleted in the foods - table
 - When selecting "food" in the item - checkbox, the item should be inserted in the foods - table.
+- When adding a new item, all the shops should be assigned to that item
+- When creating a new item, the "food" - checkbox should have the default - value "checked"

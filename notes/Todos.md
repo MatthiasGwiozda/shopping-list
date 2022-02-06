@@ -1,6 +1,6 @@
 # Todos
 create component to edit goods
-    - allow to use checkbox - fields in editableList for specified columns
+    - implement goods_shops - component "in which shop is the good available?"
 
 Questions:
 - Which fields should be editable in the items?

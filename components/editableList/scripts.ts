@@ -181,7 +181,12 @@ export default class EditableList<EditableListElement> extends Component<Compone
     private getTableRowForElement(element: EditableListElement): HTMLElement {
         const elementWithSortedKeys = {} as EditableListElement;
         for (const key of this.getElementKeys()) {
-            elementWithSortedKeys[key] = element[key];
+            const { inputType } = this.componentParameters.elementKeys[key];
+            if (inputType == PossibleInputTypes.checkbox) {
+                elementWithSortedKeys[key] = element[key] ? '✔' : '❌';
+            } else {
+                elementWithSortedKeys[key] = element[key];
+            }
         }
         // first create the content of the element
         const tds = HtmlUtilities.makeHtmlElementsFromContent(Object.values(elementWithSortedKeys), 'td');
@@ -302,6 +307,14 @@ export default class EditableList<EditableListElement> extends Component<Compone
         this.addToTableRow([saveButton, cancelButton], tr);
     }
 
+    private requireInputAndAddValue(input: HTMLSelectElement | HTMLInputElement, elementKeyValue: any) {
+        input.required = true;
+        if (elementKeyValue != null) {
+            // every input should get the current value
+            input.value = elementKeyValue;
+        }
+    }
+
     /**
      * @param updateElement the element for which the form was created.
      * when this parameter is not used, it is assumed that a form
@@ -319,37 +332,49 @@ export default class EditableList<EditableListElement> extends Component<Compone
         let firstInput: HTMLElement;
         for (const key of keys) {
             const { columnName, inputType, selectInputValues } = this.componentParameters.elementKeys[key];
+            /**
+             * the value of the specific key for the updateElement.
+             */
+            const elementKeyValue = updateElement?.element[key];
             let input: HTMLSelectElement | HTMLInputElement;
             if (inputType == PossibleInputTypes.select) {
                 input = document.createElement('select');
+                this.requireInputAndAddValue(input, elementKeyValue);
                 selectInputValues.forEach(inputValue => {
                     const option = document.createElement('option');
                     option.value = inputValue;
                     option.innerText = inputValue;
                     input.appendChild(option);
-                })
+                });
             } else if (inputType == PossibleInputTypes.text) {
                 input = document.createElement('input');
                 input.setAttribute('type', 'text');
+                this.requireInputAndAddValue(input, elementKeyValue);
                 /**
                  * at first there is a limit of 100 chars in every input.
                  * This may change in the future.
                  */
                 input.maxLength = 100;
-            }
-
-            if (updateElement != null) {
-                // every input should get the current value
-                input.value = updateElement.element[key];
+                // the placeholder should use the human - readable keys of the element
+                input.setAttribute('placeholder', columnName);
+            } else if (inputType == PossibleInputTypes.checkbox) {
+                input = document.createElement('input');
+                input.setAttribute('type', 'checkbox');
+                /**
+                 * for now all the checkboxes are checked when creating a new element.
+                 * When editing an element, the checked - state is dependent of the value
+                 * in "elementKeyValue"
+                 */
+                if (updateElement == null || elementKeyValue) {
+                    input.checked = true;
+                }
+                input.value = "1";
             }
             if (firstInput == null) {
                 firstInput = input;
             }
             input.setAttribute('form', formId);
-            // the placeholder should use the human - readable keys of the element
-            input.setAttribute('placeholder', columnName);
             input.setAttribute('name', key);
-            input.required = true;
             this.addToTableRow([input], tr);
         }
         this.createFormActions(formId, tr, updateElement?.oldTr);

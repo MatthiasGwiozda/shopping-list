@@ -16,7 +16,8 @@ export interface ActionResult {
  */
 export enum PossibleInputTypes {
     text = "text",
-    select = "select"
+    select = "select",
+    checkbox = "checkbox"
 }
 
 type ManipulationFunction<ElementType> = (element: ElementType) => Promise<ActionResult>;

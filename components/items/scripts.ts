@@ -39,9 +39,13 @@ export default class Items extends Component<Components.items> {
                     inputType: PossibleInputTypes.text
                 },
                 category: {
-                    columnName: "category",
+                    columnName: "Category",
                     inputType: PossibleInputTypes.select,
                     selectInputValues: (await Database.selectAllCategories()).map(c => c.category)
+                },
+                food: {
+                    columnName: "Food",
+                    inputType: PossibleInputTypes.checkbox
                 }
             }
         }
