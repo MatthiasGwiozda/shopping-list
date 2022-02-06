@@ -323,10 +323,10 @@ export default class EditableList<EditableListElement> extends Component<Compone
             if (inputType == PossibleInputTypes.select) {
                 input = document.createElement('select');
                 selectInputValues.forEach(inputValue => {
-                    const select = document.createElement('option');
-                    select.value = inputValue;
-                    select.innerText = inputValue;
-                    input.appendChild(select);
+                    const option = document.createElement('option');
+                    option.value = inputValue;
+                    option.innerText = inputValue;
+                    input.appendChild(option);
                 })
             } else if (inputType == PossibleInputTypes.text) {
                 input = document.createElement('input');
