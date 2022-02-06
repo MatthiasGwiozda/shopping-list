@@ -48,7 +48,7 @@ CREATE TABLE `meals_food` (
   `quantity` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`meal`,`food`),
 
-  CONSTRAINT `meals_food_food` FOREIGN KEY (`food`) REFERENCES `food` (`name`) ON DELETE RESTRICT ON UPDATE CASCADE,
+  CONSTRAINT `meals_food_food` FOREIGN KEY (`food`) REFERENCES `food` (`name`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `meals_food_meal` FOREIGN KEY (`meal`) REFERENCES `meals` (`name`) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
