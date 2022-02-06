@@ -1,6 +1,7 @@
 import * as sqlite3 from 'sqlite3';
 import CategoriesShopOrder from '../types/CategoriesShopOrder';
 import Category from '../types/Category';
+import GoodsShops from '../types/GoodsShops';
 import Item from '../types/Item';
 import Shop from '../types/Shop';
 import FileUtilities, { Files } from './utilities/FileUtilities';
@@ -85,6 +86,11 @@ export default class Database {
             `, [categoryObject.category]);
     }
 
+    /**
+     * the shop - id is not visible to the "frontend" sometimes.
+     * For example when creating new shops, the id is generated in the
+     * database. Through this function you can get the current id of the shop.
+     */
     private static async selectShopId(shop: Shop): Promise<number> {
         const res = await this.runQuery<{ shop_id: number }>(`
         SELECT shop_id
@@ -423,6 +429,44 @@ export default class Database {
                 `, [newItem.name]);
             }
 
+        } catch (e) {
+            return false;
+        }
+        return true;
+    }
+
+    static async selectGoodsShops(): Promise<GoodsShops[]> {
+        return await this.runQuery(`
+        SELECT *
+            FROM goods_shops
+        `)
+    }
+
+    static async addShopToItem(shop: Shop, item: Item): Promise<boolean> {
+        try {
+            await this.runQuery(`
+            INSERT INTO goods_shops (name, shop_id)
+	            VALUES (?, ?);
+            `, [
+                item.name,
+                await this.selectShopId(shop)
+            ]);
+        } catch (e) {
+            return false;
+        }
+        return true;
+    }
+
+    static async removeShopFromItem(shop: Shop, item: Item): Promise<boolean> {
+        try {
+            await this.runQuery(`
+            DELETE FROM goods_shops 
+                WHERE name = ?
+                AND shop_id = ?;
+            `, [
+                item.name,
+                await this.selectShopId(shop)
+            ]);
         } catch (e) {
             return false;
         }

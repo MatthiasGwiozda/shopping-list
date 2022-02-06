@@ -1,0 +1,11 @@
+.goodsShopAssignement label {
+    display: flex;
+    align-items: center;
+}
+
+.goodsShopAssignement input {
+    width: auto;
+    display: inline-block;
+    order: -1;
+    margin-right: 10px;
+}

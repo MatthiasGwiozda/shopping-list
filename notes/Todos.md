@@ -25,4 +25,6 @@ Questions:
 - test, if installing this repository from scratch works fine.
 - test, if starting the app with an empty database works fine
     - categories_shop_order (ON DELETE CASCADE)
-- add keyboard shortcuts to add new element (strg + n)
+- add keyboard shortcuts 
+    - to add new element (strg + n)
+    - to escape an edit - form in the editableList (esc)
