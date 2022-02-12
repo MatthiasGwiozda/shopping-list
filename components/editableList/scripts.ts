@@ -16,6 +16,12 @@ enum EditableListFiles {
 
 export default class EditableList<EditableListElement> extends Component<Components.editableList> {
     static readonly activeAdditionalActionClass = 'additionalActionActive';
+    static readonly activeActionButtonClass = 'active';
+    static readonly checkboxType = 'checkbox';
+    static readonly checkboxChecked = '✔';
+    static readonly checkboxUnChecked = '❌';
+
+    private additionalActionButtons: HTMLButtonElement[] = [];
 
     rendered() {
         this.insertElementsAndActions();
@@ -38,6 +44,55 @@ export default class EditableList<EditableListElement> extends Component<Compone
     }
 
     /**
+     * When editing elements, input - fields are shown in the table. In this
+     * case the sorting must use the value of the input - field and not
+     * the innerText of the html - Element.
+     * @returns the value, which can be used to compare the sorting
+     * of elements.
+     */
+    private getCompareValueForSorting(htmlElement: HTMLElement): string {
+        const { innerText, children } = htmlElement;
+        let compareValue = innerText;
+        const input = children[0];
+        if (input instanceof HTMLInputElement || input instanceof HTMLSelectElement) {
+            if (input instanceof HTMLInputElement && input.type == EditableList.checkboxType) {
+                compareValue = input.checked ? EditableList.checkboxChecked : EditableList.checkboxUnChecked;
+            } else {
+                compareValue = input.value;
+            }
+        }
+        return compareValue;
+    }
+
+    /**
+     * sorts the elements in the editable list.
+     * @param sortIndex the index of the <td> - Element. The innerText of
+     * this td - Element will be used to sort the editableList.
+     */
+    private sortElements(sortIndex: number) {
+        // disable all active action - buttons first:
+        const activeButtons = this.additionalActionButtons
+            .filter(button => button.classList.contains(EditableList.activeActionButtonClass));
+        activeButtons.forEach(button => button.click());
+        // now sort the elements
+        const children = this.container.querySelectorAll<HTMLElement>('tbody > tr');
+        const tableRows: HTMLElement[] = [];
+        children.forEach(row => tableRows.push(row));
+        tableRows.sort((row1, row2) => {
+            const compareValue1 = this.getCompareValueForSorting(row1.children[sortIndex] as HTMLElement);
+            const compareValue2 = this.getCompareValueForSorting(row2.children[sortIndex] as HTMLElement);
+            if (compareValue1 == compareValue2) {
+                return 0;
+            }
+            return compareValue1 > compareValue2 ? 1 : -1;
+        });
+        const tbody = this.getTableBody();
+        tableRows.forEach(row => tbody.appendChild(row))
+        // click on the action - buttons again:
+        activeButtons.forEach(button => button.click());
+    }
+
+    /**
      * inserts the column - names in the table
      * it is assumed that every element in the array
      * has the same keys in every object.
@@ -47,7 +102,17 @@ export default class EditableList<EditableListElement> extends Component<Compone
         const tableHeadRow = this.container.querySelector('thead > tr');
         // reverse the elements, because the column - names are getting PREPENDED to the tableHeadRow
         ths = ths.reverse();
+        let sortIndex = ths.length - 1;
         for (const th of ths) {
+            const i = sortIndex;
+            th.onclick = () => {
+                this.sortElements(i);
+                const sortingClass = 'sortedBy';
+                ths.forEach(th => th.classList.remove(sortingClass));
+                th.classList.add(sortingClass);
+            };
+            sortIndex--;
+            th.title = `Sort by ${th.innerText}`;
             tableHeadRow.prepend(th);
         }
     }
@@ -134,7 +199,7 @@ export default class EditableList<EditableListElement> extends Component<Compone
             actionButton.title = buttonTitle;
             let actionButtonTr: HTMLElement;
             actionButton.onclick = () => {
-                actionButton.classList.toggle('active');
+                actionButton.classList.toggle(EditableList.activeActionButtonClass);
                 if (actionButtonTr != null) {
                     actionButtonTr.remove();
                     actionButtonTr = null;
@@ -169,6 +234,7 @@ export default class EditableList<EditableListElement> extends Component<Compone
         let actions = [editButton, deleteButton];
         // now handle the additional actions
         const additionalActionButtons = this.getAdditionalActionButtons(element, tr, [editButton, deleteButton]);
+        this.additionalActionButtons.push(...additionalActionButtons);
         if (additionalActionButtons != null) {
             actions = actions.concat(additionalActionButtons);
         }
@@ -183,7 +249,7 @@ export default class EditableList<EditableListElement> extends Component<Compone
         for (const key of this.getElementKeys()) {
             const { inputType } = this.componentParameters.elementKeys[key];
             if (inputType == PossibleInputTypes.checkbox) {
-                elementWithSortedKeys[key] = element[key] ? '✔' : '❌';
+                elementWithSortedKeys[key] = element[key] ? EditableList.checkboxChecked : EditableList.checkboxUnChecked;
             } else {
                 elementWithSortedKeys[key] = element[key];
             }
@@ -276,8 +342,12 @@ export default class EditableList<EditableListElement> extends Component<Compone
         tr.append(td);
     }
 
+    private getTableBody() {
+        return this.container.querySelector('tbody');
+    }
+
     private addToTableBody(element: HTMLElement) {
-        const tbody = this.container.querySelector('tbody');
+        const tbody = this.getTableBody();
         tbody.append(element);
     }
 
@@ -359,7 +429,7 @@ export default class EditableList<EditableListElement> extends Component<Compone
                 input.setAttribute('placeholder', columnName);
             } else if (inputType == PossibleInputTypes.checkbox) {
                 input = document.createElement('input');
-                input.setAttribute('type', 'checkbox');
+                input.setAttribute('type', EditableList.checkboxType);
                 /**
                  * for now all the checkboxes are checked when creating a new element.
                  * When editing an element, the checked - state is dependent of the value

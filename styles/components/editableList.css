@@ -24,6 +24,14 @@
     min-width: 80px
 }
 
+.editable-list th:not(:last-child) {
+    cursor: pointer;
+}
+
+.editable-list th.sortedBy {
+    background-color:var(--lightGrey);
+}
+
 .editable-list th:first-child {
     text-align: left;
 }
