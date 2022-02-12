@@ -1,6 +1,4 @@
 # Todos
-- items
-    - edit an item which has not the first category in the list: The category in the dropdown should match the category, which were previously selected for this item.
 
 # Optimization / nice to have
 - Implement search - form
