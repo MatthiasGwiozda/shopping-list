@@ -16,7 +16,7 @@ export default class Categories extends Component<Components.categories> {
                 const result = await Database.deleteCategory(category);
                 return {
                     result,
-                    message: result ? null : 'The category could not be deleted. Maybe it is used in an item or a shop. Delete it there first'
+                    message: result ? null : 'The category could not be deleted. Maybe it is used in an item. Change the category of the items first'
                 }
             },
             insertElement: async function (category) {
