@@ -1,6 +1,10 @@
 # Todos
 - allow sorting of columns in editableList.
     - how to handle additionalActions when sorting: Move them accordingly when there are actions active
+
+- items
+    - edit an item which has not the first category in the list: The category in the dropdown should match the category, which were previously selected for this item.
+    
 # Optimization / nice to have
 - Implement search - form
 - disable the pages, which should not be useable when certain elements are not added, yet

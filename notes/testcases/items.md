@@ -4,3 +4,4 @@
 - When adding a new item, all the shops should be assigned to that item
 - When adding a new shop, all the items should be assigned to that shop
 - When creating a new item, the "food" - checkbox should have the default - value "checked"
+- edit an item which has not the first category in the list: The category in the dropdown should match the category, which were previously selected for this item.
