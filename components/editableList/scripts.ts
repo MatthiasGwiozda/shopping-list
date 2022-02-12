@@ -16,6 +16,8 @@ enum EditableListFiles {
 
 export default class EditableList<EditableListElement> extends Component<Components.editableList> {
     static readonly activeAdditionalActionClass = 'additionalActionActive';
+    static readonly activeActionButtonClass = 'active';
+    private additionalActionButtons: HTMLButtonElement[] = [];
 
     rendered() {
         this.insertElementsAndActions();
@@ -43,6 +45,11 @@ export default class EditableList<EditableListElement> extends Component<Compone
      * this td - Element will be used to sort the editableList.
      */
     private sortElements(sortIndex: number) {
+        // disable all active action - buttons first:
+        const activeButtons = this.additionalActionButtons
+            .filter(button => button.classList.contains(EditableList.activeActionButtonClass));
+        activeButtons.forEach(button => button.click());
+        // now sort the elements
         const children = this.container.querySelectorAll<HTMLElement>('tbody > tr');
         const tableRows: HTMLElement[] = [];
         children.forEach(row => tableRows.push(row));
@@ -56,6 +63,8 @@ export default class EditableList<EditableListElement> extends Component<Compone
         });
         const tbody = this.getTableBody();
         tableRows.forEach(row => tbody.appendChild(row))
+        // click on the action - buttons again:
+        activeButtons.forEach(button => button.click());
     }
 
     /**
@@ -165,7 +174,7 @@ export default class EditableList<EditableListElement> extends Component<Compone
             actionButton.title = buttonTitle;
             let actionButtonTr: HTMLElement;
             actionButton.onclick = () => {
-                actionButton.classList.toggle('active');
+                actionButton.classList.toggle(EditableList.activeActionButtonClass);
                 if (actionButtonTr != null) {
                     actionButtonTr.remove();
                     actionButtonTr = null;
@@ -200,6 +209,7 @@ export default class EditableList<EditableListElement> extends Component<Compone
         let actions = [editButton, deleteButton];
         // now handle the additional actions
         const additionalActionButtons = this.getAdditionalActionButtons(element, tr, [editButton, deleteButton]);
+        this.additionalActionButtons.push(...additionalActionButtons);
         if (additionalActionButtons != null) {
             actions = actions.concat(additionalActionButtons);
         }
