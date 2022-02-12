@@ -17,6 +17,10 @@ enum EditableListFiles {
 export default class EditableList<EditableListElement> extends Component<Components.editableList> {
     static readonly activeAdditionalActionClass = 'additionalActionActive';
     static readonly activeActionButtonClass = 'active';
+    static readonly checkboxType = 'checkbox';
+    static readonly checkboxChecked = '✔';
+    static readonly checkboxUnChecked = '❌';
+
     private additionalActionButtons: HTMLButtonElement[] = [];
 
     rendered() {
@@ -40,6 +44,27 @@ export default class EditableList<EditableListElement> extends Component<Compone
     }
 
     /**
+     * When editing elements, input - fields are shown in the table. In this
+     * case the sorting must use the value of the input - field and not
+     * the innerText of the html - Element.
+     * @returns the value, which can be used to compare the sorting
+     * of elements.
+     */
+    private getCompareValueForSorting(htmlElement: HTMLElement): string {
+        const { innerText, children } = htmlElement;
+        let compareValue = innerText;
+        const input = children[0];
+        if (input instanceof HTMLInputElement || input instanceof HTMLSelectElement) {
+            if (input instanceof HTMLInputElement && input.type == EditableList.checkboxType) {
+                compareValue = input.checked ? EditableList.checkboxChecked : EditableList.checkboxUnChecked;
+            } else {
+                compareValue = input.value;
+            }
+        }
+        return compareValue;
+    }
+
+    /**
      * sorts the elements in the editable list.
      * @param sortIndex the index of the <td> - Element. The innerText of
      * this td - Element will be used to sort the editableList.
@@ -54,12 +79,12 @@ export default class EditableList<EditableListElement> extends Component<Compone
         const tableRows: HTMLElement[] = [];
         children.forEach(row => tableRows.push(row));
         tableRows.sort((row1, row2) => {
-            const { innerText: innerText1 } = row1.children[sortIndex] as HTMLElement;
-            const { innerText: innerText2 } = row2.children[sortIndex] as HTMLElement;
-            if (innerText1 == innerText2) {
+            const compareValue1 = this.getCompareValueForSorting(row1.children[sortIndex] as HTMLElement);
+            const compareValue2 = this.getCompareValueForSorting(row2.children[sortIndex] as HTMLElement);
+            if (compareValue1 == compareValue2) {
                 return 0;
             }
-            return innerText1 > innerText2 ? 1 : -1;
+            return compareValue1 > compareValue2 ? 1 : -1;
         });
         const tbody = this.getTableBody();
         tableRows.forEach(row => tbody.appendChild(row))
@@ -224,7 +249,7 @@ export default class EditableList<EditableListElement> extends Component<Compone
         for (const key of this.getElementKeys()) {
             const { inputType } = this.componentParameters.elementKeys[key];
             if (inputType == PossibleInputTypes.checkbox) {
-                elementWithSortedKeys[key] = element[key] ? '✔' : '❌';
+                elementWithSortedKeys[key] = element[key] ? EditableList.checkboxChecked : EditableList.checkboxUnChecked;
             } else {
                 elementWithSortedKeys[key] = element[key];
             }
@@ -404,7 +429,7 @@ export default class EditableList<EditableListElement> extends Component<Compone
                 input.setAttribute('placeholder', columnName);
             } else if (inputType == PossibleInputTypes.checkbox) {
                 input = document.createElement('input');
-                input.setAttribute('type', 'checkbox');
+                input.setAttribute('type', EditableList.checkboxType);
                 /**
                  * for now all the checkboxes are checked when creating a new element.
                  * When editing an element, the checked - state is dependent of the value
