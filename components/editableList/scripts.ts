@@ -278,7 +278,7 @@ export default class EditableList<EditableListElement> extends Component<Compone
      * focuses the next input in the document, if one was found.
      */
     private focusNextInput() {
-        this.container.querySelector('input')?.focus();
+        this.container.querySelector<HTMLElement>('tr:not(.additionalActionActive) input')?.focus();
     }
 
     /**

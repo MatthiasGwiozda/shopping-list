@@ -5,3 +5,5 @@
 - When adding a new shop, all the items should be assigned to that shop
 - When creating a new item, the "food" - checkbox should have the default - value "checked"
 - edit an item which has not the first category in the list: The category in the dropdown should match the category, which were previously selected for this item.
+- click on the "add new" - button twice. Add one item. After Adding the item, the next input - field should be focused.
+- click on the "Set availability of an item in shops" - button. Add a new Element afterwards. The Checkbox of the shop should not be focused after saving the item.
