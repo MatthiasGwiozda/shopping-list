@@ -1,7 +1,12 @@
 # Todos
-
+- Create View for Meals
+    - create editableList for meals
+    - Create search - Form for items
 # Optimization / nice to have
-- Implement search - form
+- Create documentation!
+- Implement shoppingList - component
+    - Allow to add meals_components in the list - But only when the user activates the checklist and knows explicitly that he is about to add meals_components instead of a complete meal.
+- Implement search - form for EditableLists
 - disable the pages, which should not be useable when certain elements are not added, yet
 - set a fixed width for actions - column so that the buttons are not "jumping" when editing elements.
 - add google - maps link from shop - adress
