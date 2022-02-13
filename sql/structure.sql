@@ -17,21 +17,6 @@ CREATE TABLE `meals` (
   PRIMARY KEY (`name`)
 );
 
-CREATE TABLE `meals_related_side_dish` (
-  `meal` varchar(100) NOT NULL,
-  `related_meal` varchar(100) NOT NULL,
-  PRIMARY KEY (`meal`,`related_meal`),
-
-  CONSTRAINT `meals_related_meal` FOREIGN KEY (`meal`) REFERENCES `meals` (`name`) ON DELETE RESTRICT ON UPDATE CASCADE,
-  CONSTRAINT `meals_related_side_dish` FOREIGN KEY (`related_meal`) REFERENCES `meals_side_dishes` (`name`) ON DELETE RESTRICT ON UPDATE CASCADE
-);
-
-CREATE TABLE `meals_side_dishes` (
-  `name` varchar(100) NOT NULL,
-  PRIMARY KEY (`name`),
-  CONSTRAINT `meals_side_dish_meal` FOREIGN KEY (`name`) REFERENCES `meals` (`name`) ON DELETE RESTRICT ON UPDATE CASCADE
-);
-
 CREATE TABLE `meals_this_week` (
   `day` tinyint(1) NOT NULL,
   `meal` varchar(100) NOT NULL,
@@ -97,4 +82,19 @@ CREATE TABLE "goods_shops" (
 	CONSTRAINT "goods_shops_good" FOREIGN KEY("name") REFERENCES "goods"("name") ON DELETE CASCADE ON UPDATE CASCADE,
 	CONSTRAINT "goods_shops_shop" FOREIGN KEY("shop_id") REFERENCES "shops"("shop_id") ON DELETE CASCADE ON UPDATE CASCADE,
 	PRIMARY KEY("name","shop_id")
+);
+
+CREATE TABLE `meals_components` (
+  `name` varchar(100) NOT NULL,
+  PRIMARY KEY (`name`),
+  CONSTRAINT `meals_component_meal` FOREIGN KEY (`name`) REFERENCES `meals` (`name`) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE `meals_related_component` (
+  `meal` varchar(100) NOT NULL,
+  `related_meal` varchar(100) NOT NULL,
+  PRIMARY KEY (`meal`,`related_meal`),
+
+  CONSTRAINT `meals_related_component_meal` FOREIGN KEY (`meal`) REFERENCES `meals` (`name`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `meals_related_component_related_meal` FOREIGN KEY (`related_meal`) REFERENCES `meals_components` (`name`) ON DELETE CASCADE ON UPDATE CASCADE
 );
