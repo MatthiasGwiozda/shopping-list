@@ -19,3 +19,4 @@
     - to escape an edit - form in the editableList (esc)
 - items
     - create possibility to show all the shops, which are assigned to the items in one view.
+- Find queries, which make multiple statements and wrap them in a single transaction.

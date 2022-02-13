@@ -3,6 +3,7 @@ import CategoriesShopOrder from '../types/CategoriesShopOrder';
 import Category from '../types/Category';
 import GoodsShops from '../types/GoodsShops';
 import Item from '../types/Item';
+import Meal from '../types/Meal';
 import Shop from '../types/Shop';
 import FileUtilities, { Files } from './utilities/FileUtilities';
 
@@ -467,6 +468,89 @@ export default class Database {
                 item.name,
                 await this.selectShopId(shop)
             ]);
+        } catch (e) {
+            return false;
+        }
+        return true;
+    }
+
+    static async selectAllMeals(): Promise<Meal[]> {
+        const meals: Meal[] = await Database.runQuery(`
+        SELECT meals.name, recipe, meals_components.name IS NOT NULL AS component
+            FROM meals
+                LEFT JOIN meals_components
+                ON meals_components.name = meals.name;
+        `);
+        return meals.map(meal => {
+            /**
+             * component should be a boolean in the application - context.
+             */
+            return { ...meal, component: !!meal.component }
+        })
+    }
+
+    static async deleteMeal(meal: Meal): Promise<boolean> {
+        try {
+            await this.runQuery(`
+            DELETE FROM meals
+                WHERE name = ?;
+            `, [meal.name]);
+        } catch (e) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Sets the "component" - state to a meal.
+     * @param isComponent you can remove the component - state from a meal
+     * by setting this paramter to false. When this parameter is set to true,
+     * the meal will be set as a component.
+     */
+    static async setMealComponent(meal: Meal, isComponent: boolean) {
+        let query = `
+        INSERT INTO meals_components(name)
+            VALUES (?);
+        `
+        if (!isComponent) {
+            query = `
+            DELETE FROM meals_components
+                WHERE name = ?;
+            `;
+        }
+        await this.runQuery(query, [meal.name]);
+    }
+
+    static async insertMeal(meal: Meal): Promise<boolean> {
+        try {
+            await this.runQuery(`
+            INSERT INTO meals (name, recipe)
+	            VALUES (?, ?);
+            `, [meal.name, meal.recipe]);
+
+            if (meal.component) {
+                this.setMealComponent(meal, true);
+            }
+        } catch (e) {
+            return false;
+        }
+        return true;
+    }
+
+    static async updateMeal(oldMeal: Meal, newMeal: Meal) {
+        try {
+            await this.runQuery(`
+            UPDATE meals
+                SET name = ?,
+                recipe = ?
+                    WHERE name = ?;
+            `, [newMeal.name, newMeal.recipe, oldMeal.name]);
+
+            if (oldMeal.component && !newMeal.component) {
+                this.setMealComponent(newMeal, false);
+            } else if (!oldMeal.component && newMeal.component) {
+                this.setMealComponent(newMeal, true);
+            }
         } catch (e) {
             return false;
         }
