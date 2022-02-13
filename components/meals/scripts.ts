@@ -1,3 +1,4 @@
+import constants from "../../scripts/constants";
 import Database from "../../scripts/Database";
 import { Components } from "../../types/components/Components";
 import { EditableListParams, PossibleInputTypes } from "../../types/components/editableList";
@@ -42,7 +43,12 @@ export default class Meals extends Component<Components.meals> {
                     columnName: 'Meal - Component',
                     inputType: PossibleInputTypes.checkbox
                 }
-            }
+            },
+            additionalEditableListActions: [{
+                buttonIcon: constants.icons.item,
+                buttonTitle: 'Edit ingredients, recipe and more',
+                component: Components.editableListMealIngredients
+            }]
         }
 
         Component.injectComponent(

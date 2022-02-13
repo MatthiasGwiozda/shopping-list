@@ -1,4 +1,5 @@
 import Item from "../Item";
+import Meal from "../Meal";
 import Shop from "../Shop";
 import { EditableListParams } from "./editableList";
 
@@ -15,7 +16,8 @@ export enum Components {
     shops = 'shops',
     editableList = 'editableList',
     editableListSortableCategories = 'editableListSortableCategories',
-    editableListGoodsShopAssignement = 'editableListGoodsShopAssignement'
+    editableListGoodsShopAssignement = 'editableListGoodsShopAssignement',
+    editableListMealIngredients = 'editableListMealIngredients'
 }
 
 /**
@@ -37,5 +39,6 @@ export type ComponentParameters = {
     [Components.shops]: PlaceholderParameter
     [Components.editableList]: EditableListParams<any>
     [Components.editableListSortableCategories]: Shop,
-    [Components.editableListGoodsShopAssignement]: Item
+    [Components.editableListGoodsShopAssignement]: Item,
+    [Components.editableListMealIngredients]: Meal
 }

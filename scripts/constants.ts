@@ -14,7 +14,8 @@ const constants = Object.freeze({
     componentsFolderName: 'components',
     icons: {
         category: '🆎',
-        shop: '🏪'
+        shop: '🏪',
+        item: '🥔'
     }
 });
 

@@ -1,6 +1,6 @@
 # Todos
 - Create View for Meals
-    - create editableList for meals
+    - Create additional action to edit the ingredients + recipe of a meal
     - Create search - Form for items
 # Optimization / nice to have
 - Create documentation!
