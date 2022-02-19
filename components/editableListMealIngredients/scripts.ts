@@ -15,7 +15,12 @@ export default class EditableListMealIngredients extends Component<Components.ed
                 removeItem: this.removeItem,
                 updateQuantity: this.updateQuantity,
                 filter: (item) => item.food,
-                currentItems: []
+                currentItems: [
+                    {
+                        itemName: "test",
+                        quantity: 123
+                    }
+                ]
             }
         )
     }

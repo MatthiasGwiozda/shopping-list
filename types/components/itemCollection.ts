@@ -31,5 +31,8 @@ export default interface ItemCollectionParams {
     /**
      * The items, which were already added to the itemCollection.
      */
-    currentItems: Item[];
+    currentItems: {
+        itemName: string;
+        quantity: number;
+    }[];
 }

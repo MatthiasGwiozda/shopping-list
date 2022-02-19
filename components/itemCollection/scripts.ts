@@ -142,12 +142,25 @@ export default class ItemCollection extends Component<Components.itemCollection>
         searchInput.setAttribute('form', formId);
     }
 
+    /**
+     * Adds the items to the list, which were already added
+     * beforehand.
+     */
+    private addCurrentItems() {
+        const { currentItems } = this.componentParameters;
+        currentItems.forEach(item => {
+            const { itemName, quantity } = item;
+            this.addItemToList(itemName, quantity);
+        });
+    }
+
     private async initializeItemCollection() {
         const items = await this.getItems();
         this.initializeFilters(items);
         this.appendOptgroupsAndCategories(items);
         this.setFormIdForInput();
         this.initializeFormSubmit();
+        this.addCurrentItems();
     }
 
     /**
