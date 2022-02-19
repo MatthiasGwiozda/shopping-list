@@ -1,6 +1,7 @@
 import * as sqlite3 from 'sqlite3';
 import CategoriesShopOrder from '../types/CategoriesShopOrder';
 import Category from '../types/Category';
+import { CurrentItems } from '../types/components/itemCollection';
 import GoodsShops from '../types/GoodsShops';
 import Item from '../types/Item';
 import Meal from '../types/Meal';
@@ -551,6 +552,53 @@ export default class Database {
             } else if (!oldMeal.component && newMeal.component) {
                 this.setMealComponent(newMeal, true);
             }
+        } catch (e) {
+            return false;
+        }
+        return true;
+    }
+
+    static async selectMealFood(mealName: string): Promise<CurrentItems[]> {
+        return await this.runQuery(`
+            SELECT food AS itemName, quantity
+                FROM meals_food
+                    WHERE meal = ?
+            `, [mealName]);
+    }
+
+    static async insertMealFood(mealName: string, foodName: string): Promise<boolean> {
+        try {
+            await this.runQuery(`
+            INSERT INTO meals_food (meal, food) 
+                VALUES (?, ?);
+                `, [mealName, foodName]);
+        } catch (e) {
+            return false;
+        }
+        return true;
+    }
+
+    static async deleteMealFood(mealName: string, foodName: string): Promise<boolean> {
+        try {
+            await this.runQuery(`
+            DELETE FROM meals_food 
+                WHERE meal = ?
+                AND food = ?
+                `, [mealName, foodName]);
+        } catch (e) {
+            return false;
+        }
+        return true;
+    }
+
+    static async updateMealFoodQuantity(mealName: string, foodName: string, quantity: number): Promise<boolean> {
+        try {
+            await this.runQuery(`
+            UPDATE meals_food 
+                SET quantity = ?
+                    WHERE meal = ?
+                    AND food = ?
+                `, [quantity, mealName, foodName]);
         } catch (e) {
             return false;
         }

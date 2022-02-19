@@ -2,6 +2,7 @@ import Item from "../Item";
 import Meal from "../Meal";
 import Shop from "../Shop";
 import { EditableListParams } from "./editableList";
+import ItemCollectionParams from "./itemCollection";
 
 /**
  * all Components, which are available in the app.
@@ -17,7 +18,8 @@ export enum Components {
     editableList = 'editableList',
     editableListSortableCategories = 'editableListSortableCategories',
     editableListGoodsShopAssignement = 'editableListGoodsShopAssignement',
-    editableListMealIngredients = 'editableListMealIngredients'
+    editableListMealIngredients = 'editableListMealIngredients',
+    itemCollection = 'itemCollection'
 }
 
 /**
@@ -40,5 +42,6 @@ export type ComponentParameters = {
     [Components.editableList]: EditableListParams<any>
     [Components.editableListSortableCategories]: Shop,
     [Components.editableListGoodsShopAssignement]: Item,
-    [Components.editableListMealIngredients]: Meal
+    [Components.editableListMealIngredients]: Meal,
+    [Components.itemCollection]: ItemCollectionParams
 }

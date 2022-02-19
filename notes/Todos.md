@@ -1,7 +1,13 @@
 # Todos
-- Create View for Meals
-    - Create additional action to edit the ingredients + recipe of a meal
-    - Create search - Form for items
+- Create component for Meals
+    - Create additional action to edit the ingredients of a meal (editableListMealIngredients)
+        - create component to edit recipe and add meal - components
+        - create component to add and remove items. The component should allow to define the quantity. and search for items.
+            - merge Branch
+
+
+    - implement the edit recipe functionality in the "editableListMealIngredients" - component.
+
 # Optimization / nice to have
 - Create documentation!
 - Implement shoppingList - component
