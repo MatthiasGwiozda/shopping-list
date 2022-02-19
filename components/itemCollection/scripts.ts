@@ -77,7 +77,7 @@ export default class ItemCollection extends Component<Components.itemCollection>
 
     private initializeFilter(items: Item[]) {
         const categoriesSelect = this.container.querySelector<HTMLSelectElement>('[name="categoriesSelect"]');
-        const defaultOptionValue = 'show all Categories';
+        const defaultOptionValue = 'show all categories';
         const defaultOption = this.getOption(defaultOptionValue)
         categoriesSelect.append(defaultOption);
         for (const category of this.getCategories(items)) {

@@ -4,19 +4,21 @@
     </div>
     <div class="itemSelector">
         <form>
-            <select name="item"></select>
+            <label>
+                <span>Select item</span>
+                <select name="item" required="true"></select>
+            </label>
             <button type="submit">
                 Add Item ➕
             </button>
         </form>
         <div class="filter">
-            <div class="filterIcon">🔍</div>
             <label>
-                Find items
+                <span>Filter item</span>
                 <input type="text" name="itemSearchInput" />
             </label>
             <label>
-                Select category
+                <span>Filter category</span>
                 <select name="categoriesSelect"></select>
             </label>
         </div>

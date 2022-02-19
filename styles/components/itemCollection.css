@@ -1,0 +1,31 @@
+.itemCollection .itemSelector {
+    display: flex;
+    border: solid var(--darkGrey) 2px;
+    padding: 10px;
+}
+
+.itemCollection .itemSelector form {
+    border-right: 2px solid black;
+    padding-right: 5px;
+    margin-right: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow: 1;
+    max-width: 500px;
+    min-width: 200px;
+}
+
+.itemCollection .itemSelector form button[type="submit"] {
+    width: 100%;
+}
+
+.itemCollection .filter {
+    flex-grow: 1;
+    max-width: 500px
+}
+
+.itemCollection span {
+    margin: 5px 0px;
+    display: inline-block
+}
