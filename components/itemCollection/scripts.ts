@@ -6,6 +6,7 @@ import Component from "../Component";
 
 export default class ItemCollection extends Component<Components.itemCollection> {
     private readonly optgroupTagName = 'optgroup';
+    private readonly defaultOptionValue = 'show all categories';
 
     rendered() {
         this.initializeItemCollection()
@@ -48,12 +49,30 @@ export default class ItemCollection extends Component<Components.itemCollection>
     }
 
     /**
+     * inserts the items, which are not filtered by the
+     * itemSearchInput.
+     */
+    private insertItems(items: Item[]) {
+        const select = this.getItemSelectInput();
+        for (const item of items) {
+            const { value } = this.getItemSearchInput();
+            if (!value || item.name.toLowerCase().includes(value.toLowerCase())) {
+                const { category } = item;
+                const optgroup = select.querySelector(`${this.optgroupTagName}[label="${category}"]`);
+                const option = this.getOption(item.name);
+                optgroup.appendChild(option);
+            }
+        }
+    }
+
+    /**
      * Deletes all the current optgroups first.
      * Then appends all the optgroups with the category - names
      * of all the items.
      * Additionally inserts all the items, which should be visible in the optgroups.
+     * When some filters are active currently, this filters will be applied.
      */
-    private appendOptgroups(items: Item[]): void {
+    private appendOptgroupsAndCategories(items: Item[]): void {
         const select = this.getItemSelectInput();
         // remove current optgroups
         const optgroups = select.querySelectorAll(this.optgroupTagName);
@@ -66,6 +85,26 @@ export default class ItemCollection extends Component<Components.itemCollection>
             select.appendChild(optgroup);
         });
         this.insertItems(items);
+        // filter the categories by removing the optgroups, which should not be shown
+        const { value } = this.getCategoriesSelect();
+        if (value != this.defaultOptionValue) {
+            const select = this.getItemSelectInput();
+            const optGroups = select.querySelectorAll<HTMLOptGroupElement>(`${this.optgroupTagName}:not([label="${value}"])`);
+            optGroups.forEach(optGroup => optGroup.remove());
+        }
+    }
+
+    private initializeCategoryFilter(items: Item[]) {
+        const categoriesSelect = this.getCategoriesSelect();
+        const defaultOption = this.getOption(this.defaultOptionValue);
+        categoriesSelect.append(defaultOption);
+        for (const category of this.getCategories(items)) {
+            const option = this.getOption(category);
+            categoriesSelect.appendChild(option);
+        }
+        categoriesSelect.onchange = () => {
+            this.appendOptgroupsAndCategories(items);
+        }
     }
 
     private getOption(value: string): HTMLOptionElement {
@@ -74,35 +113,20 @@ export default class ItemCollection extends Component<Components.itemCollection>
         return option;
     }
 
-    private insertItems(items: Item[]) {
-        const select = this.getItemSelectInput();
-        for (const item of items) {
-            const { category } = item;
-            const optgroup = select.querySelector(`${this.optgroupTagName}[label="${category}"]`)
-            const option = this.getOption(item.name)
-            optgroup.appendChild(option);
+    private getCategoriesSelect(): HTMLSelectElement {
+        return this.container.querySelector('[name="categoriesSelect"]');
+    }
+
+    private initializeItemFilter(items: Item[]) {
+        const searchInput = this.getItemSearchInput();
+        searchInput.onkeyup = () => {
+            this.appendOptgroupsAndCategories(items);
         }
     }
 
-    private initializeFilter(items: Item[]) {
-        const categoriesSelect = this.container.querySelector<HTMLSelectElement>('[name="categoriesSelect"]');
-        const defaultOptionValue = 'show all categories';
-        const defaultOption = this.getOption(defaultOptionValue)
-        categoriesSelect.append(defaultOption);
-        for (const category of this.getCategories(items)) {
-            const option = this.getOption(category);
-            categoriesSelect.appendChild(option);
-        }
-        categoriesSelect.onchange = () => {
-            const { value } = categoriesSelect;
-            this.appendOptgroups(items);
-            // remove the optgroups, which should not be shown
-            if (value != defaultOptionValue) {
-                const select = this.getItemSelectInput();
-                const optGroups = select.querySelectorAll<HTMLOptGroupElement>(`${this.optgroupTagName}:not([label="${value}"])`);
-                optGroups.forEach(optGroup => optGroup.remove());
-            }
-        }
+    private initializeFilters(items: Item[]) {
+        this.initializeCategoryFilter(items);
+        this.initializeItemFilter(items);
     }
 
     /**
@@ -119,8 +143,8 @@ export default class ItemCollection extends Component<Components.itemCollection>
 
     private async initializeItemCollection() {
         const items = await this.getItems();
-        this.appendOptgroups(items);
-        this.initializeFilter(items);
+        this.initializeFilters(items);
+        this.appendOptgroupsAndCategories(items);
         this.setFormIdForInput();
         this.initializeFormSubmit();
     }
