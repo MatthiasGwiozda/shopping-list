@@ -1,4 +1,5 @@
 import Database from "../../scripts/Database";
+import DialogUtilities from "../../scripts/utilities/DialogUtilities";
 import RandomUtilities from "../../scripts/utilities/RandomUtilities";
 import { Components } from "../../types/components/Components";
 import Item from "../../types/Item";
@@ -179,9 +180,11 @@ export default class ItemCollection extends Component<Components.itemCollection>
         // create delete - button
         const deleteButton = this.gethtmlFromFile<HTMLButtonElement>('deleteButton.html');
         deleteButton.onclick = async () => {
-            const removed = await this.componentParameters.removeItem(itemName);
-            if (removed) {
-                p.remove();
+            if (DialogUtilities.confirm(`Are you sure to remove "${itemName}" from the list?`)) {
+                const removed = await this.componentParameters.removeItem(itemName);
+                if (removed) {
+                    p.remove();
+                }
             }
         }
         p.prepend(deleteButton);

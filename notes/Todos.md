@@ -2,7 +2,6 @@
 - Create component for Meals
     - Create additional action to edit the ingredients of a meal (editableListMealIngredients)
         - create component to add and remove items. The component should allow to define the quantity. and search for items.
-            - create quantity - form input (after item was added)
             - add parameter to insert all the items, which were already inserted beforehand
             - implement removeItem - parameter
             - merge Branch
