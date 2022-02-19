@@ -3,8 +3,6 @@
     - Create additional action to edit the ingredients of a meal (editableListMealIngredients)
         - create component to edit recipe and add meal - components
         - create component to add and remove items. The component should allow to define the quantity. and search for items.
-            - test implementation with sql - queries in meals
-            - show error if an item cannot be added.
             - merge Branch
 
 
