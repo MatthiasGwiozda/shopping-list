@@ -1,11 +1,24 @@
 <div class="itemCollection">
     <div class="items">
-        
+
     </div>
-    <form>
-        <select name="item"></select>
-        <button type="submit">
-            Add Item ➕
-        </button>
-    </form>
+    <div class="itemSelector">
+        <form>
+            <select name="item"></select>
+            <button type="submit">
+                Add Item ➕
+            </button>
+        </form>
+        <div class="filter">
+            <div class="filterIcon">🔍</div>
+            <label>
+                Find items
+                <input type="text" name="itemSearchInput" />
+            </label>
+            <label>
+                Select category
+                <select name="categoriesSelect"></select>
+            </label>
+        </div>
+    </div>
 </div>

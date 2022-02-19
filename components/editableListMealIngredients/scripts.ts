@@ -7,14 +7,14 @@ export default class EditableListMealIngredients extends Component<Components.ed
             Components.itemCollection,
             this.container.querySelector('.itemCollectionContainer'),
             {
-                insertItem: this.itemInserted,
+                insertItem: this.insertItem,
                 removeItem: this.removeItem,
                 filter: (item) => item.food
             }
         )
     }
 
-    private async itemInserted(itemName: string): Promise<boolean> {
+    private async insertItem(itemName: string): Promise<boolean> {
         console.log(itemName);
         return true;
     }
