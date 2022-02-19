@@ -10,6 +10,9 @@ export default interface ItemCollectionParams {
     filter?: (item: Item) => boolean;
     /**
      * this function is called then an item was added to the list.
+     * The quantity is expected to be 1 per default. There is no possibility to change the
+     * quantity when inserting an item. The quantity can be changed
+     * with the function updateQuantity.
      * @returns true, if the item could successfully be added in the context,
      * false otherwise.
      */
@@ -20,4 +23,13 @@ export default interface ItemCollectionParams {
      * successful or not.
      */
     removeItem: (itemName: string) => Promise<boolean>;
+    /**
+     * this function will be called when the quantity of an item
+     * changes.
+     */
+    updateQuantity: (itemName: string, quantity: number) => Promise<boolean>;
+    /**
+     * The items, which were already added to the itemCollection.
+     */
+    currentItems: Item[];
 }

@@ -9,3 +9,7 @@ input, select {
 select {
     box-sizing: content-box;
 }
+
+input:invalid {
+    border-color: red;
+}

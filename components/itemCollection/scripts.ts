@@ -37,6 +37,10 @@ export default class ItemCollection extends Component<Components.itemCollection>
         return this.container.querySelector<HTMLInputElement>('[name="itemSearchInput"]')
     }
 
+    private getCategoriesSelect(): HTMLSelectElement {
+        return this.container.querySelector('[name="categoriesSelect"]');
+    }
+
     /**
      * @returns all the categories, which are used in the items - array
      */
@@ -113,10 +117,6 @@ export default class ItemCollection extends Component<Components.itemCollection>
         return option;
     }
 
-    private getCategoriesSelect(): HTMLSelectElement {
-        return this.container.querySelector('[name="categoriesSelect"]');
-    }
-
     private initializeItemFilter(items: Item[]) {
         const searchInput = this.getItemSearchInput();
         searchInput.onkeyup = () => {
@@ -149,19 +149,56 @@ export default class ItemCollection extends Component<Components.itemCollection>
         this.initializeFormSubmit();
     }
 
+    /**
+     * adds an item to the list. Creates..
+     * - The delete - button
+     * - The quantity input - field
+     * - An paragraph with the name of the item.
+     */
+    private addItemToList(itemName: string, quantity = 1) {
+        const itemsContainer = this.getItemsContainer();
+        const p = document.createElement('p');
+        const span = document.createElement('span')
+        span.innerText = itemName;
+        p.appendChild(span);
+        // create Number - input to change quantity
+        const input = document.createElement('input')
+        input.type = 'number';
+        input.min = "1";
+        input.value = quantity.toString();
+        input.title = 'Quantity';
+        input.onchange = () => {
+            /**
+             * We are confident here and expect the quantity to be changed 100%.
+             * Anyways: How would we handle a non successfull quantity - update?
+             * Not sure at the moment...
+             */
+            this.componentParameters.updateQuantity(itemName, quantity);
+        }
+        p.prepend(input);
+        // create delete - button
+        const deleteButton = this.gethtmlFromFile<HTMLButtonElement>('deleteButton.html');
+        deleteButton.onclick = async () => {
+            const removed = await this.componentParameters.removeItem(itemName);
+            if (removed) {
+                p.remove();
+            }
+        }
+        p.prepend(deleteButton);
+        // append the item to the itemsContainer
+        itemsContainer.appendChild(p);
+    }
+
     private initializeFormSubmit() {
         const form = this.getForm();
         form.onsubmit = async (e) => {
             e.preventDefault();
             const formData = new FormData(form);
-            const item = formData.get('item') as string;
-            const insertSuccessful = await this.componentParameters.insertItem(item);
+            const itemName = formData.get('item') as string;
+            const insertSuccessful = await this.componentParameters.insertItem(itemName);
             if (insertSuccessful) {
                 // insert item into the list.
-                const itemsContainer = this.getItemsContainer();
-                const p = document.createElement('p');
-                p.innerText = item;
-                itemsContainer.appendChild(p);
+                this.addItemToList(itemName)
             }
         }
     }
