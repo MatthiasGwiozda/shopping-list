@@ -217,6 +217,8 @@ export default class ItemCollection extends Component<Components.itemCollection>
             if (insertSuccessful) {
                 // insert item into the list.
                 this.addItemToList(itemName)
+            } else {
+                DialogUtilities.alert(`The item is already in the list. When you want to add more of "${itemName}", try to change the quantity.`)
             }
         }
     }
