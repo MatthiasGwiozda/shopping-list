@@ -187,7 +187,9 @@ export default class ItemCollection extends Component<Components.itemCollection>
              * Anyways: How would we handle a non successfull quantity - update?
              * Not sure at the moment...
              */
-            this.componentParameters.updateQuantity(itemName, quantity);
+            if (input.validity.valid) {
+                this.componentParameters.updateQuantity(itemName, parseInt(input.value));
+            }
         }
         p.prepend(input);
         // create delete - button
