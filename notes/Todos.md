@@ -3,8 +3,6 @@
     - Create additional action to edit the ingredients of a meal (editableListMealIngredients)
         - create component to edit recipe and add meal - components
 
-    - implement the edit recipe functionality in the "editableListMealIngredients" - component.
-
 # Optimization / nice to have
 - Create documentation!
 - Implement shoppingList - component
