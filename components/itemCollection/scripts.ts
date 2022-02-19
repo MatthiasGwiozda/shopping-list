@@ -1,4 +1,5 @@
 import Database from "../../scripts/Database";
+import RandomUtilities from "../../scripts/utilities/RandomUtilities";
 import { Components } from "../../types/components/Components";
 import Item from "../../types/Item";
 import Component from "../Component";
@@ -25,6 +26,14 @@ export default class ItemCollection extends Component<Components.itemCollection>
 
     private getItemsContainer() {
         return this.container.querySelector('.items');
+    }
+
+    private getForm() {
+        return this.container.querySelector('form');
+    }
+
+    private getItemSearchInput() {
+        return this.container.querySelector<HTMLInputElement>('[name="itemSearchInput"]')
     }
 
     /**
@@ -96,15 +105,28 @@ export default class ItemCollection extends Component<Components.itemCollection>
         }
     }
 
+    /**
+     * links the form with the input - fields, which
+     * are not directly in the form.
+     */
+    private setFormIdForInput() {
+        const formId = RandomUtilities.getRandomNumberString();
+        const form = this.getForm();
+        form.id = formId;
+        const searchInput = this.getItemSearchInput();
+        searchInput.setAttribute('form', formId);
+    }
+
     private async initializeItemCollection() {
         const items = await this.getItems();
         this.appendOptgroups(items);
         this.initializeFilter(items);
+        this.setFormIdForInput();
         this.initializeFormSubmit();
     }
 
     private initializeFormSubmit() {
-        const form = this.container.querySelector('form');
+        const form = this.getForm();
         form.onsubmit = async (e) => {
             e.preventDefault();
             const formData = new FormData(form);

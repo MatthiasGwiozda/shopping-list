@@ -1,6 +1,7 @@
 import constants from "../../scripts/constants";
 import DialogUtilities from "../../scripts/utilities/DialogUtilities";
 import HtmlUtilities from "../../scripts/utilities/htmlUtilities";
+import RandomUtilities from "../../scripts/utilities/RandomUtilities";
 import { Components } from "../../types/components/Components";
 import { ActionResult, PossibleInputTypes } from "../../types/components/editableList";
 import Component from "../Component";
@@ -324,7 +325,7 @@ export default class EditableList<EditableListElement> extends Component<Compone
     private createForm(tr: HTMLElement, element: EditableListElement): string {
         const form = document.createElement('form');
         this.container.append(form);
-        const formId = (+new Date()).toString();
+        const formId = RandomUtilities.getRandomNumberString();
         form.onsubmit = this.getFormSubmitFunction(formId, tr, element);
         /**
          * a random number for the form - id

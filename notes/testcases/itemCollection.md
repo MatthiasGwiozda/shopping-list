@@ -1,0 +1,1 @@
+- search for an item and klick enter after the select - input shows it. Now the item should be inserted
