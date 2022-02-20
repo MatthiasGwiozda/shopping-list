@@ -1,0 +1,2 @@
+- edit an meal - component. There should not be a possibility to add meal components to this meal - component
+- edit an Meal, which is not an meal - component. There should be an possibility to add meal - components.
