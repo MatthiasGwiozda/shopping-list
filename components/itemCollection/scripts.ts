@@ -181,7 +181,7 @@ export default class ItemCollection extends Component<Components.itemCollection>
         input.min = "1";
         input.value = quantity.toString();
         input.title = 'Quantity';
-        input.onchange = () => {
+        input.oninput = () => {
             /**
              * We are confident here and expect the quantity to be changed 100%.
              * Anyways: How would we handle a non successfull quantity - update?

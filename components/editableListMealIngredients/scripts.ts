@@ -6,6 +6,7 @@ import Component from "../Component";
 export default class EditableListMealIngredients extends Component<Components.editableListMealIngredients> {
     rendered() {
         this.initializeItemCollection();
+        this.initializeRecipe();
     }
 
     private async initializeItemCollection() {
@@ -40,5 +41,24 @@ export default class EditableListMealIngredients extends Component<Components.ed
 
     private async updateQuantity(itemName: string, quantity: number): Promise<boolean> {
         return Database.updateMealFoodQuantity(this.getMealName(), itemName, quantity);
+    }
+
+    private async initializeRecipe() {
+        const recipeContainer = this.container.querySelector('.recipeContainer');
+        const textarea = document.createElement('textarea');
+        const currentMeal = this.componentParameters;
+        textarea.value = currentMeal.recipe;
+        textarea.oninput = () => {
+            /**
+             * we are only changing the recipe of the meal.
+             * We can use the currentMeal because the sql - query
+             * only uses the mealname to identify the oldMeal.
+             */
+            Database.updateMeal(currentMeal, {
+                ...currentMeal,
+                recipe: textarea.value
+            });
+        }
+        recipeContainer.append(textarea);
     }
 }

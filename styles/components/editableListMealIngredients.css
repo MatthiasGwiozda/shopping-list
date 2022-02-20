@@ -1,0 +1,33 @@
+.editableListMealIngredients {
+    padding: 0px 10px;
+}
+
+.editableListMealIngredients textarea {
+    resize: vertical;
+    height: 200px;
+    width: 100%;
+    min-height: 100px;
+    box-sizing: border-box;
+}
+
+.editableListMealIngredients .gridContainer {
+    display: flex;
+}
+
+@media (max-width: 600px) {
+    .editableListMealIngredients .gridContainer {
+        flex-direction: column;
+    }
+}
+
+.editableListMealIngredients .gridContainer > * {
+    flex-grow: 1;
+}
+
+.editableListMealIngredients .gridContainer .recipes {
+    padding-right: 10px;
+}
+
+.editableListMealIngredients .gridContainer .components {
+    padding-left: 10px;
+}
