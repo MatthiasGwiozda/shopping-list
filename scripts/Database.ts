@@ -604,4 +604,41 @@ export default class Database {
         }
         return true;
     }
+
+    /**
+     * @returns all the names of the related meal components for the given meal.
+     */
+    static async selectRelatedMealComponents(mealName: string): Promise<string[]> {
+        const relatedMeals = await this.runQuery<{ related_meal: string }>(`
+        SELECT related_meal
+            FROM meals_related_component
+                WHERE meal = ?
+            `, [mealName]);
+        return relatedMeals.map(meal => meal.related_meal);
+    }
+
+    static async setRelatedMealComponent(mealName: string, componentMealName: string): Promise<boolean> {
+        try {
+            await this.runQuery(`
+            INSERT INTO meals_related_component (meal, related_meal)
+                VALUES (?, ?);
+                `, [mealName, componentMealName]);
+        } catch (e) {
+            return false;
+        }
+        return true;
+    }
+
+    static async deleteRelatedMealComponent(mealName: string, componentMealName: string): Promise<boolean> {
+        try {
+            await this.runQuery(`
+            DELETE FROM meals_related_component
+                WHERE meal = ?
+                AND related_meal = ?
+                `, [mealName, componentMealName]);
+        } catch (e) {
+            return false;
+        }
+        return true;
+    }
 }

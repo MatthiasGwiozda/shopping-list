@@ -1,7 +1,9 @@
 # Todos
 - Create component for Meals
     - Create additional action to edit the ingredients of a meal (editableListMealIngredients)
-        - create component to edit recipe and add meal - components
+        - create component to add meal - components
+            - check test - cases
+
     - the default - value for meals - components should be "not checked" when creating a new meal.
 
 # Optimization / nice to have

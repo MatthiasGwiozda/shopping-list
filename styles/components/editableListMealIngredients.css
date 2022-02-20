@@ -26,8 +26,23 @@
 
 .editableListMealIngredients .gridContainer .recipes {
     padding-right: 10px;
+    min-width: 50%;
 }
 
 .editableListMealIngredients .gridContainer .components {
     padding-left: 10px;
+}
+
+.editableListMealIngredients .gridContainer .components .mealComponents p {
+    margin: 0;
+}
+
+.editableListMealIngredients .gridContainer .components input {
+    width: auto;
+    margin-right: 10px;
+}
+
+.editableListMealIngredients .gridContainer .components label {
+    display: flex;
+    align-items: center;
 }
