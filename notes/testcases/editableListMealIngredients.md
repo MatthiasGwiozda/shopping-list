@@ -1,8 +1,16 @@
+# okay
 - edit an meal - component. There should not be a possibility to add meal components to this meal - component
 - edit an Meal, which is not an meal - component. There should be an possibility to add meal - components.
 - create a meal as "non component". Add related meals to that meal. Now add the "component" - Flag to this meal.
-    - An error should appear while trying to save the meal as component. a component cannot have other meal - components. The user
-    must delete all the related meals first.
+    - The user needs to confirm this change to component.
+        - When the user confirmed this change, all the related components should not be related anymore.
+- delete a meal, which is a component and has ingredients assigned.
+    - The deletion should be possible
+
+# not okay
+- create a meal. Add an recipe to the meal. Change the name of the meal. Now the recipe should stay the same
+
+# Check
 - click on the ingredients - button in one meal. Now klick on the edit - button in another meal - component. Change it to a "non Meal component"
 Now try to add the meal, which is not a component anymore, as a meal component in the meal in which you are editing the ingrediants at the moment.
     - An error - message should appear and the entry should not be added to the database.
