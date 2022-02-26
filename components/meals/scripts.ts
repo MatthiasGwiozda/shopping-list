@@ -4,6 +4,8 @@ import { Components } from "../../types/components/Components";
 import { EditableListParams, PossibleInputTypes } from "../../types/components/editableList";
 import Meal from "../../types/Meal";
 import Component from "../Component";
+import DialogUtilities from '../../scripts/utilities/DialogUtilities';
+import * as dedent from 'dedent';
 
 export default class Meals extends Component<Components.meals> {
     rendered() {
@@ -28,11 +30,22 @@ export default class Meals extends Component<Components.meals> {
                 }
             },
             updateElement: async function (oldMeal, newMeal) {
-                const result = await Database.updateMeal(oldMeal, newMeal);
-                return {
-                    result,
-                    message: result ? null : 'An error occoured. Maybe the meal already exists?'
+                let update = true;
+                if (!oldMeal.component && newMeal.component) {
+                    update = DialogUtilities.confirm(dedent`
+                    When switching "${newMeal.name}" to a component, the meal components, which are currently
+                    assigned to "${newMeal.name}" won't be assigned anymore.
+                    A meal component cannot have components assigned to itself.
+                    Do you want to save?`);
                 }
+                if (update) {
+                    const result = await Database.updateMeal(oldMeal, newMeal);
+                    return {
+                        result,
+                        message: result ? null : 'An error occoured. Maybe the meal already exists?'
+                    }
+                }
+                return { result: false }
             },
             elementKeys: {
                 name: {

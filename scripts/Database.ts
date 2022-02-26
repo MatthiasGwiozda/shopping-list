@@ -509,15 +509,22 @@ export default class Database {
      * the meal will be set as a component.
      */
     static async setMealComponent(meal: Meal, isComponent: boolean) {
-        let query = `
-        INSERT INTO meals_components(name)
-            VALUES (?);
-        `
+        let query: string;
         if (!isComponent) {
             query = `
             DELETE FROM meals_components
                 WHERE name = ?;
             `;
+        } else {
+            query = `
+            INSERT INTO meals_components(name)
+                VALUES (?);
+            `;
+            // when switching to a component, remove all the assigned meal components
+            await this.runQuery(`
+            DELETE FROM meals_related_component
+                WHERE meal = ?;
+            `, [meal.name]);
         }
         await this.runQuery(query, [meal.name]);
     }
