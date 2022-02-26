@@ -545,15 +545,26 @@ export default class Database {
         return true;
     }
 
-    static async updateMeal(oldMeal: Meal, newMeal: Meal) {
+    /**
+     * @param updateRecipe when set to false, this function will not update the recipe
+     * of the meal.
+     */
+    static async updateMeal(oldMeal: Meal, newMeal: Meal, updateRecipe = true) {
         try {
-            await this.runQuery(`
-            UPDATE meals
-                SET name = ?,
-                recipe = ?
-                    WHERE name = ?;
-            `, [newMeal.name, newMeal.recipe, oldMeal.name]);
-
+            if (updateRecipe) {
+                await this.runQuery(`
+                UPDATE meals
+                    SET name = ?,
+                    recipe = ?
+                        WHERE name = ?;
+                `, [newMeal.name, newMeal.recipe, oldMeal.name]);
+            } else {
+                await this.runQuery(`
+                UPDATE meals
+                    SET name = ?
+                        WHERE name = ?;
+                `, [newMeal.name, oldMeal.name]);
+            }
             if (oldMeal.component && !newMeal.component) {
                 this.setMealComponent(newMeal, false);
             } else if (!oldMeal.component && newMeal.component) {

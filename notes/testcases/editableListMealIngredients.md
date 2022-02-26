@@ -8,8 +8,6 @@
     - The deletion should be possible
 - change the recipe of a meal. klick on the "edit recipe button". klick on the "edit recipe button" once again
     - the recipe should show the newest recipe
-
-# not okay
 - create a meal. Add an recipe to the meal. Change the name of the meal. 
     - The recipe should not change after changing the name of the meal
 

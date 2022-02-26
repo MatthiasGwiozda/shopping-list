@@ -39,7 +39,7 @@ export default class Meals extends Component<Components.meals> {
                     Do you want to save?`);
                 }
                 if (update) {
-                    const result = await Database.updateMeal(oldMeal, newMeal);
+                    const result = await Database.updateMeal(oldMeal, newMeal, false);
                     return {
                         result,
                         message: result ? null : 'An error occoured. Maybe the meal already exists?'
