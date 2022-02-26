@@ -624,7 +624,7 @@ export default class Database {
     }
 
     /**
-     * @returns all the names of the related meal components for the given meal.
+     * @returns all the names of the related meal components for the given non component meal.
      */
     static async selectRelatedMealComponents(mealName: string): Promise<string[]> {
         const relatedMeals = await this.runQuery<{ related_meal: string }>(`
@@ -633,6 +633,19 @@ export default class Database {
                 WHERE meal = ?
             `, [mealName]);
         return relatedMeals.map(meal => meal.related_meal);
+    }
+
+    /**
+     * @returns all the meals, which are related to the given
+     * componentMealName.
+     */
+    static async selectMealsForComponentMeal(componentMealName: string): Promise<string[]> {
+        const relatedMeals = await this.runQuery<{ meal: string }>(`
+        SELECT meal
+            FROM meals_related_component
+                WHERE related_meal = ?
+            `, [componentMealName]);
+        return relatedMeals.map(mealInfo => mealInfo.meal);
     }
 
     static async setRelatedMealComponent(mealName: string, componentMealName: string): Promise<boolean> {

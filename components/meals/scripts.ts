@@ -37,6 +37,19 @@ export default class Meals extends Component<Components.meals> {
                     assigned to "${newMeal.name}" won't be assigned anymore.
                     A meal component cannot have components assigned to itself.
                     Do you want to save?`);
+                } else if (oldMeal.component && !newMeal.component) {
+                    const meals = await Database.selectMealsForComponentMeal(oldMeal.name);
+                    if (meals.length > 0) {
+                        let mealsList = '';
+                        meals.forEach(meal => mealsList += `- ${meal}\n`);
+                        update = DialogUtilities.confirm(dedent`
+                        The following meals are assigned to this component:
+
+                        ${mealsList}
+                        Do you want to remove the meals from this component and
+                        switch to a "non component meal"?
+                        `);
+                    }
                 }
                 if (update) {
                     const result = await Database.updateMeal(oldMeal, newMeal, false);
