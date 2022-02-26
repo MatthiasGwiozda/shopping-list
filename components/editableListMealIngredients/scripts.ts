@@ -1,6 +1,7 @@
 import Database from "../../scripts/Database";
 import { Components } from "../../types/components/Components";
 import { CurrentItems } from "../../types/components/itemCollection";
+import Meal from "../../types/Meal";
 import Component from "../Component";
 
 export default class EditableListMealIngredients extends Component<Components.editableListMealIngredients> {
@@ -44,10 +45,20 @@ export default class EditableListMealIngredients extends Component<Components.ed
         return Database.updateMealFoodQuantity(this.getMealName(), itemName, quantity);
     }
 
+    /**
+     * @returns the current meal. It can happen that the contents of a meal changes
+     * and the editableList doesn't provide the newest data of the meal in
+     * the componentParameters.
+     */
+    private async getCurrentMeal(): Promise<Meal> {
+        const meals = await Database.selectAllMeals();
+        return meals.find(meal => meal.name == this.componentParameters.name);
+    }
+
     private async initializeRecipe() {
+        const currentMeal = await this.getCurrentMeal();
         const recipeContainer = this.container.querySelector('.recipeContainer');
         const textarea = document.createElement('textarea');
-        const currentMeal = this.componentParameters;
         textarea.value = currentMeal.recipe;
         textarea.oninput = () => {
             /**
