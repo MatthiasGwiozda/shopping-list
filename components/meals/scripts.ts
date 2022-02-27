@@ -75,7 +75,7 @@ export default class Meals extends Component<Components.meals> {
                     inputType: PossibleInputTypes.text
                 },
                 component: {
-                    columnName: 'Meal - Component',
+                    columnName: 'Meal - component',
                     inputType: PossibleInputTypes.checkbox
                 }
             },
