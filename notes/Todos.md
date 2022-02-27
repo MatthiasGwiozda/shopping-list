@@ -3,6 +3,14 @@
     - Allow to add meals_components in the list - But only when the user activates the checklist and knows explicitly that he is about to add meals_components instead of a complete meal.
 
 # Optimization / nice to have
+- use "equal" column - names. The following names are not "equalized":
+    - item = name
+    - categories = category
+- add information (title) for editableList - columns, which are not self explanatory
+    - meals
+        - meal - component
+    - goods
+        - food
 - create initial categories
 - Create documentation!
 - Implement search - form for EditableLists
