@@ -2,10 +2,8 @@
 - Create component for Meals
     - Create additional action to edit the ingredients of a meal (editableListMealIngredients)
         - create component to add meal - components
-            - check "Not Okay" test - cases: editableListMealIngredients.md
-            - Check all test - cases afterwards again.
+            - Check all test - cases.
 
-    - the default - value for meals - components should be "not checked" when creating a new meal.
 
 # Optimization / nice to have
 - Create documentation!

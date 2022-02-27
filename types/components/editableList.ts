@@ -61,7 +61,14 @@ export interface EditableListParams<ElementType> {
              * When using PossibleInputTypes.select, you must provide this property
              * to define the values, which can be selected in the input - field.
              */
-            selectInputValues?: string[]
+            selectInputValues?: string[],
+            /**
+             * When using inputType.checkbox, you can control
+             * if the checkbox should be checked when creating a new
+             * element through this property.
+             * The default-value is "false".
+             */
+            checkboxCheckedInitialy?: boolean
         }
     };
     additionalEditableListActions?: {

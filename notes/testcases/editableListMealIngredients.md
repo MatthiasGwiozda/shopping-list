@@ -1,4 +1,3 @@
-# okay
 - edit an meal - component. There should not be a possibility to add meal components to this meal - component
 - edit an Meal, which is not an meal - component. There should be an possibility to add meal - components.
 - delete a meal, which is a component and has ingredients assigned.
@@ -20,4 +19,5 @@ Now try to add the meal, which is not a component anymore, as a meal component i
         - When the user confirmed this change, all the related components should not be related anymore.
 - create a meal as "non component". Don't Add related meals to that meal. Now add the "component" - Flag to this meal.
     - The user doesn't need to confirm this change.
-# not okay
+- create a new meal
+    - the default - value for the meals - components checkbox should be "not checked" when creating a new meal.

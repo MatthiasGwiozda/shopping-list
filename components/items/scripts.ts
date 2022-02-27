@@ -46,7 +46,8 @@ export default class Items extends Component<Components.items> {
                 },
                 food: {
                     columnName: "Food",
-                    inputType: PossibleInputTypes.checkbox
+                    inputType: PossibleInputTypes.checkbox,
+                    checkboxCheckedInitialy: true
                 }
             },
             additionalEditableListActions: [{

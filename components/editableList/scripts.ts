@@ -402,7 +402,7 @@ export default class EditableList<EditableListElement> extends Component<Compone
         const formId = this.createForm(tr, updateElement?.element);
         let firstInput: HTMLElement;
         for (const key of keys) {
-            const { columnName, inputType, selectInputValues } = this.componentParameters.elementKeys[key];
+            const { columnName, inputType, selectInputValues, checkboxCheckedInitialy } = this.componentParameters.elementKeys[key];
             /**
              * the value of the specific key for the updateElement.
              */
@@ -431,12 +431,10 @@ export default class EditableList<EditableListElement> extends Component<Compone
             } else if (inputType == PossibleInputTypes.checkbox) {
                 input = document.createElement('input');
                 input.setAttribute('type', EditableList.checkboxType);
-                /**
-                 * for now all the checkboxes are checked when creating a new element.
-                 * When editing an element, the checked - state is dependent of the value
-                 * in "elementKeyValue"
-                 */
-                if (updateElement == null || elementKeyValue) {
+                if (
+                    (updateElement == null && checkboxCheckedInitialy) ||
+                    elementKeyValue
+                ) {
                     input.checked = true;
                 }
                 input.value = "1";
