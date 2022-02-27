@@ -1,5 +1,7 @@
-- edit an meal - component. There should not be a possibility to add meal components to this meal - component
-- edit an Meal, which is not an meal - component. There should be an possibility to add meal - components.
+- edit an meal - component. 
+    - There should not be a possibility to add meal components to this meal - component
+- edit an Meal, which is not an meal - component.
+    - There should be an possibility to add meal - components.
 - delete a meal, which is a component and has ingredients assigned.
     - The deletion should be possible
 - change the recipe of a meal. klick on the "edit recipe button". klick on the "edit recipe button" once again

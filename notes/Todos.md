@@ -1,8 +1,4 @@
 # Todos
-- Create component for Meals
-    - Create additional action to edit the ingredients of a meal (editableListMealIngredients)
-        - create component to add meal - components
-            - Check all test - cases.
 
 
 # Optimization / nice to have
