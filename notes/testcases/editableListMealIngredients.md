@@ -15,10 +15,9 @@ Now try to add the meal, which is not a component anymore, as a meal component i
     from all the meals, which were related to that component.
 - remove the "meal component" - checkbox from a meal component, which is not in use by other meals. Klick on the save - button.
     - no confirmation - box should appear
-
-# not okay
 - create a meal as "non component". Add related meals to that meal. Now add the "component" - Flag to this meal.
     - The user needs to confirm this change to component.
         - When the user confirmed this change, all the related components should not be related anymore.
 - create a meal as "non component". Don't Add related meals to that meal. Now add the "component" - Flag to this meal.
-    - The user doesn't need to confirm this change to component.
+    - The user doesn't need to confirm this change.
+# not okay

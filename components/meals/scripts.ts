@@ -12,7 +12,14 @@ export default class Meals extends Component<Components.meals> {
         this.createEditableList()
     }
 
+    private getBulletPointList(elements: string[]): string {
+        let result = '';
+        elements.forEach(element => result += `- ${element}\n`);
+        return result;
+    }
+
     private async createEditableList() {
+        const instance = this;
         const params: EditableListParams<Meal> = {
             getTableContent: async () => await Database.selectAllMeals(),
             deleteElement: async function (meal) {
@@ -32,20 +39,22 @@ export default class Meals extends Component<Components.meals> {
             updateElement: async function (oldMeal, newMeal) {
                 let update = true;
                 if (!oldMeal.component && newMeal.component) {
-                    update = DialogUtilities.confirm(dedent`
-                    When switching "${newMeal.name}" to a component, the meal components, which are currently
-                    assigned to "${newMeal.name}" won't be assigned anymore.
-                    A meal component cannot have components assigned to itself.
-                    Do you want to save?`);
+                    const meals = await Database.selectRelatedMealComponents(oldMeal.name);
+                    if (meals.length > 0) {
+                        update = DialogUtilities.confirm(dedent`
+                        The following related meals won't be related to "${newMeal.name}" anymore:
+
+                        ${instance.getBulletPointList(meals)}
+                        A meal component cannot have components assigned to itself.
+                        Do you want to save "${newMeal.name}" as a component?`);
+                    }
                 } else if (oldMeal.component && !newMeal.component) {
                     const meals = await Database.selectMealsForComponentMeal(oldMeal.name);
                     if (meals.length > 0) {
-                        let mealsList = '';
-                        meals.forEach(meal => mealsList += `- ${meal}\n`);
                         update = DialogUtilities.confirm(dedent`
                         The following meals are assigned to this component:
 
-                        ${mealsList}
+                        ${instance.getBulletPointList(meals)}
                         Do you want to remove the meals from this component and
                         switch to a "non component meal"?
                         `);
