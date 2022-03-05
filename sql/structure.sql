@@ -17,27 +17,9 @@ CREATE TABLE `meals` (
   PRIMARY KEY (`name`)
 );
 
-CREATE TABLE `meals_this_week` (
-  `day` tinyint(1) NOT NULL,
-  `meal` varchar(100) NOT NULL,
-  PRIMARY KEY (`day`),
-
-  CONSTRAINT `meals_this_week_meal` FOREIGN KEY (`meal`) REFERENCES `meals` (`name`) ON DELETE RESTRICT ON UPDATE CASCADE
-);
-
 CREATE TABLE `shopping_lists` (
   `shoppingListName` varchar(255) NOT NULL,
   PRIMARY KEY (`shoppingListName`)
-);
-
-CREATE TABLE `shopping_lists_goods` (
-  `shoppingListName` varchar(255) NOT NULL,
-  `goodsName` varchar(100) NOT NULL,
-  `quantity` int(11) NOT NULL DEFAULT '1',
-  PRIMARY KEY (`shoppingListName`,`goodsName`),
-
-  CONSTRAINT `shopping_lists_goods_good` FOREIGN KEY (`goodsName`) REFERENCES `goods` (`name`) ON DELETE RESTRICT ON UPDATE CASCADE,
-  CONSTRAINT `shopping_lists_goods_shoppingListName` FOREIGN KEY (`shoppingListName`) REFERENCES `shopping_lists` (`shoppingListName`) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 CREATE TABLE `shops` (
@@ -96,4 +78,21 @@ CREATE TABLE "meals_food" (
 	CONSTRAINT "meals_food_meal" FOREIGN KEY("meal") REFERENCES "meals"("name") ON DELETE CASCADE ON UPDATE CASCADE,
 	CONSTRAINT "meals_food_food" FOREIGN KEY("food") REFERENCES "food"("name") ON DELETE CASCADE ON UPDATE CASCADE,
 	PRIMARY KEY("meal","food")
+);
+
+CREATE TABLE `shopping_lists_goods` (
+  `shoppingListName` varchar(255) NOT NULL,
+  `goodsName` varchar(100) NOT NULL,
+  `quantity` int(11) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`shoppingListName`,`goodsName`),
+
+  CONSTRAINT `shopping_lists_goods_good` FOREIGN KEY (`goodsName`) REFERENCES `goods` (`name`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `shopping_lists_goods_shoppingListName` FOREIGN KEY (`shoppingListName`) REFERENCES `shopping_lists` (`shoppingListName`) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE `shopping_lists_meals` (
+  `meal` varchar(100) NOT NULL,
+  `quantity` int(11) NOT NULL DEFAULT '1',
+  PRIMARY KEY(`meal`),
+  CONSTRAINT `shopping_list_meals_meal` FOREIGN KEY (`meal`) REFERENCES `meals` (`name`) ON DELETE CASCADE ON UPDATE CASCADE
 );
