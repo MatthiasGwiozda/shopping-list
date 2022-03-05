@@ -1,6 +1,8 @@
 # Todos
 - Implement shoppingList - component
-    - Allow to add meals_components in the list - But only when the user activates the checklist and knows explicitly that he is about to add meals_components instead of a complete meal.
+    - implement mealCollection
+        - show current items
+    - Allow to add meals_components in the list
 
 # Optimization / nice to have
 - use "equal" column - names. The following names are not "equalized":

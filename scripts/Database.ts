@@ -672,4 +672,41 @@ export default class Database {
         }
         return true;
     }
+
+    static async insertMealToShoppingList(mealName: string): Promise<boolean> {
+        try {
+            await this.runQuery(`
+            INSERT INTO shopping_lists_meals (meal)
+                VALUES (?);
+                `, [mealName]);
+        } catch (e) {
+            return false;
+        }
+        return true;
+    }
+
+    static async deleteMealFromShoppingList(mealName: string): Promise<boolean> {
+        try {
+            await this.runQuery(`
+            DELETE FROM shopping_lists_meals 
+                WHERE meal = ?;
+                `, [mealName]);
+        } catch (e) {
+            return false;
+        }
+        return true;
+    }
+
+    static async updateMealShoppingListQuantity(mealName: string, quantity: number): Promise<boolean> {
+        try {
+            await this.runQuery(`
+            UPDATE shopping_lists_meals 
+                SET quantity = ?
+                    WHERE meal = ?;
+                `, [quantity, mealName]);
+        } catch (e) {
+            return false;
+        }
+        return true;
+    }
 }
