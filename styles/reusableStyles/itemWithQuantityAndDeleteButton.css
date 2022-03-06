@@ -1,0 +1,13 @@
+.itemWithQuantityAndDeleteButton {
+    display: flex;
+    align-items: center;
+}
+
+.itemWithQuantityAndDeleteButton label {
+    margin-left: 10px;
+}
+
+.itemWithQuantityAndDeleteButton input {
+    width: 70px;
+    margin-left: 10px;
+}

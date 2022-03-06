@@ -6,6 +6,7 @@ import GoodsShops from '../types/GoodsShops';
 import Item from '../types/Item';
 import Meal from '../types/Meal';
 import Shop from '../types/Shop';
+import ShoppingListMeal from '../types/ShoppingListMeal';
 import FileUtilities, { Files } from './utilities/FileUtilities';
 
 export default class Database {
@@ -708,5 +709,12 @@ export default class Database {
             return false;
         }
         return true;
+    }
+
+    static async selectAllMealShoppingList(): Promise<ShoppingListMeal[]> {
+        return this.runQuery(`
+            SELECT meal, quantity
+                FROM shopping_lists_meals;
+            `);
     }
 }

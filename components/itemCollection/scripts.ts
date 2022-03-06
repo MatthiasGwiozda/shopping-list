@@ -172,9 +172,10 @@ export default class ItemCollection extends Component<Components.itemCollection>
     private addItemToList(itemName: string, quantity = 1) {
         const itemsContainer = this.getItemsContainer();
         const p = document.createElement('p');
-        const span = document.createElement('span')
-        span.innerText = itemName;
-        p.appendChild(span);
+        p.classList.add('itemWithQuantityAndDeleteButton')
+        const label = document.createElement('label')
+        label.innerText = itemName;
+        p.appendChild(label);
         // create Number - input to change quantity
         const input = document.createElement('input')
         input.type = 'number';

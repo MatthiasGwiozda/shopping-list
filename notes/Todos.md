@@ -1,10 +1,11 @@
 # Todos
 - Implement shoppingList - component
     - implement mealCollection
-        - show current items
+        - style element
     - Allow to add meals_components in the list
 
 # Optimization / nice to have
+- strg + r should not reload the component. sqlite breaks the app :|
 - use "equal" column - names. The following names are not "equalized":
     - item = name
     - categories = category

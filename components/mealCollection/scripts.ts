@@ -11,6 +11,7 @@ export default class MealCollection extends Component<Components.mealCollection>
     rendered() {
         this.select = this.container.querySelector('.mealsPicker select');
         this.select.name = this.selectName;
+        this.showCurrentMeals();
         this.insertMealsToSelect();
         this.initializeFormSubmit();
     }
@@ -70,6 +71,13 @@ export default class MealCollection extends Component<Components.mealCollection>
         label.innerText = mealName;
         // append item to mealsContainer
         mealsContainer.append(itemHTML);
+    }
+
+    async showCurrentMeals() {
+        const currentMeals = await Database.selectAllMealShoppingList();
+        currentMeals.forEach(mealInfo => {
+            this.addMealToCollection(mealInfo.meal, mealInfo.quantity)
+        })
     }
 
     initializeFormSubmit() {
