@@ -1,5 +1,6 @@
 import Database from "../../scripts/Database";
 import DialogUtilities from "../../scripts/utilities/DialogUtilities";
+import InputUtilities from "../../scripts/utilities/InputUtilities";
 import { Components } from "../../types/components/Components";
 import Meal from "../../types/Meal";
 import Component from "../Component";
@@ -60,6 +61,7 @@ export default class MealCollection extends Component<Components.mealCollection>
         }
         // change quantity of meal
         const quantityInput = itemHTML.querySelector('input');
+        InputUtilities.setDefaultNumberInputAttributes(quantityInput);
         quantityInput.value = quantity.toString();
         quantityInput.oninput = async () => {
             if (quantityInput.validity.valid) {

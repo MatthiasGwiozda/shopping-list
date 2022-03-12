@@ -1,8 +1,5 @@
 # Todos
 - Implement shoppingList - component
-    - implement mealCollection
-        - make tests
-    - Allow to add meals_components in the list
 
 # Optimization / nice to have
 - strg + r should not reload the component. sqlite breaks the app :|

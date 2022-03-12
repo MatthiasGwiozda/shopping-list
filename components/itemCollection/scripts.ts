@@ -1,5 +1,6 @@
 import Database from "../../scripts/Database";
 import DialogUtilities from "../../scripts/utilities/DialogUtilities";
+import InputUtilities from "../../scripts/utilities/InputUtilities";
 import RandomUtilities from "../../scripts/utilities/RandomUtilities";
 import { Components } from "../../types/components/Components";
 import Item from "../../types/Item";
@@ -177,9 +178,8 @@ export default class ItemCollection extends Component<Components.itemCollection>
         label.innerText = itemName;
         p.appendChild(label);
         // create Number - input to change quantity
-        const input = document.createElement('input')
-        input.type = 'number';
-        input.min = "1";
+        const input = document.createElement('input');
+        InputUtilities.setDefaultNumberInputAttributes(input);
         input.value = quantity.toString();
         input.title = 'Quantity';
         input.oninput = () => {
