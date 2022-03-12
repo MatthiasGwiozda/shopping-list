@@ -18,7 +18,7 @@ CREATE TABLE `meals` (
 );
 
 CREATE TABLE `shopping_lists` (
-  `shoppingListName` varchar(255) NOT NULL,
+  `shoppingListName` varchar(255) NOT NULL, active INT(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`shoppingListName`)
 );
 
