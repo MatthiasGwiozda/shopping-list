@@ -1,0 +1,25 @@
+.mealCollection {
+    border: solid var(--darkGrey) 2px;
+}
+
+.mealCollection .mealsPicker {
+    display: flex;
+    padding: 7px;
+}
+
+.mealCollection .mealsPicker button {
+    margin-left: 7px;
+}
+
+.mealCollection .meals p {
+    padding: 7px;
+    margin: 0px;
+}
+
+.mealCollection .meals p + p {
+    border-top: solid var(--darkGrey) 2px;
+}
+
+.mealCollection .meals p:last-child {
+    border-bottom: solid var(--darkGrey) 2px;
+}

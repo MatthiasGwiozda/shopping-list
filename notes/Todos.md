@@ -1,7 +1,7 @@
 # Todos
 - Implement shoppingList - component
     - implement mealCollection
-        - style element
+        - make tests
     - Allow to add meals_components in the list
 
 # Optimization / nice to have

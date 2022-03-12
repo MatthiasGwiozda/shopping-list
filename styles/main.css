@@ -6,6 +6,7 @@
 @import url('./components/editableListGoodsShopAssignement.css');
 @import url('./components/itemCollection.css');
 @import url('./components/editableListMealIngredients.css');
+@import url('./components/mealCollection.css');
 @import url('button.css');
 @import url('input.css');
 @import url('./reusableStyles/infoBox.css');
@@ -25,6 +26,7 @@ body {
     margin-left: 97px;
     flex-grow: 1;
     max-width: calc(100vw - 90px);
+    margin-right: 7px;
 }
 
 h1 {
