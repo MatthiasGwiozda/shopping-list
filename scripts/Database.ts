@@ -717,4 +717,63 @@ export default class Database {
                 FROM shopping_lists_meals;
             `);
     }
+
+    static async insertShoppingList(shoppingListName: string): Promise<boolean> {
+        try {
+            await this.runQuery(`
+            INSERT INTO shopping_lists (shoppingListName)
+                VALUES (?);
+            `, [shoppingListName]);
+        } catch (e) {
+            return false;
+        }
+        return true;
+    }
+
+    static async selectShoppingListItems(shoppingListName: string): Promise<CurrentItems[]> {
+        return await this.runQuery(`
+        SELECT goodsName AS itemName, quantity
+            FROM shopping_lists_goods
+                WHERE shoppingListName = ?
+            `, [shoppingListName]);
+    }
+
+    static async insertItemToShoppingList(itemName: string, shoppingListName: string): Promise<boolean> {
+        try {
+            await this.runQuery(`
+            INSERT INTO shopping_lists_goods (shoppingListName, goodsName)
+                VALUES (?, ?);
+            `, [shoppingListName, itemName]);
+        } catch (e) {
+            return false;
+        }
+        return true;
+    }
+
+    static async deleteItemFromShoppingList(itemName: string, shoppingListName: string): Promise<boolean> {
+        try {
+            await this.runQuery(`
+            DELETE FROM shopping_lists_goods
+                WHERE shoppingListName = ?
+                AND goodsName = ?;
+            `, [shoppingListName, itemName]);
+        } catch (e) {
+            return false;
+        }
+        return true;
+    }
+
+    static async updateShoppingListItemQuantity(itemName: string, shoppingListName: string, quantity: number): Promise<boolean> {
+        try {
+            await this.runQuery(`
+            UPDATE shopping_lists_goods
+                SET quantity = ?
+                    WHERE shoppingListName = ?
+                    AND goodsName = ?
+            `, [quantity, shoppingListName, itemName]);
+        } catch (e) {
+            return false;
+        }
+        return true;
+    }
 }

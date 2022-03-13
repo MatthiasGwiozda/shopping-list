@@ -7,5 +7,9 @@ export default class ShoppingList extends Component<Components.shoppingList> {
             Components.mealCollection,
             this.container.querySelector(".mealsList .container")
         )
+        Component.injectComponent(
+            Components.shoppingListCollection,
+            this.container.querySelector(".staticList .container")
+        )
     }
 }

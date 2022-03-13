@@ -20,7 +20,8 @@ export enum Components {
     editableListGoodsShopAssignement = 'editableListGoodsShopAssignement',
     editableListMealIngredients = 'editableListMealIngredients',
     itemCollection = 'itemCollection',
-    mealCollection = 'mealCollection'
+    mealCollection = 'mealCollection',
+    shoppingListCollection = 'shoppingListCollection'
 }
 
 /**
@@ -40,6 +41,7 @@ export type ComponentParameters = {
     [Components.meals]: PlaceholderParameter
     [Components.shoppingList]: PlaceholderParameter
     [Components.shops]: PlaceholderParameter
+    [Components.shoppingListCollection]: PlaceholderParameter
     [Components.mealCollection]: PlaceholderParameter
     [Components.editableList]: EditableListParams<any>
     [Components.editableListSortableCategories]: Shop
