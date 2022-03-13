@@ -16,7 +16,12 @@ const constants = Object.freeze({
         category: '🆎',
         shop: '🏪',
         item: '🥔'
-    }
+    },
+    /**
+     * When a button gets this class, it's
+     * style will "show" that an element is currently active.
+     */
+    activeActionButtonClass: 'active'
 });
 
 export default constants;

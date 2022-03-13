@@ -17,7 +17,6 @@ enum EditableListFiles {
 
 export default class EditableList<EditableListElement> extends Component<Components.editableList> {
     static readonly activeAdditionalActionClass = 'additionalActionActive';
-    static readonly activeActionButtonClass = 'active';
     static readonly checkboxType = 'checkbox';
     static readonly checkboxChecked = '✔';
     static readonly checkboxUnChecked = '❌';
@@ -73,7 +72,7 @@ export default class EditableList<EditableListElement> extends Component<Compone
     private sortElements(sortIndex: number) {
         // disable all active action - buttons first:
         const activeButtons = this.additionalActionButtons
-            .filter(button => button.classList.contains(EditableList.activeActionButtonClass));
+            .filter(button => button.classList.contains(constants.activeActionButtonClass));
         activeButtons.forEach(button => button.click());
         // now sort the elements
         const children = this.container.querySelectorAll<HTMLElement>('tbody > tr');
@@ -200,7 +199,7 @@ export default class EditableList<EditableListElement> extends Component<Compone
             actionButton.title = buttonTitle;
             let actionButtonTr: HTMLElement;
             actionButton.onclick = () => {
-                actionButton.classList.toggle(EditableList.activeActionButtonClass);
+                actionButton.classList.toggle(constants.activeActionButtonClass);
                 if (actionButtonTr != null) {
                     actionButtonTr.remove();
                     actionButtonTr = null;
