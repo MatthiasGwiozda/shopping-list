@@ -730,6 +730,19 @@ export default class Database {
         return true;
     }
 
+    static async updateShoppingListActiveState(shoppingListName: string, active: boolean): Promise<boolean> {
+        try {
+            await this.runQuery(`
+            UPDATE shopping_lists
+                SET active = ?
+                    WHERE shoppingListName = ?;
+            `, [active, shoppingListName]);
+        } catch (e) {
+            return false;
+        }
+        return true;
+    }
+
     static async selectShoppingListItems(shoppingListName: string): Promise<CurrentItems[]> {
         return await this.runQuery(`
         SELECT goodsName AS itemName, quantity

@@ -41,23 +41,23 @@ export default class ShoppingListCollection extends Component<Components.shoppin
         return editButton;
     }
 
-    private createActiveToggler(shoppingListName: string, currentlyActive = true): HTMLInputElement {
+    private createActiveToggler(shoppingListName: string, currentlyActive: boolean): HTMLInputElement {
         const checkbox = document.createElement('input');
         checkbox.type = 'checkbox';
         checkbox.checked = currentlyActive;
         checkbox.onchange = () => {
-
+            Database.updateShoppingListActiveState(shoppingListName, checkbox.checked);
         }
         return checkbox;
     }
 
-    private addNewList(shoppingListName: string) {
+    private addNewList(shoppingListName: string, activeList: boolean) {
         const container = this.container.querySelector('.shoppingListWrapper');
         const p = this.createParagraph();
         const label = document.createElement('label');
         label.innerText = shoppingListName;
         const editButton = this.createEditButton(shoppingListName, p);
-        const activeToggler = this.createActiveToggler(shoppingListName);
+        const activeToggler = this.createActiveToggler(shoppingListName, activeList);
         p.append(label, editButton, activeToggler);
         container.append(p);
     }
@@ -70,7 +70,7 @@ export default class ShoppingListCollection extends Component<Components.shoppin
             const shoppingListName = (formData.get('listName')).toString();
             const inserted = await Database.insertShoppingList(shoppingListName);
             if (inserted) {
-                this.addNewList(shoppingListName);
+                this.addNewList(shoppingListName, true);
             } else {
                 DialogUtilities.alert('The list could not be added. Maybe it already exists');
             }
