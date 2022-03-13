@@ -1,0 +1,2 @@
+- Add a shopping list. Now try to add the shopping list with the same name.
+    - An error should occour, because the list already exists.

@@ -1,5 +1,10 @@
 # Todos
-- Implement shoppingList - component
+- Implement shoppingListCollection - component
+    - Show lists, which are already in the database.
+    - grey out lists, which are not active
+    - define and make tests
+
+- Implement generation of the shopping - list
 
 # Optimization / nice to have
 - strg + r should not reload the component. sqlite breaks the app :|
