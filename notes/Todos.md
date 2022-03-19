@@ -1,6 +1,6 @@
 # Todos
 - Implement shoppingListCollection - component
-    - Show lists, which are already in the database.
+    - edit - button should allow to edit the name of the shopping list and all the incredients.
     - grey out lists, which are not active
     - define and make tests
 

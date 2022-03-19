@@ -6,11 +6,20 @@ import Component from "../Component";
 
 export default class ShoppingListCollection extends Component<Components.shoppingListCollection> {
     rendered() {
+        this.insertCurrentShoppingLists();
         this.initializeAddListAction();
     }
 
     private createParagraph() {
         return document.createElement('p');
+    }
+
+    private async insertCurrentShoppingLists() {
+        const shoppingLists = await Database.selectAllShoppingLists();
+        for (const shoppingList of shoppingLists) {
+            const { active, shoppingListName } = shoppingList;
+            this.addNewList(shoppingListName, active);
+        }
     }
 
     private createEditButton(shoppingListName: string, shoppingListParagraph: HTMLParagraphElement): HTMLButtonElement {

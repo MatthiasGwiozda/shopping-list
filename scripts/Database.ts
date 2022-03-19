@@ -6,6 +6,7 @@ import GoodsShops from '../types/GoodsShops';
 import Item from '../types/Item';
 import Meal from '../types/Meal';
 import Shop from '../types/Shop';
+import ShoppingListItem from '../types/ShoppingListItem';
 import ShoppingListMeal from '../types/ShoppingListMeal';
 import FileUtilities, { Files } from './utilities/FileUtilities';
 
@@ -716,6 +717,20 @@ export default class Database {
             SELECT meal, quantity
                 FROM shopping_lists_meals;
             `);
+    }
+
+    static async selectAllShoppingLists(): Promise<ShoppingListItem[]> {
+        const shoppingLists = await this.runQuery<ShoppingListItem>(`
+            SELECT shoppingListName, active
+                FROM shopping_lists;
+            `);
+        return shoppingLists.map(list => {
+            return {
+                // boolean values are stored as integers in the database
+                active: !!list.active,
+                shoppingListName: list.shoppingListName
+            }
+        })
     }
 
     static async insertShoppingList(shoppingListName: string): Promise<boolean> {
