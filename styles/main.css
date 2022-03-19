@@ -7,6 +7,8 @@
 @import url('./components/itemCollection.css');
 @import url('./components/editableListMealIngredients.css');
 @import url('./components/mealCollection.css');
+@import url('./components/shoppingList.css');
+@import url('./components/shoppingListCollection.css');
 @import url('button.css');
 @import url('input.css');
 @import url('./reusableStyles/infoBox.css');

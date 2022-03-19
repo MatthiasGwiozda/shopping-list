@@ -67,7 +67,7 @@ export default class ShoppingListCollection extends Component<Components.shoppin
         label.innerText = shoppingListName;
         const editButton = this.createEditButton(shoppingListName, p);
         const activeToggler = this.createActiveToggler(shoppingListName, activeList);
-        p.append(label, editButton, activeToggler);
+        p.append(editButton, activeToggler, label);
         container.append(p);
     }
 

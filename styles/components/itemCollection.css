@@ -4,6 +4,13 @@
     padding: 10px;
 }
 
+.itemCollection input,
+.itemCollection select {
+    width: 100%;
+    box-sizing: border-box;
+    height: 35px;
+}
+
 .itemCollection .itemSelector form {
     border-right: 2px solid black;
     padding-right: 5px;
@@ -22,10 +29,12 @@
 
 .itemCollection .filter {
     flex-grow: 1;
-    max-width: 500px
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
 }
 
 .itemCollection span {
     margin: 5px 0px;
-    display: inline-block
+    display: block;
 }
