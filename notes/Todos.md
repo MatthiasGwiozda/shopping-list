@@ -1,7 +1,4 @@
 # Todos
-- Implement shoppingListCollection - component
-    - define and make tests
-
 - Implement generation of the shopping - list
 - test Programm without any data in the database.
 
