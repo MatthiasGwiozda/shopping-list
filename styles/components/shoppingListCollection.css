@@ -18,7 +18,7 @@
     width: 100%;
 }
 
-.shoppingListCollection .shoppingListWrapper p button {
+.shoppingListCollection .shoppingListWrapper p button:nth-child(2) {
     margin-right: 10px;
 }
 

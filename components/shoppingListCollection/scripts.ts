@@ -38,7 +38,7 @@ export default class ShoppingListCollection extends Component<Components.shoppin
         label.replaceWith(input);
     }
 
-    private createEditButton(label: HTMLLabelElement, shoppingListParagraph: HTMLParagraphElement): HTMLButtonElement {
+    private createEditButton(label: HTMLLabelElement, shoppingListParagraph: HTMLParagraphElement, deleteButton: HTMLButtonElement): HTMLButtonElement {
         const editButton: HTMLButtonElement = this.gethtmlFromFile('editButton.html');
         let itemCollectionContainer: HTMLParagraphElement;
         editButton.onclick = async () => {
@@ -49,7 +49,9 @@ export default class ShoppingListCollection extends Component<Components.shoppin
                 // replace the input with the label
                 const input = editButton.parentElement.querySelector('input[type="text"]');
                 input.replaceWith(label);
+                deleteButton.disabled = false;
             } else {
+                deleteButton.disabled = true;
                 this.replaceLabelWithInput(label);
                 itemCollectionContainer = this.createParagraph()
                 itemCollectionContainer.classList.add('itemCollectionContainer');
@@ -81,14 +83,29 @@ export default class ShoppingListCollection extends Component<Components.shoppin
         return checkbox;
     }
 
+    private getDeleteButton(label: HTMLLabelElement) {
+        const button = this.gethtmlFromFile<HTMLButtonElement>('deleteButton.html');
+        button.onclick = async () => {
+            const confirmation = DialogUtilities.confirm(`Do you want to delete the list "${label.innerText}"?`);
+            if (confirmation) {
+                const deleted = await Database.deleteShoppingList(label.innerText);
+                if (deleted) {
+                    label.parentElement.remove();
+                }
+            }
+        }
+        return button;
+    }
+
     private addNewList(shoppingListName: string, activeList: boolean) {
         const container = this.container.querySelector('.shoppingListWrapper');
         const p = this.createParagraph();
         const label = document.createElement('label');
         label.innerText = shoppingListName;
-        const editButton = this.createEditButton(label, p);
+        const deleteButton = this.getDeleteButton(label);
+        const editButton = this.createEditButton(label, p, deleteButton);
         const activeToggler = this.createActiveToggler(label, activeList);
-        p.append(editButton, activeToggler, label);
+        p.append(editButton, deleteButton, activeToggler, label);
         container.append(p);
     }
 
