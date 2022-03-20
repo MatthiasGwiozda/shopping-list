@@ -2,9 +2,17 @@
     display: flex;
 }
 
-.shoppingLists > * {
-    flex-grow: 1;
-    width: 50%;
+@media (max-width: 800px) {
+    .shoppingLists {
+        flex-direction: column;
+    }    
+}
+
+@media (min-width: 801px) {
+    .shoppingLists > * {
+        flex-grow: 1;
+        width: 50%;
+    }
 }
 
 .shoppingLists > *:last-child {
