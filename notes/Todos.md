@@ -1,6 +1,5 @@
 # Todos
 - Implement shoppingListCollection - component
-    - edit - button should allow to edit the name of the shopping list and all the incredients
     - Add delete - Button
     - grey out lists, which are not active
     - define and make tests

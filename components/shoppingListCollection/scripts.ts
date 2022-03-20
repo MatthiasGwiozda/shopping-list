@@ -94,6 +94,7 @@ export default class ShoppingListCollection extends Component<Components.shoppin
 
     private initializeAddListAction() {
         const form = this.container.querySelector('form');
+        const input = form.querySelector('input');
         form.onsubmit = async (e) => {
             e.preventDefault();
             const formData = new FormData(form);
@@ -101,6 +102,7 @@ export default class ShoppingListCollection extends Component<Components.shoppin
             const inserted = await Database.insertShoppingList(shoppingListName);
             if (inserted) {
                 this.addNewList(shoppingListName, true);
+                input.value = '';
             } else {
                 DialogUtilities.alert('The list could not be added. Maybe it already exists');
             }
