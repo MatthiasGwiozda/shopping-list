@@ -3,6 +3,10 @@
     border: solid var(--darkGrey) 2px;
 }
 
+.shoppingListCollection .itemCollectionContainer {
+    background-color: lightgrey;
+}
+
 .shoppingListCollection .shoppingListWrapper p {
     margin: 0px;
     padding: 7px;
@@ -18,8 +22,9 @@
     margin-right: 10px;
 }
 
-.shoppingListCollection .shoppingListWrapper p input {
+.shoppingListCollection .shoppingListWrapper p > input[type='checkbox'] {
     margin-right: 10px;
+    width: 25px;
 }
 
 .shoppingListCollection .shoppingListWrapper > p + p {

@@ -32,6 +32,7 @@ export default class ShoppingListCollection extends Component<Components.shoppin
                 itemCollectionContainer = null;
             } else {
                 itemCollectionContainer = this.createParagraph()
+                itemCollectionContainer.classList.add('itemCollectionContainer');
                 shoppingListParagraph.after(itemCollectionContainer);
                 Component.injectComponent(Components.itemCollection, itemCollectionContainer, {
                     currentItems: await Database.selectShoppingListItems(shoppingListName),
