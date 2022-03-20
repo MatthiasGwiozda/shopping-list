@@ -1,7 +1,5 @@
 # Todos
 - Implement shoppingListCollection - component
-    - Add delete - Button
-    - grey out lists, which are not active
     - define and make tests
 
 - Implement generation of the shopping - list

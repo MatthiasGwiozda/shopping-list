@@ -73,12 +73,13 @@ export default class ShoppingListCollection extends Component<Components.shoppin
         return editButton;
     }
 
-    private createActiveToggler(label: HTMLLabelElement, currentlyActive: boolean): HTMLInputElement {
+    private createActiveToggler(label: HTMLLabelElement, currentlyActive: boolean, paragraphContainer: HTMLParagraphElement): HTMLInputElement {
         const checkbox = document.createElement('input');
         checkbox.type = 'checkbox';
         checkbox.checked = currentlyActive;
         checkbox.onchange = () => {
             Database.updateShoppingListActiveState(label.innerText, checkbox.checked);
+            this.toggleInactiveClass(paragraphContainer);
         }
         return checkbox;
     }
@@ -97,14 +98,21 @@ export default class ShoppingListCollection extends Component<Components.shoppin
         return button;
     }
 
+    private toggleInactiveClass(p: HTMLParagraphElement) {
+        p.classList.toggle('inactive');
+    }
+
     private addNewList(shoppingListName: string, activeList: boolean) {
         const container = this.container.querySelector('.shoppingListWrapper');
         const p = this.createParagraph();
+        if (!activeList) {
+            this.toggleInactiveClass(p);
+        }
         const label = document.createElement('label');
         label.innerText = shoppingListName;
         const deleteButton = this.getDeleteButton(label);
         const editButton = this.createEditButton(label, p, deleteButton);
-        const activeToggler = this.createActiveToggler(label, activeList);
+        const activeToggler = this.createActiveToggler(label, activeList, p);
         p.append(editButton, deleteButton, activeToggler, label);
         container.append(p);
     }

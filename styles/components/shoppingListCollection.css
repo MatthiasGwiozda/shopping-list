@@ -31,6 +31,10 @@
     border-top: solid var(--darkGrey) 2px;
 }
 
+.shoppingListCollection .shoppingListWrapper > p.inactive > label {
+    color: lightgrey;
+}
+
 .shoppingListCollection .shoppingListWrapper > p:last-child {
     border-bottom: solid var(--darkGrey) 2px;
 }
