@@ -4,6 +4,7 @@
     - show recipes for all the meals used
     - remind the user that he may not buy certain items in the shop he selected
 - test Programm without any data in the database.
+- add MIT - License?
 
 # Optimization / nice to have
 - strg + r should not reload the component. sqlite breaks the app :|
