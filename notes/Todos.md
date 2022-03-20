@@ -6,6 +6,7 @@
     - define and make tests
 
 - Implement generation of the shopping - list
+- test Programm without any data in the database.
 
 # Optimization / nice to have
 - strg + r should not reload the component. sqlite breaks the app :|
@@ -21,6 +22,7 @@
 - Create documentation!
 - Implement search - form for EditableLists
 - disable the pages, which should not be useable when certain elements are not added, yet
+    - alternative: link the pages in the elements, which don't have the data, which it needs.
 - set a fixed width for actions - column so that the buttons are not "jumping" when editing elements.
 - create electron skeleton with current Components - architecture
 - test, if installing this repository from scratch works fine.

@@ -1,6 +1,7 @@
 import constants from "../../scripts/constants";
 import DialogUtilities from "../../scripts/utilities/DialogUtilities";
 import HtmlUtilities from "../../scripts/utilities/htmlUtilities";
+import InputUtilities from "../../scripts/utilities/InputUtilities";
 import RandomUtilities from "../../scripts/utilities/RandomUtilities";
 import { Components } from "../../types/components/Components";
 import { ActionResult, PossibleInputTypes } from "../../types/components/editableList";
@@ -418,13 +419,8 @@ export default class EditableList<EditableListElement> extends Component<Compone
                 this.requireInputAndAddValue(input, elementKeyValue);
             } else if (inputType == PossibleInputTypes.text) {
                 input = document.createElement('input');
-                input.setAttribute('type', 'text');
+                InputUtilities.setDefaultTextInputAttributes(input);
                 this.requireInputAndAddValue(input, elementKeyValue);
-                /**
-                 * at first there is a limit of 100 chars in every input.
-                 * This may change in the future.
-                 */
-                input.maxLength = 100;
                 // the placeholder should use the human - readable keys of the element
                 input.setAttribute('placeholder', columnName);
             } else if (inputType == PossibleInputTypes.checkbox) {

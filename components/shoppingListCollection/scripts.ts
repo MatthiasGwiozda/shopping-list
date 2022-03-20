@@ -1,6 +1,7 @@
 import constants from "../../scripts/constants";
 import Database from "../../scripts/Database";
 import DialogUtilities from "../../scripts/utilities/DialogUtilities";
+import InputUtilities from "../../scripts/utilities/InputUtilities";
 import { Components } from "../../types/components/Components";
 import Component from "../Component";
 
@@ -22,7 +23,22 @@ export default class ShoppingListCollection extends Component<Components.shoppin
         }
     }
 
-    private createEditButton(shoppingListName: string, shoppingListParagraph: HTMLParagraphElement): HTMLButtonElement {
+    private replaceLabelWithInput(label: HTMLLabelElement) {
+        const input = document.createElement('input');
+        InputUtilities.setDefaultTextInputAttributes(input);
+        input.value = label.innerText;
+        input.oninput = async () => {
+            const { value } = input;
+            const updated = await Database.updateShoppingListName(label.innerText, value);
+            // Currently there is no handling for non - successful change of the name.
+            if (updated) {
+                label.innerText = value;
+            }
+        }
+        label.replaceWith(input);
+    }
+
+    private createEditButton(label: HTMLLabelElement, shoppingListParagraph: HTMLParagraphElement): HTMLButtonElement {
         const editButton: HTMLButtonElement = this.gethtmlFromFile('editButton.html');
         let itemCollectionContainer: HTMLParagraphElement;
         editButton.onclick = async () => {
@@ -30,20 +46,24 @@ export default class ShoppingListCollection extends Component<Components.shoppin
             if (itemCollectionContainer != null) {
                 itemCollectionContainer.remove();
                 itemCollectionContainer = null;
+                // replace the input with the label
+                const input = editButton.parentElement.querySelector('input[type="text"]');
+                input.replaceWith(label);
             } else {
+                this.replaceLabelWithInput(label);
                 itemCollectionContainer = this.createParagraph()
                 itemCollectionContainer.classList.add('itemCollectionContainer');
                 shoppingListParagraph.after(itemCollectionContainer);
                 Component.injectComponent(Components.itemCollection, itemCollectionContainer, {
-                    currentItems: await Database.selectShoppingListItems(shoppingListName),
+                    currentItems: await Database.selectShoppingListItems(label.innerText),
                     insertItem: async (itemName) => {
-                        return Database.insertItemToShoppingList(itemName, shoppingListName);
+                        return Database.insertItemToShoppingList(itemName, label.innerText);
                     },
                     removeItem: async (itemName) => {
-                        return Database.deleteItemFromShoppingList(itemName, shoppingListName);
+                        return Database.deleteItemFromShoppingList(itemName, label.innerText);
                     },
                     updateQuantity: async (itemName, quantity) => {
-                        return Database.updateShoppingListItemQuantity(itemName, shoppingListName, quantity);
+                        return Database.updateShoppingListItemQuantity(itemName, label.innerText, quantity);
                     }
                 });
             }
@@ -51,12 +71,12 @@ export default class ShoppingListCollection extends Component<Components.shoppin
         return editButton;
     }
 
-    private createActiveToggler(shoppingListName: string, currentlyActive: boolean): HTMLInputElement {
+    private createActiveToggler(label: HTMLLabelElement, currentlyActive: boolean): HTMLInputElement {
         const checkbox = document.createElement('input');
         checkbox.type = 'checkbox';
         checkbox.checked = currentlyActive;
         checkbox.onchange = () => {
-            Database.updateShoppingListActiveState(shoppingListName, checkbox.checked);
+            Database.updateShoppingListActiveState(label.innerText, checkbox.checked);
         }
         return checkbox;
     }
@@ -66,8 +86,8 @@ export default class ShoppingListCollection extends Component<Components.shoppin
         const p = this.createParagraph();
         const label = document.createElement('label');
         label.innerText = shoppingListName;
-        const editButton = this.createEditButton(shoppingListName, p);
-        const activeToggler = this.createActiveToggler(shoppingListName, activeList);
+        const editButton = this.createEditButton(label, p);
+        const activeToggler = this.createActiveToggler(label, activeList);
         p.append(editButton, activeToggler, label);
         container.append(p);
     }
