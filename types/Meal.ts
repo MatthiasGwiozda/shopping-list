@@ -11,3 +11,5 @@ export default interface Meal {
      */
     component: boolean;
 }
+
+export type MealWithoutComponent = Omit<Meal, 'component'>;

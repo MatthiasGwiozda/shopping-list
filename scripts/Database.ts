@@ -4,7 +4,7 @@ import Category from '../types/Category';
 import { CurrentItems } from '../types/components/itemCollection';
 import GoodsShops from '../types/GoodsShops';
 import Item from '../types/Item';
-import Meal from '../types/Meal';
+import Meal, { MealWithoutComponent } from '../types/Meal';
 import Shop from '../types/Shop';
 import ShoppingListItem from '../types/ShoppingListItem';
 import ShoppingListMeal from '../types/ShoppingListMeal';
@@ -882,5 +882,38 @@ export default class Database {
             }
             return previous + delimiter + current;
         }, emptyString)
+    }
+
+    /**
+     * @returns the recipes of the meals, which are included in
+     * the table shopping_lists_meals.
+     */
+    static async getRecipesOfSelectedMeals(): Promise<string> {
+        const meals: MealWithoutComponent[] = await this.runQuery(`
+        SELECT name, recipe
+            FROM meals
+                JOIN shopping_lists_meals
+                ON shopping_lists_meals.meal = meals.name;
+        `);
+        let recipes = '';
+        for (const meal of meals) {
+            const relatedMeals: MealWithoutComponent[] = await this.runQuery(`
+            SELECT name, recipe
+                FROM meals
+                    WHERE name IN (
+                        SELECT related_meal
+                            FROM meals_related_component
+                                WHERE meal = ?
+                    );
+            `, [meal.name]);
+            recipes += `-------${meal.name}-------\n`;
+            recipes += meal.recipe + '\n';
+            relatedMeals.forEach(relatedMeal => {
+                recipes += `\n${relatedMeal.name}: \n`;
+                recipes += relatedMeal.recipe += '\n'
+            });
+            recipes += '\n\n';
+        }
+        return recipes;
     }
 }

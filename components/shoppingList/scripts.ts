@@ -64,8 +64,10 @@ export default class ShoppingList extends Component<Components.shoppingList> {
             const shopId = parseInt(select.value);
             const shoppingListAvailableInShop = await Database.generateShoppingList(shopId, true);
             const shoppingListUnAvailableInShop = await Database.generateShoppingList(shopId, false);
+            const recipe = await Database.getRecipesOfSelectedMeals();
             this.setTextAreaValue(TextAreas.availableItemsInShop, shoppingListAvailableInShop);
             this.setTextAreaValue(TextAreas.unavailableItemsInShop, shoppingListUnAvailableInShop);
+            this.setTextAreaValue(TextAreas.recipe, recipe);
         }
     }
 }
