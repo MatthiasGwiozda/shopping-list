@@ -829,4 +829,58 @@ export default class Database {
         }
         return true;
     }
+
+    /**
+     * @returns the shopping list which is sorted by the categories
+     * in the given shopId.
+     * Items, which are not provided in the shop are not returned!
+     * @param availableShopItems defines if the function should return the items,
+     * which are buyable in this shop. When this parameter is set to false, only
+     * the items are shown, which are not buyable in this shop.
+     */
+    static async generateShoppingList(shopId: number, availableShopItems: boolean): Promise<string> {
+        let query = `
+        SELECT goodsName || ' X ' || sum(quantity) AS itemWithQuantity
+            FROM (
+                SELECT goodsName, quantity
+                    FROM shopping_lists_goods
+                        WHERE shoppingListName IN (
+                            SELECT shoppingListName
+                                FROM shopping_lists
+                                    WHERE active = 1
+                        )
+
+                UNION ALL
+
+                SELECT meals_food.food, (meals_food.quantity * shopping_lists_meals.quantity) AS quantity
+                    FROM meals_food
+                        JOIN shopping_lists_meals
+                        ON shopping_lists_meals.meal = meals_food.meal
+            ) combinedGoods
+                JOIN goods_categories_shop_order
+                ON goods_categories_shop_order.shop_id = ?
+                AND goods_categories_shop_order.category = (
+                    SELECT category
+                        FROM goods
+                            WHERE name = combinedGoods.goodsName
+                )
+                    WHERE goodsName ${availableShopItems ? '' : 'NOT'} IN (
+                        SELECT name
+                            FROM goods_shops
+                                WHERE shop_id = ?
+                    )
+                        GROUP BY goodsName
+                            ORDER BY goods_categories_shop_order.\`order\`;
+        `;
+        const items = await this.runQuery<{ itemWithQuantity: string }>(query, [shopId, shopId]);
+        const itemsAsString = items.map(item => item.itemWithQuantity);
+        const emptyString = '';
+        return itemsAsString.reduce((previous, current) => {
+            let delimiter = '\n';
+            if (previous == emptyString) {
+                delimiter = emptyString;
+            }
+            return previous + delimiter + current;
+        }, emptyString)
+    }
 }
