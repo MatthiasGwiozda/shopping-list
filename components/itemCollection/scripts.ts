@@ -196,11 +196,9 @@ export default class ItemCollection extends Component<Components.itemCollection>
         // create delete - button
         const deleteButton = this.gethtmlFromFile<HTMLButtonElement>('deleteButton.html');
         deleteButton.onclick = async () => {
-            if (DialogUtilities.confirm(`Are you sure to remove "${itemName}" from the list?`)) {
-                const removed = await this.componentParameters.removeItem(itemName);
-                if (removed) {
-                    p.remove();
-                }
+            const removed = await this.componentParameters.removeItem(itemName);
+            if (removed) {
+                p.remove();
             }
         }
         p.prepend(deleteButton);
