@@ -1,6 +1,4 @@
 # Todos
-- Implement generation of the shopping - list
-    - change naming of "shopping Lists"
 - test Programm without any data in the database.
 - add MIT - License?
 

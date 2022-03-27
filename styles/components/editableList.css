@@ -3,6 +3,10 @@
     width: 100%;
 }
 
+.editable-list thead th:last-child {
+    width: 200px;
+}
+
 .editable-list thead {
     position: sticky;
     top: 0;
