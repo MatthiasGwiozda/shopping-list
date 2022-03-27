@@ -1,7 +1,6 @@
 # Todos
 - Implement generation of the shopping - list
-    - check missing elements in query by mysql - version
-    - create Tests
+    - change naming of "shopping Lists"
 - test Programm without any data in the database.
 - add MIT - License?
 
