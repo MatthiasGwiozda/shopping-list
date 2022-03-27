@@ -1,8 +1,7 @@
 # Todos
 - Implement generation of the shopping - list
-    - generate items for shopping list
-    - show recipes for all the meals used
-    - remind the user that he may not buy certain items in the shop he selected
+    - check missing elements in query by mysql - version
+    - create Tests
 - test Programm without any data in the database.
 - add MIT - License?
 

@@ -852,10 +852,24 @@ export default class Database {
 
                 UNION ALL
 
+                -- ingredients for the meals
                 SELECT meals_food.food, (meals_food.quantity * shopping_lists_meals.quantity) AS quantity
                     FROM meals_food
                         JOIN shopping_lists_meals
                         ON shopping_lists_meals.meal = meals_food.meal
+
+                UNION ALL
+        
+                -- ingredients for the related meals of the meals
+                SELECT meals_food.food, (meals_food.quantity * shopping_lists_meals.quantity) AS quantity
+                    FROM meals_food
+                        JOIN shopping_lists_meals
+                        ON meals_food.meal IN (
+                            SELECT related_meal
+                                FROM meals_related_component
+                                    WHERE meal = shopping_lists_meals.meal
+                        )
+
             ) combinedGoods
                 JOIN goods_categories_shop_order
                 ON goods_categories_shop_order.shop_id = ?

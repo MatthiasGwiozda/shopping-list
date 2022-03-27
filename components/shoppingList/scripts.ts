@@ -13,7 +13,7 @@ export default class ShoppingList extends Component<Components.shoppingList> {
     private static readonly textAreaHeadlines: { [key in TextAreas]: string } = {
         availableItemsInShop: 'Available items in selected shop',
         unavailableItemsInShop: 'Items, which can\'t be bought in this shop',
-        recipe: 'Recipe'
+        recipe: 'Recipes'
     }
 
     rendered() {
