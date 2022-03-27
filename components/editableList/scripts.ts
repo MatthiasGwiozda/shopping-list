@@ -13,7 +13,8 @@ enum EditableListFiles {
     saveButton = 'saveButton.html',
     editButton = 'editButton.html',
     cancelButton = 'cancelButton.html',
-    additionalActionButton = 'additionalActionButton.html'
+    additionalActionButton = 'additionalActionButton.html',
+    editAllButton = 'editAllButton.html'
 }
 
 export default class EditableList<EditableListElement> extends Component<Components.editableList> {
@@ -276,10 +277,35 @@ export default class EditableList<EditableListElement> extends Component<Compone
     }
 
     /**
+     * @returns true, when the element is visible.
+     * The headlines should not be counted into this calculation.
+     * @see https://stackoverflow.com/a/5354536/6458608
+     */
+    private isElementVisible(element: HTMLElement): boolean {
+        if (element != null) {
+            var rect = element.getBoundingClientRect();
+            var viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight);
+            return !(
+                rect.bottom < 0 ||
+                rect.top - viewHeight >= 0 ||
+                rect.top <= 50
+            );
+        }
+        return false;
+    }
+
+    /**
      * focuses the next input in the document, if one was found.
      */
     private focusNextInput() {
-        this.container.querySelector<HTMLElement>('tr:not(.additionalActionActive) input')?.focus();
+        const inputs = this.container.querySelectorAll<HTMLElement>('tr:not(.additionalActionActive) input');
+        let focusedAlready = false;
+        inputs?.forEach(input => {
+            if (!focusedAlready && this.isElementVisible(input)) {
+                input.focus();
+                focusedAlready = true;
+            }
+        })
     }
 
     /**
@@ -456,18 +482,29 @@ export default class EditableList<EditableListElement> extends Component<Compone
         return button;
     }
 
+    private getEditAllButton(): HTMLElement {
+        const button = this.gethtmlFromFile(EditableListFiles.editAllButton);
+        button.onclick = async () => {
+            const editButtons = this.container.querySelectorAll<HTMLButtonElement>('.editItemButton');
+            editButtons.forEach(button => button.click());
+        }
+        return button;
+    }
+
     /**
-     * Inserts the addNewButton at the top and bottom of the
+     * Inserts the addNewButton + editAllButton at the top and bottom of the
      * table.
      */
-    private insertAddNewButtons(tableContent: EditableListElement[]) {
+    private insertGeneralButtons(tableContent: EditableListElement[]) {
         if (tableContent.length) {
             /**
              * When there is at least one element,
              * the button should appear additionally at the bottom of the page.
              */
             this.container.append(this.getAddNewButton());
+            this.container.append(this.getEditAllButton());
         }
+        this.container.prepend(this.getEditAllButton());
         this.container.prepend(this.getAddNewButton());
     }
 
@@ -476,7 +513,7 @@ export default class EditableList<EditableListElement> extends Component<Compone
         const tableContent = await getTableContent();
         this.insertColumns();
         this.insertData(tableContent);
-        this.insertAddNewButtons(tableContent);
+        this.insertGeneralButtons(tableContent);
     }
 }
 

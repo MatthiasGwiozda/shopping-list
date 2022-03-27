@@ -1,5 +1,7 @@
 # Todos
+- test edit all - Button
 - test Programm without any data in the database.
+- migrate data from mysql
 - add MIT - License?
 
 # Optimization / nice to have
