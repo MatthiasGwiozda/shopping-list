@@ -3,6 +3,8 @@
 - add MIT - License?
 
 # Optimization / nice to have
+- delete database - file and start the programm.
+    - the programm should start when initializing the database - file.
 - strg + r should not reload the component. sqlite breaks the app :|
 - use "equal" column - names. The following names are not "equalized":
     - item = name
