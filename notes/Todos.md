@@ -1,7 +1,19 @@
 # Todos
-- test edit all - Button
-- test Programm without any data in the database.
+- test search - function.
+    - use additional action. Filter for an item.
+        - now the additional action should disappear.
+
+
 - migrate data from mysql
+    - continue here:
+        - SELECT * FROM shopping.meals_food ORDER BY meal
+        - Eisbergsalat mit Sonnenblumenöl
+
+    - validate at the end with sql - queries
+
+- dont show meals, which have no ingredients in the meals - selection
+
+- test Programm without any data in the database.
 - add MIT - License?
 
 # Optimization / nice to have
@@ -18,7 +30,7 @@
         - food
 - create initial categories
 - Create documentation!
-- Implement search - form for EditableLists
+    - show that experts may use db Browser to use sql and to migrate data easily.
 - disable the pages, which should not be useable when certain elements are not added, yet
     - alternative: link the pages in the elements, which don't have the data, which it needs.
 - set a fixed width for actions - column so that the buttons are not "jumping" when editing elements.
