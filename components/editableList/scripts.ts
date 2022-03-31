@@ -24,6 +24,12 @@ export default class EditableList<EditableListElement> extends Component<Compone
     static readonly checkboxUnChecked = '❌';
 
     private additionalActionButtons: HTMLButtonElement[] = [];
+    /**
+     * while this property is set to true,
+     * an input - field won't be focused when clicking
+     * on the edit - button.
+     */
+    private focusLock = false;
 
     rendered() {
         this.insertElementsAndActions();
@@ -171,7 +177,9 @@ export default class EditableList<EditableListElement> extends Component<Compone
                 oldTr: tr
             });
             tr.replaceWith(editTR);
-            firstInput.focus();
+            if (!this.focusLock) {
+                firstInput.focus();
+            }
         }
         return editButton;
     }
@@ -485,8 +493,11 @@ export default class EditableList<EditableListElement> extends Component<Compone
     private getEditAllButton(): HTMLElement {
         const button = this.gethtmlFromFile(EditableListFiles.editAllButton);
         button.onclick = async () => {
+            this.focusLock = true;
             const editButtons = this.container.querySelectorAll<HTMLButtonElement>('.editItemButton');
             editButtons.forEach(button => button.click());
+            this.focusLock = false;
+            this.focusNextInput();
         }
         return button;
     }
