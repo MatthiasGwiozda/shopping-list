@@ -216,6 +216,8 @@ export default class ItemCollection extends Component<Components.itemCollection>
             if (insertSuccessful) {
                 // insert item into the list.
                 this.addItemToList(itemName)
+                const searchInput = this.getItemSearchInput();
+                searchInput.value = '';
             } else {
                 DialogUtilities.alert(`The item is already in the list. When you want to add more of "${itemName}", try to change the quantity.`)
             }
