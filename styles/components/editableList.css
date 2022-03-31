@@ -51,3 +51,19 @@
 .editable-list .additionalActionActive {
     background-color: lightgrey;
 }
+
+.topActionContainer,
+.bottomActionContainer {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.topActionContainer button,
+.topActionContainer input,
+.bottomActionContainer button,
+.bottomActionContainer input 
+ {
+    margin-left: 0px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+}

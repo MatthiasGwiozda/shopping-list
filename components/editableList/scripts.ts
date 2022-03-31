@@ -552,8 +552,12 @@ export default class EditableList<EditableListElement> extends Component<Compone
         return button;
     }
 
-    private getWrapper(): HTMLDivElement {
-        return this.container.querySelector('.editableListWrapper')
+    private getTopActionContainer() {
+        return this.container.querySelector('.topActionContainer');
+    }
+
+    private getBottomActionContainer() {
+        return this.container.querySelector('.bottomActionContainer');
     }
 
     /**
@@ -561,19 +565,20 @@ export default class EditableList<EditableListElement> extends Component<Compone
      * table.
      */
     private insertGeneralButtons(tableContent: EditableListElement[]) {
-        const wrapper = this.getWrapper();
         if (tableContent.length) {
             /**
              * When there is at least one element,
              * the button should appear additionally at the bottom of the page.
              */
-            wrapper.append(this.getAddNewButton());
-            wrapper.append(this.getEditAllButton());
-            wrapper.append(this.getSaveAllButton());
+            const bottomActionContainer = this.getBottomActionContainer();
+            bottomActionContainer.append(this.getAddNewButton());
+            bottomActionContainer.append(this.getEditAllButton());
+            bottomActionContainer.append(this.getSaveAllButton());
         }
-        wrapper.prepend(this.getSaveAllButton());
-        wrapper.prepend(this.getEditAllButton());
-        wrapper.prepend(this.getAddNewButton());
+        const topActionContainer = this.getTopActionContainer();
+        topActionContainer.append(this.getAddNewButton());
+        topActionContainer.append(this.getEditAllButton());
+        topActionContainer.append(this.getSaveAllButton());
     }
 
     /**
@@ -607,8 +612,8 @@ export default class EditableList<EditableListElement> extends Component<Compone
                 }
             })
         }
-        const wrapper = this.getWrapper();
-        wrapper.prepend(input);
+        const topActionContainer = this.getTopActionContainer();
+        topActionContainer.prepend(input);
     }
 
     private async insertElementsAndActions() {
