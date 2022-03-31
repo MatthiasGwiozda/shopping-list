@@ -14,7 +14,8 @@ enum EditableListFiles {
     editButton = 'editButton.html',
     cancelButton = 'cancelButton.html',
     additionalActionButton = 'additionalActionButton.html',
-    editAllButton = 'editAllButton.html'
+    editAllButton = 'editAllButton.html',
+    saveAllButton = 'saveAllButton.html'
 }
 
 export default class EditableList<EditableListElement> extends Component<Components.editableList> {
@@ -490,6 +491,15 @@ export default class EditableList<EditableListElement> extends Component<Compone
         return button;
     }
 
+    private getSaveAllButton(): HTMLButtonElement {
+        const saveAllButton = this.gethtmlFromFile<HTMLButtonElement>(EditableListFiles.saveAllButton);
+        saveAllButton.onclick = () => {
+            const saveButtons = this.container.querySelectorAll<HTMLButtonElement>('.saveItemButton');
+            saveButtons.forEach(button => button.click());
+        }
+        return saveAllButton;
+    }
+
     private getEditAllButton(): HTMLElement {
         const button = this.gethtmlFromFile(EditableListFiles.editAllButton);
         button.onclick = async () => {
@@ -511,16 +521,19 @@ export default class EditableList<EditableListElement> extends Component<Compone
      * table.
      */
     private insertGeneralButtons(tableContent: EditableListElement[]) {
+        const wrapper = this.getWrapper();
         if (tableContent.length) {
             /**
              * When there is at least one element,
              * the button should appear additionally at the bottom of the page.
              */
-            this.getWrapper().append(this.getAddNewButton());
-            this.getWrapper().append(this.getEditAllButton());
+            wrapper.append(this.getAddNewButton());
+            wrapper.append(this.getEditAllButton());
+            wrapper.append(this.getSaveAllButton());
         }
-        this.getWrapper().prepend(this.getEditAllButton());
-        this.getWrapper().prepend(this.getAddNewButton());
+        wrapper.prepend(this.getSaveAllButton());
+        wrapper.prepend(this.getEditAllButton());
+        wrapper.prepend(this.getAddNewButton());
     }
 
     private async insertElementsAndActions() {
