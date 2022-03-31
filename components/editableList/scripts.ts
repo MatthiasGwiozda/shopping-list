@@ -341,9 +341,24 @@ export default class EditableList<EditableListElement> extends Component<Compone
             const formData = new FormData(e.target as HTMLFormElement);
             const newElement = {} as EditableListElement;
             formData.forEach((value, key) => newElement[key] = value);
-            let res: ActionResult;
+            let res: ActionResult = {
+                result: true
+            };
             if (oldElement != null) {
-                res = await updateElement(oldElement, newElement);
+                /**
+                 * call the database only if the element has changed.
+                 * This optimizes the performance of the "save all" - button
+                 */
+                let update = false;
+                for (const key in oldElement) {
+                    if (newElement[key] != oldElement[key]) {
+                        update = true;
+                        break;
+                    }
+                }
+                if (update) {
+                    res = await updateElement(oldElement, newElement);
+                }
             } else {
                 res = await insertElement(newElement);
             }
