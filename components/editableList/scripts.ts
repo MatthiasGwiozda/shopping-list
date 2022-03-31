@@ -31,6 +31,11 @@ export default class EditableList<EditableListElement> extends Component<Compone
      * on the edit - button.
      */
     private focusLock = false;
+    /**
+     * holds the information, how many elements
+     * were requested to be saved, but are not persisted, yet.
+     */
+    private quedSaveActions = 0;
 
     rendered() {
         this.insertElementsAndActions();
@@ -332,6 +337,7 @@ export default class EditableList<EditableListElement> extends Component<Compone
          */
         return async function (this: GlobalEventHandlers, e: SubmitEvent) {
             e.preventDefault();
+            instance.quedSaveActions++;
             const formData = new FormData(e.target as HTMLFormElement);
             const newElement = {} as EditableListElement;
             formData.forEach((value, key) => newElement[key] = value);
@@ -341,6 +347,7 @@ export default class EditableList<EditableListElement> extends Component<Compone
             } else {
                 res = await insertElement(newElement);
             }
+            instance.quedSaveActions--;
             showMessageOfActionResult(res);
             if (res.result) {
                 instance.removeForm(formId);
@@ -494,8 +501,19 @@ export default class EditableList<EditableListElement> extends Component<Compone
     private getSaveAllButton(): HTMLButtonElement {
         const saveAllButton = this.gethtmlFromFile<HTMLButtonElement>(EditableListFiles.saveAllButton);
         saveAllButton.onclick = () => {
+            const saveIcon = '💾';
+            const hourglass = '⏳';
+            saveAllButton.disabled = true;
+            saveAllButton.innerText = saveAllButton.innerText.replace(saveIcon, hourglass);
             const saveButtons = this.container.querySelectorAll<HTMLButtonElement>('.saveItemButton');
             saveButtons.forEach(button => button.click());
+            const interval = setInterval(() => {
+                if (this.quedSaveActions == 0) {
+                    saveAllButton.innerText = saveAllButton.innerText.replace(hourglass, saveIcon);
+                    saveAllButton.disabled = false;
+                    clearInterval(interval);
+                }
+            }, 100)
         }
         return saveAllButton;
     }
