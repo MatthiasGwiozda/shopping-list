@@ -15,7 +15,8 @@ enum EditableListFiles {
     cancelButton = 'cancelButton.html',
     additionalActionButton = 'additionalActionButton.html',
     editAllButton = 'editAllButton.html',
-    saveAllButton = 'saveAllButton.html'
+    saveAllButton = 'saveAllButton.html',
+    searchInput = 'searchInput.html'
 }
 
 export default class EditableList<EditableListElement> extends Component<Components.editableList> {
@@ -58,13 +59,10 @@ export default class EditableList<EditableListElement> extends Component<Compone
     }
 
     /**
-     * When editing elements, input - fields are shown in the table. In this
-     * case the sorting must use the value of the input - field and not
-     * the innerText of the html - Element.
-     * @returns the value, which can be used to compare the sorting
-     * of elements.
+     * @returns a string representation of the value, which is included in a <td> - Element.
+     * When inputs are used, the value of the input will be returned.
      */
-    private getCompareValueForSorting(htmlElement: HTMLElement): string {
+    private getValueOfTableData(htmlElement: HTMLElement): string {
         const { innerText, children } = htmlElement;
         let compareValue = innerText;
         const input = children[0];
@@ -78,6 +76,10 @@ export default class EditableList<EditableListElement> extends Component<Compone
         return compareValue;
     }
 
+    private getAllTableRows() {
+        return this.container.querySelectorAll<HTMLTableRowElement>('tbody > tr');
+    }
+
     /**
      * sorts the elements in the editable list.
      * @param sortIndex the index of the <td> - Element. The innerText of
@@ -89,12 +91,17 @@ export default class EditableList<EditableListElement> extends Component<Compone
             .filter(button => button.classList.contains(constants.activeActionButtonClass));
         activeButtons.forEach(button => button.click());
         // now sort the elements
-        const children = this.container.querySelectorAll<HTMLElement>('tbody > tr');
+        const children = this.getAllTableRows();
         const tableRows: HTMLElement[] = [];
         children.forEach(row => tableRows.push(row));
         tableRows.sort((row1, row2) => {
-            const compareValue1 = this.getCompareValueForSorting(row1.children[sortIndex] as HTMLElement);
-            const compareValue2 = this.getCompareValueForSorting(row2.children[sortIndex] as HTMLElement);
+            /*
+             * When editing elements, input - fields are shown in the table. In this
+             * case the sorting must use the value of the input - field and not
+             * the innerText of the html - Element.
+             */
+            const compareValue1 = this.getValueOfTableData(row1.children[sortIndex] as HTMLElement);
+            const compareValue2 = this.getValueOfTableData(row2.children[sortIndex] as HTMLElement);
             if (compareValue1 == compareValue2) {
                 return 0;
             }
@@ -569,13 +576,50 @@ export default class EditableList<EditableListElement> extends Component<Compone
         wrapper.prepend(this.getAddNewButton());
     }
 
+    /**
+     * Inserts the search - input together with
+     * the functionality.
+     */
+    private insertSearchInput() {
+        const input = this.gethtmlFromFile<HTMLInputElement>(EditableListFiles.searchInput);
+        input.oninput = () => {
+            const { value } = input;
+            const rows = this.getAllTableRows();
+            /**
+             * the number of all the columns in this editableList.
+             * one column represents the actions and is removed.
+             */
+            const numberOfColumns = this.getNumberOfColumns() - 1;
+            rows.forEach(row => {
+                let visible = false;
+                for (let i = 0; i < numberOfColumns; i++) {
+                    const tableDataToCheck = row.children[i] as HTMLElement;
+                    const tableDataValue = this.getValueOfTableData(tableDataToCheck);
+                    if (tableDataValue.toLowerCase().includes(value.toLowerCase())) {
+                        visible = true;
+                        break;
+                    }
+                }
+                if (visible) {
+                    row.style.display = 'table-row';
+                } else {
+                    row.style.display = 'none';
+                }
+            })
+        }
+        const wrapper = this.getWrapper();
+        wrapper.prepend(input);
+    }
+
     private async insertElementsAndActions() {
         const { getTableContent } = this.componentParameters;
         const tableContent = await getTableContent();
         this.insertColumns();
         this.insertData(tableContent);
         this.insertGeneralButtons(tableContent);
+        this.insertSearchInput();
     }
+
 }
 
 interface InsertOrUpdateButtonResponse {
