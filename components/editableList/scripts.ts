@@ -502,6 +502,10 @@ export default class EditableList<EditableListElement> extends Component<Compone
         return button;
     }
 
+    private getWrapper(): HTMLDivElement {
+        return this.container.querySelector('.editableListWrapper')
+    }
+
     /**
      * Inserts the addNewButton + editAllButton at the top and bottom of the
      * table.
@@ -512,11 +516,11 @@ export default class EditableList<EditableListElement> extends Component<Compone
              * When there is at least one element,
              * the button should appear additionally at the bottom of the page.
              */
-            this.container.append(this.getAddNewButton());
-            this.container.append(this.getEditAllButton());
+            this.getWrapper().append(this.getAddNewButton());
+            this.getWrapper().append(this.getEditAllButton());
         }
-        this.container.prepend(this.getEditAllButton());
-        this.container.prepend(this.getAddNewButton());
+        this.getWrapper().prepend(this.getEditAllButton());
+        this.getWrapper().prepend(this.getAddNewButton());
     }
 
     private async insertElementsAndActions() {

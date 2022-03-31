@@ -1,4 +1,7 @@
-/* editable-list styles */
+.editableListWrapper {
+    margin-bottom: 70px;
+}
+
 .editable-list {
     width: 100%;
 }
