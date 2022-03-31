@@ -582,12 +582,22 @@ export default class EditableList<EditableListElement> extends Component<Compone
     }
 
     /**
+     * all additional actions, which are in use at the moment,
+     * will be deactivated when calling this function.
+     */
+    private deactivateAllAdditionalAction() {
+        const buttons = this.container.querySelectorAll<HTMLButtonElement>('.additionalActionButton.' + constants.activeActionButtonClass);
+        buttons.forEach(button => button.click());
+    }
+
+    /**
      * Inserts the search - input together with
      * the functionality.
      */
     private insertSearchInput() {
         const input = this.gethtmlFromFile<HTMLInputElement>(EditableListFiles.searchInput);
         input.oninput = () => {
+            this.deactivateAllAdditionalAction();
             const { value } = input;
             const rows = this.getAllTableRows();
             /**

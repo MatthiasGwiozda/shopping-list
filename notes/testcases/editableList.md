@@ -8,3 +8,6 @@
 
 - Click on an edit - Button
     - the first input - Field of the element should be focused
+
+- use an additional action (e. g. ingredients in meals). search for an item in the filter - searchbox
+    - now the additional action should disappear.

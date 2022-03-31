@@ -1,9 +1,4 @@
 # Todos
-- test search - function.
-    - use additional action. Filter for an item.
-        - now the additional action should disappear.
-
-
 - migrate data from mysql
     - continue here:
         - SELECT * FROM shopping.meals_food ORDER BY meal
