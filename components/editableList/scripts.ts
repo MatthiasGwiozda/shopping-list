@@ -527,14 +527,20 @@ export default class EditableList<EditableListElement> extends Component<Compone
             const hourglass = '⏳';
             saveAllButton.disabled = true;
             saveAllButton.innerText = saveAllButton.innerText.replace(saveIcon, hourglass);
-            const saveButtons = this.container.querySelectorAll<HTMLButtonElement>('.saveItemButton');
-            saveButtons.forEach(button => button.click());
-            const interval = setInterval(() => {
-                if (this.quedSaveActions == 0) {
-                    saveAllButton.innerText = saveAllButton.innerText.replace(hourglass, saveIcon);
-                    saveAllButton.disabled = false;
-                    clearInterval(interval);
-                }
+            /**
+             * This timeout exists so that the button will show
+             * the loading - icon while saving many items at once.
+             */
+            setTimeout(() => {
+                const saveButtons = this.container.querySelectorAll<HTMLButtonElement>('.saveItemButton');
+                saveButtons.forEach(button => button.click());
+                const interval = setInterval(() => {
+                    if (this.quedSaveActions == 0) {
+                        saveAllButton.innerText = saveAllButton.innerText.replace(hourglass, saveIcon);
+                        saveAllButton.disabled = false;
+                        clearInterval(interval);
+                    }
+                }, 100)
             }, 100)
         }
         return saveAllButton;
