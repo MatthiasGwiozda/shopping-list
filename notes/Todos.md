@@ -1,6 +1,4 @@
 # Todos
-- make backup of db
-- sort meal-components alphabetically in the meals
 - sort items alphabetically in static lists
 - don't show empty recipes as null. Example: gnocci
 

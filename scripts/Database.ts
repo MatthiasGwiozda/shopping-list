@@ -483,7 +483,8 @@ export default class Database {
         SELECT meals.name, recipe, meals_components.name IS NOT NULL AS component
             FROM meals
                 LEFT JOIN meals_components
-                ON meals_components.name = meals.name;
+                ON meals_components.name = meals.name
+                    ORDER BY meals.name;
         `);
         return meals.map(meal => {
             /**
