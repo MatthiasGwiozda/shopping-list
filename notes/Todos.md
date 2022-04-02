@@ -1,22 +1,7 @@
 # Todos
-- validate the migration of the data from mysql to sqlite
-    done tables:
-    - food
-    - goods
-    - goods_categories
-    - goods_categories_shop_ordergoods_shops
-    - goods_shops
-    - meals_food
-    - shops
-    - meals_this_week
-    - meals
-    - meals_side_dishes
-    - meals_related_side_dish
-    - shopping_lists
-    - shopping_lists_goods
-
 - make backup of db
 - sort meal-components alphabetically in the meals
+- sort items alphabetically in static lists
 - don't show empty recipes as null. Example: gnocci
 
 - test Programm without any data in the database.
