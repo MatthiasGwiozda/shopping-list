@@ -160,7 +160,7 @@ export default class ItemCollection extends Component<Components.itemCollection>
         this.initializeFilters(items);
         this.appendOptgroupsAndCategories(items);
         this.setFormIdForInput();
-        this.initializeFormSubmit();
+        this.initializeFormSubmit(items);
         this.addCurrentItems();
     }
 
@@ -206,7 +206,7 @@ export default class ItemCollection extends Component<Components.itemCollection>
         itemsContainer.appendChild(p);
     }
 
-    private initializeFormSubmit() {
+    private initializeFormSubmit(items: Item[]) {
         const form = this.getForm();
         form.onsubmit = async (e) => {
             e.preventDefault();
@@ -218,6 +218,7 @@ export default class ItemCollection extends Component<Components.itemCollection>
                 this.addItemToList(itemName)
                 const searchInput = this.getItemSearchInput();
                 searchInput.value = '';
+                this.appendOptgroupsAndCategories(items);
             } else {
                 DialogUtilities.alert(`The item is already in the list. When you want to add more of "${itemName}", try to change the quantity.`)
             }
