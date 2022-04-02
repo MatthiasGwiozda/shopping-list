@@ -30,3 +30,6 @@
 
 - open the select for all the meals.
     - The meals should be sorted alphabetically
+
+- Add a meal, which has no recipe to the meals. Generate the shoppingList
+    - in the recipe there shouldn't appear a "null"

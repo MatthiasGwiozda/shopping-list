@@ -1,7 +1,4 @@
 # Todos
-- sort items alphabetically in static lists
-- don't show empty recipes as null. Example: gnocci
-
 - test Programm without any data in the database.
 - add MIT - License?
 

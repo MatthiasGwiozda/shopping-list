@@ -923,7 +923,7 @@ export default class Database {
      */
     static async getRecipesOfSelectedMeals(): Promise<string> {
         const meals: MealWithoutComponent[] = await this.runQuery(`
-        SELECT name, recipe
+        SELECT name, coalesce(recipe, '') AS recipe
             FROM meals
                 JOIN shopping_lists_meals
                 ON shopping_lists_meals.meal = meals.name;
@@ -931,7 +931,7 @@ export default class Database {
         let recipes = '';
         for (const meal of meals) {
             const relatedMeals: MealWithoutComponent[] = await this.runQuery(`
-            SELECT name, recipe
+            SELECT name, coalesce(recipe, '') AS recipe
                 FROM meals
                     WHERE name IN (
                         SELECT related_meal
