@@ -1,11 +1,23 @@
 # Todos
-- migrate data from mysql
-    - continue here:
-        - SELECT * FROM shopping.meals_food ORDER BY meal
-        - Eisbergsalat mit Sonnenblumenöl
+- validate the migration of the data from mysql to sqlite
+    done tables:
+    - food
+    - goods
+    - goods_categories
+    - goods_categories_shop_ordergoods_shops
+    - goods_shops
+    - meals_food
+    - shops
+    - meals_this_week
+    - meals
+    - meals_side_dishes
+    - meals_related_side_dish
+    - shopping_lists
+    - shopping_lists_goods
 
-    - validate at the end with sql - queries
-
+- make backup of db
+- sort meal-components alphabetically in the meals
+- don't show empty recipes as null. Example: gnocci
 
 - test Programm without any data in the database.
 - add MIT - License?
