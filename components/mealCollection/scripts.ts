@@ -62,6 +62,7 @@ export default class MealCollection extends Component<Components.mealCollection>
     }
 
     addItemsToSelect(groupname: string, items: string[], disabledItems = false) {
+        items.sort((item1, item2) => item1 < item2 ? -1 : 1)
         if (items.length) {
             const optgroup = document.createElement('optgroup');
             if (disabledItems) {

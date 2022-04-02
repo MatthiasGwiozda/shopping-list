@@ -27,3 +27,6 @@
 
 - define a meal with a related component. Select this meal in the mealCollection
      - The meal should be selectable
+
+- open the select for all the meals.
+    - The meals should be sorted alphabetically
