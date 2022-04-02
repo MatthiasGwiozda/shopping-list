@@ -806,6 +806,7 @@ export default class Database {
         SELECT goodsName AS itemName, quantity
             FROM shopping_lists_goods
                 WHERE shoppingListName = ?
+                    ORDER BY goodsName
             `, [shoppingListName]);
     }
 
