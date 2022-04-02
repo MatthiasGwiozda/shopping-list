@@ -3,6 +3,7 @@ import DialogUtilities from "../../scripts/utilities/DialogUtilities";
 import InputUtilities from "../../scripts/utilities/InputUtilities";
 import { Components } from "../../types/components/Components";
 import Meal from "../../types/Meal";
+import MealInformation from "../../types/MealInformation";
 import Component from "../Component";
 
 export default class MealCollection extends Component<Components.mealCollection> {
@@ -17,25 +18,55 @@ export default class MealCollection extends Component<Components.mealCollection>
         this.initializeFormSubmit();
     }
 
+    /**
+     * @returns the meals, which either are useable in the mealCollection or aren't.
+     * @param useableMeals you can define if this function should return the useableMeals
+     * or the meals without related meals and food by setting this parameter.
+     */
+    private filterMeals(meals: Meal[], mealsInformation: MealInformation[], useableMeals: boolean): Meal[] {
+        return meals.filter(meal => {
+            const mealInfo = mealsInformation.find(mealInfo => mealInfo.name == meal.name);
+            return useableMeals ? mealInfo.useableMeal : !mealInfo.useableMeal;
+        });
+    }
+
     async insertMealsToSelect() {
         const meals = await Database.selectAllMeals();
-        const mealComponents = this.getMealNames(meals, true);
-        const fullMeals = this.getMealNames(meals);
+        const mealsInformation = await Database.selectMealsInformation();
+        const useableMeals = this.filterMeals(meals, mealsInformation, true);
+        const unusableMeals = this.filterMeals(meals, mealsInformation, false);
+        // Get the names of the meals as arrays
+        const unusableMealnames = this.getMealNames(unusableMeals);
+        const mealComponents = this.getMealNames(useableMeals, true);
+        const fullMeals = this.getMealNames(useableMeals, false);
+        // Insert the meals into the array
         this.addItemsToSelect('Full meals', fullMeals);
         this.addItemsToSelect('Meal components', mealComponents);
+        this.addItemsToSelect('Meals without food', unusableMealnames, true);
     }
 
     /**
      * @returns The names of the meals. Through the parameter "component" you
      * can define whether component - meals or non component meals are returned.
      */
-    getMealNames(meals: Meal[], component = false): string[] {
-        return meals.filter((meal) => meal.component == component).map(meal => meal.name);
+    getMealNames(meals: Meal[], component?: boolean): string[] {
+        return meals
+            .filter((meal) => {
+                if (component == null) {
+                    return true;
+                } else {
+                    return meal.component == component
+                }
+            })
+            .map(meal => meal.name);
     }
 
-    addItemsToSelect(groupname: string, items: string[]) {
+    addItemsToSelect(groupname: string, items: string[], disabledItems = false) {
         if (items.length) {
             const optgroup = document.createElement('optgroup');
+            if (disabledItems) {
+                optgroup.disabled = true;
+            }
             optgroup.label = groupname;
             items.forEach(item => {
                 const option = document.createElement('option');

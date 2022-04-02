@@ -18,3 +18,12 @@
 
 - Set the quantity to 999,999
     - The quantity should be saved in the database
+
+- define a meal without food and assigned components. try to select this meal in the mealCollection
+    - The meal should not be selectable in the select - input
+
+- define a meal only with food. Select this meal in the mealCollection
+     - The meal should be selectable
+
+- define a meal with a related component. Select this meal in the mealCollection
+     - The meal should be selectable

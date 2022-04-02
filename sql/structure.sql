@@ -96,3 +96,17 @@ CREATE TABLE `shopping_lists_meals` (
   PRIMARY KEY(`meal`),
   CONSTRAINT `shopping_list_meals_meal` FOREIGN KEY (`meal`) REFERENCES `meals` (`name`) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+CREATE VIEW v_meals AS
+SELECT 
+meals.name,
+meals.recipe,
+(SELECT related_meal
+	FROM meals_related_component
+		WHERE meals_related_component.meal = meals.name
+			LIMIT 1) IS NOT NULL AS hasRelatedMeals,
+(SELECT food
+	FROM meals_food
+		WHERE meals_food.meal = meals.name
+			LIMIT 1) IS NOT NULL AS hasMealsFood
+	FROM meals;

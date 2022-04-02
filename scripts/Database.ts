@@ -5,6 +5,7 @@ import { CurrentItems } from '../types/components/itemCollection';
 import GoodsShops from '../types/GoodsShops';
 import Item from '../types/Item';
 import Meal, { MealWithoutComponent } from '../types/Meal';
+import MealInformation from '../types/MealInformation';
 import Shop from '../types/Shop';
 import ShoppingListItem from '../types/ShoppingListItem';
 import ShoppingListMeal from '../types/ShoppingListMeal';
@@ -576,6 +577,22 @@ export default class Database {
             return false;
         }
         return true;
+    }
+
+    static async selectMealsInformation(): Promise<MealInformation[]> {
+        const mealInformation = await this.runQuery<MealInformation>(`
+            SELECT *, hasRelatedMeals | hasMealsFood AS useableMeal
+                FROM v_meals
+            `);
+        return mealInformation.map(mealInfo => {
+            return {
+                name: mealInfo.name,
+                recipe: mealInfo.recipe,
+                hasMealsFood: !!mealInfo.hasMealsFood,
+                hasRelatedMeals: !!mealInfo.hasRelatedMeals,
+                useableMeal: !!mealInfo.useableMeal
+            }
+        })
     }
 
     static async selectMealFood(mealName: string): Promise<CurrentItems[]> {
