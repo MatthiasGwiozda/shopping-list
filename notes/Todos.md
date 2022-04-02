@@ -1,5 +1,7 @@
 # Todos
 - test Programm without any data in the database.
+    - fix bug: when database gets created, the programm crashes
+    - let the user only use certain menu - items when the database is empty?
 - add MIT - License?
 
 # Optimization / nice to have
