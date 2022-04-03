@@ -19,7 +19,7 @@ export default class Database {
         const allQueries = FileUtilities.getFileContent(Files.structureSql);
         return allQueries
             .split(';')
-            .filter(query => query != '');
+            .filter(query => query != '' && query != '\r\n' && query != '\n');
     }
 
     private static runQuery<T>(query, params: any[] = []): Promise<T[]> {
