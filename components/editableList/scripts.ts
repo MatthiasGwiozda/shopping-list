@@ -466,7 +466,7 @@ export default class EditableList<EditableListElement> extends Component<Compone
         const formId = this.createForm(tr, updateElement?.element);
         let firstInput: HTMLElement;
         for (const key of keys) {
-            const { columnName, inputType, selectInputValues, checkboxCheckedInitialy } = this.componentParameters.elementKeys[key];
+            const { columnName, inputType, selectInputValues, checkboxCheckedInitialy, placeholder } = this.componentParameters.elementKeys[key];
             /**
              * the value of the specific key for the updateElement.
              */
@@ -486,7 +486,7 @@ export default class EditableList<EditableListElement> extends Component<Compone
                 InputUtilities.setDefaultTextInputAttributes(input);
                 this.requireInputAndAddValue(input, elementKeyValue);
                 // the placeholder should use the human - readable keys of the element
-                input.setAttribute('placeholder', columnName);
+                input.setAttribute('placeholder', placeholder ? placeholder : columnName);
             } else if (inputType == PossibleInputTypes.checkbox) {
                 input = document.createElement('input');
                 input.setAttribute('type', EditableList.checkboxType);

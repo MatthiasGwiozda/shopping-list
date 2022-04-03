@@ -63,12 +63,17 @@ export interface EditableListParams<ElementType> {
              */
             selectInputValues?: string[],
             /**
-             * When using inputType.checkbox, you can control
+             * When using PossibleInputTypes.checkbox, you can control
              * if the checkbox should be checked when creating a new
              * element through this property.
              * The default-value is "false".
              */
             checkboxCheckedInitialy?: boolean
+            /**
+             * When using PossibleInputTypes.text, you can define a placeholder
+             * as an example input for the user.
+             */
+            placeholder?: string
         }
     };
     additionalEditableListActions?: {

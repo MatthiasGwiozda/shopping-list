@@ -35,8 +35,9 @@ export default class Categories extends Component<Components.categories> {
             },
             elementKeys: {
                 category: {
-                    columnName: "category",
-                    inputType: PossibleInputTypes.text
+                    columnName: "Category",
+                    inputType: PossibleInputTypes.text,
+                    placeholder: 'beverages / sweets / ...'
                 }
             }
         }
