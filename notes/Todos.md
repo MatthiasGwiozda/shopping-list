@@ -1,6 +1,9 @@
 # Todos
 - test Programm without any data in the database.
-    - let the user only use certain menu - items when the database is empty?
+    - grey out the menu - elements, which are not ready to use yet
+    - describe what is missing in the menu - title when an element is greyed out.
+    - remove the title + "greyed out effect" when the user inserted the necessary elements.
+    - test multiple combinations
 - add MIT - License?
 
 # Optimization / nice to have
