@@ -32,19 +32,19 @@ export default class Shops extends Component<Components.shops> {
             },
             elementKeys: {
                 shop_name: {
-                    columnName: "Name",
+                    columnName: "Shop name",
                     inputType: PossibleInputTypes.text
                 },
                 street: {
-                    columnName: "street",
+                    columnName: "Street",
                     inputType: PossibleInputTypes.text
                 },
                 house_number: {
-                    columnName: "house number",
+                    columnName: "House number",
                     inputType: PossibleInputTypes.text
                 },
                 postal_code: {
-                    columnName: "postal code",
+                    columnName: "Postal code",
                     inputType: PossibleInputTypes.text
                 }
             },

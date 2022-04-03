@@ -71,12 +71,12 @@ export default class Meals extends Component<Components.meals> {
             },
             elementKeys: {
                 name: {
-                    columnName: 'Meal',
+                    columnName: 'Meal name',
                     inputType: PossibleInputTypes.text,
                     placeholder: 'Lasagna / Pizza / ...'
                 },
                 component: {
-                    columnName: 'Meal - component',
+                    columnName: 'Meal component',
                     inputType: PossibleInputTypes.checkbox
                 }
             },
