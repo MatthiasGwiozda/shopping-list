@@ -72,7 +72,8 @@ export default class Meals extends Component<Components.meals> {
             elementKeys: {
                 name: {
                     columnName: 'Meal',
-                    inputType: PossibleInputTypes.text
+                    inputType: PossibleInputTypes.text,
+                    placeholder: 'Lasagna / Pizza / ...'
                 },
                 component: {
                     columnName: 'Meal - component',

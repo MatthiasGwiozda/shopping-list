@@ -37,7 +37,7 @@ export default class Categories extends Component<Components.categories> {
                 category: {
                     columnName: "Category",
                     inputType: PossibleInputTypes.text,
-                    placeholder: 'beverages / sweets / ...'
+                    placeholder: 'Beverages / Sweets / ...'
                 }
             }
         }

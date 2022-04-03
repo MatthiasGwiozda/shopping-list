@@ -37,7 +37,8 @@ export default class Items extends Component<Components.items> {
             elementKeys: {
                 name: {
                     columnName: "Name",
-                    inputType: PossibleInputTypes.text
+                    inputType: PossibleInputTypes.text,
+                    placeholder: 'Potato / Water / ...'
                 },
                 category: {
                     columnName: "Category",
