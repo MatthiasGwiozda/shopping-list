@@ -48,7 +48,8 @@ export default class Items extends Component<Components.items> {
                 food: {
                     columnName: "Food",
                     inputType: PossibleInputTypes.checkbox,
-                    checkboxCheckedInitialy: true
+                    checkboxCheckedInitialy: true,
+                    description: "You can only use the item in a meal when the item is marked as 'Food'. You can (but musn't) optimize your overview while creating meals through this option."
                 }
             },
             additionalEditableListActions: [{

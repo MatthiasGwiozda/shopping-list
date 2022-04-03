@@ -73,7 +73,13 @@ export interface EditableListParams<ElementType> {
              * When using PossibleInputTypes.text, you can define a placeholder
              * as an example input for the user.
              */
-            placeholder?: string
+            placeholder?: string,
+            /**
+             * You can describe the column throught this property.
+             * The description will be shown in the column as a title
+             * when hovering on the columnname with the mouse.
+             */
+            description?: string
         }
     };
     additionalEditableListActions?: {

@@ -114,6 +114,18 @@ export default class EditableList<EditableListElement> extends Component<Compone
     }
 
     /**
+     * @param humanReadableName this is the columnName of the element.
+     * @returns The description of the element from the elementKeys.
+     * Note that the description is an optional parameter and might be undefined.
+     */
+    private getDescriptionForHumanReadableName(humanReadableName: string): string {
+        const { elementKeys } = this.componentParameters;
+        const elementKeyValues = Object.values(elementKeys);
+        const element = elementKeyValues.find(el => el.columnName == humanReadableName);
+        return element?.description;
+    }
+
+    /**
      * inserts the column - names in the table
      * it is assumed that every element in the array
      * has the same keys in every object.
@@ -133,7 +145,12 @@ export default class EditableList<EditableListElement> extends Component<Compone
                 th.classList.add(sortingClass);
             };
             sortIndex--;
-            th.title = `Sort by ${th.innerText}`;
+            const description = this.getDescriptionForHumanReadableName(th.innerText);
+            let title = `Sort by ${th.innerText}`;
+            if (description != null) {
+                title += '. ' + description;
+            }
+            th.title = title;
             tableHeadRow.prepend(th);
         }
     }

@@ -77,7 +77,8 @@ export default class Meals extends Component<Components.meals> {
                 },
                 component: {
                     columnName: 'Meal component',
-                    inputType: PossibleInputTypes.checkbox
+                    inputType: PossibleInputTypes.checkbox,
+                    description: 'A meal component is a reusable part of a "full meal". You can assign non component meals to a meal component. When you generate the shopping list with the full meal, the ingredients of the assigned meal components will be shown in your generated list.'
                 }
             },
             additionalEditableListActions: [{
