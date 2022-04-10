@@ -20,6 +20,11 @@ interface ComponentRoute {
      */
     componentReadyChecks?: ComponentReadyCheck[],
     /**
+     * This message will be set as the title of the
+     * menu - item when the menu - item is not ready to be used.
+     */
+    componentReadyCheckMessage?: string;
+    /**
      * After the function "createMenuRouteElements" is used,
      * you can get the html - menu Element for this component
      * route through this property.
@@ -68,7 +73,8 @@ const componentRoutes: ComponentRoute[] = [
         componentReadyChecks: [
             componentReadyChecks[Components.items],
             componentReadyChecks[Components.shops]
-        ]
+        ],
+        componentReadyCheckMessage: 'Please add items and at least one shop to generate shopping lists'
     },
     {
         name: 'Items',
@@ -76,7 +82,8 @@ const componentRoutes: ComponentRoute[] = [
         icon: constants.icons.item,
         componentReadyChecks: [
             componentReadyChecks[Components.categories]
-        ]
+        ],
+        componentReadyCheckMessage: 'Please add categories before you add items'
     },
     {
         name: 'Categories',
@@ -89,7 +96,8 @@ const componentRoutes: ComponentRoute[] = [
         icon: constants.icons.shop,
         componentReadyChecks: [
             componentReadyChecks[Components.categories]
-        ]
+        ],
+        componentReadyCheckMessage: 'Please add categories before you define shops. Every shop may have it\'s own order for categories'
     },
     {
         name: 'meals',
@@ -97,7 +105,8 @@ const componentRoutes: ComponentRoute[] = [
         icon: '🥗',
         componentReadyChecks: [
             componentReadyChecks[itemsWithFoodCheck]
-        ]
+        ],
+        componentReadyCheckMessage: 'Please add at least one "food - item" to create meals'
     }
 ];
 
@@ -144,7 +153,7 @@ function createMenuRouteElements() {
  */
 export async function refreshReadyMenuComponents() {
     for (const componentRoute of componentRoutes) {
-        const { componentReadyChecks } = componentRoute;
+        const { componentReadyChecks, componentReadyCheckMessage } = componentRoute;
         if (componentReadyChecks != null) {
             const promises = componentReadyChecks.map(readyCheck => readyCheck());
             const results = await Promise.all(promises);
@@ -153,8 +162,10 @@ export async function refreshReadyMenuComponents() {
             const menuNotReadyClass = 'notReady';
             if (componentIsReady) {
                 htmlElement.classList.remove(menuNotReadyClass);
+                htmlElement.removeAttribute('title');
             } else {
                 htmlElement.classList.add(menuNotReadyClass);
+                htmlElement.title = componentReadyCheckMessage;
             }
         }
     }
