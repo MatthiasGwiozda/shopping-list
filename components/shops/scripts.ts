@@ -1,5 +1,6 @@
 import constants from "../../scripts/constants";
 import Database from "../../scripts/Database";
+import { refreshReadyMenuComponents } from "../../scripts/menu";
 import { Components } from "../../types/components/Components";
 import { EditableListParams, PossibleInputTypes } from "../../types/components/editableList";
 import Shop from "../../types/Shop";
@@ -11,6 +12,7 @@ export default class Shops extends Component<Components.shops> {
             getTableContent: async () => await Database.selectAllShops(),
             deleteElement: async (shop) => {
                 const result = await Database.deleteShop(shop);
+                refreshReadyMenuComponents();
                 return {
                     result,
                     message: result ? null : 'The shop could not be deleted. Maybe the shop is used somewhere else in the application?'
@@ -18,6 +20,7 @@ export default class Shops extends Component<Components.shops> {
             },
             insertElement: async function (shop) {
                 const result = await Database.insertShop(shop);
+                refreshReadyMenuComponents();
                 return {
                     result,
                     message: result ? null : 'An error occoured while saving the shop. Maybe the shop already exists?'

@@ -1,4 +1,5 @@
 import Database from "../../scripts/Database";
+import { refreshReadyMenuComponents } from "../../scripts/menu";
 import Category from "../../types/Category";
 import { Components } from "../../types/components/Components";
 import { EditableListParams, PossibleInputTypes } from "../../types/components/editableList";
@@ -14,6 +15,7 @@ export default class Categories extends Component<Components.categories> {
             getTableContent: async () => await Database.selectAllCategories(),
             deleteElement: async function (category) {
                 const result = await Database.deleteCategory(category);
+                refreshReadyMenuComponents();
                 return {
                     result,
                     message: result ? null : 'The category could not be deleted. Maybe it is used in an item. Change the category of the items first'
@@ -21,6 +23,7 @@ export default class Categories extends Component<Components.categories> {
             },
             insertElement: async function (category) {
                 const result = await Database.insertCategory(category);
+                refreshReadyMenuComponents();
                 return {
                     result,
                     message: result ? null : 'An error occoured while saving the category. Maybe the category already exists?'

@@ -1,5 +1,6 @@
 import constants from "../../scripts/constants";
 import Database from "../../scripts/Database";
+import { refreshReadyMenuComponents } from "../../scripts/menu";
 import { Components } from "../../types/components/Components";
 import { EditableListParams, PossibleInputTypes } from "../../types/components/editableList";
 import Item from "../../types/Item";
@@ -15,6 +16,7 @@ export default class Items extends Component<Components.items> {
             getTableContent: async () => await Database.selectAllItems(),
             deleteElement: async function (item) {
                 const result = await Database.deleteItem(item);
+                refreshReadyMenuComponents();
                 return {
                     result,
                     message: result ? null : 'The item could not be deleted.'
@@ -22,6 +24,7 @@ export default class Items extends Component<Components.items> {
             },
             insertElement: async function (item) {
                 const result = await Database.insertItem(item);
+                refreshReadyMenuComponents();
                 return {
                     result,
                     message: result ? null : 'An error occoured while saving the item. Maybe the item already exists?'
@@ -29,6 +32,8 @@ export default class Items extends Component<Components.items> {
             },
             updateElement: async function (oldItem, newItem) {
                 const result = await Database.updateItem(oldItem, newItem);
+                // This refresh is for the itemsWithFoodCheck in `menu.ts`
+                refreshReadyMenuComponents();
                 return {
                     result,
                     message: result ? null : 'An error occoured. Maybe the item already exists?'

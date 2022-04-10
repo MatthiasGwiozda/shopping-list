@@ -28,6 +28,10 @@
     background-color: var(--menu-background-color-active);
 }
 
+#menu a.notReady {
+    filter: brightness(0.4);
+}
+
 #menu span.icon {
     font-size: 30px;
 }
