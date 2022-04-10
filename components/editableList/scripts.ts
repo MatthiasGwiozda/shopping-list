@@ -374,7 +374,16 @@ export default class EditableList<EditableListElement> extends Component<Compone
                  * This optimizes the performance of the "save all" - button
                  */
                 let update = false;
-                for (const key in oldElement) {
+                /**
+                 * FormData doesn't return a value for a checkbox, when it's not checked.
+                 * Therfore we have to make sure that we get all the relevant keys of the old and new elements.
+                 */
+                const allKeys = new Set([
+                    ...Object.keys(newElement),
+                    ...Object.keys(oldElement)
+                ])
+                const allIterableKeys = Array.from(allKeys);
+                for (const key of allIterableKeys) {
                     if (newElement[key] != oldElement[key]) {
                         update = true;
                         break;

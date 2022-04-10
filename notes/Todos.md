@@ -1,7 +1,6 @@
 # Todos
 - test Programm without any data in the database.
-    - test multiple combinations
-- Fix bug: Create a food item. Change it to non food - item. Now switch again to a food - item. The change is not saved in the database now. But the editableList saves the item successfully..
+    - test multiple combinations (menu.md)
 - add MIT - License?
 
 # Optimization / nice to have

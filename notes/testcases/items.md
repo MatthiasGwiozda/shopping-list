@@ -7,3 +7,6 @@
 - edit an item which has not the first category in the list: The category in the dropdown should match the category, which were previously selected for this item.
 - click on the "add new" - button twice. Add one item. After Adding the item, the next input - field should be focused.
 - click on the "Set availability of an item in shops" - button. Add a new Element afterwards. The Checkbox of the shop should not be focused after saving the item.
+
+- Create a food item. Change it to non food - item. Now switch again to a food - item. Now click on "categories" in the menu. Go back to items.
+    - The item, which was marked as a "food - item" should still be a food - item.
