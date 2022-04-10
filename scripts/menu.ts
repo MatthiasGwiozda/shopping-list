@@ -7,9 +7,27 @@ type MenuComponents = Components.shoppingList | Components.items | Components.ca
 type ReadyCheckComponents = Components.categories | Components.shops | Components.items | "itemsWithFoodCheck";
 type ComponentReadyCheck = () => Promise<boolean>;
 type ComponentReadyChecks = { [key in ReadyCheckComponents]: ComponentReadyCheck }
+interface ComponentRoute {
+    name: string,
+    component: MenuComponents,
+    icon: string,
+    /**
+     * you can define, which component is
+     * dependent of another component.
+     * When a dependent component is not ready, the menu - item
+     * will be displayed "disabled" to show the user that he
+     * cannot use this section without defining other elements.
+     */
+    componentReadyChecks?: ComponentReadyCheck[],
+    /**
+     * After the function "createMenuRouteElements" is used,
+     * you can get the html - menu Element for this component
+     * route through this property.
+     */
+    htmlElement?: HTMLAnchorElement
+}
 
 const itemsWithFoodCheck = "itemsWithFoodCheck";
-const anchorComponentAttribute = 'data-component';
 
 function hasAtLeasOneElement(arr: any[]): boolean {
     return arr.length > 0;
@@ -103,14 +121,14 @@ function setActiveMenuItem(routeEl: HTMLElement) {
 
 function goToRoute(component: Components) {
     Component.injectComponent(component, document.getElementById(constants.contentId));
-    setActiveMenuItem(document.querySelector(`#${constants.menuId} > a[${anchorComponentAttribute}=${component}]`));
+    const { htmlElement } = componentRoutes.find(componentRoute => componentRoute.component == component)
+    setActiveMenuItem(htmlElement);
 }
 
 function createMenuRouteElements() {
     componentRoutes.forEach(componentRoute => {
         const { component, icon, name } = componentRoute;
         const routeEl = document.createElement('a');
-        routeEl.setAttribute(anchorComponentAttribute, component);
         routeEl.onclick = () => {
             goToRoute(component);
         }
@@ -157,24 +175,4 @@ export function injectMenuElements() {
     // now open the default - component
     goToRoute(Components.shoppingList);
     refreshReadyMenuComponents();
-}
-
-interface ComponentRoute {
-    name: string,
-    component: MenuComponents,
-    icon: string,
-    /**
-     * you can define, which component is
-     * dependent of another component.
-     * When a dependent component is not ready, the menu - item
-     * will be displayed "disabled" to show the user that he
-     * cannot use this section without defining other elements.
-     */
-    componentReadyChecks?: ComponentReadyCheck[],
-    /**
-     * After the function "createMenuRouteElements" is used,
-     * you can get the html - menu Element for this component
-     * route through this property.
-     */
-    htmlElement?: HTMLAnchorElement
 }
