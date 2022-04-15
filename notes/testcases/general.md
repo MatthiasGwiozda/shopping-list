@@ -4,3 +4,6 @@
 
 - open the programm. Focus into the grocery list. click "ctrl + r".
     - nothing should happen. The programm should not reload.
+
+- Check all the menu - items on top.
+    - There should not exist an option, which lets the user reload the window.

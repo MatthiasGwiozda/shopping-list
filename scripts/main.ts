@@ -1,5 +1,5 @@
 // Modules to control application life and create native browser window
-import { app, BrowserWindow, session } from 'electron';
+import { app, Menu, BrowserWindow, session, shell } from 'electron';
 import * as path from 'path';
 import PathUtilities from './utilities/PathUtilities';
 require('@electron/remote/main').initialize()
@@ -19,16 +19,6 @@ function createWindow() {
 
   // and load the index.html of the app.
   mainWindow.loadFile(PathUtilities.getPath(`index.html`));
-
-  /**
-   * Supress the reloading of the component through strg + r.
-   * SQLITE breaks the app when reloading the app.
-   */
-  mainWindow.webContents.on('before-input-event', (event, input) => {
-    if (input.control && input.key.toLowerCase() === 'r') {
-      event.preventDefault()
-    }
-  })
 
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()
@@ -67,5 +57,55 @@ app.on('window-all-closed', function () {
   if (process.platform !== 'darwin') app.quit()
 })
 
-// In this file you can include the rest of your app's specific main process
-// code. You can also put them in separate files and require them here.
+/**
+ * Customize the Menu:
+ */
+const menu = Menu.buildFromTemplate(
+  [
+    {
+      label: 'File',
+      submenu: [
+        { role: 'quit' }
+      ]
+    },
+    {
+      label: 'Edit',
+      submenu: [
+        { role: 'undo' },
+        { role: 'redo' },
+        { type: 'separator' },
+        { role: 'cut' },
+        { role: 'copy' },
+        { role: 'paste' },
+        { role: 'delete' },
+        { type: 'separator' },
+        { role: 'selectAll' }
+      ]
+    },
+    {
+      label: 'View',
+      submenu: [
+        { role: 'resetZoom' },
+        { role: 'zoomIn' },
+        { role: 'zoomOut' },
+        { type: 'separator' },
+        { role: 'togglefullscreen' },
+        { type: 'separator' },
+        { role: 'toggleDevTools' }
+      ]
+    },
+    {
+      role: 'help',
+      submenu: [
+        {
+          label: 'Read the documentation',
+          click: async () => {
+            await shell.openExternal('https://github.com/MatthiasGwiozda/shopping-list/tree/main/documentation')
+          }
+        }
+      ]
+    }
+  ]
+)
+
+Menu.setApplicationMenu(menu)

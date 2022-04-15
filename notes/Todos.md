@@ -1,5 +1,4 @@
 # Todos
-- remove unneeded menu - elements
 - allow right - click to copy texts, like generated shopping lists.
 
 - compile programm with electron-packager to a exe - file
@@ -7,7 +6,7 @@
 # Optimization / nice to have
 - show ingredients in the recipe - field?
 - create initial categories
-- Create documentation!
+- [Create documentation](https://github.com/MatthiasGwiozda/shopping-list/tree/main/documentation)!
     - show that experts may use db Browser to use sql and to migrate data easily.
 - disable the pages, which should not be useable when certain elements are not added, yet
     - alternative: link the pages in the elements, which don't have the data, which it needs.
