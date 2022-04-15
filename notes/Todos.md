@@ -1,5 +1,4 @@
 # Todos
-- add MIT - License?
 - compile programm with electron-packager to a exe - file
 
 # Optimization / nice to have
