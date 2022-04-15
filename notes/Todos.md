@@ -1,11 +1,9 @@
 # Todos
-- test Programm without any data in the database.
-    - test multiple combinations (menu.md)
 - add MIT - License?
+- compile programm with electron-packager to a exe - file
 
 # Optimization / nice to have
 - show ingredients in the recipe - field?
-- compile programm with electron-packager to a exe - file
 - delete database - file and start the programm.
     - the programm should start when initializing the database - file.
 - strg + r should not reload the component. sqlite breaks the app :|

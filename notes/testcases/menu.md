@@ -5,6 +5,7 @@
 
 - Open the programm without a database and add a category.
     - After one category was inserted, the menu should show the elements "items" and "shops" as ready to use.
+    - No titles should be shown for the "ready to use" elements
 
 - Open the programm without a database and add a category. Then create a food - item.
     - After adding the food - item, the menu element "meals" should be rendered as "ready to use".
