@@ -3,8 +3,6 @@
 
 # Optimization / nice to have
 - show ingredients in the recipe - field?
-- delete database - file and start the programm.
-    - the programm should start when initializing the database - file.
 - strg + r should not reload the component. sqlite breaks the app :|
 - create initial categories
 - Create documentation!
