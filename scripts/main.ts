@@ -20,6 +20,16 @@ function createWindow() {
   // and load the index.html of the app.
   mainWindow.loadFile(PathUtilities.getPath(`index.html`));
 
+  /**
+   * Supress the reloading of the component through strg + r.
+   * SQLITE breaks the app when reloading the app.
+   */
+  mainWindow.webContents.on('before-input-event', (event, input) => {
+    if (input.control && input.key.toLowerCase() === 'r') {
+      event.preventDefault()
+    }
+  })
+
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()
   require("@electron/remote/main").enable(mainWindow.webContents)

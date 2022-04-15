@@ -1,9 +1,11 @@
 # Todos
+- remove unneeded menu - elements
+- allow right - click to copy texts, like generated shopping lists.
+
 - compile programm with electron-packager to a exe - file
 
 # Optimization / nice to have
 - show ingredients in the recipe - field?
-- strg + r should not reload the component. sqlite breaks the app :|
 - create initial categories
 - Create documentation!
     - show that experts may use db Browser to use sql and to migrate data easily.
