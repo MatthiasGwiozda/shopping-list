@@ -2,13 +2,8 @@
 - compile programm with electron-packager to a exe - file
 
 # Optimization / nice to have
-- show ingredients in the recipe - field?
-- create initial categories
 - [Create documentation](https://github.com/MatthiasGwiozda/shopping-list/tree/main/documentation)!
     - show that experts may use db Browser to use sql and to migrate data easily.
-- disable the pages, which should not be useable when certain elements are not added, yet
-    - alternative: link the pages in the elements, which don't have the data, which it needs.
-- set a fixed width for actions - column so that the buttons are not "jumping" when editing elements.
 - create electron skeleton with current Components - architecture
 - test, if installing this repository from scratch works fine.
 - test, if starting the app with an empty database works fine
