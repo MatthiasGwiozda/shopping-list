@@ -2,12 +2,6 @@
 - compile programm with electron-packager to a exe - file
 
 # Optimization / nice to have
-- [Create documentation](https://github.com/MatthiasGwiozda/shopping-list/tree/main/documentation)!
-    - show that experts may use db Browser to use sql and to migrate data easily.
-- create electron skeleton with current Components - architecture
-- test, if installing this repository from scratch works fine.
-- test, if starting the app with an empty database works fine
-    - categories_shop_order (ON DELETE CASCADE)
 - add keyboard shortcuts 
     - to add new element (strg + n)
     - to escape an edit - form in the editableList (esc)
@@ -16,3 +10,9 @@
 - Find queries, which make multiple statements and wrap them in a single transaction.
 - allow side - dishes to have side - dishes themselves. This can be useful for dips, which includes one "base sauce" for all dips: https://lieblingsgeschmack.de/5-blitz-sossen-fuer-raclette-und-fondue/
 - When deleting an category, which is used in an item, show in which items the category is used so the user doesn't need to search long.
+
+
+- test, if installing this repository from scratch works fine.
+- [Create documentation](https://github.com/MatthiasGwiozda/shopping-list/tree/main/documentation)!
+    - show that experts may use db Browser to use sql and to migrate data easily.
+- create electron skeleton with current Components - architecture
