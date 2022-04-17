@@ -1,6 +1,4 @@
 # Todos
-- allow right - click to copy texts, like generated shopping lists.
-
 - compile programm with electron-packager to a exe - file
 
 # Optimization / nice to have

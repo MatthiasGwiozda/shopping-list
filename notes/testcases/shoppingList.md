@@ -14,3 +14,5 @@
     - The items in the deactivated static list should not be used in the generated list.
     But it may appear, when it is used in a meal or another static list.
 
+- Generate a Shoppinglist. Now mark the text in the textarea and right - click it. Click on "copy"
+    - The text should be saved in the clipboard.

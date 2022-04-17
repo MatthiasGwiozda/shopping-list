@@ -1,6 +1,7 @@
 // Modules to control application life and create native browser window
-import { app, Menu, BrowserWindow, session, shell } from 'electron';
+import { app, Menu, BrowserWindow, session, shell, ipcMain, MenuItemConstructorOptions, } from 'electron';
 import * as path from 'path';
+import constants from './constants';
 import PathUtilities from './utilities/PathUtilities';
 require('@electron/remote/main').initialize()
 
@@ -57,6 +58,18 @@ app.on('window-all-closed', function () {
   if (process.platform !== 'darwin') app.quit()
 })
 
+const editMenu: MenuItemConstructorOptions[] = [
+  { role: 'undo' },
+  { role: 'redo' },
+  { type: 'separator' },
+  { role: 'cut' },
+  { role: 'copy' },
+  { role: 'paste' },
+  { role: 'delete' },
+  { type: 'separator' },
+  { role: 'selectAll' }
+];
+
 /**
  * Customize the Menu:
  */
@@ -70,17 +83,7 @@ const menu = Menu.buildFromTemplate(
     },
     {
       label: 'Edit',
-      submenu: [
-        { role: 'undo' },
-        { role: 'redo' },
-        { type: 'separator' },
-        { role: 'cut' },
-        { role: 'copy' },
-        { role: 'paste' },
-        { role: 'delete' },
-        { type: 'separator' },
-        { role: 'selectAll' }
-      ]
+      submenu: editMenu
     },
     {
       label: 'View',
@@ -109,3 +112,11 @@ const menu = Menu.buildFromTemplate(
 )
 
 Menu.setApplicationMenu(menu)
+
+/**
+ * trigger the contextMenu when the user uses a right - click.
+ */
+ipcMain.on(constants.showContextMenuIpcMessage, (event) => {
+  const menu = Menu.buildFromTemplate(editMenu);
+  menu.popup();
+})

@@ -21,7 +21,8 @@ const constants = Object.freeze({
      * When a button gets this class, it's
      * style will "show" that an element is currently active.
      */
-    activeActionButtonClass: 'active'
+    activeActionButtonClass: 'active',
+    showContextMenuIpcMessage: 'show-context-menu'
 });
 
 export default constants;
