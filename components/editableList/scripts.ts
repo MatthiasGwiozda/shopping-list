@@ -537,6 +537,7 @@ export default class EditableList<EditableListElement> extends Component<Compone
 
     private getAddNewButton(): HTMLElement {
         const button = this.gethtmlFromFile(EditableListFiles.addNewButton);
+        button.classList.add(constants.addNewButtonClass);
         button.onclick = async () => {
             // make function generic
             const { tr, firstInput } = this.createFormInTableRow();

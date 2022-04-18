@@ -1,10 +1,9 @@
 # Todos
-- compile programm with electron-packager to a exe - file
+- add keyboard shortcuts 
+    - to escape an edit - form in the editableList (esc)
 
 # Optimization / nice to have
-- add keyboard shortcuts 
-    - to add new element (strg + n)
-    - to escape an edit - form in the editableList (esc)
+- update all dependencies
 - items
     - create possibility to show all the shops, which are assigned to the items in one view.
 - Find queries, which make multiple statements and wrap them in a single transaction.
@@ -13,6 +12,7 @@
 
 
 - test, if installing this repository from scratch works fine.
+- compile programm with electron-packager to a exe - file
 - [Create documentation](https://github.com/MatthiasGwiozda/shopping-list/tree/main/documentation)!
     - show that experts may use db Browser to use sql and to migrate data easily.
 - create electron skeleton with current Components - architecture

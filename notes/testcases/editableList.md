@@ -11,3 +11,6 @@
 
 - use an additional action (e. g. ingredients in meals). search for an item in the filter - searchbox
     - now the additional action should disappear.
+
+- click "ctrl + n".
+    - a form to create a new element should appear.

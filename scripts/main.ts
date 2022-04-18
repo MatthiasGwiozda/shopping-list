@@ -116,7 +116,7 @@ Menu.setApplicationMenu(menu)
 /**
  * trigger the contextMenu when the user uses a right - click.
  */
-ipcMain.on(constants.showContextMenuIpcMessage, (event) => {
+ipcMain.on(constants.showContextMenuIpcMessage, () => {
   const menu = Menu.buildFromTemplate(editMenu);
   menu.popup();
 })

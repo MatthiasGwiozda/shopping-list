@@ -22,7 +22,13 @@ const constants = Object.freeze({
      * style will "show" that an element is currently active.
      */
     activeActionButtonClass: 'active',
-    showContextMenuIpcMessage: 'show-context-menu'
+    showContextMenuIpcMessage: 'show-context-menu',
+    /**
+     * Use this class on a button, which creates new elements.
+     * Through this class the user is able to use "ctrl + n" to
+     * create a new element.
+     */
+    addNewButtonClass: 'addNewButton'
 });
 
 export default constants;
