@@ -1,7 +1,7 @@
 # Todos
 
 # Optimization / nice to have
-- update all dependencies
+
 - items
     - create possibility to show all the shops, which are assigned to the items in one view.
 - Find queries, which make multiple statements and wrap them in a single transaction.
