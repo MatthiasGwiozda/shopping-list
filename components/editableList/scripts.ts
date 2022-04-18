@@ -464,7 +464,20 @@ export default class EditableList<EditableListElement> extends Component<Compone
                 tr.replaceWith(oldTr);
             }
             this.removeForm(formId);
+            this.focusNextInput();
         };
+        /**
+         * Click the cancel - button when the user uses escape
+         * in this tr.
+         */
+        tr.addEventListener('keyup', function(e) {
+            /**
+             * 27 is the code for the escape - button.
+             */
+            if(e.code == "Escape") {
+                cancelButton.click();
+            }
+        })
         this.addToTableRow([saveButton, cancelButton], tr);
     }
 

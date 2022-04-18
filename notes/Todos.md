@@ -1,6 +1,4 @@
 # Todos
-- add keyboard shortcuts 
-    - to escape an edit - form in the editableList (esc)
 
 # Optimization / nice to have
 - update all dependencies

@@ -14,3 +14,9 @@
 
 - click "ctrl + n".
     - a form to create a new element should appear.
+
+- Click on the "Add new" - Button. Click on "Esc" while the input - field is focused.
+    - The row should be removed
+
+- Edit an element. Click on "Esc" while the input - field is focused.
+    - The original unedited element should be shown.
