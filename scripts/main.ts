@@ -15,7 +15,8 @@ function createWindow() {
     webPreferences: {
       preload: path.join(__dirname, 'preload.js')
     },
-    fullscreenable: true
+    fullscreenable: true,
+    icon: PathUtilities.getPath('assets/groceryListIcon.png')
   })
 
   // and load the index.html of the app.

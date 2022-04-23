@@ -1,5 +1,5 @@
 {
-  "name": "grocery-list",
+  "name": "shopping-list",
   "version": "1.0.0",
   "description": "a grocery-list",
   "main": "./lib/scripts/main.js",
