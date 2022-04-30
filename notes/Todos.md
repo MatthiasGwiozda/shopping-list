@@ -1,6 +1,8 @@
 # Todos
-- compile programm with electron-packager to a exe - file
-    - Where will be the database - file saved?
+- Create production deployment script
+    - insert lib + node_modules - folder in electron zip archive
+    - test deployment
+        - only non dev - dependencies should be included in the production distribution
 - [Create documentation](https://github.com/MatthiasGwiozda/shopping-list/tree/main/documentation)!
     - show that experts may use db Browser to use sql and to migrate data easily.
 - create electron skeleton with current Components - architecture
