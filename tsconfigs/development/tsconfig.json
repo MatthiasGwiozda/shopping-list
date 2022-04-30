@@ -1,7 +1,7 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "outDir": "lib",
+        "outDir": "../../lib",
         "inlineSourceMap": true,
         "inlineSources": true
     },
@@ -10,8 +10,8 @@
         "node_modules"
     ],
     "include": [
-        "scripts/**/*.ts",
-        "components/**/*.ts",
-        "types/**/*.ts"
+        "../../scripts/**/*.ts",
+        "../../components/**/*.ts",
+        "../../types/**/*.ts"
     ]
 }
