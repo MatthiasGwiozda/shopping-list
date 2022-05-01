@@ -58,7 +58,8 @@ $appPath = Join-Path -Path $distFolder -ChildPath '/resources/app'
 # first copy folders
 foreach ($folder in $appfolders) {
     $destination = Join-Path -Path $appPath -ChildPath $folder
-    Copy-Item -Path $folder -Destination $destination -Recurse
+    # ts files from the components - folder should not be copied:
+    Copy-Item -Path $folder -Destination $destination -Recurse -Exclude '*.ts'
 }
 
 # copy files
