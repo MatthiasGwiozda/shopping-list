@@ -25,6 +25,17 @@ function GetElectronDownloadLink() {
 $downloadLink = GetElectronDownloadLink
 $electronZipFilename = './electron.zip'
 $distFolder = './dist'
+# this are all files, which must be deployed in the app - folder of electron
+$appFiles = @(
+    'lib',
+    'node_modules',
+    'package.json',
+    'sql',
+    'index.html',
+    'assets',
+    'styles',
+    'components'
+)
 
 <#
 Get the necessary electron - files
