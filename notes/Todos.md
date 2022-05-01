@@ -1,6 +1,7 @@
 # Todos
 - Create production deployment script
     - insert lib + node_modules - folder in electron zip archive
+    - change icon of electron.exe
     - test deployment
         - only non dev - dependencies should be included in the production distribution
 - [Create documentation](https://github.com/MatthiasGwiozda/shopping-list/tree/main/documentation)!

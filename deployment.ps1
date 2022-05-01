@@ -26,16 +26,7 @@ $downloadLink = GetElectronDownloadLink
 $electronZipFilename = './electron.zip'
 $distFolder = './dist'
 # this are all files, which must be deployed in the app - folder of electron
-$appFiles = @(
-    'lib',
-    'node_modules',
-    'package.json',
-    'sql',
-    'index.html',
-    'assets',
-    'styles',
-    'components'
-)
+
 
 <#
 Get the necessary electron - files
@@ -46,6 +37,29 @@ $ProgressPreference = 'SilentlyContinue'
 Invoke-WebRequest -Uri $downloadLink -OutFile $electronZipFilename
 Expand-Archive -Path $electronZipFilename -DestinationPath $distFolder
 Remove-Item -Path $electronZipFilename
-# place the app in the electron - folder
 
-# now create the ready to use zip - archive
+# copy relevant data in the dist - folder:
+$appFolders = @(
+    'assets',
+    'components',
+    'lib',
+    'node_modules',
+    'sql',
+    'styles'
+)
+
+$appFiles = @(
+    'package.json',
+    'index.html'
+)
+
+$appPath = Join-Path -Path $distFolder -ChildPath '/resources/app'
+
+# first copy folders
+foreach ($folder in $appfolders) {
+    $destination = Join-Path -Path $appPath -ChildPath $folder
+    Copy-Item -Path $folder -Destination $destination -Recurse
+}
+
+# copy files
+Copy-Item -Path $appFiles -Destination $appPath
