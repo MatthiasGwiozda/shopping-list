@@ -43,7 +43,8 @@ export default class Database {
      */
     static async initializeDatabase() {
         const databaseMissing = FileUtilities.getFileContent(Files.database) == null;
-        Database.db = new sqlite3.Database(Files.database);
+        const databasePath = FileUtilities.getFilePath(Files.database)
+        Database.db = new sqlite3.Database(databasePath);
         /**
          * for some insane reason foreign key checks are not enabled by default in the
          * sqlite3 - package.
