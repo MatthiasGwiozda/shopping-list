@@ -1,7 +1,6 @@
 
 # first install all dependencies
 
-<#
 npm install
 # remove lib - folder
 Remove-Item -Path .\lib -Recurse
@@ -12,7 +11,6 @@ npm run build:production
 Remove-Item -Path ".\node_modules" -Recurse
 # and install the node_modules, which are necessary for production usage
 npm install --production
-#>
 
 # returns the download link for the electron version, which is currently installed locally by npm
 function GetElectronDownloadLink() {
@@ -64,3 +62,18 @@ foreach ($folder in $appfolders) {
 
 # copy files
 Copy-Item -Path $appFiles -Destination $appPath
+
+<#
+Renames the electron - file.
+It would be nice to set a .ico - file for electron but currently
+there is a bug in rcedit, which does shady stuff with exe - files:
+https://github.com/electron/electron-packager/issues/590
+#>
+function RebrandElectronExe() {
+    $electronFile = Join-Path $distFolder -ChildPath 'electron.exe' -Resolve
+    Rename-Item -Path $electronFile -NewName 'shopping-list.exe'
+}
+RebrandElectronExe
+
+# install dev - dependencies so we can use dev - dependencies for development
+npm install
