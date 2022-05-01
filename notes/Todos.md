@@ -1,8 +1,6 @@
 # Todos
-- Create production deployment script
-    - change icon of electron.exe
-    - test deployment
-        - only non dev - dependencies should be included in the production distribution
+- test deployment (see general.md)
+
 - [Create documentation](https://github.com/MatthiasGwiozda/shopping-list/tree/main/documentation)!
     - show that experts may use db Browser to use sql and to migrate data easily.
 - create electron skeleton with current Components - architecture
