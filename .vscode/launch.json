@@ -1,18 +1,27 @@
 {
-    "version": "0.2.0",
-    "configurations": [
-      {
-        "name": "Debug Main Process",
-        "type": "node",
-        "request": "launch",
-        "cwd": "${workspaceFolder}",
-        "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron",
-        "windows": {
-          "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron.cmd"
-        },
-        "args" : ["."],
-        "outputCapture": "std",
-        "preLaunchTask": "tsc: build - tsconfig.json",
-      }
-    ]
-  }
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "PowerShell Launch Current File",
+      "type": "PowerShell",
+      "request": "launch",
+      "script": "${file}",
+      "cwd": "${workspaceFolder}"
+    },
+    {
+      "name": "Debug Main Process",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron",
+      "windows": {
+        "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron.cmd"
+      },
+      "args": [
+        "."
+      ],
+      "outputCapture": "std",
+      "preLaunchTask": "tsc: build - tsconfig.json",
+    }
+  ]
+}

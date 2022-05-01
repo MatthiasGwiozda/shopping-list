@@ -4,12 +4,12 @@
 <#
 npm install
 # remove lib - folder
-rm -Path .\lib -Recurse
+Remove-Item -Path .\lib -Recurse
 # compile typescript - files without source - maps
 npm run build:production
 
 # now remove node_modules...
-rm -Path ".\node_modules" -Recurse
+Remove-Item -Path ".\node_modules" -Recurse
 # and install the node_modules, which are necessary for production usage
 npm install --production
 #>
@@ -22,9 +22,19 @@ function GetElectronDownloadLink() {
     return "https://github.com/electron/electron/releases/download/v" + $electronVersion + "/electron-v" + $electronVersion + "-win32-x64.zip"
 }
 
-$downloadLink = GetElectronDownloadLink;
+$downloadLink = GetElectronDownloadLink
+$electronZipFilename = './electron.zip'
+$distFolder = './dist'
 
-$response = Invoke-WebRequest -Uri $downloadLink -OutFile ./electron.zip
-
+<#
+Get the necessary electron - files
+Turn off the progress - bar as it slows down the download extremely.
+https://stackoverflow.com/a/43477248/6458608
+#>
+$ProgressPreference = 'SilentlyContinue'
+Invoke-WebRequest -Uri $downloadLink -OutFile $electronZipFilename
+Expand-Archive -Path $electronZipFilename -DestinationPath $distFolder
+Remove-Item -Path $electronZipFilename
+# place the app in the electron - folder
 
 # now create the ready to use zip - archive
