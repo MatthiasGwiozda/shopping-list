@@ -12,3 +12,4 @@
     - Link the release with the previously created tag
     - add the title. Example: v1.0.0 - First useable version
     - describe the changes
+1. delete the local zip - file
