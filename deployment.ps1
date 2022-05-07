@@ -1,6 +1,7 @@
 <#
 .SYNOPSIS
     Creates a dist - folder, which contains the ready to use program.
+    Please remove the current dist - folder manually before you use this script.
 #>
 
 # first install all dependencies
