@@ -1,6 +1,9 @@
+<#
+.SYNOPSIS
+    Creates a dist - folder, which contains the ready to use program.
+#>
 
 # first install all dependencies
-
 npm install
 # remove lib - folder
 Remove-Item -Path .\lib -Recurse
@@ -56,7 +59,7 @@ $appPath = Join-Path -Path $distFolder -ChildPath '/resources/app'
 # first copy folders
 foreach ($folder in $appfolders) {
     $destination = Join-Path -Path $appPath -ChildPath $folder
-    # ts files from the components - folder should not be copied:
+    # ts files should not be copied as they are not relevant for production usage:
     Copy-Item -Path $folder -Destination $destination -Recurse -Exclude '*.ts'
 }
 
