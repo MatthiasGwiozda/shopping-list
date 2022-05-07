@@ -13,5 +13,7 @@
 
 - use deployment.ps1
     - only non dev - node_modules should be included in the production distribution
+    - The js - files should not contain source - maps
     - electron - file should be renamed
     - after the deployment the node_modules should contain all dependencies so that the developer may continue with his work.
+    - The programm should start
