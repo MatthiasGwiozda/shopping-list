@@ -1,9 +1,25 @@
 # Todos
 - [Create documentation](https://github.com/MatthiasGwiozda/shopping-list/tree/main/documentation)!
     - show that experts may use db Browser to use sql and to migrate data easily.
+    - link the documentation in the readme.md
+    - installation docs + releases - page
+    - check if the documentation - link in the programm is set correctly
+- update the readme.md
+    - documentation - link
+    - release - page
+    - optimize introduction
+    - Why is this an electron - Desktop app? --> Why is this an Desktop app?
+    - move Example usage to documentation
 - create electron skeleton with current Components - architecture
 
 # Ideas
+- use fuzzy search to find items easier
+    - in editableList
+    - for itemCollection.
+
+- create language - packages
+    - german
+
 - allow side - dishes to have side - dishes themselves. This can be useful for dips, which includes one "base sauce" for all dips: https://lieblingsgeschmack.de/5-blitz-sossen-fuer-raclette-und-fondue/
 
 - Find queries, which make multiple statements and wrap them in a single transaction.
