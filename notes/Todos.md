@@ -1,8 +1,9 @@
 # Todos
 - [Create documentation](https://github.com/MatthiasGwiozda/shopping-list/tree/main/documentation)!
+    - installation docs + releases - page
+        - put the folder in programms?
     - show that experts may use db Browser to use sql and to migrate data easily.
     - link the documentation in the readme.md
-    - installation docs + releases - page
     - check if the documentation - link in the programm is set correctly
 - update the readme.md
     - documentation - link
@@ -10,6 +11,9 @@
     - optimize introduction
     - Why is this an electron - Desktop app? --> Why is this an Desktop app?
     - move Example usage to documentation
+- test Shopping - List with documentation and download the zip - file from github - releases
+
+
 - create electron skeleton with current Components - architecture
 
 # Ideas
