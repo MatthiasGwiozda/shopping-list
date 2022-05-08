@@ -1,3 +1,14 @@
+- [Start the app for the first time](#start-the-app-for-the-first-time)
+- [Menu - Items](#menu---items)
+  - [Categories](#categories)
+  - [Shops](#shops)
+  - [Items](#items)
+  - [Meals](#meals)
+    - [Creation of new meals](#creation-of-new-meals)
+    - [Meal components](#meal-components)
+  - [Shopping List](#shopping-list)
+- [Hints](#hints)
+
 # Start the app for the first time
 Start the exe - file with the name `shopping-list.exe`, which can be found in the unpacked zip folder.
 
@@ -48,7 +59,7 @@ the shop easily:
 - House number
 - Postal code
 
-After the creation of a shop you can define the order of the categories in the shop through the '🆎' - Button.
+After the creation of a shop you can define the order of the categories in the shop through the 🆎 - Button.
 You can move the categories up and down by clicking and dragging the category to another position.
 
 It's not important that the order of the categories perfectly matches the order in the shop but: The better
@@ -58,3 +69,56 @@ forgot an item, which was not at the expected position on your shopping list.
 Remember: you may always change the order afterwards.
 
 ## Items
+Here you will create all items. For every item you define a name, category and if it's useable when creating meals (column: food).
+When an item is a "food-item" you will have the possibility to use the item as incredient for meals.
+
+Through the 🏣 - Button you can define in which shops the item may be bought.
+The shopping list will remember you that you can't buy certain items in specific shops when you are about
+to generate a shopping list for a shop, which doesn't sell the item.
+You can, but musn't define this information. It depends on you if you want to be remembered or not.
+
+## Meals
+You may define meals with recipes and ingredients.
+The advantage of this feature is that you won't need to remember the ingredients of a meal everytime when creating a shopping - list.
+You will just chose the meals and the shopping - list will generate a shopping list with all necessary items.
+
+### Creation of new meals
+- To create a meal click on the "Add new ➕" - Button.
+- Define a name for the meal
+- Check the "Meal component" - Checkbox if this meal is a component for other meals [For more information see Meal components](#Meal-components)
+- Click on the 💾 - Button to save the meal.
+- Now click on the 🥔 - Button.
+- Define the ingredients and quantity for each ingredient for this meal.
+- Add a recipe if you want to.
+
+### Meal components
+Meal components are reusable parts of full meals. You may use them when you identified parts of meals, which have always the same ingredients.
+Meal components may be side dishes but they musn't.
+
+An example:
+You are using **always the same vegetables** in the following meals:
+- Rice with vegetables
+- Gnocchi with vegetables
+- Noodels with vegetables
+
+It would make sense to create a meal component "vegetables", which
+contains the vegetables you use in all this meals.
+
+After you created the component "vegetables" you can assign this component to your full meals by clicking on the 🥔 - Button in the full meal.
+Note that the meal component "vegetables" appeared under the headline "Meal components" in the ingredients - menu.
+Select the meal component(s), which should be assigned to the full meal.
+Now if you already have defined the vegetables in the ingredients - list of the full meal remove them there. Otherwise
+the ingredients will be added twice when generating the shopping list.
+
+You may use this feature to save time while creating meal ingredient lists.
+
+## Shopping List
+- Generation logic
+- Check if you need to buy it or you already have the items in the list
+
+# Hints
+- Sorting of elements
+- strg + n to create new elements
+- search - form
+- Use spacebar to fast confirm the deletion of items
+- You can use only parts of the features in shopping list
