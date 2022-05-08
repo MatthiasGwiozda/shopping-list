@@ -1,8 +1,5 @@
 # Todos
 - [Create documentation](https://github.com/MatthiasGwiozda/shopping-list/tree/main/documentation)!
-    - bei Generation of shopping lists weiter machen.
-    - installation docs + releases - page
-        - put the folder in programms?
     - show that experts may use db Browser to use sql and to migrate data easily.
     - link the documentation in the readme.md
     - check if the documentation - link in the programm is set correctly
@@ -10,7 +7,6 @@
     - documentation - link
     - release - page
     - optimize introduction
-    - Why is this an electron - Desktop app? --> Why is this an Desktop app?
     - move Example usage to documentation
 - test Shopping - List with documentation and download the zip - file from github - releases
 

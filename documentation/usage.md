@@ -138,21 +138,21 @@ the items won't be used to generate the shopping list.
 ### Generation of shopping lists
 After you have defined the meals and your static lists you can generate the shopping list.
 All the ingredients of the selected meals and the items, which were added to the active static lists will be added up,
-ordered by the categories of the selected shop and printed in the **three** text - fields at the bottom of the page.
+ordered by the categories of the selected shop and printed in the **three** text - fields at the bottom of the page:
+- Available items in selected shop
+- Items, which can't be bought in this shop
+- Recipes
 
+Now you can copy the contents in the three text - fields for example to google keep [in your browser](https://keep.google.com/).
+When you use google keep you can [change the note to a list](https://support.google.com/keep/answer/6395451?hl=en&co=GENIE.Platform%3DDesktop) afterwards. Now you can use the shopping list on your smartphone.
+Of course you can use any app you want to move the shopping list to your
+smartphone. Google keep is just a recommendation.
 
-
-
-- Generation logic
-- Check if you need to buy it or you already have the items in the list
-
-
-
-
+Note that this shopping list is generated based on the items, which you need. It doesn't know which items you already have.
+After importing the generated shopping list to google keep, you can check how many items you really need to buy.
 
 # Hints
-- Sorting of elements
-- strg + n to create new elements
-- search - form
-- Use spacebar to fast confirm the deletion of items
-- You can use only parts of the features in shopping list
+- You can sort the elements by clicking on the column - name in the table.
+- You can use strg + n to create new elements.
+- There is a search - form, which let's you find items easily.
+- When deleting items, you may use spacebar to swiftly confirm the deletion of an element
