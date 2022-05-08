@@ -100,7 +100,7 @@ const componentRoutes: ComponentRoute[] = [
         componentReadyCheckMessage: 'Please add categories before you define shops. Every shop may have it\'s own order for categories'
     },
     {
-        name: 'meals',
+        name: 'Meals',
         component: Components.meals,
         icon: '🥗',
         componentReadyChecks: [
