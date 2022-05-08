@@ -7,6 +7,9 @@
     - [Creation of new meals](#creation-of-new-meals)
     - [Meal components](#meal-components)
   - [Shopping List](#shopping-list)
+    - [Meals](#meals-1)
+    - [Static Lists](#static-lists)
+    - [Generation of shopping lists](#generation-of-shopping-lists)
 - [Hints](#hints)
 
 # Start the app for the first time
@@ -80,7 +83,7 @@ You can, but musn't define this information. It depends on you if you want to be
 ## Meals
 You may define meals with recipes and ingredients.
 The advantage of this feature is that you won't need to remember the ingredients of a meal everytime when creating a shopping - list.
-You will just chose the meals and the shopping - list will generate a shopping list with all necessary items.
+You will just chose the meals and the shopping - list will generate a shopping list with all necessary ingredients.
 
 ### Creation of new meals
 - To create a meal click on the "Add new ➕" - Button.
@@ -113,8 +116,39 @@ the ingredients will be added twice when generating the shopping list.
 You may use this feature to save time while creating meal ingredient lists.
 
 ## Shopping List
+In this menu - section you can generate the complete shopping list.
+
+### Meals
+Under the headline **Meals** you can add and remove the meals. The ingredients of the added meals
+will be used to generate the final shopping - list.
+
+### Static Lists
+Under the headline **Static Lists** you can simply add items, which will be generated in the proper order later.
+There is the possibility to create multiple static lists with specific items.
+
+Steps to create a static list
+- enter a name for the list. **Example:** 'default'
+- Click on the "Add list ➕" - Button
+- Click on the ✏ - Button
+- Add the items and the quantity for this list
+
+You may disable a static list by clicking on the checkbox. When a static list is disabled,
+the items won't be used to generate the shopping list.
+
+### Generation of shopping lists
+After you have defined the meals and your static lists you can generate the shopping list.
+All the ingredients of the selected meals and the items, which were added to the active static lists will be added up,
+ordered by the categories of the selected shop and printed in the text **three** text - fields at the bottom of the page.
+
+
+
+
 - Generation logic
 - Check if you need to buy it or you already have the items in the list
+
+
+
+
 
 # Hints
 - Sorting of elements

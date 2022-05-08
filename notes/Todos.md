@@ -1,5 +1,6 @@
 # Todos
 - [Create documentation](https://github.com/MatthiasGwiozda/shopping-list/tree/main/documentation)!
+    - bei Generation of shopping lists weiter machen.
     - installation docs + releases - page
         - put the folder in programms?
     - show that experts may use db Browser to use sql and to migrate data easily.
