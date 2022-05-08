@@ -138,7 +138,7 @@ the items won't be used to generate the shopping list.
 ### Generation of shopping lists
 After you have defined the meals and your static lists you can generate the shopping list.
 All the ingredients of the selected meals and the items, which were added to the active static lists will be added up,
-ordered by the categories of the selected shop and printed in the text **three** text - fields at the bottom of the page.
+ordered by the categories of the selected shop and printed in the **three** text - fields at the bottom of the page.
 
 
 
