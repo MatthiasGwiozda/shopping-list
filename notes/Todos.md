@@ -1,5 +1,5 @@
 # Todos
-- test Shopping - List with documentation and download the zip - file from github - releases
+- Remove @electron/remote and use ipcrenderer for dialogs?
 
 # Ideas
 - use fuzzy search to find items easier
