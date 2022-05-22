@@ -17,4 +17,4 @@ I use google Keep as it is useable in the browser and on the smartphone.
 Additionally all the data is synchronized between the devices instantly.
 
 # Documentation
-The installation and users manual can be found [here](documentation%5CREADME.md).
+The installation and users manual can be found [here](documentation/README.md).
