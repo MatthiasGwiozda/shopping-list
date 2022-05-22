@@ -1,7 +1,6 @@
 # Todos
-- [Create documentation](https://github.com/MatthiasGwiozda/shopping-list/tree/main/documentation)!
-    - link the documentation in the readme.md
 - update the readme.md
+    - link the documentation in the readme.md
     - Move dev installation - docs
     - documentation - link
     - release - page
