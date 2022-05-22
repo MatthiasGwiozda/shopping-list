@@ -15,7 +15,7 @@
 # Start the app for the first time
 Start the exe - file with the name `shopping-list.exe`, which can be found in the unpacked zip folder.
 
-As this app is only a freetimeproject, windows tells you that this programm may be a threat.
+As this app is only a freetimeproject and no code signing certificate is used, windows tells you that this programm may be a threat.
 Allow the start of the app if you want to use it.
 
 # Menu - Items
@@ -67,8 +67,7 @@ You can move the categories up and down by clicking and dragging the category to
 
 It's not important that the order of the categories perfectly matches the order in the shop but: The better
 the definition of the category - order, the less you will need to look on your complete shopping list while you are in the shop because
-you are unsure if you are missing something. It saves time to define the category - order correctly so you don't need to walk back because you
-forgot an item, which was not at the expected position on your shopping list.
+you are unsure if you are missing something. It saves time to define the category - order correctly so you don't need to walk back in the grocery store because you forgot an item, which was not at the expected position on your shopping list.
 Remember: you may always change the order afterwards.
 
 ## Items
@@ -153,6 +152,10 @@ After importing the generated shopping list to google keep, you can check how ma
 
 # Hints
 - You can sort the elements by clicking on the column - name in the table.
-- You can use strg + n to create new elements.
+- You can use strg + n to create new elements in the following areas:
+  - Items
+  - Categories
+  - Shops
+  - Meals
 - There is a search - form, which let's you find items easily.
 - When deleting items, you may use spacebar to swiftly confirm the deletion of an element
