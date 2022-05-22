@@ -1,9 +1,8 @@
 # Todos
 - [Create documentation](https://github.com/MatthiasGwiozda/shopping-list/tree/main/documentation)!
-    - show that experts may use db Browser to use sql and to migrate data easily.
     - link the documentation in the readme.md
-    - check if the documentation - link in the programm is set correctly
 - update the readme.md
+    - Move dev installation - docs
     - documentation - link
     - release - page
     - optimize introduction
