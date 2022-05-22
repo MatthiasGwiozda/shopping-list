@@ -1,15 +1,5 @@
 # Todos
-- update the readme.md
-    - link the documentation in the readme.md
-    - Move dev installation - docs
-    - documentation - link
-    - release - page
-    - optimize introduction
-    - move Example usage to documentation
 - test Shopping - List with documentation and download the zip - file from github - releases
-
-
-- create electron skeleton with current Components - architecture
 
 # Ideas
 - use fuzzy search to find items easier
