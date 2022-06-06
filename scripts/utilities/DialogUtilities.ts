@@ -1,4 +1,6 @@
-const { dialog } = require('@electron/remote');
+import constants from "../constants";
+
+const { ipcRenderer } = require('electron')
 
 /**
  * Provides functionality for alerts, confirms, etc.
@@ -10,22 +12,10 @@ const { dialog } = require('@electron/remote');
  */
 export default abstract class DialogUtilities {
     static alert(message: string) {
-        dialog.showMessageBoxSync({
-            message
-        })
+        ipcRenderer.sendSync(constants.ipcMessages.alert, message);
     }
 
     static confirm(message: string): boolean {
-        const buttonIndex = dialog.showMessageBoxSync({
-            message,
-            buttons: [
-                'OK',
-                'cancel'
-            ]
-        });
-        /**
-         * the button with the index 0 is the ok - button
-         */
-        return buttonIndex == 0;
+        return ipcRenderer.sendSync(constants.ipcMessages.confirm, message);
     }
 }
