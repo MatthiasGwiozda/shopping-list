@@ -24,7 +24,7 @@ window.addEventListener('DOMContentLoaded', async () => {
  */
 window.addEventListener('contextmenu', (e) => {
   e.preventDefault();
-  ipcRenderer.send(constants.showContextMenuIpcMessage);
+  ipcRenderer.send(constants.ipcMessages.showContextMenu);
 });
 
 /**

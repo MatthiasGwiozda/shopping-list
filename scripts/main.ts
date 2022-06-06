@@ -1,9 +1,8 @@
 // Modules to control application life and create native browser window
-import { app, Menu, BrowserWindow, session, shell, ipcMain, MenuItemConstructorOptions, } from 'electron';
+import { app, Menu, BrowserWindow, session, shell, ipcMain, MenuItemConstructorOptions, dialog } from 'electron';
 import * as path from 'path';
 import constants from './constants';
 import PathUtilities from './utilities/PathUtilities';
-require('@electron/remote/main').initialize()
 
 function createWindow() {
   // Create the browser window.
@@ -24,7 +23,6 @@ function createWindow() {
 
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()
-  require("@electron/remote/main").enable(mainWindow.webContents)
 }
 
 // This method will be called when Electron has finished
@@ -117,7 +115,31 @@ Menu.setApplicationMenu(menu)
 /**
  * trigger the contextMenu when the user uses a right - click.
  */
-ipcMain.on(constants.showContextMenuIpcMessage, () => {
+ipcMain.on(constants.ipcMessages.showContextMenu, () => {
   const menu = Menu.buildFromTemplate(editMenu);
   menu.popup();
 })
+
+/**
+ * handles alert boxes
+ */
+ipcMain.on(constants.ipcMessages.alert, (e, message) => {
+  e.returnValue = dialog.showMessageBoxSync({ message });
+});
+
+/**
+ * handles confirm dialogs
+ */
+ipcMain.on(constants.ipcMessages.confirm, (e, message) => {
+  const buttonIndex = dialog.showMessageBoxSync({
+    message,
+    buttons: [
+      'OK',
+      'cancel'
+    ]
+  });
+  /**
+   * the button with the index 0 is the ok - button
+   */
+  e.returnValue = buttonIndex == 0;
+});
