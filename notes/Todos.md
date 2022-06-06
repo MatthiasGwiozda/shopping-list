@@ -1,7 +1,6 @@
 # Todos
-- Remove @electron/remote and use ipcrenderer for dialogs?
-  - merge branch back to master
 - Remove uuid and increment the id's of the forms instead
+- Remove dedent?
 
 # Ideas
 - use fuzzy search to find items easier
