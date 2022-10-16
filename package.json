@@ -6,7 +6,7 @@
   "scripts": {
     "start": "electron .",
     "prestart": "npm run build",
-    "build": "tsc --project ./tsconfigs/development",
+    "build": "tsc",
     "build:production": "tsc --project ./tsconfigs/production"
   },
   "devDependencies": {
