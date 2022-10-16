@@ -1,7 +1,7 @@
 import Database from "../../scripts/Database";
 import DialogUtilities from "../../scripts/utilities/DialogUtilities";
 import InputUtilities from "../../scripts/utilities/InputUtilities";
-import RandomUtilities from "../../scripts/utilities/RandomUtilities";
+import UniqueUtilities from "../../scripts/utilities/UniqueUtilities";
 import { Components } from "../../types/components/Components";
 import Item from "../../types/Item";
 import Component from "../Component";
@@ -136,7 +136,7 @@ export default class ItemCollection extends Component<Components.itemCollection>
      * are not directly in the form.
      */
     private setFormIdForInput() {
-        const formId = RandomUtilities.getRandomNumberString();
+        const formId = UniqueUtilities.getNextId();
         const form = this.getForm();
         form.id = formId;
         const searchInput = this.getItemSearchInput();

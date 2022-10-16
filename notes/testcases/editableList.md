@@ -1,6 +1,11 @@
-- while no elements are being edited: sorting by a column should be possible. The color of the column should change when the sorting is active.
-- use an additionalAction. Klick a sort - button afterwards. Now all the additionalActions should stay opened and it should be sorted accordingly.
-- Click on an edit - button and sort afterwards. The value of the input - field should be used to sort the elements.
+- while no elements are being edited: sorting by a column should be possible.
+    - The color of the column should change when the sorting is active.
+  
+- use an additionalAction. Klick a sort - button afterwards. 
+    - Now all the additionalActions should stay opened and it should be sorted accordingly.
+
+- Click on an edit - button and sort afterwards. 
+    - The value of the input - field should be used to sort the elements.
 
 - Click on the "edit all" - Button
     - all the elements should be in edit - mode now
@@ -14,6 +19,9 @@
 
 - click "ctrl + n".
     - a form to create a new element should appear.
+
+- click "ctrl + n" multiple times very fast
+    - All the created forms should have unique id's
 
 - Click on the "Add new" - Button. Click on "Esc" while the input - field is focused.
     - The row should be removed
