@@ -5,7 +5,6 @@ import { EditableListParams, PossibleInputTypes } from "../../types/components/e
 import Meal from "../../types/Meal";
 import Component from "../Component";
 import DialogUtilities from '../../scripts/utilities/DialogUtilities';
-import * as dedent from 'dedent';
 
 export default class Meals extends Component<Components.meals> {
     rendered() {
@@ -19,7 +18,6 @@ export default class Meals extends Component<Components.meals> {
     }
 
     private async createEditableList() {
-        const instance = this;
         const params: EditableListParams<Meal> = {
             getTableContent: async () => await Database.selectAllMeals(),
             deleteElement: async function (meal) {
@@ -36,28 +34,21 @@ export default class Meals extends Component<Components.meals> {
                     message: result ? null : 'An error occoured while saving the meal. Maybe the meal already exists?'
                 }
             },
-            updateElement: async function (oldMeal, newMeal) {
+            updateElement: async (oldMeal, newMeal) => {
                 let update = true;
                 if (!oldMeal.component && newMeal.component) {
                     const meals = await Database.selectRelatedMealComponents(oldMeal.name);
                     if (meals.length > 0) {
-                        update = DialogUtilities.confirm(dedent`
-                        The following related meals won't be related to "${newMeal.name}" anymore:
-
-                        ${instance.getBulletPointList(meals)}
-                        A meal component cannot have components assigned to itself.
-                        Do you want to save "${newMeal.name}" as a component?`);
+                        const relatedMeals = this.getBulletPointList(meals);
+                        const confirmMessage = this.getChangeToComponentMessage(newMeal.name, relatedMeals);
+                        update = DialogUtilities.confirm(confirmMessage);
                     }
                 } else if (oldMeal.component && !newMeal.component) {
                     const meals = await Database.selectMealsForComponentMeal(oldMeal.name);
                     if (meals.length > 0) {
-                        update = DialogUtilities.confirm(dedent`
-                        The following meals are assigned to this component:
-
-                        ${instance.getBulletPointList(meals)}
-                        Do you want to remove the meals from this component and
-                        switch to a "non component meal"?
-                        `);
+                        const relatedMeals = this.getBulletPointList(meals);
+                        const confirmMessage = this.getChangeToFullMealMessage(relatedMeals);
+                        update = DialogUtilities.confirm(confirmMessage);
                     }
                 }
                 if (update) {
@@ -93,5 +84,22 @@ export default class Meals extends Component<Components.meals> {
             this.container.querySelector<HTMLElement>("#mealsList"),
             params
         );
+    }
+
+    private getChangeToFullMealMessage(relatedMeals: string): string {
+        const message =
+            'The following meals are assigned to this component:\n\n' +
+            relatedMeals + '\n' +
+            'Do you want to remove the meals from this component and switch to a "non component meal"?';
+        return message;
+    }
+
+    private getChangeToComponentMessage(mealName: string, relatedMeals: string): string {
+        const message =
+            `The following related meals won't be related to "${mealName}" anymore:\n\n` +
+            relatedMeals + '\n' +
+            'A meal component cannot have components assigned to itself.\n' +
+            `Do you want to save "${mealName}" as a component?`;
+        return message;
     }
 }

@@ -1,8 +1,10 @@
 # Todos
-- Remove dedent?
 - Update all packages
+    - See github security alert
 - Add automated tests
 - refactor
+  - Centralize messages
+    - Some messages require dynamic elements
   - Optimize folder - structure
   - make functions smaller
 
