@@ -17,8 +17,7 @@
   },
   "dependencies": {
     "dedent": "^0.7.0",
-    "sqlite3": "^5.0.4",
-    "uuid": "^8.3.2"
+    "sqlite3": "^5.0.4"
   },
   "engines": {
     "node": ">=14.15.3"

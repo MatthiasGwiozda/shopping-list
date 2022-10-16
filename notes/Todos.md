@@ -1,6 +1,10 @@
 # Todos
-- Remove uuid and increment the id's of the forms instead
 - Remove dedent?
+- Update all packages
+- Add automated tests
+- refactor
+  - Optimize folder - structure
+  - make functions smaller
 
 # Ideas
 - use fuzzy search to find items easier
