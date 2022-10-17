@@ -42,17 +42,17 @@ Remove-Item -Path $electronZipFilename
 
 # copy relevant data in the dist - folder:
 $appFolders = @(
-    'assets',
-    'components',
+    './src/assets',
+    './src/components',
     'lib',
     'node_modules',
-    'sql',
-    'styles'
+    './src/sql',
+    './src/styles'
 )
 
 $appFiles = @(
     'package.json',
-    'index.html'
+    './src/index.html'
 )
 
 $appPath = Join-Path -Path $distFolder -ChildPath '/resources/app'
