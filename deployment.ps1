@@ -50,8 +50,11 @@ $appFolders = @(
     './src/styles'
 )
 
-$appFiles = @(
-    'package.json',
+$rootAppFiles = @(
+    'package.json'
+)
+    
+$srcAppFiles = @(
     './src/index.html'
 )
 
@@ -65,7 +68,9 @@ foreach ($folder in $appfolders) {
 }
 
 # copy files
-Copy-Item -Path $appFiles -Destination $appPath
+Copy-Item -Path $rootAppFiles -Destination $appPath
+$srcPath = Join-Path -Path $appPath -ChildPath '/src'
+Copy-Item -Path $srcAppFiles -Destination $srcPath
 
 <#
 Renames the electron - file.
