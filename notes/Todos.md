@@ -27,3 +27,7 @@
     https://github.com/TryGhost/node-sqlite3/issues/304
     https://github.com/TryGhost/node-sqlite3/issues/773
     https://github.com/TryGhost/node-sqlite3/issues/1251
+
+- remove sandbox: false for security - reasons
+  - https://github.com/electron-userland/electron-forge/issues/2931
+  - https://www.electronjs.org/docs/latest/tutorial/sandbox#configuring-the-sandbox
