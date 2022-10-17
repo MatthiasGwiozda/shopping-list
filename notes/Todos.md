@@ -1,10 +1,15 @@
 # Todos
+- move notes and documentation in single folder
+  - check links
+  
+- Optimize deployment.ps1
+  - pull out logical procedures in separate files
+
 - Add automated tests
-- refactor
-  - Centralize messages
-    - Some messages require dynamic elements
-  - Optimize folder - structure
-  - make functions smaller
+- Centralize messages
+  - Some messages require dynamic elements
+  - See language - package idea
+- make functions smaller
 
 # Ideas
 - use fuzzy search to find items easier
