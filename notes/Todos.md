@@ -1,6 +1,4 @@
 # Todos
-- Update all packages
-    - See github security alert
 - Add automated tests
 - refactor
   - Centralize messages
