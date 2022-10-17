@@ -1,7 +1,4 @@
-# Todos
-- move notes and documentation in single folder
-  - check links
-  
+# Todos  
 - Optimize deployment.ps1
   - pull out logical procedures in separate files
 
