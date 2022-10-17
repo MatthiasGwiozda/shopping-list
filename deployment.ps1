@@ -11,11 +11,6 @@ Remove-Item -Path .\lib -Recurse
 # compile typescript - files without source - maps
 npm run build:production
 
-# now remove node_modules...
-Remove-Item -Path ".\node_modules" -Recurse
-# and install the node_modules, which are necessary for production usage
-npm install --production
-
 # returns the download link for the electron version, which is currently installed locally by npm
 function GetElectronDownloadLink() {
     $versionString = npm list electron -depth=0 | Out-String
@@ -39,6 +34,11 @@ $ProgressPreference = 'SilentlyContinue'
 Invoke-WebRequest -Uri $downloadLink -OutFile $electronZipFilename
 Expand-Archive -Path $electronZipFilename -DestinationPath $distFolder
 Remove-Item -Path $electronZipFilename
+
+# now remove node_modules...
+Remove-Item -Path ".\node_modules" -Recurse
+# and install the node_modules, which are necessary for production usage
+npm install --production
 
 # copy relevant data in the dist - folder:
 $appFolders = @(
