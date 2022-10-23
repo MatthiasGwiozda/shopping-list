@@ -11,6 +11,7 @@ $nodeModulesFolder = Join-Path -Path $sourceFolder -ChildPath "/node_modules"
 $distFolder = Join-Path -Path $sourceFolder -ChildPath '/dist'
 $distAppPath = Join-Path -Path $distFolder -ChildPath '/resources/app'
 
+$shoppingListExeFilename = 'shopping-list.exe'
 
 $folders = @(
     './src/assets',
@@ -31,21 +32,5 @@ $files = @(
 ./helper/Prepare-Electron-Dist-Folder.ps1 -distFolder $distFolder
 ./helper/Npm-Install.ps1 -production -nodeModulesPathToDelete $nodeModulesFolder
 ./helper/Copy-To-Dist.ps1 -sourcePath $sourceFolder -destinationPath $distAppPath -folders $folders -files $files
-
-
-
-
-<#
-Renames the electron - file.
-It would be nice to set a .ico - file for electron but currently
-there is a bug in rcedit, which does shady stuff with exe - files:
-https://github.com/electron/electron-packager/issues/590
-#>
-function RebrandElectronExe() {
-    $electronFile = Join-Path $distFolder -ChildPath 'electron.exe' -Resolve
-    Rename-Item -Path $electronFile -NewName 'shopping-list.exe'
-}
-RebrandElectronExe
-
-# install dev - dependencies so we can use dev - dependencies for development
+./helper/Rebrand-Electron-Exe.ps1 -distFolder $distFolder -newFileName $shoppingListExeFilename
 ./helper/Npm-Install.ps1
