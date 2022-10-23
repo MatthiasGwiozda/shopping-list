@@ -1,9 +1,9 @@
 
 Param(
     [Parameter(Mandatory = $true)]
-    $sourcePath,
+    [string]$sourcePath,
     [Parameter(Mandatory = $true)]
-    $destinationPath,
+    [string]$destinationPath,
     [Parameter(Mandatory = $true)]
     [string[]] $folders,
     [Parameter(Mandatory = $true)]
