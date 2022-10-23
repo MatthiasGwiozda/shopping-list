@@ -4,7 +4,7 @@ param(
 )
 
 function removeCurrentScripts() {
-    Remove-Item -Path $pathToDelete -Recurse
+    &"$PSScriptRoot/Remove-Folder.ps1" -folder $pathToDelete
 }
 
 function buildProductionScripts() {
