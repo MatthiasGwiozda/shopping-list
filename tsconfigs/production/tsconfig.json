@@ -1,8 +1,12 @@
 {
     "extends": "../../tsconfig.json",
     "compilerOptions": {
+        "outDir": "../../lib/src",
         "sourceMap": false,
         "inlineSourceMap": false,
         "inlineSources": false
-    }
+    },
+    "exclude": [
+        "../../test/**/*.ts"
+    ]
 }
