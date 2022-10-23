@@ -1,6 +1,5 @@
 # How to make releases
-1. Delete current dist - folder
-1. run the deployment.ps1 - script.
+1. run the `deployment/deploy.ps1` - script.
 1. create a zip - archive from the contents of the dist - folder
 1. rename the zip - file to the released Version.
     - Example: Shopping-List-1.0.0
