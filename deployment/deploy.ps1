@@ -1,7 +1,6 @@
 <#
 .SYNOPSIS
     Creates a dist - folder, which contains the ready to use program.
-    Please remove the current dist - folder manually before you use this script.
 #>
 $sourceFolder = Join-Path -Path $PSScriptRoot -ChildPath '../'
 $libFolder = Join-Path -Path $sourceFolder -ChildPath "/lib"
