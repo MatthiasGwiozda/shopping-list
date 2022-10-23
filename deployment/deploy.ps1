@@ -24,4 +24,4 @@ $files = @(
     './src/index.html'
 )
 
-./helper/Create-Application.ps1 -sourceFolder $sourceFolder -libFolder $libFolder -distFolder $distFolder -nodeModulesFolder $nodeModulesFolder -distAppPath $distAppPath -folders $folders -files $files -shoppingListExeFilename $shoppingListExeFilename
+&"$PSScriptRoot./helper/Create-Application.ps1" -sourceFolder $sourceFolder -libFolder $libFolder -distFolder $distFolder -nodeModulesFolder $nodeModulesFolder -distAppPath $distAppPath -folders $folders -files $files -shoppingListExeFilename $shoppingListExeFilename

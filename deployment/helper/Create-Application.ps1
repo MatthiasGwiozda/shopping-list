@@ -19,13 +19,13 @@ Param() {
 
 function createApplication() {
     Remove-Item -Path $distFolder
-    ./Npm-Install.ps1
-    ./Install-Production-Scripts.ps1 -pathToDelete $libFolder
-    ./Prepare-Electron-Dist-Folder.ps1 -distFolder $distFolder
-    ./Npm-Install.ps1 -production -nodeModulesPathToDelete $nodeModulesFolder
-    ./Copy-To-Dist.ps1 -sourcePath $sourceFolder -destinationPath $distAppPath -folders $folders -files $files
-    ./Rebrand-Electron-Exe.ps1 -distFolder $distFolder -newFileName $shoppingListExeFilename
-    ./Npm-Install.ps1
+    &"$PSScriptRoot/Npm-Install.ps1"
+    &"$PSScriptRoot/Install-Production-Scripts.ps1" -pathToDelete $libFolder
+    &"$PSScriptRoot/Prepare-Electron-Dist-Folder.ps1" -distFolder $distFolder
+    &"$PSScriptRoot/Npm-Install.ps1" -production -nodeModulesPathToDelete $nodeModulesFolder
+    &"$PSScriptRoot/Copy-To-Dist.ps1" -sourcePath $sourceFolder -destinationPath $distAppPath -folders $folders -files $files
+    &"$PSScriptRoot/Rebrand-Electron-Exe.ps1" -distFolder $distFolder -newFileName $shoppingListExeFilename
+    &"$PSScriptRoot/Npm-Install.ps1"
 } 
 
 createApplication
