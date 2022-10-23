@@ -1,10 +1,4 @@
-# Todos  
-- Optimize deployment.ps1
-  - merge branch
-
-
-
-
+# Todos
 - Add automated tests
 - make functions smaller
 

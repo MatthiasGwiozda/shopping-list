@@ -1,4 +1,6 @@
 # Ideas
+- Create a documentation for updating to a new version of shoppinglist
+
 - use bundler in build - process
   - Remove the dynamic imports with require(dynamicPath)
   - change deployment - Script
