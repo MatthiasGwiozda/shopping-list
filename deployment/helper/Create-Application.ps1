@@ -1,24 +1,24 @@
-Param() {
+Param(
     [Parameter(mandatory = $true)]
-    [string]$sourceFolder
+    [string]$sourceFolder,
     [Parameter(mandatory = $true)]
-    [string]$libFolder
+    [string]$libFolder,
     [Parameter(mandatory = $true)]
-    [string]$distFolder
+    [string]$distFolder,
     [Parameter(mandatory = $true)]
-    [string]$nodeModulesFolder
+    [string]$nodeModulesFolder,
     [Parameter(mandatory = $true)]
-    [string]$distAppPath
+    [string]$distAppPath,
     [Parameter(mandatory = $true)]
-    [string]$folders
+    [string[]]$folders,
     [Parameter(mandatory = $true)]
-    [string]$files
+    [string[]]$files,
     [Parameter(mandatory = $true)]
     [string]$shoppingListExeFilename
-}
+)
 
 function createApplication() {
-    Remove-Item -Path $distFolder
+    &"$PSScriptRoot/Remove-Folder" -folder $distFolder
     &"$PSScriptRoot/Npm-Install.ps1"
     &"$PSScriptRoot/Install-Production-Scripts.ps1" -pathToDelete $libFolder
     &"$PSScriptRoot/Prepare-Electron-Dist-Folder.ps1" -distFolder $distFolder
@@ -29,3 +29,4 @@ function createApplication() {
 } 
 
 createApplication
+ 
