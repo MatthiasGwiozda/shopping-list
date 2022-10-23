@@ -1,4 +1,8 @@
 # Ideas
+- use bundler in build - process
+  - Remove the dynamic imports with require(dynamicPath)
+  - change deployment - Script
+
 - use fuzzy search to find items easier
     - in editableList
     - for itemCollection.
