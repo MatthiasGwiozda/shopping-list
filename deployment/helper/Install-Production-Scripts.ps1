@@ -1,17 +1,15 @@
+param(
+    [Parameter(mandatory=$True)]
+    [string]$pathToDelete
+)
 
-function getLibPath() {
-    return Join-Path -Path $PSScriptRoot -ChildPath "../../lib"
+function removeCurrentScripts() {
+    Remove-Item -Path $pathToDelete -Recurse
 }
 
-function removeLibPath() {
-    $libPath = getLibPath
-    Remove-Item -Path $libPath -Recurse
-}
-
-function installModulesAndBuildProduction() {
-    npm install
+function buildProductionScripts() {
     npm run build:production
 }
 
-removeLibPath
-installModulesAndBuildProduction
+removeCurrentScripts
+buildProductionScripts

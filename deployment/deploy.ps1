@@ -4,18 +4,15 @@
     Please remove the current dist - folder manually before you use this script.
 #>
 Set-Location $PSScriptRoot
-$distFolder = Join-Path -Path $PSScriptRoot -ChildPath '../dist'
 
-./helper/Install-Production-Scripts.ps1
-./helper/Prepare-Electron-Dist-Folder.ps1 -distFolder $distFolder
+$sourceFolder = Join-Path -Path $PSScriptRoot -ChildPath '../'
+$libFolder = Join-Path -Path $sourceFolder -ChildPath "/lib"
+$nodeModulesFolder = Join-Path -Path $sourceFolder -ChildPath "/node_modules"
+$distFolder = Join-Path -Path $sourceFolder -ChildPath '/dist'
+$distAppPath = Join-Path -Path $distFolder -ChildPath '/resources/app'
 
-# now remove node_modules...
-Remove-Item -Path ".\node_modules" -Recurse
-# and install the node_modules, which are necessary for production usage
-npm install --production
 
-# copy relevant data in the dist - folder:
-$appFolders = @(
+$folders = @(
     './src/assets',
     './src/components',
     'lib',
@@ -24,27 +21,19 @@ $appFolders = @(
     './src/styles'
 )
 
-$rootAppFiles = @(
-    'package.json'
-)
-    
-$srcAppFiles = @(
+$files = @(
+    'package.json',
     './src/index.html'
 )
 
-$appPath = Join-Path -Path $distFolder -ChildPath '/resources/app'
+./helper/Npm-Install.ps1
+./helper/Install-Production-Scripts.ps1 -pathToDelete $libFolder
+./helper/Prepare-Electron-Dist-Folder.ps1 -distFolder $distFolder
+./helper/Npm-Install.ps1 -production -nodeModulesPathToDelete $nodeModulesFolder
+./helper/Copy-To-Dist.ps1 -sourcePath $sourceFolder -destinationPath $distAppPath -folders $folders -files $files
 
-# first copy folders
-foreach ($folder in $appfolders) {
-    $destination = Join-Path -Path $appPath -ChildPath $folder
-    # ts files should not be copied as they are not relevant for production usage:
-    Copy-Item -Path $folder -Destination $destination -Recurse -Exclude '*.ts'
-}
 
-# copy files
-Copy-Item -Path $rootAppFiles -Destination $appPath
-$srcPath = Join-Path -Path $appPath -ChildPath '/src'
-Copy-Item -Path $srcAppFiles -Destination $srcPath
+
 
 <#
 Renames the electron - file.
@@ -59,4 +48,4 @@ function RebrandElectronExe() {
 RebrandElectronExe
 
 # install dev - dependencies so we can use dev - dependencies for development
-npm install
+./helper/Npm-Install.ps1
