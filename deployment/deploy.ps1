@@ -25,10 +25,14 @@ $files = @(
     './src/index.html'
 )
 
-./helper/Npm-Install.ps1
-./helper/Install-Production-Scripts.ps1 -pathToDelete $libFolder
-./helper/Prepare-Electron-Dist-Folder.ps1 -distFolder $distFolder
-./helper/Npm-Install.ps1 -production -nodeModulesPathToDelete $nodeModulesFolder
-./helper/Copy-To-Dist.ps1 -sourcePath $sourceFolder -destinationPath $distAppPath -folders $folders -files $files
-./helper/Rebrand-Electron-Exe.ps1 -distFolder $distFolder -newFileName $shoppingListExeFilename
-./helper/Npm-Install.ps1
+function deploy() {
+    ./helper/Npm-Install.ps1
+    ./helper/Install-Production-Scripts.ps1 -pathToDelete $libFolder
+    ./helper/Prepare-Electron-Dist-Folder.ps1 -distFolder $distFolder
+    ./helper/Npm-Install.ps1 -production -nodeModulesPathToDelete $nodeModulesFolder
+    ./helper/Copy-To-Dist.ps1 -sourcePath $sourceFolder -destinationPath $distAppPath -folders $folders -files $files
+    ./helper/Rebrand-Electron-Exe.ps1 -distFolder $distFolder -newFileName $shoppingListExeFilename
+    ./helper/Npm-Install.ps1
+} 
+
+deploy
