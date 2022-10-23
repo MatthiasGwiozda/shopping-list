@@ -4,7 +4,11 @@ Param(
     [string]$nodeModulesPathToDelete
 )
 
-if ($nodeModulesPathToDelete -ne $null) {
+function nodeModulesPathValid() {
+    return $null -ne $nodeModulesPathToDelete -and $nodeModulesPathToDelete -ne ''
+}
+
+if (nodeModulesPathValid) {
     Remove-Item -Path $nodeModulesPathToDelete -Recurse
 }
 
