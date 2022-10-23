@@ -8,7 +8,7 @@ function folderExists() {
 
 function removeFolderIfExists() {
     if (folderExists) {
-        Remove-Item -Path $distFolder -Recurse
+        Remove-Item -Path $folder -Recurse
     }
 }
 
