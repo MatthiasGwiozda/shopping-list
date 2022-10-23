@@ -18,6 +18,7 @@ Param() {
 }
 
 function createApplication() {
+    Remove-Item -Path $distFolder
     ./Npm-Install.ps1
     ./Install-Production-Scripts.ps1 -pathToDelete $libFolder
     ./Prepare-Electron-Dist-Folder.ps1 -distFolder $distFolder
