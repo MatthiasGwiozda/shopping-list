@@ -1,6 +1,13 @@
 # Ideas
 - Create a documentation for updating to a new version of shoppinglist
 
+- make functions smaller
+
+- create language - packages
+  - german
+  - Centralize messages
+  - Some messages require dynamic elements
+
 - use bundler in build - process
   - Remove the dynamic imports with require(dynamicPath)
   - change deployment - Script
@@ -8,9 +15,6 @@
 - use fuzzy search to find items easier
     - in editableList
     - for itemCollection.
-
-- create language - packages
-    - german
 
 - allow side - dishes to have side - dishes themselves. This can be useful for dips, which includes one "base sauce" for all dips: https://lieblingsgeschmack.de/5-blitz-sossen-fuer-raclette-und-fondue/
 
