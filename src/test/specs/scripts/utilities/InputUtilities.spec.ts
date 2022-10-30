@@ -1,4 +1,4 @@
-import InputUtilities from "../../../../src/scripts/utilities/InputUtilities";
+import InputUtilities from '../../../../scripts/utilities/InputUtilities';
 import { expect, test } from '@jest/globals';
 
 describe(InputUtilities.name, function () {
