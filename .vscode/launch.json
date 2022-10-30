@@ -22,6 +22,20 @@
       ],
       "outputCapture": "std",
       "preLaunchTask": "tsc: build - tsconfig.json",
+    },
+    {
+      "name": "Debug Jest Tests",
+      "type": "node",
+      "request": "launch",
+      "runtimeArgs": [
+        "--inspect-brk",
+        "${workspaceRoot}/node_modules/jest/bin/jest.js",
+        "--config=test/config/jest.config.mjs",
+        "--runInBand"
+      ],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "preLaunchTask": "tsc: build - tsconfig.json",
     }
   ]
 }
