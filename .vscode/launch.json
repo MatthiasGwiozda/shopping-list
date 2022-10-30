@@ -34,7 +34,8 @@
         "--runInBand"
       ],
       "console": "integratedTerminal",
-      "internalConsoleOptions": "neverOpen"
+      "internalConsoleOptions": "neverOpen",
+      "preLaunchTask": "tsc: build - tsconfig.json",
     }
   ]
 }
