@@ -33,17 +33,4 @@ export default abstract class HtmlUtilities {
         }
         return elements
     }
-
-    /**
-     * @param file the relative path of the html - file from the project root - directory.
-     * This function uses the function `FileUtilities.getFileContent` to pick up the html - file.
-     * @returns a container, which includes the html elements in the file.
-     * When the file has multiple "root" elements, you can decide yourself, which
-     * html - elements you want to use through the container.
-     */
-    static getFileAsHtmlElement(file: string): HTMLElement {
-        const div = document.createElement('div');
-        div.innerHTML = FileUtilities.getFileContent(file);
-        return div;
-    }
 }
