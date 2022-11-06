@@ -80,7 +80,7 @@ export default class MealCollection extends Component<Components.mealCollection>
 
     addMealToCollection(mealName: string, quantity = 1) {
         const mealsContainer = this.container.querySelector('.meals');
-        const itemHTML = this.gethtmlFromFile('item.html');
+        const itemHTML = this.getRootNode('item.html');
         // delete - button functionality
         const deleteButton = itemHTML.querySelector('button');
         deleteButton.onclick = async () => {

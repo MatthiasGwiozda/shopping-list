@@ -176,7 +176,7 @@ export default class EditableList<EditableListElement> extends Component<Compone
      */
     private getDeleteButton(element: EditableListElement, tr: HTMLElement): HTMLButtonElement {
         const { deleteElement } = this.componentParameters;
-        const deleteButton = this.gethtmlFromFile<HTMLButtonElement>(EditableListFiles.deleteButton);
+        const deleteButton = this.getRootNode<HTMLButtonElement>(EditableListFiles.deleteButton);
         deleteButton.onclick = async () => {
             if (DialogUtilities.confirm('Are you sure to delete this element? \n' + this.getStringRepresentation(element))) {
                 const res = await deleteElement(element);
@@ -196,7 +196,7 @@ export default class EditableList<EditableListElement> extends Component<Compone
      * @param element the element, which will be edited.
      */
     private getEditButton(element: EditableListElement, tr: HTMLElement): HTMLButtonElement {
-        const editButton = this.gethtmlFromFile<HTMLButtonElement>(EditableListFiles.editButton);
+        const editButton = this.getRootNode<HTMLButtonElement>(EditableListFiles.editButton);
         editButton.onclick = async () => {
             /**
              * editTR: the tableRow with the input - fields to update
@@ -234,7 +234,7 @@ export default class EditableList<EditableListElement> extends Component<Compone
     ): HTMLButtonElement[] {
         return this.componentParameters.additionalEditableListActions?.map(action => {
             const { component, buttonIcon, buttonTitle } = action;
-            const actionButton = this.gethtmlFromFile<HTMLButtonElement>(EditableListFiles.additionalActionButton);
+            const actionButton = this.getRootNode<HTMLButtonElement>(EditableListFiles.additionalActionButton);
             actionButton.innerText = buttonIcon;
             actionButton.title = buttonTitle;
             let actionButtonTr: HTMLElement;
@@ -452,9 +452,9 @@ export default class EditableList<EditableListElement> extends Component<Compone
      * When this value is not used, it is assumed that it's an insert - action.
      */
     private createFormActions(formId: string, tr: HTMLElement, oldTr?: HTMLElement) {
-        const saveButton = this.gethtmlFromFile(EditableListFiles.saveButton);
+        const saveButton = this.getRootNode(EditableListFiles.saveButton);
         saveButton.setAttribute('form', formId);
-        const cancelButton = this.gethtmlFromFile(EditableListFiles.cancelButton);
+        const cancelButton = this.getRootNode(EditableListFiles.cancelButton);
         cancelButton.onclick = () => {
             if (oldTr == null) {
                 // remove the row only when it's a "insert"
@@ -549,7 +549,7 @@ export default class EditableList<EditableListElement> extends Component<Compone
     }
 
     private getAddNewButton(): HTMLElement {
-        const button = this.gethtmlFromFile(EditableListFiles.addNewButton);
+        const button = this.getRootNode(EditableListFiles.addNewButton);
         button.classList.add(constants.addNewButtonClass);
         button.onclick = async () => {
             // make function generic
@@ -561,7 +561,7 @@ export default class EditableList<EditableListElement> extends Component<Compone
     }
 
     private getSaveAllButton(): HTMLButtonElement {
-        const saveAllButton = this.gethtmlFromFile<HTMLButtonElement>(EditableListFiles.saveAllButton);
+        const saveAllButton = this.getRootNode<HTMLButtonElement>(EditableListFiles.saveAllButton);
         saveAllButton.onclick = () => {
             const saveIcon = '💾';
             const hourglass = '⏳';
@@ -587,7 +587,7 @@ export default class EditableList<EditableListElement> extends Component<Compone
     }
 
     private getEditAllButton(): HTMLElement {
-        const button = this.gethtmlFromFile(EditableListFiles.editAllButton);
+        const button = this.getRootNode(EditableListFiles.editAllButton);
         button.onclick = async () => {
             this.focusLock = true;
             const editButtons = this.container.querySelectorAll<HTMLButtonElement>('.editItemButton');
@@ -641,7 +641,7 @@ export default class EditableList<EditableListElement> extends Component<Compone
      * the functionality.
      */
     private insertSearchInput() {
-        const input = this.gethtmlFromFile<HTMLInputElement>(EditableListFiles.searchInput);
+        const input = this.getRootNode<HTMLInputElement>(EditableListFiles.searchInput);
         input.oninput = () => {
             this.deactivateAllAdditionalAction();
             const { value } = input;

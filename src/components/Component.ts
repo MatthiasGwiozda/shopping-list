@@ -44,19 +44,10 @@ export default abstract class Component<C extends Components> {
      */
     public abstract rendered(): void;
 
-    /**
-     * @param file the filename, which lies in the partials - folder of the component.
-     * @returns the html - element, which is included in the requested file.
-     * Note that a html - partial may only have one top level node.
-     * multiple top level nodes will not be returned by this function.
-     * @remarks when no parials - folder exists for the current component, you have
-     * to create it.
-     */
-    protected gethtmlFromFile<El extends HTMLElement>(file: string): El {
-        const html = HtmlUtilities.getFileAsHtmlElement(
-            `${Component.srcPath}${constants.componentsFolderName}/${this.component}/partials/${file}`
-        )
-        return html.firstChild as El;
+    protected getRootNode<El extends HTMLElement>(htmlString: string): El {
+        const div = document.createElement('div');
+        div.innerHTML = htmlString;
+        return div.firstChild as El;
     }
 
     /**

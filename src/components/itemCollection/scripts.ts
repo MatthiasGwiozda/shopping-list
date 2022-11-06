@@ -194,7 +194,7 @@ export default class ItemCollection extends Component<Components.itemCollection>
         }
         p.prepend(input);
         // create delete - button
-        const deleteButton = this.gethtmlFromFile<HTMLButtonElement>('deleteButton.html');
+        const deleteButton = this.getRootNode<HTMLButtonElement>('deleteButton.html');
         deleteButton.onclick = async () => {
             const removed = await this.componentParameters.removeItem(itemName);
             if (removed) {

@@ -39,7 +39,7 @@ export default class ShoppingListCollection extends Component<Components.shoppin
     }
 
     private createEditButton(label: HTMLLabelElement, shoppingListParagraph: HTMLParagraphElement, deleteButton: HTMLButtonElement): HTMLButtonElement {
-        const editButton: HTMLButtonElement = this.gethtmlFromFile('editButton.html');
+        const editButton: HTMLButtonElement = this.getRootNode('editButton.html');
         let itemCollectionContainer: HTMLParagraphElement;
         editButton.onclick = async () => {
             editButton.classList.toggle(constants.activeActionButtonClass);
@@ -85,7 +85,7 @@ export default class ShoppingListCollection extends Component<Components.shoppin
     }
 
     private getDeleteButton(label: HTMLLabelElement) {
-        const button = this.gethtmlFromFile<HTMLButtonElement>('deleteButton.html');
+        const button = this.getRootNode<HTMLButtonElement>('deleteButton.html');
         button.onclick = async () => {
             const confirmation = DialogUtilities.confirm(`Do you want to delete the list "${label.innerText}"?`);
             if (confirmation) {
