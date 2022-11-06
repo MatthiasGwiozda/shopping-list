@@ -45,14 +45,6 @@ export default abstract class Component<C extends Components> {
     public abstract rendered(): void;
 
     /**
-     * reloads the component with the parameters, which were
-     * initially provided.
-     */
-    protected reloadComponent() {
-        Component.injectComponent(this.component, this.container, this.componentParameters);
-    }
-
-    /**
      * @param file the filename, which lies in the partials - folder of the component.
      * @returns the html - element, which is included in the requested file.
      * Note that a html - partial may only have one top level node.
