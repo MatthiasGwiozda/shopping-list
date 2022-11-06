@@ -5,6 +5,7 @@ import InputUtilities from "../../scripts/utilities/InputUtilities";
 import { Components } from "../../scripts/types/components/Components";
 import Component from "../Component";
 import HtmlUtilities from "../../scripts/utilities/HtmlUtilities";
+import shoppingListCollectionPartials from "./shoppingListCollectionPartials";
 
 export default class ShoppingListCollection extends Component<Components.shoppingListCollection> {
     rendered() {
@@ -40,7 +41,7 @@ export default class ShoppingListCollection extends Component<Components.shoppin
     }
 
     private createEditButton(label: HTMLLabelElement, shoppingListParagraph: HTMLParagraphElement, deleteButton: HTMLButtonElement): HTMLButtonElement {
-        const editButton: HTMLButtonElement = HtmlUtilities.getRootNode('editButton.html');
+        const editButton: HTMLButtonElement = HtmlUtilities.getRootNode(shoppingListCollectionPartials.editButton);
         let itemCollectionContainer: HTMLParagraphElement;
         editButton.onclick = async () => {
             editButton.classList.toggle(constants.activeActionButtonClass);
@@ -86,7 +87,7 @@ export default class ShoppingListCollection extends Component<Components.shoppin
     }
 
     private getDeleteButton(label: HTMLLabelElement) {
-        const button = HtmlUtilities.getRootNode<HTMLButtonElement>('deleteButton.html');
+        const button = HtmlUtilities.getRootNode<HTMLButtonElement>(shoppingListCollectionPartials.deleteButton);
         button.onclick = async () => {
             const confirmation = DialogUtilities.confirm(`Do you want to delete the list "${label.innerText}"?`);
             if (confirmation) {
