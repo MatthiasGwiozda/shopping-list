@@ -8,11 +8,6 @@
   - Centralize messages
   - Some messages require dynamic elements
 
-- use bundler in build - process
-  - Remove the dynamic imports with require(dynamicPath)
-  - change deployment - Script
-    - remove node_modules, when bundler takes care of importing them?
-
 - use fuzzy search to find items easier
     - in editableList
     - for itemCollection.
