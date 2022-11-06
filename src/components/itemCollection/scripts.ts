@@ -5,6 +5,7 @@ import UniqueUtilities from "../../scripts/utilities/UniqueUtilities";
 import { Components } from "../../scripts/types/components/Components";
 import Item from "../../scripts/types/Item";
 import Component from "../Component";
+import HtmlUtilities from "../../scripts/utilities/HtmlUtilities";
 
 export default class ItemCollection extends Component<Components.itemCollection> {
     private readonly optgroupTagName = 'optgroup';
@@ -194,7 +195,7 @@ export default class ItemCollection extends Component<Components.itemCollection>
         }
         p.prepend(input);
         // create delete - button
-        const deleteButton = this.getRootNode<HTMLButtonElement>('deleteButton.html');
+        const deleteButton = HtmlUtilities.getRootNode<HTMLButtonElement>('deleteButton.html');
         deleteButton.onclick = async () => {
             const removed = await this.componentParameters.removeItem(itemName);
             if (removed) {

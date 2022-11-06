@@ -33,4 +33,10 @@ export default abstract class HtmlUtilities {
         }
         return elements
     }
+
+    static getRootNode<El extends HTMLElement>(htmlString: string): El {
+        const div = document.createElement('div');
+        div.innerHTML = htmlString;
+        return div.firstChild as El;
+    }
 }

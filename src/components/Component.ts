@@ -44,12 +44,6 @@ export default abstract class Component<C extends Components> {
      */
     public abstract rendered(): void;
 
-    protected getRootNode<El extends HTMLElement>(htmlString: string): El {
-        const div = document.createElement('div');
-        div.innerHTML = htmlString;
-        return div.firstChild as El;
-    }
-
     /**
      * All components have a fixed structure. Through this function one can access
      * the Files, which are included in a component.

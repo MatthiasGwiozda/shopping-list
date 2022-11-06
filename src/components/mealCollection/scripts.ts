@@ -5,6 +5,7 @@ import { Components } from "../../scripts/types/components/Components";
 import Meal from "../../scripts/types/Meal";
 import MealInformation from "../../scripts/types/MealInformation";
 import Component from "../Component";
+import HtmlUtilities from "../../scripts/utilities/HtmlUtilities";
 
 export default class MealCollection extends Component<Components.mealCollection> {
     private select: HTMLSelectElement;
@@ -80,7 +81,7 @@ export default class MealCollection extends Component<Components.mealCollection>
 
     addMealToCollection(mealName: string, quantity = 1) {
         const mealsContainer = this.container.querySelector('.meals');
-        const itemHTML = this.getRootNode('item.html');
+        const itemHTML = HtmlUtilities.getRootNode('item.html');
         // delete - button functionality
         const deleteButton = itemHTML.querySelector('button');
         deleteButton.onclick = async () => {
