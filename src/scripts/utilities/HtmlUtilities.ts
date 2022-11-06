@@ -1,4 +1,3 @@
-import FileUtilities from "./FileUtilities";
 
 export default abstract class HtmlUtilities {
     /**
