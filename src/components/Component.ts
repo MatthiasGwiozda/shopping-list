@@ -35,8 +35,7 @@ export default abstract class Component<C extends Components> {
      */
     constructor(
         protected container: HTMLElement,
-        protected componentParameters: ComponentParameters[C],
-        private readonly component: Components
+        protected componentParameters: ComponentParameters[C]
     ) { }
     /**
      * this function will be called once when a Component was rendered in the dom.
@@ -62,7 +61,7 @@ export default abstract class Component<C extends Components> {
          * the type is a reference to the constructor of the Components - class.
          */
         const componentClass: ComponentConstructor<T, any> = require(scriptPath).default;
-        return new componentClass(htmlElement, componentParameter, component);
+        return new componentClass(htmlElement, componentParameter);
     }
 
     private static injectHtmlToElement(component: Components, htmlElement: HTMLElement) {
