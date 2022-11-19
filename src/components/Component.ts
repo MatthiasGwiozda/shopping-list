@@ -1,6 +1,5 @@
 import constants from "../scripts/constants";
 import FileUtilities from "../scripts/utilities/FileUtilities";
-import HtmlUtilities from "../scripts/utilities/HtmlUtilities";
 import PathUtilities from "../scripts/utilities/PathUtilities";
 import ComponentConstructor from "../scripts/types/components/ComponentConstructor";
 import { ComponentParameters, Components } from "../scripts/types/components/Components";
