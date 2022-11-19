@@ -11,34 +11,36 @@
     - [x] save all the partials in typescript - variables in all the components, which uses them
     - [x] pass the partials as strings to the new getRootNode - function
     - [x] delete old partials.html - files
+  - [x] remove component - parameter from constructor - type
+  - [x] remove component - parameter from Component.ts constructor
 
-
-  - remove component - parameter from Component.ts constructor
-  - remove component - parameter from constructor - type
-
-  - Add a abstract function im Component.ts, which returns the html - files `getTemplate`
-  - change injectHtmlToElement to use `getTemplate`
-  - return the html - files in the `getTemplate` - function in all components
-  - remove the obsolete html - files (not partials)  
-  - remove htmlElement - parameter from injectComponent
-  - get htmlElement from the instance of the component
-  - make injectComponent non static
-  - remove the component - parameter from injectComponent
-
-
-- remove the dynamic import in injectComponentScript
+--- make injectComponent non static
+  - [x] make injectComponent non static
+  - [x] remove htmlElement - parameter from injectComponent
+    - [x] use container instead
+  - change all references to non static function (instanciate the components where they are needed)
+  - delete getComponentFilePath
+  - delete FileType - enum
+  - remove the dynamic import in injectComponentScript
   - Delete the Components - enum
     - Make Component non generic
     - implement constructors in Components
     - remove references of ComponentParameters - type
     - remove ComponentParameters - type
     - remove component - parameter from constructor in Component.ts
-    - 
     - make injectComponent non static
-
-
     - delete the Components - enum
     - delete ComponentConstructor
+
+--- create getTemplate
+  - Add a abstract function im Component.ts, which returns the html - files `getTemplate`
+  - change injectHtmlToElement to use `getTemplate`
+  - return the html - files in the `getTemplate` - function in all components
+  - remove the component - parameter from injectComponent
+
+--- use getTemplate
+  - get htmlElement from the instance of the component
+  - remove the obsolete index.html - files (not partials)
 
 
 
