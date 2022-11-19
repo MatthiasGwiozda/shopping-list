@@ -46,7 +46,7 @@ export default abstract class Component<C extends Components> {
      * All components have a fixed structure. Through this function one can access
      * the Files, which are included in a component.
      */
-    private static getComponentFilePath(component: Components, fileType: FileType) {
+    private getComponentFilePath(component: Components, fileType: FileType) {
         const folder = fileType == FileType.script ? 'lib/' : Component.srcPath
         return `${folder}${constants.componentsFolderName}/${component}/${fileType}`;
     }
@@ -55,18 +55,18 @@ export default abstract class Component<C extends Components> {
      * This function injects the scripts.ts - file of the component, which is currently active.
      * Note that the script will not be "unloaded", when the component is removed from the dom.
      */
-    private static injectComponentScript<T extends Component<any>>(component: Components, htmlElement: HTMLElement, componentParameter): T {
+    private injectComponentScript<T extends Component<any>>(component: Components, componentParameter): T {
         const scriptPath = PathUtilities.getPath(this.getComponentFilePath(component, FileType.script));
         /**
          * the type is a reference to the constructor of the Components - class.
          */
         const componentClass: ComponentConstructor<T, any> = require(scriptPath).default;
-        return new componentClass(htmlElement, componentParameter);
+        return new componentClass(this.container, componentParameter);
     }
 
-    private static injectHtmlToElement(component: Components, htmlElement: HTMLElement) {
+    private injectHtmlToElement(component: Components) {
         const html = FileUtilities.getFileContent(this.getComponentFilePath(component, FileType.html));
-        htmlElement.innerHTML = html;
+        this.container.innerHTML = html;
     }
 
     /**
@@ -75,11 +75,11 @@ export default abstract class Component<C extends Components> {
      * This function may for example be used in a component to inject other components.
      * @returns the instance of the component, which was defined in the components - parameter.
      */
-    public static injectComponent<C extends Components>(
-        component: C, htmlElement: HTMLElement, componentParameters?: ComponentParameters[C]
+    public injectComponent<C extends Components>(
+        component: C, componentParameters?: ComponentParameters[C]
     ): Component<C> {
-        this.injectHtmlToElement(component, htmlElement);
-        const instance = this.injectComponentScript(component, htmlElement, componentParameters);
+        this.injectHtmlToElement(component);
+        const instance = this.injectComponentScript(component, componentParameters);
         instance.rendered();
         return instance;
     }
