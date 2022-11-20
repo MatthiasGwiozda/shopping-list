@@ -6,7 +6,7 @@ import { EditableListParams, PossibleInputTypes } from "../../scripts/types/comp
 import Shop from "../../scripts/types/Shop";
 import Component from "../Component";
 
-export default class Shops extends Component<Components.shops> {
+export default class Shops extends Component {
     rendered() {
         const params: EditableListParams<Shop> = {
             getTableContent: async () => await Database.selectAllShops(),

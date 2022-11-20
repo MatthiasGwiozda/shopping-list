@@ -1,8 +1,7 @@
-import { Components } from "../../scripts/types/components/Components";
 import Component from "../Component";
 import Database from "../../scripts/Database"
 
-export default class editableListSortableCategories extends Component<Components.editableListSortableCategories> {
+export default class editableListSortableCategories extends Component {
     private static currentDraggedElement: HTMLParagraphElement;
     private static readonly dragoverClass = 'dragover';
     /**

@@ -2,13 +2,12 @@ import Database from "../../scripts/Database";
 import DialogUtilities from "../../scripts/utilities/DialogUtilities";
 import InputUtilities from "../../scripts/utilities/InputUtilities";
 import UniqueUtilities from "../../scripts/utilities/UniqueUtilities";
-import { Components } from "../../scripts/types/components/Components";
 import Item from "../../scripts/types/Item";
 import Component from "../Component";
 import HtmlUtilities from "../../scripts/utilities/HtmlUtilities";
 import itemCollectionPartials from "./itemCollectionPartials";
 
-export default class ItemCollection extends Component<Components.itemCollection> {
+export default class ItemCollection extends Component {
     private readonly optgroupTagName = 'optgroup';
     private readonly defaultOptionValue = 'show all categories';
 

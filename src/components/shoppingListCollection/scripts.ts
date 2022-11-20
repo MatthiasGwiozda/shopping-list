@@ -7,7 +7,7 @@ import Component from "../Component";
 import HtmlUtilities from "../../scripts/utilities/HtmlUtilities";
 import shoppingListCollectionPartials from "./shoppingListCollectionPartials";
 
-export default class ShoppingListCollection extends Component<Components.shoppingListCollection> {
+export default class ShoppingListCollection extends Component {
     rendered() {
         this.insertCurrentShoppingLists();
         this.initializeAddListAction();

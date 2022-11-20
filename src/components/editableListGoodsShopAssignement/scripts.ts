@@ -1,10 +1,9 @@
-import { Components } from "../../scripts/types/components/Components";
 import Component from "../Component";
 import Database from "../../scripts/Database"
 import Shop from "../../scripts/types/Shop";
 import GoodsShops from "../../scripts/types/GoodsShops";
 
-export default class EditableListGoodsShopAssignement extends Component<Components.editableListGoodsShopAssignement> {
+export default class EditableListGoodsShopAssignement extends Component {
 
     rendered() {
         this.insertShops()

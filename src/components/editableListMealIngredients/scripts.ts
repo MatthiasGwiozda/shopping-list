@@ -4,7 +4,7 @@ import { CurrentItems } from "../../scripts/types/components/itemCollection";
 import Meal from "../../scripts/types/Meal";
 import Component from "../Component";
 
-export default class EditableListMealIngredients extends Component<Components.editableListMealIngredients> {
+export default class EditableListMealIngredients extends Component {
     rendered() {
         this.initializeItemCollection();
         this.initializeRecipe();

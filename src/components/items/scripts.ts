@@ -6,7 +6,7 @@ import { EditableListParams, PossibleInputTypes } from "../../scripts/types/comp
 import Item from "../../scripts/types/Item";
 import Component from "../Component";
 
-export default class Items extends Component<Components.items> {
+export default class Items extends Component {
     rendered() {
         this.createEditableList();
     }

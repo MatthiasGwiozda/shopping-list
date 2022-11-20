@@ -8,7 +8,7 @@ enum TextAreas {
     recipe = 'recipe'
 }
 
-export default class ShoppingList extends Component<Components.shoppingList> {
+export default class ShoppingList extends Component {
 
     private static readonly textAreaHeadlines: { [key in TextAreas]: string } = {
         availableItemsInShop: 'Available items in selected shop',

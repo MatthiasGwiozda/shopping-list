@@ -1,5 +1,5 @@
 import Component from "../Component";
 
-export default class Skeleton extends Component<any> {
+export default class Skeleton extends Component {
     rendered() { }
 }

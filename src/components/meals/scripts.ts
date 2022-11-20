@@ -6,7 +6,7 @@ import Meal from "../../scripts/types/Meal";
 import Component from "../Component";
 import DialogUtilities from '../../scripts/utilities/DialogUtilities';
 
-export default class Meals extends Component<Components.meals> {
+export default class Meals extends Component {
     rendered() {
         this.createEditableList()
     }
