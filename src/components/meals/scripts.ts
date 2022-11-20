@@ -5,12 +5,17 @@ import { EditableListParams, PossibleInputTypes } from "../../scripts/types/comp
 import Meal from "../../scripts/types/Meal";
 import Component from "../Component";
 import DialogUtilities from '../../scripts/utilities/DialogUtilities';
+import mealsPartials from "./MealsPartials";
 
 export default class Meals extends Component {
 
     constructor(container: HTMLElement) {
         super(container);
         this.createEditableList()
+    }
+
+    protected getHtmlTemplate(): string {
+        return mealsPartials.template
     }
 
     private getBulletPointList(elements: string[]): string {

@@ -4,6 +4,7 @@ import Category from "../../scripts/types/Category";
 import { Components } from "../../scripts/types/components/Components";
 import { EditableListParams, PossibleInputTypes } from "../../scripts/types/components/editableList";
 import Component from "../Component";
+import categoriesPartials from "./categoriesPartials";
 
 export default class Categories extends Component {
 
@@ -11,7 +12,11 @@ export default class Categories extends Component {
         super(container);
         this.createEditableList();
     }
-    
+
+    protected getHtmlTemplate(): string {
+        return categoriesPartials.template;
+    }
+
     // create editableList for categories
     private async createEditableList() {
         const params: EditableListParams<Category> = {

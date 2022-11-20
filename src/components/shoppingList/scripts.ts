@@ -1,6 +1,7 @@
 import Database from "../../scripts/Database";
 import { Components } from "../../scripts/types/components/Components";
 import Component from "../Component";
+import shoppingListPartials from "./shoppingListPartials";
 
 enum TextAreas {
     availableItemsInShop = 'availableItemsInShop',
@@ -19,6 +20,10 @@ export default class ShoppingList extends Component {
     constructor(container: HTMLElement) {
         super(container);
         this.rendered()
+    }
+
+    protected getHtmlTemplate(): string {
+        return shoppingListPartials.template
     }
 
     private rendered() {

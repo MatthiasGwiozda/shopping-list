@@ -16,6 +16,10 @@ export default class MealCollection extends Component {
         this.rendered();
     }
 
+    protected getHtmlTemplate(): string {
+        return mealCollectionPartials.template;
+    }
+
     private rendered() {
         this.select = this.container.querySelector('.mealsPicker select');
         this.select.name = this.selectName;

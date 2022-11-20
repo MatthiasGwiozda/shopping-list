@@ -34,6 +34,10 @@ export default class EditableList<EditableListElement> extends Component {
         this.insertElementsAndActions();
     }
 
+    protected getHtmlTemplate(): string {
+        return editableListPartials.template;
+    }
+
     /**
      * @returns the keys of the element in the order which
      * were defined in the parameter "elementKeys".

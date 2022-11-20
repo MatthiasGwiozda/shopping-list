@@ -5,12 +5,17 @@ import { Components } from "../../scripts/types/components/Components";
 import { EditableListParams, PossibleInputTypes } from "../../scripts/types/components/editableList";
 import Shop from "../../scripts/types/Shop";
 import Component from "../Component";
+import shopsPartials from "./shopsPartials";
 
 export default class Shops extends Component {
 
     constructor(container: HTMLElement) {
         super(container);
         this.rendered();
+    }
+
+    protected getHtmlTemplate(): string {
+        return shopsPartials.template
     }
 
     private rendered() {

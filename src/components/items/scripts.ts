@@ -5,12 +5,17 @@ import { Components } from "../../scripts/types/components/Components";
 import { EditableListParams, PossibleInputTypes } from "../../scripts/types/components/editableList";
 import Item from "../../scripts/types/Item";
 import Component from "../Component";
+import itemsPartials from "./itemsPartials";
 
 export default class Items extends Component {
 
     constructor(container: HTMLElement) {
         super(container);
         this.createEditableList();
+    }
+
+    protected getHtmlTemplate(): string {
+        return itemsPartials.template;
     }
 
     private async createEditableList() {

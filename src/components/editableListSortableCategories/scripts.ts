@@ -1,6 +1,7 @@
 import Component from "../Component";
 import Database from "../../scripts/Database"
 import Shop from "../../scripts/types/Shop";
+import editableListSortableCategoriesPartials from "./editableListSortableCategoriesPartials";
 
 export default class editableListSortableCategories extends Component {
     private static currentDraggedElement: HTMLParagraphElement;
@@ -17,6 +18,10 @@ export default class editableListSortableCategories extends Component {
     ) {
         super(container);
         this.showCategories();
+    }
+
+    protected getHtmlTemplate(): string {
+        return editableListSortableCategoriesPartials.template;
     }
 
     private paragraphOfCurrentInstanceDragged(): boolean {

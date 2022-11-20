@@ -3,6 +3,7 @@ import Database from "../../scripts/Database"
 import Shop from "../../scripts/types/Shop";
 import GoodsShops from "../../scripts/types/GoodsShops";
 import Item from "../../scripts/types/Item";
+import editableListGoodsShopAssignementPartials from "./editableListGoodsShopAssignementPartials";
 
 export default class EditableListGoodsShopAssignement extends Component {
 
@@ -12,6 +13,10 @@ export default class EditableListGoodsShopAssignement extends Component {
     ) {
         super(container);
         this.insertShops();
+    }
+
+    protected getHtmlTemplate(): string {
+        return editableListGoodsShopAssignementPartials.template;
     }
 
     private getShopAsString(shop: Shop) {

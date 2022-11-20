@@ -3,6 +3,7 @@ import { Components } from "../../scripts/types/components/Components";
 import { CurrentItems } from "../../scripts/types/components/itemCollection";
 import Meal from "../../scripts/types/Meal";
 import Component from "../Component";
+import editableListMealIngredientsPartials from "./editableListMealIngredientsPartials";
 
 export default class EditableListMealIngredients extends Component {
 
@@ -14,6 +15,10 @@ export default class EditableListMealIngredients extends Component {
         this.initializeItemCollection();
         this.initializeRecipe();
         this.initializeMealComponents();
+    }
+
+    protected getHtmlTemplate(): string {
+        return editableListMealIngredientsPartials.template;
     }
 
     private async initializeItemCollection() {

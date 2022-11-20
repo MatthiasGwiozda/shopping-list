@@ -15,6 +15,10 @@ export default class ShoppingListCollection extends Component {
         this.initializeAddListAction();
     }
 
+    protected getHtmlTemplate(): string {
+        return shoppingListCollectionPartials.template
+    }
+
     private createParagraph() {
         return document.createElement('p');
     }

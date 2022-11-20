@@ -1,5 +1,20 @@
 
 const editableListPartials = {
+    template: `
+    <div class="editableListWrapper">
+        <div class="topActionContainer"></div>
+        <table class="editable-list">
+            <thead>
+                <tr>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+        <div class="bottomActionContainer"></div>
+    </div>
+    `,
     additionalActionButton: `<button class="default square additionalActionButton"></button>`,
     addNewButton: `<button class="default" title="Add a new element. You may use ctrl + n to create new elements">Add new ➕</button>`,
     cancelButton: `<button class="warn square" title="Cancel. You may use Esc to cancel">❌</button>`,

@@ -20,6 +20,10 @@ export default class ItemCollection extends Component {
         this.initializeItemCollection()
     }
 
+    protected getHtmlTemplate(): string {
+        return itemCollectionPartials.template;
+    }
+
     private async getItems(): Promise<Item[]> {
         let items = await Database.selectAllItems();
         const { filter } = this.params;
