@@ -13,7 +13,7 @@ export default class Shops extends Component {
         this.rendered();
     }
 
-    rendered() {
+    private rendered() {
         const params: EditableListParams<Shop> = {
             getTableContent: async () => await Database.selectAllShops(),
             deleteElement: async (shop) => {

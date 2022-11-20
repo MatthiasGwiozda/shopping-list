@@ -21,7 +21,7 @@ export default class ShoppingList extends Component {
         this.rendered()
     }
 
-    rendered() {
+    private rendered() {
         Component.injectComponent(
             Components.mealCollection,
             this.container.querySelector(".mealsList .container")

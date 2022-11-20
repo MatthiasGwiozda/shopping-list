@@ -16,7 +16,7 @@ export default class MealCollection extends Component {
         this.rendered();
     }
 
-    rendered() {
+    private rendered() {
         this.select = this.container.querySelector('.mealsPicker select');
         this.select.name = this.selectName;
         this.showCurrentMeals();
