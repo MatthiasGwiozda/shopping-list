@@ -18,29 +18,42 @@
   - [x] make injectComponent non static
   - [x] remove htmlElement - parameter from injectComponent
     - [x] use container instead
-  - change all references to non static function (instanciate the components where they are needed)
-  - delete getComponentFilePath
-  - delete FileType - enum
-  - remove the dynamic import in injectComponentScript
-  - Delete the Components - enum
-    - Make Component non generic
-    - implement constructors in Components
-    - remove references of ComponentParameters - type
-    - remove ComponentParameters - type
-    - remove component - parameter from constructor in Component.ts
-    - make injectComponent non static
-    - delete the Components - enum
-    - delete ComponentConstructor
 
---- create getTemplate
-  - Add a abstract function im Component.ts, which returns the html - files `getTemplate`
-  - change injectHtmlToElement to use `getTemplate`
-  - return the html - files in the `getTemplate` - function in all components
-  - remove the component - parameter from injectComponent
+-- Component.ts
 
---- use getTemplate
-  - get htmlElement from the instance of the component
-  - remove the obsolete index.html - files (not partials)
+- create getTemplate
+  - [x] Add a abstract function im Component.ts, which returns the html - files `getTemplate`
+  - [x] change injectHtmlToElement to use `getTemplate`
+- cleanups
+  - [x] remove injectComponentScript - function
+  - [x] remove the component - parameter from injectComponent
+  - [x] delete getComponentFilePath
+  - [x] delete FileType - enum
+  - [x] Make Component non generic
+  - [x] remove component - parameter from constructor in Component.ts
+  - [x] delete render -function 
+
+
+-- changes to all components
+  - [x] delete ComponentConstructor
+  - [x] parameters
+    - [x] remove generic from all components
+    - [x] call render in own constructor after calling super - constructor
+    - [x] set all rendered - functions to private
+    - [x] get component - parameters in all components - constructor, where needed
+    - [x] remove references of ComponentParameters - type
+    - [x] remove ComponentParameters - type
+
+  - [] use getTemplate
+    - [] return the html - files in the `getTemplate` - function in all components
+    - [] remove the obsolete index.html - files (not partials)
+
+-- Component instanciation
+  - [] change all references to non static function (instanciate the components where they are needed)
+  - [] Delete the Components - enum
+
+-- refactoring
+  - [] Rename component - files from index.ts to proper component - names
 
 
 
@@ -57,5 +70,9 @@
 - Test
   - getRootNode - references with partials
   - deployment
+
+- Docs
+  - change injectComponent - docs
+
 
 - merge branch to main
