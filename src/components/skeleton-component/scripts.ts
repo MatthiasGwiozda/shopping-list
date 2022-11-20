@@ -1,5 +1,8 @@
 import Component from "../Component";
 
 export default class Skeleton extends Component {
-    rendered() { }
+
+    protected getHtmlTemplate(): string {
+        throw new Error("Method not implemented.");
+    }
 }
