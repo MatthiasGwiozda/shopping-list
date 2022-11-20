@@ -6,19 +6,23 @@ import Item from "../../scripts/types/Item";
 import Component from "../Component";
 import HtmlUtilities from "../../scripts/utilities/HtmlUtilities";
 import itemCollectionPartials from "./itemCollectionPartials";
+import ItemCollectionParams from "../../scripts/types/components/itemCollection";
 
 export default class ItemCollection extends Component {
     private readonly optgroupTagName = 'optgroup';
     private readonly defaultOptionValue = 'show all categories';
 
-    constructor(container: HTMLElement) {
+    constructor(
+        container: HTMLElement,
+        private params: ItemCollectionParams
+    ) {
         super(container);
         this.initializeItemCollection()
     }
 
     private async getItems(): Promise<Item[]> {
         let items = await Database.selectAllItems();
-        const { filter } = this.componentParameters;
+        const { filter } = this.params;
         if (filter != null) {
             items = items.filter(item => filter(item));
         }
@@ -150,7 +154,7 @@ export default class ItemCollection extends Component {
      * beforehand.
      */
     private addCurrentItems() {
-        const { currentItems } = this.componentParameters;
+        const { currentItems } = this.params;
         currentItems.forEach(item => {
             const { itemName, quantity } = item;
             this.addItemToList(itemName, quantity);
@@ -191,14 +195,14 @@ export default class ItemCollection extends Component {
              * Not sure at the moment...
              */
             if (input.validity.valid) {
-                this.componentParameters.updateQuantity(itemName, parseInt(input.value));
+                this.params.updateQuantity(itemName, parseInt(input.value));
             }
         }
         p.prepend(input);
         // create delete - button
         const deleteButton = HtmlUtilities.getRootNode<HTMLButtonElement>(itemCollectionPartials.deleteButton);
         deleteButton.onclick = async () => {
-            const removed = await this.componentParameters.removeItem(itemName);
+            const removed = await this.params.removeItem(itemName);
             if (removed) {
                 p.remove();
             }
@@ -214,7 +218,7 @@ export default class ItemCollection extends Component {
             e.preventDefault();
             const formData = new FormData(form);
             const itemName = formData.get('item') as string;
-            const insertSuccessful = await this.componentParameters.insertItem(itemName);
+            const insertSuccessful = await this.params.insertItem(itemName);
             if (insertSuccessful) {
                 // insert item into the list.
                 this.addItemToList(itemName)

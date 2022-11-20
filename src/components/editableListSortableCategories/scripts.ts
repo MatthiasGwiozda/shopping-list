@@ -1,5 +1,6 @@
 import Component from "../Component";
 import Database from "../../scripts/Database"
+import Shop from "../../scripts/types/Shop";
 
 export default class editableListSortableCategories extends Component {
     private static currentDraggedElement: HTMLParagraphElement;
@@ -10,7 +11,10 @@ export default class editableListSortableCategories extends Component {
      */
     private categoryElements: HTMLParagraphElement[] = [];
 
-    constructor(container: HTMLElement) {
+    constructor(
+        container: HTMLElement,
+        private shop: Shop
+    ) {
         super(container);
         this.showCategories();
     }
@@ -27,7 +31,7 @@ export default class editableListSortableCategories extends Component {
         const p = document.createElement('p');
         p.draggable = true;
         p.innerText = category;
-        const { componentParameters } = this;
+        const { shop } = this;
         p.ondragstart = function () {
             editableListSortableCategories.currentDraggedElement = p;
         }
@@ -45,7 +49,7 @@ export default class editableListSortableCategories extends Component {
             const toElement = p;
             if (fromElement != toElement) {
                 // switch the order
-                const res = await Database.moveCategoryShopOrder(fromElement.innerText, toElement.innerText, componentParameters);
+                const res = await Database.moveCategoryShopOrder(fromElement.innerText, toElement.innerText, shop);
                 if (res) {
                     toElement.before(fromElement);
                 }
@@ -65,7 +69,7 @@ export default class editableListSortableCategories extends Component {
     }
 
     private async showCategories() {
-        const categories = await Database.selectGoodsCategoriesShopOrder(this.componentParameters);
+        const categories = await Database.selectGoodsCategoriesShopOrder(this.shop);
         // create Html
         const categoryOrderContainer = this.container.querySelector('.categoryOrder');
         categories.forEach((categoryInfo) => {

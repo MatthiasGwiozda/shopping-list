@@ -6,7 +6,10 @@ import Component from "../Component";
 
 export default class EditableListMealIngredients extends Component {
 
-    constructor(container: HTMLElement) {
+    constructor(
+        container: HTMLElement,
+        private meal: Meal
+    ) {
         super(container);
         this.initializeItemCollection();
         this.initializeRecipe();
@@ -28,7 +31,7 @@ export default class EditableListMealIngredients extends Component {
     }
 
     private getMealName() {
-        return this.componentParameters.name;
+        return this.meal.name;
     }
 
     private async getCurrentItems(): Promise<CurrentItems[]> {
@@ -54,7 +57,7 @@ export default class EditableListMealIngredients extends Component {
      */
     private async getCurrentMeal(): Promise<Meal> {
         const meals = await Database.selectAllMeals();
-        return meals.find(meal => meal.name == this.componentParameters.name);
+        return meals.find(meal => meal.name == this.meal.name);
     }
 
     private async initializeRecipe() {
@@ -82,7 +85,7 @@ export default class EditableListMealIngredients extends Component {
     }
 
     private async initializeMealComponents() {
-        const { component, name } = this.componentParameters;
+        const { component, name } = this.meal;
         const componentsWrapper: HTMLDivElement = this.container.querySelector('.components');
         if (!component) {
             const mealComponentsContainer = componentsWrapper.querySelector('.mealComponents');

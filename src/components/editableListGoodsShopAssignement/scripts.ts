@@ -2,10 +2,14 @@ import Component from "../Component";
 import Database from "../../scripts/Database"
 import Shop from "../../scripts/types/Shop";
 import GoodsShops from "../../scripts/types/GoodsShops";
+import Item from "../../scripts/types/Item";
 
 export default class EditableListGoodsShopAssignement extends Component {
 
-    constructor(container: HTMLElement) {
+    constructor(
+        container: HTMLElement,
+        private item: Item
+    ) {
         super(container);
         this.insertShops();
     }
@@ -26,9 +30,9 @@ export default class EditableListGoodsShopAssignement extends Component {
         }
         checkbox.onchange = () => {
             if (checkbox.checked) {
-                Database.addShopToItem(shop, this.componentParameters);
+                Database.addShopToItem(shop, this.item);
             } else {
-                Database.removeShopFromItem(shop, this.componentParameters);
+                Database.removeShopFromItem(shop, this.item);
             }
         }
         return checkbox;
@@ -36,7 +40,7 @@ export default class EditableListGoodsShopAssignement extends Component {
 
     private async insertShops() {
         const shops = await Database.selectAllShops();
-        const goodsShops = (await Database.selectGoodsShops()).filter(shop => shop.name == this.componentParameters.name);
+        const goodsShops = (await Database.selectGoodsShops()).filter(shop => shop.name == this.item.name);
         const container = this.container.querySelector('.goodsShopAssignement');
         for (const shop of shops) {
             const label = document.createElement('label');

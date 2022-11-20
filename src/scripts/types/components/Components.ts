@@ -23,29 +23,3 @@ export enum Components {
     mealCollection = 'mealCollection',
     shoppingListCollection = 'shoppingListCollection'
 }
-
-/**
- * a placeholder for all Components, which
- * doesn't need parameters.
- */
-type PlaceholderParameter = {
-    text: "I dont't need parameters"
-}
-
-/**
- * Parameters for the Components
- */
-export type ComponentParameters = {
-    [Components.categories]: PlaceholderParameter
-    [Components.items]: PlaceholderParameter
-    [Components.meals]: PlaceholderParameter
-    [Components.shoppingList]: PlaceholderParameter
-    [Components.shops]: PlaceholderParameter
-    [Components.shoppingListCollection]: PlaceholderParameter
-    [Components.mealCollection]: PlaceholderParameter
-    [Components.editableList]: EditableListParams<any>
-    [Components.editableListSortableCategories]: Shop
-    [Components.editableListGoodsShopAssignement]: Item
-    [Components.editableListMealIngredients]: Meal
-    [Components.itemCollection]: ItemCollectionParams
-}
