@@ -22,6 +22,37 @@ export enum PossibleInputTypes {
 
 type ManipulationFunction<ElementType> = (element: ElementType) => Promise<ActionResult>;
 
+export interface ColumnMeta {
+    /**
+     * the name of the column in the editable list.
+     */
+    columnName: string;
+    inputType: PossibleInputTypes;
+    /**
+     * When using PossibleInputTypes.select, you must provide this property
+     * to define the values, which can be selected in the input - field.
+     */
+    selectInputValues?: string[];
+    /**
+     * When using PossibleInputTypes.checkbox, you can control
+     * if the checkbox should be checked when creating a new
+     * element through this property.
+     * The default-value is "false".
+     */
+    checkboxCheckedInitialy?: boolean;
+    /**
+     * When using PossibleInputTypes.text, you can define a placeholder
+     * as an example input for the user.
+     */
+    placeholder?: string;
+    /**
+     * You can describe the column throught this property.
+     * The description will be shown in the column as a title
+     * when hovering on the columnname with the mouse.
+     */
+    description?: string;
+};
+
 export interface EditableListParams<ElementType> {
     /**
      * the columns, which will be included in the EditableList.
@@ -51,36 +82,7 @@ export interface EditableListParams<ElementType> {
      * editableList.
      */
     elementKeys: {
-        [key in keyof ElementType]?: {
-            /**
-             * the name of the column in the editable list.
-             */
-            columnName: string;
-            inputType: PossibleInputTypes,
-            /**
-             * When using PossibleInputTypes.select, you must provide this property
-             * to define the values, which can be selected in the input - field.
-             */
-            selectInputValues?: string[],
-            /**
-             * When using PossibleInputTypes.checkbox, you can control
-             * if the checkbox should be checked when creating a new
-             * element through this property.
-             * The default-value is "false".
-             */
-            checkboxCheckedInitialy?: boolean
-            /**
-             * When using PossibleInputTypes.text, you can define a placeholder
-             * as an example input for the user.
-             */
-            placeholder?: string,
-            /**
-             * You can describe the column throught this property.
-             * The description will be shown in the column as a title
-             * when hovering on the columnname with the mouse.
-             */
-            description?: string
-        }
+        [key in keyof ElementType]?: ColumnMeta
     };
     additionalEditableListActions?: {
         /**

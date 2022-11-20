@@ -3,12 +3,11 @@ import DialogUtilities from "../../scripts/utilities/DialogUtilities";
 import HtmlUtilities from "../../scripts/utilities/htmlUtilities";
 import InputUtilities from "../../scripts/utilities/InputUtilities";
 import UniqueUtilities from "../../scripts/utilities/UniqueUtilities";
-import { Components } from "../../scripts/types/components/Components";
-import { ActionResult, PossibleInputTypes } from "../../scripts/types/components/editableList";
+import { ActionResult, ColumnMeta, EditableListParams, PossibleInputTypes } from "../../scripts/types/components/editableList";
 import Component from "../Component";
 import editableListPartials from "./EditableListPartials";
 
-export default class EditableList<EditableListElement> extends Component<Components.editableList> {
+export default class EditableList<EditableListElement> extends Component {
     static readonly activeAdditionalActionClass = 'additionalActionActive';
     static readonly checkboxType = 'checkbox';
     static readonly checkboxChecked = '✔';
@@ -27,7 +26,11 @@ export default class EditableList<EditableListElement> extends Component<Compone
      */
     private quedSaveActions = 0;
 
-    rendered() {
+    constructor(
+        container: HTMLElement,
+        private params: EditableListParams<EditableListElement>
+    ) {
+        super(container);
         this.insertElementsAndActions();
     }
 
@@ -40,7 +43,7 @@ export default class EditableList<EditableListElement> extends Component<Compone
      * the values, which are human - readable.
      */
     private getElementKeys(humanReadable = false): string[] {
-        const { elementKeys } = this.componentParameters;
+        const { elementKeys } = this.params;
         const humanReadableKeys = Object.values(elementKeys).map(
             ({ columnName }) => columnName
         );
@@ -108,8 +111,8 @@ export default class EditableList<EditableListElement> extends Component<Compone
      * Note that the description is an optional parameter and might be undefined.
      */
     private getDescriptionForHumanReadableName(humanReadableName: string): string {
-        const { elementKeys } = this.componentParameters;
-        const elementKeyValues = Object.values(elementKeys);
+        const { elementKeys } = this.params;
+        const elementKeyValues = Object.values<ColumnMeta>(elementKeys);
         const element = elementKeyValues.find(el => el.columnName == humanReadableName);
         return element?.description;
     }
@@ -164,7 +167,7 @@ export default class EditableList<EditableListElement> extends Component<Compone
      * @returns the delete - button
      */
     private getDeleteButton(element: EditableListElement, tr: HTMLElement): HTMLButtonElement {
-        const { deleteElement } = this.componentParameters;
+        const { deleteElement } = this.params;
         const deleteButton = HtmlUtilities.getRootNode<HTMLButtonElement>(editableListPartials.deleteButton);
         deleteButton.onclick = async () => {
             if (DialogUtilities.confirm('Are you sure to delete this element? \n' + this.getStringRepresentation(element))) {
@@ -221,7 +224,7 @@ export default class EditableList<EditableListElement> extends Component<Compone
         tr: HTMLTableRowElement,
         otherActionButtons: HTMLButtonElement[]
     ): HTMLButtonElement[] {
-        return this.componentParameters.additionalEditableListActions?.map(action => {
+        return this.params.additionalEditableListActions?.map(action => {
             const { component, buttonIcon, buttonTitle } = action;
             const actionButton = HtmlUtilities.getRootNode<HTMLButtonElement>(editableListPartials.additionalActionButton);
             actionButton.innerText = buttonIcon;
@@ -276,7 +279,7 @@ export default class EditableList<EditableListElement> extends Component<Compone
     private getTableRowForElement(element: EditableListElement): HTMLElement {
         const elementWithSortedKeys = {} as EditableListElement;
         for (const key of this.getElementKeys()) {
-            const { inputType } = this.componentParameters.elementKeys[key];
+            const { inputType } = this.params.elementKeys[key];
             if (inputType == PossibleInputTypes.checkbox) {
                 elementWithSortedKeys[key] = element[key] ? EditableList.checkboxChecked : EditableList.checkboxUnChecked;
             } else {
@@ -341,7 +344,7 @@ export default class EditableList<EditableListElement> extends Component<Compone
      * @param tr the table - row where the input - fields are included.
      */
     private getFormSubmitFunction(formId: string, tr: HTMLElement, oldElement: EditableListElement = null) {
-        const { insertElement, updateElement } = this.componentParameters
+        const { insertElement, updateElement } = this.params
         const { showMessageOfActionResult, focusNextInput } = this;
         const instance = this;
         /**
@@ -494,7 +497,7 @@ export default class EditableList<EditableListElement> extends Component<Compone
         const formId = this.createForm(tr, updateElement?.element);
         let firstInput: HTMLElement;
         for (const key of keys) {
-            const { columnName, inputType, selectInputValues, checkboxCheckedInitialy, placeholder } = this.componentParameters.elementKeys[key];
+            const { columnName, inputType, selectInputValues, checkboxCheckedInitialy, placeholder } = this.params.elementKeys[key];
             /**
              * the value of the specific key for the updateElement.
              */
@@ -662,7 +665,7 @@ export default class EditableList<EditableListElement> extends Component<Compone
     }
 
     private async insertElementsAndActions() {
-        const { getTableContent } = this.componentParameters;
+        const { getTableContent } = this.params;
         const tableContent = await getTableContent();
         this.insertColumns();
         this.insertData(tableContent);
