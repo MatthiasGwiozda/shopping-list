@@ -8,7 +8,9 @@ import HtmlUtilities from "../../scripts/utilities/HtmlUtilities";
 import shoppingListCollectionPartials from "./shoppingListCollectionPartials";
 
 export default class ShoppingListCollection extends Component {
-    rendered() {
+
+    constructor(container: HTMLElement) {
+        super(container);
         this.insertCurrentShoppingLists();
         this.initializeAddListAction();
     }

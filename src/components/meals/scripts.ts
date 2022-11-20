@@ -7,7 +7,9 @@ import Component from "../Component";
 import DialogUtilities from '../../scripts/utilities/DialogUtilities';
 
 export default class Meals extends Component {
-    rendered() {
+
+    constructor(container: HTMLElement) {
+        super(container);
         this.createEditableList()
     }
 

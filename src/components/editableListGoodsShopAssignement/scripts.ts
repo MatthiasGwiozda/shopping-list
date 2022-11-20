@@ -5,8 +5,9 @@ import GoodsShops from "../../scripts/types/GoodsShops";
 
 export default class EditableListGoodsShopAssignement extends Component {
 
-    rendered() {
-        this.insertShops()
+    constructor(container: HTMLElement) {
+        super(container);
+        this.insertShops();
     }
 
     private getShopAsString(shop: Shop) {

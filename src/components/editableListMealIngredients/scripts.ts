@@ -5,7 +5,9 @@ import Meal from "../../scripts/types/Meal";
 import Component from "../Component";
 
 export default class EditableListMealIngredients extends Component {
-    rendered() {
+
+    constructor(container: HTMLElement) {
+        super(container);
         this.initializeItemCollection();
         this.initializeRecipe();
         this.initializeMealComponents();

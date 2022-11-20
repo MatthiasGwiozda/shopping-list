@@ -7,6 +7,12 @@ import Shop from "../../scripts/types/Shop";
 import Component from "../Component";
 
 export default class Shops extends Component {
+
+    constructor(container: HTMLElement) {
+        super(container);
+        this.rendered();
+    }
+
     rendered() {
         const params: EditableListParams<Shop> = {
             getTableContent: async () => await Database.selectAllShops(),

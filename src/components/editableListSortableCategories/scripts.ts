@@ -10,7 +10,8 @@ export default class editableListSortableCategories extends Component {
      */
     private categoryElements: HTMLParagraphElement[] = [];
 
-    rendered() {
+    constructor(container: HTMLElement) {
+        super(container);
         this.showCategories();
     }
 

@@ -7,7 +7,9 @@ import Item from "../../scripts/types/Item";
 import Component from "../Component";
 
 export default class Items extends Component {
-    rendered() {
+
+    constructor(container: HTMLElement) {
+        super(container);
         this.createEditableList();
     }
 

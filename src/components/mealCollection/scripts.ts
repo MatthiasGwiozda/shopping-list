@@ -11,6 +11,11 @@ export default class MealCollection extends Component {
     private select: HTMLSelectElement;
     private readonly selectName = 'selectedMeal';
 
+    constructor(container: HTMLElement) {
+        super(container);
+        this.rendered();
+    }
+
     rendered() {
         this.select = this.container.querySelector('.mealsPicker select');
         this.select.name = this.selectName;

@@ -16,6 +16,11 @@ export default class ShoppingList extends Component {
         recipe: 'Recipes'
     }
 
+    constructor(container: HTMLElement) {
+        super(container);
+        this.rendered()
+    }
+
     rendered() {
         Component.injectComponent(
             Components.mealCollection,

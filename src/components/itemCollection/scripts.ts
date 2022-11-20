@@ -11,7 +11,8 @@ export default class ItemCollection extends Component {
     private readonly optgroupTagName = 'optgroup';
     private readonly defaultOptionValue = 'show all categories';
 
-    rendered() {
+    constructor(container: HTMLElement) {
+        super(container);
         this.initializeItemCollection()
     }
 
