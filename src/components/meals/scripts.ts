@@ -6,6 +6,7 @@ import Meal from "../../scripts/types/Meal";
 import Component from "../Component";
 import DialogUtilities from '../../scripts/utilities/DialogUtilities';
 import mealsPartials from "./MealsPartials";
+import EditableList from "../editableList/scripts";
 
 export default class Meals extends Component {
 
@@ -86,11 +87,8 @@ export default class Meals extends Component {
             }]
         }
 
-        Component.injectComponent(
-            Components.editableList,
-            this.container.querySelector<HTMLElement>("#mealsList"),
-            params
-        );
+        const editableListContainer = this.container.querySelector<HTMLElement>("#mealsList");
+        new EditableList(editableListContainer, params);
     }
 
     private getChangeToFullMealMessage(relatedMeals: string): string {

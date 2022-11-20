@@ -5,6 +5,7 @@ import { Components } from "../../scripts/types/components/Components";
 import { EditableListParams, PossibleInputTypes } from "../../scripts/types/components/editableList";
 import Item from "../../scripts/types/Item";
 import Component from "../Component";
+import EditableList from "../editableList/scripts";
 import itemsPartials from "./itemsPartials";
 
 export default class Items extends Component {
@@ -71,10 +72,7 @@ export default class Items extends Component {
             }]
         }
 
-        Component.injectComponent(
-            Components.editableList,
-            this.container.querySelector<HTMLElement>("#itemList"),
-            params
-        );
+        const editableListContainer = this.container.querySelector<HTMLElement>("#itemList");
+        new EditableList(editableListContainer, params);
     }
 }

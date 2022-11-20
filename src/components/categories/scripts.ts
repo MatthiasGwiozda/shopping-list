@@ -1,9 +1,9 @@
 import Database from "../../scripts/Database";
 import { refreshReadyMenuComponents } from "../../scripts/menu";
 import Category from "../../scripts/types/Category";
-import { Components } from "../../scripts/types/components/Components";
 import { EditableListParams, PossibleInputTypes } from "../../scripts/types/components/editableList";
 import Component from "../Component";
+import EditableList from "../editableList/scripts";
 import categoriesPartials from "./categoriesPartials";
 
 export default class Categories extends Component {
@@ -53,10 +53,7 @@ export default class Categories extends Component {
             }
         }
 
-        Component.injectComponent(
-            Components.editableList,
-            this.container.querySelector<HTMLElement>("#categoriesList"),
-            params
-        );
+        const editableListContainer = this.container.querySelector<HTMLElement>("#categoriesList");
+        new EditableList(editableListContainer, params);
     }
 }

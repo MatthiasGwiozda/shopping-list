@@ -1,8 +1,8 @@
 import Database from "../../scripts/Database";
-import { Components } from "../../scripts/types/components/Components";
-import { CurrentItems } from "../../scripts/types/components/itemCollection";
+import ItemCollectionParams, { CurrentItems } from "../../scripts/types/components/itemCollection";
 import Meal from "../../scripts/types/Meal";
 import Component from "../Component";
+import ItemCollection from "../itemCollection/scripts";
 import editableListMealIngredientsPartials from "./editableListMealIngredientsPartials";
 
 export default class EditableListMealIngredients extends Component {
@@ -22,17 +22,15 @@ export default class EditableListMealIngredients extends Component {
     }
 
     private async initializeItemCollection() {
-        Component.injectComponent(
-            Components.itemCollection,
-            this.container.querySelector('.itemCollectionContainer'),
-            {
-                insertItem: this.insertItem.bind(this),
-                removeItem: this.removeItem.bind(this),
-                updateQuantity: this.updateQuantity.bind(this),
-                filter: (item) => item.food,
-                currentItems: await this.getCurrentItems()
-            }
-        )
+        const container = this.container.querySelector<HTMLElement>('.itemCollectionContainer');
+        const params: ItemCollectionParams = {
+            insertItem: this.insertItem.bind(this),
+            removeItem: this.removeItem.bind(this),
+            updateQuantity: this.updateQuantity.bind(this),
+            filter: (item) => item.food,
+            currentItems: await this.getCurrentItems()
+        };
+        new ItemCollection(container, params);
     }
 
     private getMealName() {

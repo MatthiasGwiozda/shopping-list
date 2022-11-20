@@ -1,6 +1,8 @@
 import Database from "../../scripts/Database";
 import { Components } from "../../scripts/types/components/Components";
 import Component from "../Component";
+import MealCollection from "../mealCollection/scripts";
+import ShoppingListCollection from "../shoppingListCollection/scripts";
 import shoppingListPartials from "./shoppingListPartials";
 
 enum TextAreas {
@@ -27,14 +29,10 @@ export default class ShoppingList extends Component {
     }
 
     private rendered() {
-        Component.injectComponent(
-            Components.mealCollection,
-            this.container.querySelector(".mealsList .container")
-        )
-        Component.injectComponent(
-            Components.shoppingListCollection,
-            this.container.querySelector(".staticList .container")
-        )
+        const mealCollectionContainer = this.container.querySelector<HTMLElement>(".mealsList .container");
+        new MealCollection(mealCollectionContainer);
+        const shoppingListCollectionContainer = this.container.querySelector<HTMLElement>(".staticList .container");
+        new ShoppingListCollection(shoppingListCollectionContainer);
         this.addShoppingListGeneration();
     }
 

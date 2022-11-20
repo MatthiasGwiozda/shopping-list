@@ -5,6 +5,7 @@ import { Components } from "../../scripts/types/components/Components";
 import { EditableListParams, PossibleInputTypes } from "../../scripts/types/components/editableList";
 import Shop from "../../scripts/types/Shop";
 import Component from "../Component";
+import EditableList from "../editableList/scripts";
 import shopsPartials from "./shopsPartials";
 
 export default class Shops extends Component {
@@ -68,10 +69,9 @@ export default class Shops extends Component {
                 component: Components.editableListSortableCategories
             }]
         }
-        Component.injectComponent(
-            Components.editableList,
-            document.getElementById('shopList'),
-            params
-        )
+
+
+        const editableListContainer = document.getElementById('shopList');
+        new EditableList(editableListContainer, params);
     }
 }

@@ -6,6 +6,8 @@ import { Components } from "../../scripts/types/components/Components";
 import Component from "../Component";
 import HtmlUtilities from "../../scripts/utilities/HtmlUtilities";
 import shoppingListCollectionPartials from "./shoppingListCollectionPartials";
+import ItemCollection from "../itemCollection/scripts";
+import ItemCollectionParams from "../../scripts/types/components/itemCollection";
 
 export default class ShoppingListCollection extends Component {
 
@@ -64,7 +66,8 @@ export default class ShoppingListCollection extends Component {
                 itemCollectionContainer = this.createParagraph()
                 itemCollectionContainer.classList.add('itemCollectionContainer');
                 shoppingListParagraph.after(itemCollectionContainer);
-                Component.injectComponent(Components.itemCollection, itemCollectionContainer, {
+
+                const itemCollectionParams: ItemCollectionParams = {
                     currentItems: await Database.selectShoppingListItems(label.innerText),
                     insertItem: async (itemName) => {
                         return Database.insertItemToShoppingList(itemName, label.innerText);
@@ -75,7 +78,8 @@ export default class ShoppingListCollection extends Component {
                     updateQuantity: async (itemName, quantity) => {
                         return Database.updateShoppingListItemQuantity(itemName, label.innerText, quantity);
                     }
-                });
+                };
+                new ItemCollection(itemCollectionContainer, itemCollectionParams);
             }
         }
         return editButton;
