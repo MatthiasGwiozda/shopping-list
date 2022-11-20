@@ -5,10 +5,13 @@ import { Components } from "../../scripts/types/components/Components";
 import { EditableListParams, PossibleInputTypes } from "../../scripts/types/components/editableList";
 import Component from "../Component";
 
-export default class Categories extends Component<Components.categories> {
-    rendered() {
+export default class Categories extends Component {
+
+    constructor(container: HTMLElement) {
+        super(container);
         this.createEditableList();
     }
+    
     // create editableList for categories
     private async createEditableList() {
         const params: EditableListParams<Category> = {
