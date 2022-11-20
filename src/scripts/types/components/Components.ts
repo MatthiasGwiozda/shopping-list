@@ -1,9 +1,3 @@
-import Item from "../Item";
-import Meal from "../Meal";
-import Shop from "../Shop";
-import { EditableListParams } from "./editableList";
-import ItemCollectionParams from "./itemCollection";
-
 /**
  * all Components, which are available in the app.
  * please note that the string must equal the foldername
