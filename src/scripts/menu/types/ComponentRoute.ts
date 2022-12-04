@@ -1,4 +1,4 @@
-import { Components } from '../types/components/Components';
+import { Components } from "../../types/components/Components";
 import { ComponentReadyCheck } from "./ComponentReadyChecks";
 
 type MenuComponents = Components.shoppingList | Components.items | Components.categories | Components.shops | Components.meals;
