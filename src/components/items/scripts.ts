@@ -68,7 +68,7 @@ export default class Items extends Component {
             additionalEditableListActions: [{
                 buttonIcon: constants.icons.shop,
                 buttonTitle: 'Set availability of the item in shops',
-                component: Components.editableListGoodsShopAssignement
+                factory: Components.editableListGoodsShopAssignement
             }]
         }
 

@@ -66,7 +66,7 @@ export default class Shops extends Component {
             additionalEditableListActions: [{
                 buttonIcon: constants.icons.category,
                 buttonTitle: 'Edit categories - order',
-                component: Components.editableListSortableCategories
+                factory: Components.editableListSortableCategories
             }]
         }
 

@@ -229,7 +229,7 @@ export default class EditableList<EditableListElement> extends Component {
         otherActionButtons: HTMLButtonElement[]
     ): HTMLButtonElement[] {
         return this.params.additionalEditableListActions?.map(action => {
-            const { component, buttonIcon, buttonTitle } = action;
+            const { factory, buttonIcon, buttonTitle } = action;
             const actionButton = HtmlUtilities.getRootNode<HTMLButtonElement>(editableListPartials.additionalActionButton);
             actionButton.innerText = buttonIcon;
             actionButton.title = buttonTitle;
@@ -248,7 +248,7 @@ export default class EditableList<EditableListElement> extends Component {
                     actionButtonTd.colSpan = this.getNumberOfColumns();
                     actionButtonTr.append(actionButtonTd);
                     tr.after(actionButtonTr);
-                    Component.injectComponent<any>(component, actionButtonTd, element);
+                    Component.injectComponent<any>(factory, actionButtonTd, element);
                 }
             }
             return actionButton;

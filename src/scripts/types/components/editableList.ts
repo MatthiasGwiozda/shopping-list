@@ -1,3 +1,4 @@
+import AdditionalActionFactory from "../../factories/components/editableList/additionalAction/AdditionalActionFactory";
 import { Components } from "./Components";
 
 export interface ActionResult {
@@ -85,17 +86,7 @@ export interface EditableListParams<ElementType> {
         [key in keyof ElementType]?: ColumnMeta
     };
     additionalEditableListActions?: {
-        /**
-         * The component, which will get the
-         * element (ElementType) as componentParameter.
-         * 
-         * Please take care of the fact, that the component used here
-         * may only get the element to be edited as parameter.
-         * 
-         * This component will be rendered right under the element for
-         * which the action - button was clicked.
-         */
-        component: Components,
+        factory: AdditionalActionFactory<ElementType>,
         buttonIcon: string,
         buttonTitle: string
     }[];

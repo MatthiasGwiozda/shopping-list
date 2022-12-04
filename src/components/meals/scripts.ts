@@ -83,7 +83,7 @@ export default class Meals extends Component {
             additionalEditableListActions: [{
                 buttonIcon: constants.icons.item,
                 buttonTitle: 'Edit ingredients, recipe and more',
-                component: Components.editableListMealIngredients
+                factory: Components.editableListMealIngredients
             }]
         }
 
