@@ -3,10 +3,8 @@ import { Components } from '../types/components/Components';
 import constants from '../constants';
 import Database from '../Database';
 import ComponentRoute from './ComponentRoute';
+import ComponentReadyChecks from './ComponentReadyChecks';
 
-type ReadyCheckComponents = Components.categories | Components.shops | Components.items | "itemsWithFoodCheck";
-export type ComponentReadyCheck = () => Promise<boolean>;
-type ComponentReadyChecks = { [key in ReadyCheckComponents]: ComponentReadyCheck }
 const itemsWithFoodCheck = "itemsWithFoodCheck";
 
 function hasAtLeasOneElement(arr: any[]): boolean {
