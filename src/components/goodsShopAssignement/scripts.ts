@@ -3,9 +3,9 @@ import Database from "../../scripts/Database"
 import Shop from "../../scripts/types/Shop";
 import GoodsShops from "../../scripts/types/GoodsShops";
 import Item from "../../scripts/types/Item";
-import editableListGoodsShopAssignementPartials from "./editableListGoodsShopAssignementPartials";
+import goodsShopAssignementPartials from "./goodsShopAssignementPartials";
 
-export default class EditableListGoodsShopAssignement extends Component {
+export default class GoodsShopAssignement extends Component {
 
     constructor(
         container: HTMLElement,
@@ -16,7 +16,7 @@ export default class EditableListGoodsShopAssignement extends Component {
     }
 
     protected getHtmlTemplate(): string {
-        return editableListGoodsShopAssignementPartials.template;
+        return goodsShopAssignementPartials.template;
     }
 
     private getShopAsString(shop: Shop) {

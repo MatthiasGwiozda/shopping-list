@@ -1,5 +1,5 @@
 
-const editableListGoodsShopAssignementPartials = {
+const goodsShopAssignementPartials = {
     template: `
     <div class="infoBox">
         ℹ When creating shopping lists, the application reminds you that you cannot buy certain items in the selected shop.
@@ -11,4 +11,4 @@ const editableListGoodsShopAssignementPartials = {
     `
 }
 
-export default editableListGoodsShopAssignementPartials;
+export default goodsShopAssignementPartials;
