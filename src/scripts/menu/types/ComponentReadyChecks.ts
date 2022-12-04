@@ -1,4 +1,4 @@
-import { Components } from '../types/components/Components';
+import { Components } from '../../types/components/Components';
 
 type ReadyCheckComponents = Components.categories | Components.shops | Components.items | "itemsWithFoodCheck";
 

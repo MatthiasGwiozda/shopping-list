@@ -3,7 +3,7 @@ import { Components } from '../types/components/Components';
 import constants from '../constants';
 import Database from '../Database';
 import ComponentRoute from './ComponentRoute';
-import ComponentReadyChecks from './ComponentReadyChecks';
+import ComponentReadyChecks from './types/ComponentReadyChecks';
 
 const itemsWithFoodCheck = "itemsWithFoodCheck";
 
