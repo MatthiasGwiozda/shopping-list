@@ -2,7 +2,6 @@ import constants from "../../scripts/constants";
 import Database from "../../scripts/Database";
 import DialogUtilities from "../../scripts/utilities/DialogUtilities";
 import InputUtilities from "../../scripts/utilities/InputUtilities";
-import { Components } from "../../scripts/types/components/Components";
 import Component from "../Component";
 import HtmlUtilities from "../../scripts/utilities/HtmlUtilities";
 import shoppingListCollectionPartials from "./shoppingListCollectionPartials";

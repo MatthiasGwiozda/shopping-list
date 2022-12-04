@@ -1,5 +1,4 @@
 import Database from "../../scripts/Database";
-import { Components } from "../../scripts/types/components/Components";
 import Component from "../Component";
 import MealCollection from "../mealCollection/scripts";
 import ShoppingListCollection from "../shoppingListCollection/scripts";

@@ -1,5 +1,4 @@
 import AdditionalActionFactory from "../../factories/components/editableList/additionalAction/AdditionalActionFactory";
-import { Components } from "./Components";
 
 export interface ActionResult {
     /**
