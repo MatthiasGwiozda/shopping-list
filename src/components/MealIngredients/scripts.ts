@@ -3,9 +3,9 @@ import ItemCollectionParams, { CurrentItems } from "../../scripts/types/componen
 import Meal from "../../scripts/types/Meal";
 import Component from "../Component";
 import ItemCollection from "../itemCollection/scripts";
-import editableListMealIngredientsPartials from "./editableListMealIngredientsPartials";
+import mealIngredientsPartials from "./mealIngredientsPartials";
 
-export default class EditableListMealIngredients extends Component {
+export default class MealIngredients extends Component {
 
     constructor(
         container: HTMLElement,
@@ -18,7 +18,7 @@ export default class EditableListMealIngredients extends Component {
     }
 
     protected getHtmlTemplate(): string {
-        return editableListMealIngredientsPartials.template;
+        return mealIngredientsPartials.template;
     }
 
     private async initializeItemCollection() {

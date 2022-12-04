@@ -1,5 +1,5 @@
 
-const editableListMealIngredientsPartials = {
+const mealIngredientsPartials = {
     template: `
     <div class="editableListMealIngredients">
         <h2>Ingredients</h2>
@@ -24,4 +24,4 @@ const editableListMealIngredientsPartials = {
     `
 }
 
-export default editableListMealIngredientsPartials;
+export default mealIngredientsPartials;
