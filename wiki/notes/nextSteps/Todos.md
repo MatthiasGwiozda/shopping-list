@@ -43,23 +43,43 @@
     - [x] get component - parameters in all components - constructor, where needed
     - [x] remove references of ComponentParameters - type
     - [x] remove ComponentParameters - type
-
-  - [] use getTemplate
-    - [] return the html - files in the `getTemplate` - function in all components
-    - [] remove the obsolete index.html - files (not partials)
+  - [x] use getTemplate
+    - [x] return the html - files in the `getTemplate` - function in all components
+    - [x] remove the obsolete index.html - files (not partials)
 
 -- Component instanciation
-  - [] change all references to non static function (instanciate the components where they are needed)
+  - [x] change all simple references to non static Component.injectComponent (instanciate the components where they are needed)
+
+
+  - [x] fix additionalEditableListActions in editableList
+    - [x] create interface for a factory for a Component with a generic parameter - type
+    - [x] change additionalEditableListActions to get a ComponentFactory instead of the component - Parameter
+    - [x] Rename editableListGoodsShopAssignement to dont use editableLisitPrefix
+    - [x] Rename editableListMealIngredients to dont use editableLisitPrefix
+    - [x] Rename editableListSortableCategories to dont use editableLisitPrefix
+    - [x] create editableListGoodsShopAssignement - factory
+    - [x] pass editableListGoodsShopAssignement - factory to editableList
+    - [x] create MealIngredients - factory
+    - [x] pass MealIngredients - factory to editableList
+    - [x] create SortableCategories - factory
+    - [x] pass SortableCategories - factory to editableList
+    - [x] use AdditionalActionFactory in editableList
+
+
+  - []? menu.ts: allow Menu to get components instance
   - [] Delete the Components - enum
 
+
+
 -- refactoring
+
   - [] Rename component - files from index.ts to proper component - names
 
 
 
 
 
-
+- move components - folder into scripts
 - move sql - files to JavaScript
 
 - change deployment - Script
@@ -69,6 +89,7 @@
 
 - Test
   - getRootNode - references with partials
+  - AdditionalActionFactory
   - deployment
 
 - Docs
