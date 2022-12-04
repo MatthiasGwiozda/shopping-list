@@ -1,5 +1,5 @@
 
-const editableListSortableCategoriesPartials = {
+const sortableCategoriesPartials = {
     template: `
     <div class="infoBox">
         ℹ Drag and drop the categories to change the order.
@@ -10,4 +10,4 @@ const editableListSortableCategoriesPartials = {
     `
 }
 
-export default editableListSortableCategoriesPartials;
+export default sortableCategoriesPartials;

@@ -1,9 +1,9 @@
 import Component from "../Component";
 import Database from "../../scripts/Database"
 import Shop from "../../scripts/types/Shop";
-import editableListSortableCategoriesPartials from "./editableListSortableCategoriesPartials";
+import sortableCategoriesPartials from "./sortableCategoriesPartials";
 
-export default class editableListSortableCategories extends Component {
+export default class SortableCategories extends Component {
     private static currentDraggedElement: HTMLParagraphElement;
     private static readonly dragoverClass = 'dragover';
     /**
@@ -21,11 +21,11 @@ export default class editableListSortableCategories extends Component {
     }
 
     protected getHtmlTemplate(): string {
-        return editableListSortableCategoriesPartials.template;
+        return sortableCategoriesPartials.template;
     }
 
     private paragraphOfCurrentInstanceDragged(): boolean {
-        return this.categoryElements.includes(editableListSortableCategories.currentDraggedElement);
+        return this.categoryElements.includes(SortableCategories.currentDraggedElement);
     }
 
     /**
@@ -38,19 +38,19 @@ export default class editableListSortableCategories extends Component {
         p.innerText = category;
         const { shop } = this;
         p.ondragstart = function () {
-            editableListSortableCategories.currentDraggedElement = p;
+            SortableCategories.currentDraggedElement = p;
         }
         p.ondragenter = () => {
             if (this.paragraphOfCurrentInstanceDragged()) {
-                p.classList.add(editableListSortableCategories.dragoverClass);
+                p.classList.add(SortableCategories.dragoverClass);
             }
         }
         p.ondragleave = function () {
-            p.classList.remove(editableListSortableCategories.dragoverClass);
+            p.classList.remove(SortableCategories.dragoverClass);
         }
         p.ondrop = async function () {
-            p.classList.remove(editableListSortableCategories.dragoverClass);
-            const fromElement = editableListSortableCategories.currentDraggedElement;
+            p.classList.remove(SortableCategories.dragoverClass);
+            const fromElement = SortableCategories.currentDraggedElement;
             const toElement = p;
             if (fromElement != toElement) {
                 // switch the order
