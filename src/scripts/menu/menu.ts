@@ -2,8 +2,8 @@ import Component from '../../components/Component';
 import { Components } from '../types/components/Components';
 import constants from '../constants';
 import Database from '../Database';
-import ComponentRoute from './ComponentRoute';
 import ComponentReadyChecks from './types/ComponentReadyChecks';
+import ComponentRoute from './types/ComponentRoute';
 
 const itemsWithFoodCheck = "itemsWithFoodCheck";
 
