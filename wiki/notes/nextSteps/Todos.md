@@ -33,7 +33,6 @@
   - [x] remove component - parameter from constructor in Component.ts
   - [x] delete render -function 
 
-
 -- changes to all components
   - [x] delete ComponentConstructor
   - [x] parameters
@@ -49,8 +48,6 @@
 
 -- Component instanciation
   - [x] change all simple references to non static Component.injectComponent (instanciate the components where they are needed)
-
-
   - [x] fix additionalEditableListActions in editableList
     - [x] create interface for a factory for a Component with a generic parameter - type
     - [x] change additionalEditableListActions to get a ComponentFactory instead of the component - Parameter
@@ -66,7 +63,17 @@
     - [x] use AdditionalActionFactory in editableList
 
 
-  - []? menu.ts: allow Menu to get components instance
+  - [] fix menu.ts
+    - [] refactoring
+      - [x] move menu.ts in menu - folder
+      - [x] extract types in separate files
+      - [] make Menu - class out of current functions
+      
+    - [] don't use Components - enum to instanciate a Component
+    - [] make MenuComponents type obsolete
+    - [] make ReadyCheckComponents obsolete
+  
+
   - [] Delete the Components - enum
 
 
