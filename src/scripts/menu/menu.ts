@@ -1,7 +1,7 @@
-import Component from '../components/Component';
-import { Components } from './types/components/Components';
-import constants from './constants';
-import Database from './Database';
+import Component from '../../components/Component';
+import { Components } from '../types/components/Components';
+import constants from '../constants';
+import Database from '../Database';
 
 type MenuComponents = Components.shoppingList | Components.items | Components.categories | Components.shops | Components.meals;
 type ReadyCheckComponents = Components.categories | Components.shops | Components.items | "itemsWithFoodCheck";

@@ -1,7 +1,7 @@
 import constants from "../../scripts/constants";
 import Database from "../../scripts/Database";
 import GoodsShopAssignementAdditionalActionFactory from "../../scripts/factories/components/editableList/additionalAction/implementations/GoodsShopAssignementAdditionalActionFactory";
-import { refreshReadyMenuComponents } from "../../scripts/menu";
+import { refreshReadyMenuComponents } from "../../scripts/menu/menu";
 import { EditableListParams, PossibleInputTypes } from "../../scripts/types/components/editableList";
 import Item from "../../scripts/types/Item";
 import Component from "../Component";

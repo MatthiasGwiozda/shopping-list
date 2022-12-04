@@ -1,5 +1,5 @@
 import Database from "../../scripts/Database";
-import { refreshReadyMenuComponents } from "../../scripts/menu";
+import { refreshReadyMenuComponents } from "../../scripts/menu/menu";
 import Category from "../../scripts/types/Category";
 import { EditableListParams, PossibleInputTypes } from "../../scripts/types/components/editableList";
 import Component from "../Component";
