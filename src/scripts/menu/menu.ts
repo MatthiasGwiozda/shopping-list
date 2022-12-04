@@ -4,7 +4,6 @@ import constants from '../constants';
 import Database from '../Database';
 import ComponentRoute from './ComponentRoute';
 
-export type MenuComponents = Components.shoppingList | Components.items | Components.categories | Components.shops | Components.meals;
 type ReadyCheckComponents = Components.categories | Components.shops | Components.items | "itemsWithFoodCheck";
 export type ComponentReadyCheck = () => Promise<boolean>;
 type ComponentReadyChecks = { [key in ReadyCheckComponents]: ComponentReadyCheck }

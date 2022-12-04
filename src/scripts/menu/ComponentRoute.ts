@@ -1,5 +1,7 @@
-import { MenuComponents, ComponentReadyCheck } from './menu';
+import { Components } from '../types/components/Components';
+import { ComponentReadyCheck } from './menu';
 
+type MenuComponents = Components.shoppingList | Components.items | Components.categories | Components.shops | Components.meals;
 export default interface ComponentRoute {
     name: string;
     component: MenuComponents;
