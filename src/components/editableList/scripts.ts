@@ -248,7 +248,7 @@ export default class EditableList<EditableListElement> extends Component {
                     actionButtonTd.colSpan = this.getNumberOfColumns();
                     actionButtonTr.append(actionButtonTd);
                     tr.after(actionButtonTr);
-                    Component.injectComponent<any>(factory, actionButtonTd, element);
+                    factory.getComponent(actionButtonTd, element);
                 }
             }
             return actionButton;
