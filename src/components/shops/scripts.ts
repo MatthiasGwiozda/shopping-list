@@ -1,7 +1,7 @@
 import constants from "../../scripts/constants";
 import Database from "../../scripts/Database";
+import SortableCategoriesAdditionalActionFactory from "../../scripts/factories/components/editableList/additionalAction/implementations/SortableCategoriesAdditionalActionFactory";
 import { refreshReadyMenuComponents } from "../../scripts/menu";
-import { Components } from "../../scripts/types/components/Components";
 import { EditableListParams, PossibleInputTypes } from "../../scripts/types/components/editableList";
 import Shop from "../../scripts/types/Shop";
 import Component from "../Component";
@@ -66,7 +66,7 @@ export default class Shops extends Component {
             additionalEditableListActions: [{
                 buttonIcon: constants.icons.category,
                 buttonTitle: 'Edit categories - order',
-                factory: Components.editableListSortableCategories
+                factory: new SortableCategoriesAdditionalActionFactory()
             }]
         }
 
