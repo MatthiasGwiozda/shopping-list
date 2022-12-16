@@ -1,4 +1,6 @@
 # Ideas
+- show the ingredients on top of each recipe when generating a shopping list
+
 - Create a documentation for updating to a new version of shoppinglist
 
 - make functions smaller
