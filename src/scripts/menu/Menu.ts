@@ -1,8 +1,11 @@
 import constants from '../constants';
-import ApplicationMenuRoutes from './ApplicationMenuRoutes';
 import MenuRoute from './types/MenuRoute';
 
 export default class Menu {
+
+    constructor(
+        private menuRoutes: MenuRoute[]
+    ) { }
 
     /**
      * creates the menu and injects it into the
@@ -12,12 +15,12 @@ export default class Menu {
     public injectMenuElements() {
         this.createMenuDivElement();
         this.createMenuRouteElements();
-        const menuRouteElements = ApplicationMenuRoutes.map(menuRoute => menuRoute.htmlElement);
+        const menuRouteElements = this.menuRoutes.map(menuRoute => menuRoute.htmlElement);
         menuRouteElements.forEach(
             node => document.getElementById(constants.menuId).appendChild(node)
         );
         // now open the default - component
-        this.goToRoute(ApplicationMenuRoutes[0]);
+        this.goToRoute(this.menuRoutes[0]);
         this.refreshReadyMenuComponents();
     }
 
@@ -27,7 +30,7 @@ export default class Menu {
      * the ready - state for each menu element
      */
     public async refreshReadyMenuComponents() {
-        for (const menuRoute of ApplicationMenuRoutes) {
+        for (const menuRoute of this.menuRoutes) {
             const { componentReadyChecks, componentReadyCheckMessage } = menuRoute;
             if (componentReadyChecks != null) {
                 const promises = componentReadyChecks.map(readyCheck => readyCheck());
@@ -53,7 +56,7 @@ export default class Menu {
     }
 
     private createMenuRouteElements() {
-        ApplicationMenuRoutes.forEach(menuRoute => {
+        this.menuRoutes.forEach(menuRoute => {
             const { icon, name } = menuRoute;
             const routeEl = document.createElement('a');
             routeEl.onclick = () => {
