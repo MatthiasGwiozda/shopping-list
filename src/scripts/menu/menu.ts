@@ -3,7 +3,7 @@ import { Components } from '../types/components/Components';
 import constants from '../constants';
 import Database from '../Database';
 import ComponentReadyChecks from './types/ComponentReadyChecks';
-import ComponentRoute from './types/ComponentRoute';
+import MenuRoute from './types/MenuRoute';
 
 const itemsWithFoodCheck = "itemsWithFoodCheck";
 
@@ -38,7 +38,7 @@ const componentReadyChecks: ComponentReadyChecks = {
     }
 }
 
-const componentRoutes: ComponentRoute[] = [
+const componentRoutes: MenuRoute[] = [
     {
         name: 'Shopping List',
         component: Components.shoppingList,

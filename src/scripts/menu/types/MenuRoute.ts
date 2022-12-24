@@ -2,7 +2,7 @@ import { Components } from "../../types/components/Components";
 import { ComponentReadyCheck } from "./ComponentReadyChecks";
 
 type MenuComponents = Components.shoppingList | Components.items | Components.categories | Components.shops | Components.meals;
-export default interface ComponentRoute {
+export default interface MenuRoute {
     name: string;
     component: MenuComponents;
     icon: string;
