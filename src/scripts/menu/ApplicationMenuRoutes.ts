@@ -40,20 +40,24 @@ const ApplicationMenuRoutes: MenuRoute[] = [
         name: 'Shopping List',
         componentFactory: new ShoppingListFactory(),
         icon: '📝',
-        componentReadyChecks: [
-            componentReadyChecks[Components.items],
-            componentReadyChecks[Components.shops]
-        ],
-        componentReadyCheckMessage: 'Please add items and at least one shop to generate shopping lists'
+        readyCheck: {
+            checks: [
+                componentReadyChecks[Components.items],
+                componentReadyChecks[Components.shops]
+            ],
+            message: 'Please add items and at least one shop to generate shopping lists'
+        }
     },
     {
         name: 'Items',
         componentFactory: new ItemsFactory(),
         icon: constants.icons.item,
-        componentReadyChecks: [
-            componentReadyChecks[Components.categories]
-        ],
-        componentReadyCheckMessage: 'Please add categories before you add items'
+        readyCheck: {
+            checks: [
+                componentReadyChecks[Components.categories]
+            ],
+            message: 'Please add categories before you add items'
+        }
     },
     {
         name: 'Categories',
@@ -64,19 +68,23 @@ const ApplicationMenuRoutes: MenuRoute[] = [
         name: 'Shops',
         componentFactory: new ShopsFactory(),
         icon: constants.icons.shop,
-        componentReadyChecks: [
-            componentReadyChecks[Components.categories]
-        ],
-        componentReadyCheckMessage: 'Please add categories before you define shops. Every shop may have it\'s own order for categories'
+        readyCheck: {
+            checks: [
+                componentReadyChecks[Components.categories]
+            ],
+            message: 'Please add categories before you define shops. Every shop may have it\'s own order for categories'
+        }
     },
     {
         name: 'Meals',
         componentFactory: new MealsFactory(),
         icon: '🥗',
-        componentReadyChecks: [
-            componentReadyChecks[itemsWithFoodCheck]
-        ],
-        componentReadyCheckMessage: 'Please add at least one "food - item" to create meals'
+        readyCheck: {
+            checks: [
+                componentReadyChecks[itemsWithFoodCheck]
+            ],
+            message: 'Please add at least one "food - item" to create meals'
+        }
     }
 ];
 
