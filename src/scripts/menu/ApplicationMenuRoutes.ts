@@ -3,6 +3,11 @@ import constants from '../constants';
 import Database from '../Database';
 import ComponentReadyChecks from './types/ComponentReadyChecks';
 import MenuRoute from './types/MenuRoute';
+import ShoppingListFactory from '../factories/components/menuComponents/ShoppingListFactory';
+import ItemsFactory from '../factories/components/menuComponents/ItemsFactory';
+import CategoriesFactory from '../factories/components/menuComponents/CategoriesFactory';
+import ShopsFactory from '../factories/components/menuComponents/ShopsFactory';
+import MealsFactory from '../factories/components/menuComponents/MealsFactory';
 
 const itemsWithFoodCheck = "itemsWithFoodCheck";
 
@@ -40,7 +45,7 @@ const componentReadyChecks: ComponentReadyChecks = {
 const ApplicationMenuRoutes: MenuRoute[] = [
     {
         name: 'Shopping List',
-        componentFactory: Components.shoppingList,
+        componentFactory: new ShoppingListFactory(),
         icon: '📝',
         componentReadyChecks: [
             componentReadyChecks[Components.items],
@@ -50,7 +55,7 @@ const ApplicationMenuRoutes: MenuRoute[] = [
     },
     {
         name: 'Items',
-        componentFactory: Components.items,
+        componentFactory: new ItemsFactory(),
         icon: constants.icons.item,
         componentReadyChecks: [
             componentReadyChecks[Components.categories]
@@ -59,12 +64,12 @@ const ApplicationMenuRoutes: MenuRoute[] = [
     },
     {
         name: 'Categories',
-        componentFactory: Components.categories,
+        componentFactory: new CategoriesFactory(),
         icon: constants.icons.category
     },
     {
         name: 'Shops',
-        componentFactory: Components.shops,
+        componentFactory: new ShopsFactory(),
         icon: constants.icons.shop,
         componentReadyChecks: [
             componentReadyChecks[Components.categories]
@@ -73,7 +78,7 @@ const ApplicationMenuRoutes: MenuRoute[] = [
     },
     {
         name: 'Meals',
-        componentFactory: Components.meals,
+        componentFactory: new MealsFactory(),
         icon: '🥗',
         componentReadyChecks: [
             componentReadyChecks[itemsWithFoodCheck]
