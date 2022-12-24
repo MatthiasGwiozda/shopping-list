@@ -76,8 +76,6 @@
       - [x] create MenuFactory
       -- change references to use the instance - functions of Menu
       - [x] injectMenuElements
-
-
       --- Component factories for menu
       - [x] pass ComponentFactory in component property of MenuRoute
       - [x] create factories for the MenuComponents
@@ -86,20 +84,25 @@
         - [x] meals
         - [x] shoppingList
         - [x] shops
-
       - [x] use ComponentFactories in ApplicationMenuRoutes
-      - [] use the factories in Menu.ts
-      - [] get MenuRoutes[] in constructor of Menu.ts
-      - [] pass MenuRoutes[] in MenuFactory
+      - [x] use the factories in Menu.ts
+      - [x] rename componentRoute to MenuRoute
+      - [x] get MenuRoutes[] in constructor of Menu.ts
+      - [x] pass ApplicationMenuRoutes in MenuFactory
+      - [x] separate the HtmlElement property from MenuRoute to separate interface
+        - [x] create MenuItem interface (holds htmlElement + MenuRoute)
+        - [x] remove private MenuRoute - property in Menu class
+        - [x] use createMenuRouteElements in constructor
+        - [x] pass MenuRoutes parameter in createMenuRouteElements
 
+      --- refreshReadyMenuComponents
+      - [x] create a readyCheck - property in MenuRoute
+      - [x] migrate to new structure
 
-      --- Observe changes in components for readyChecks
-      - [] create Observer - interface
-      - [] create ObserverSubject - interface
-      - [] implement Observer - interface in Menu.ts (call refreshReadyMenuComponents)
-      - [] implement ObserverSubject - interface in all relevant components
-      - [] make refreshReadyMenuComponents private
-      - [] remove old refreshReadyMenuComponents - calls
+      - [] create MenuRouteReadyChecker - class
+      - [] move refreshReadyMenuComponents - function to MenuRouteReadyChecker
+      - [] ??
+      - [] remove old refreshReadyMenuComponents - calls in components
 
       
       
