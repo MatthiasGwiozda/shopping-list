@@ -1,7 +1,7 @@
 import Component from '../../components/Component';
 import { Components } from '../types/components/Components';
 import constants from '../constants';
-import componentRoutes from './componentRoutes';
+import ApplicationMenuRoutes from './ApplicationMenuRoutes';
 
 /**
  * creates the menu - div element.
@@ -23,12 +23,12 @@ function setActiveMenuItem(routeEl: HTMLElement) {
 
 function goToRoute(component: Components) {
     Component.injectComponent(component, document.getElementById(constants.contentId));
-    const { htmlElement } = componentRoutes.find(componentRoute => componentRoute.component == component)
+    const { htmlElement } = ApplicationMenuRoutes.find(componentRoute => componentRoute.component == component)
     setActiveMenuItem(htmlElement);
 }
 
 function createMenuRouteElements() {
-    componentRoutes.forEach(componentRoute => {
+    ApplicationMenuRoutes.forEach(componentRoute => {
         const { component, icon, name } = componentRoute;
         const routeEl = document.createElement('a');
         routeEl.onclick = () => {
@@ -45,7 +45,7 @@ function createMenuRouteElements() {
  * the ready - state for each menu element.
  */
 export async function refreshReadyMenuComponents() {
-    for (const componentRoute of componentRoutes) {
+    for (const componentRoute of ApplicationMenuRoutes) {
         const { componentReadyChecks, componentReadyCheckMessage } = componentRoute;
         if (componentReadyChecks != null) {
             const promises = componentReadyChecks.map(readyCheck => readyCheck());
@@ -72,7 +72,7 @@ export async function refreshReadyMenuComponents() {
 export function injectMenuElements() {
     createMenu();
     createMenuRouteElements();
-    const menuRouteElements = componentRoutes.map(componentRoute => componentRoute.htmlElement);
+    const menuRouteElements = ApplicationMenuRoutes.map(componentRoute => componentRoute.htmlElement);
     menuRouteElements.forEach(
         node => document.getElementById(constants.menuId).appendChild(node)
     );

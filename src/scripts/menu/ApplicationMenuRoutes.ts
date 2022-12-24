@@ -37,7 +37,7 @@ const componentReadyChecks: ComponentReadyChecks = {
     }
 };
 
-const componentRoutes: MenuRoute[] = [
+const ApplicationMenuRoutes: MenuRoute[] = [
     {
         name: 'Shopping List',
         component: Components.shoppingList,
@@ -82,4 +82,4 @@ const componentRoutes: MenuRoute[] = [
     }
 ];
 
-export default componentRoutes;
+export default ApplicationMenuRoutes;
