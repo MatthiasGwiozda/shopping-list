@@ -18,10 +18,4 @@ export default interface MenuRoute {
      * menu - item when the menu - item is not ready to be used.
      */
     componentReadyCheckMessage?: string;
-    /**
-     * After the function "createMenuRouteElements" is used,
-     * you can get the html - menu Element for this component
-     * route through this property.
-     */
-    htmlElement?: HTMLAnchorElement;
 }
