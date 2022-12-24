@@ -1,10 +1,9 @@
-import { Components } from "../../types/components/Components";
+import Component from "../../../components/Component";
 import { ComponentReadyCheck } from "./ComponentReadyChecks";
 
-type MenuComponents = Components.shoppingList | Components.items | Components.categories | Components.shops | Components.meals;
 export default interface MenuRoute {
     name: string;
-    component: MenuComponents;
+    component: Component;
     icon: string;
     /**
      * you can define, which component is
