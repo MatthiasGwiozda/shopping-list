@@ -67,8 +67,44 @@
     - [] refactoring
       - [x] move menu.ts in menu - folder
       - [x] extract types in separate files
-      - [] make Menu - class out of current functions
+      - [x] extract ComponentRoutes from menu.ts
+      - [x] rename componentRoutes to ApplicationMenuRoutes
+      --- Menu Class creation
+      - [x] make Menu - class out of current functions
+      - [x] rename menu.ts to Menu.ts
+      -- create a factory
+      - [x] create MenuFactory
+      -- change references to use the instance - functions of Menu
+      - [x] injectMenuElements
+
+
+      --- Component factories for menu
+      - [x] pass ComponentFactory in component property of MenuRoute
+      - [x] create factories for the MenuComponents
+        - [x] categories
+        - [x] items
+        - [x] meals
+        - [x] shoppingList
+        - [x] shops
+
+      - [x] use ComponentFactories in ApplicationMenuRoutes
+      - [] use the factories in Menu.ts
+      - [] get MenuRoutes[] in constructor of Menu.ts
+      - [] pass MenuRoutes[] in MenuFactory
+
+
+      --- Observe changes in components for readyChecks
+      - [] create Observer - interface
+      - [] create ObserverSubject - interface
+      - [] implement Observer - interface in Menu.ts (call refreshReadyMenuComponents)
+      - [] implement ObserverSubject - interface in all relevant components
+      - [] make refreshReadyMenuComponents private
+      - [] remove old refreshReadyMenuComponents - calls
+
       
+      
+
+
     - [] don't use Components - enum to instanciate a Component
     - [] make MenuComponents type obsolete
     - [] make ReadyCheckComponents obsolete
@@ -78,10 +114,14 @@
 
 
 
--- refactoring
-
-  - [] Rename component - files from index.ts to proper component - names
-
+--- refactoring#
+- [] don't call "injectHtmlToElement" in Component.ts in constructor. Let the instanciator call this function whenever he wants
+- [] Rename component - files from index.ts to proper component - names
+-- Menu Class refactoring
+- [] remove comments
+- [] use better names
+-- ApplicationMenuRoutes.ts
+- [] make a class of ApplicationMenuRoutes
 
 
 
@@ -98,6 +138,7 @@
   - getRootNode - references with partials
   - AdditionalActionFactory
   - deployment
+  - componentReadyChecks in Menu
 
 - Docs
   - change injectComponent - docs
