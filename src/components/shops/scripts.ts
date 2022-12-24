@@ -1,7 +1,7 @@
 import constants from "../../scripts/constants";
 import Database from "../../scripts/Database";
 import SortableCategoriesAdditionalActionFactory from "../../scripts/factories/components/editableList/additionalAction/implementations/SortableCategoriesAdditionalActionFactory";
-import { refreshReadyMenuComponents } from "../../scripts/menu/menu";
+import { refreshReadyMenuComponents } from "../../scripts/menu/Menu";
 import { EditableListParams, PossibleInputTypes } from "../../scripts/types/components/editableList";
 import Shop from "../../scripts/types/Shop";
 import Component from "../Component";
