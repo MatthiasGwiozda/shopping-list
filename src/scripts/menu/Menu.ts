@@ -33,9 +33,9 @@ export default class Menu {
     public async refreshReadyMenuComponents() {
         for (const menuItem of this.menuItems) {
             const { menuRoute, htmlElement } = menuItem;
-            const { componentReadyChecks, componentReadyCheckMessage } = menuRoute;
-            if (componentReadyChecks != null) {
-                const promises = componentReadyChecks.map(readyCheck => readyCheck());
+            const { checks, message } = menuRoute.readyCheck;
+            if (checks != null) {
+                const promises = checks.map(readyCheck => readyCheck());
                 const results = await Promise.all(promises);
                 const componentIsReady = results.every(isReady => isReady);
                 const menuNotReadyClass = 'notReady';
@@ -44,7 +44,7 @@ export default class Menu {
                     htmlElement.removeAttribute('title');
                 } else {
                     htmlElement.classList.add(menuNotReadyClass);
-                    htmlElement.title = componentReadyCheckMessage;
+                    htmlElement.title = message;
                 }
             }
         }
