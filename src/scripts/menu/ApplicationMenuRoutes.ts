@@ -15,13 +15,6 @@ function hasAtLeasOneElement(arr: any[]): boolean {
     return arr.length > 0;
 }
 
-/**
- * Here are all the possible componentReadyChecks.
- * Don't forget to use the function `refreshReadyMenuComponents()`
- * when adding a new componentReadyCheck. The function must be called
- * when one of the related elements gets inserted or deleted so
- * the menu can adapt it's ready - states dynamically.
- */
 const componentReadyChecks: ComponentReadyChecks = {
     [Components.categories]: async () => {
         const elements = await Database.selectAllCategories();
