@@ -12,7 +12,7 @@ export default class Menu {
     public injectMenuElements() {
         this.createMenuDivElement();
         this.createMenuRouteElements();
-        const menuRouteElements = ApplicationMenuRoutes.map(componentRoute => componentRoute.htmlElement);
+        const menuRouteElements = ApplicationMenuRoutes.map(menuRoute => menuRoute.htmlElement);
         menuRouteElements.forEach(
             node => document.getElementById(constants.menuId).appendChild(node)
         );
@@ -24,16 +24,16 @@ export default class Menu {
     /**
      * The menu indicates wether certain menu - elements may be used.
      * This function checks, if the menu elements may be used and sets
-     * the ready - state for each menu element.
+     * the ready - state for each menu element
      */
     public async refreshReadyMenuComponents() {
-        for (const componentRoute of ApplicationMenuRoutes) {
-            const { componentReadyChecks, componentReadyCheckMessage } = componentRoute;
+        for (const menuRoute of ApplicationMenuRoutes) {
+            const { componentReadyChecks, componentReadyCheckMessage } = menuRoute;
             if (componentReadyChecks != null) {
                 const promises = componentReadyChecks.map(readyCheck => readyCheck());
                 const results = await Promise.all(promises);
                 const componentIsReady = results.every(result => result);
-                const { htmlElement } = componentRoute;
+                const { htmlElement } = menuRoute;
                 const menuNotReadyClass = 'notReady';
                 if (componentIsReady) {
                     htmlElement.classList.remove(menuNotReadyClass);
@@ -53,14 +53,14 @@ export default class Menu {
     }
 
     private createMenuRouteElements() {
-        ApplicationMenuRoutes.forEach(componentRoute => {
-            const { icon, name } = componentRoute;
+        ApplicationMenuRoutes.forEach(menuRoute => {
+            const { icon, name } = menuRoute;
             const routeEl = document.createElement('a');
             routeEl.onclick = () => {
-                this.goToRoute(componentRoute);
+                this.goToRoute(menuRoute);
             }
             routeEl.innerHTML = `<span class='icon'>${icon}</span>` + name;
-            componentRoute.htmlElement = routeEl;
+            menuRoute.htmlElement = routeEl;
         });
     }
 
