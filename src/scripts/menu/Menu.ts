@@ -55,10 +55,10 @@ export default class Menu {
 
     private createMenuRouteElements() {
         ApplicationMenuRoutes.forEach(componentRoute => {
-            const { component, icon, name } = componentRoute;
+            const { componentFactory, icon, name } = componentRoute;
             const routeEl = document.createElement('a');
             routeEl.onclick = () => {
-                this.goToRoute(component);
+                this.goToRoute(componentFactory);
             }
             routeEl.innerHTML = `<span class='icon'>${icon}</span>` + name;
             componentRoute.htmlElement = routeEl;
@@ -67,7 +67,7 @@ export default class Menu {
 
     private goToRoute(component: Components) {
         Component.injectComponent(component, document.getElementById(constants.contentId));
-        const { htmlElement } = ApplicationMenuRoutes.find(componentRoute => componentRoute.component == component)
+        const { htmlElement } = ApplicationMenuRoutes.find(componentRoute => componentRoute.componentFactory == component)
         this.setActiveMenuItem(htmlElement);
     }
 

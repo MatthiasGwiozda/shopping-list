@@ -1,9 +1,9 @@
-import Component from "../../../components/Component";
+import ComponentFactory from "../../factories/components/interfaces/ComponentFactory";
 import { ComponentReadyCheck } from "./ComponentReadyChecks";
 
 export default interface MenuRoute {
     name: string;
-    component: Component;
+    componentFactory: ComponentFactory;
     icon: string;
     /**
      * you can define, which component is

@@ -40,7 +40,7 @@ const componentReadyChecks: ComponentReadyChecks = {
 const ApplicationMenuRoutes: MenuRoute[] = [
     {
         name: 'Shopping List',
-        component: Components.shoppingList,
+        componentFactory: Components.shoppingList,
         icon: '📝',
         componentReadyChecks: [
             componentReadyChecks[Components.items],
@@ -50,7 +50,7 @@ const ApplicationMenuRoutes: MenuRoute[] = [
     },
     {
         name: 'Items',
-        component: Components.items,
+        componentFactory: Components.items,
         icon: constants.icons.item,
         componentReadyChecks: [
             componentReadyChecks[Components.categories]
@@ -59,12 +59,12 @@ const ApplicationMenuRoutes: MenuRoute[] = [
     },
     {
         name: 'Categories',
-        component: Components.categories,
+        componentFactory: Components.categories,
         icon: constants.icons.category
     },
     {
         name: 'Shops',
-        component: Components.shops,
+        componentFactory: Components.shops,
         icon: constants.icons.shop,
         componentReadyChecks: [
             componentReadyChecks[Components.categories]
@@ -73,7 +73,7 @@ const ApplicationMenuRoutes: MenuRoute[] = [
     },
     {
         name: 'Meals',
-        component: Components.meals,
+        componentFactory: Components.meals,
         icon: '🥗',
         componentReadyChecks: [
             componentReadyChecks[itemsWithFoodCheck]
