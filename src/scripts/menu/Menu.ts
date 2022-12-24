@@ -1,7 +1,6 @@
-import Component from '../../components/Component';
-import { Components } from '../types/components/Components';
 import constants from '../constants';
 import ApplicationMenuRoutes from './ApplicationMenuRoutes';
+import MenuRoute from './types/MenuRoute';
 
 export default class Menu {
 
@@ -18,7 +17,7 @@ export default class Menu {
             node => document.getElementById(constants.menuId).appendChild(node)
         );
         // now open the default - component
-        this.goToRoute(Components.shoppingList);
+        this.goToRoute(ApplicationMenuRoutes[0]);
         this.refreshReadyMenuComponents();
     }
 
@@ -55,19 +54,21 @@ export default class Menu {
 
     private createMenuRouteElements() {
         ApplicationMenuRoutes.forEach(componentRoute => {
-            const { componentFactory, icon, name } = componentRoute;
+            const { icon, name } = componentRoute;
             const routeEl = document.createElement('a');
             routeEl.onclick = () => {
-                this.goToRoute(componentFactory);
+                this.goToRoute(componentRoute);
             }
             routeEl.innerHTML = `<span class='icon'>${icon}</span>` + name;
             componentRoute.htmlElement = routeEl;
         });
     }
 
-    private goToRoute(component: Components) {
-        Component.injectComponent(component, document.getElementById(constants.contentId));
-        const { htmlElement } = ApplicationMenuRoutes.find(componentRoute => componentRoute.componentFactory == component)
+    private goToRoute(menuRoute: MenuRoute) {
+        const { componentFactory, htmlElement } = menuRoute;
+        const container = document.getElementById(constants.contentId);
+        // currently the Component iconstructor injects the Component html by itself
+        componentFactory.getComponent(container);
         this.setActiveMenuItem(htmlElement);
     }
 
