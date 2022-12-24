@@ -1,8 +1,9 @@
 // All of the Node.js APIs are available in the preload process.
 import Database from "./Database";
-import { injectMenuElements } from "./menu/Menu"
 import { ipcRenderer } from 'electron';
 import constants from "./constants";
+import MenuFactory from "./factories/menu/MenuFactory";
+import Menu from "./menu/Menu";
 
 // It has the same sandbox as a Chrome extension.
 window.addEventListener('DOMContentLoaded', async () => {
@@ -14,7 +15,8 @@ window.addEventListener('DOMContentLoaded', async () => {
    * when the database is initialized in the main.ts.
    */
   await Database.initializeDatabase();
-  injectMenuElements();
+  const menu = getMenu();
+  menu.injectMenuElements();
 })
 
 /**
@@ -40,3 +42,8 @@ window.addEventListener('keyup', function (e) {
     button?.click?.();
   }
 })
+
+function getMenu(): Menu {
+  const menuFactory = new MenuFactory();
+  return menuFactory.getMenu();
+}
