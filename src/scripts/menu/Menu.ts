@@ -1,11 +1,13 @@
 import constants from '../constants';
+import MenuItem from './types/MenuItem';
 import MenuRoute from './types/MenuRoute';
 
 export default class Menu {
+    private menuItems: MenuItem[];
 
-    constructor(
-        private menuRoutes: MenuRoute[]
-    ) { }
+    constructor(menuRoutes: MenuRoute[]) {
+        this.menuItems = this.createMenuItems(menuRoutes);
+    }
 
     /**
      * creates the menu and injects it into the
@@ -14,13 +16,12 @@ export default class Menu {
      */
     public injectMenuElements() {
         this.createMenuDivElement();
-        this.createMenuRouteElements();
-        const menuRouteElements = this.menuRoutes.map(menuRoute => menuRoute.htmlElement);
-        menuRouteElements.forEach(
+        const menuHtmlElements = this.menuItems.map(menuItem => menuItem.htmlElement);
+        menuHtmlElements.forEach(
             node => document.getElementById(constants.menuId).appendChild(node)
         );
         // now open the default - component
-        this.goToRoute(this.menuRoutes[0]);
+        this.goToRoute(this.menuItems[0]);
         this.refreshReadyMenuComponents();
     }
 
@@ -30,13 +31,13 @@ export default class Menu {
      * the ready - state for each menu element
      */
     public async refreshReadyMenuComponents() {
-        for (const menuRoute of this.menuRoutes) {
+        for (const menuItem of this.menuItems) {
+            const { menuRoute, htmlElement } = menuItem;
             const { componentReadyChecks, componentReadyCheckMessage } = menuRoute;
             if (componentReadyChecks != null) {
                 const promises = componentReadyChecks.map(readyCheck => readyCheck());
                 const results = await Promise.all(promises);
                 const componentIsReady = results.every(result => result);
-                const { htmlElement } = menuRoute;
                 const menuNotReadyClass = 'notReady';
                 if (componentIsReady) {
                     htmlElement.classList.remove(menuNotReadyClass);
@@ -49,26 +50,31 @@ export default class Menu {
         }
     }
 
+    private createMenuItems(menuRoutes: MenuRoute[]): MenuItem[] {
+        return menuRoutes.map(menuRoute => {
+            const { icon, name } = menuRoute;
+            const routeEl = document.createElement('a');
+            const menuItem: MenuItem = {
+                menuRoute,
+                htmlElement: routeEl
+            }
+            routeEl.innerHTML = `<span class='icon'>${icon}</span>` + name;
+            routeEl.onclick = () => {
+                this.goToRoute(menuItem);
+            }
+            return menuItem;
+        });
+    }
+
     private createMenuDivElement() {
         const menu = document.createElement('div');
         menu.id = constants.menuId;
         document.getElementById(constants.containerId).prepend(menu);
     }
 
-    private createMenuRouteElements() {
-        this.menuRoutes.forEach(menuRoute => {
-            const { icon, name } = menuRoute;
-            const routeEl = document.createElement('a');
-            routeEl.onclick = () => {
-                this.goToRoute(menuRoute);
-            }
-            routeEl.innerHTML = `<span class='icon'>${icon}</span>` + name;
-            menuRoute.htmlElement = routeEl;
-        });
-    }
-
-    private goToRoute(menuRoute: MenuRoute) {
-        const { componentFactory, htmlElement } = menuRoute;
+    private goToRoute(menuItem: MenuItem) {
+        const { menuRoute, htmlElement } = menuItem;
+        const { componentFactory } = menuRoute;
         const container = document.getElementById(constants.contentId);
         // currently the Component iconstructor injects the Component html by itself
         componentFactory.getComponent(container);
