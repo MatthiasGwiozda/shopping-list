@@ -37,7 +37,7 @@ export default class Menu {
             if (componentReadyChecks != null) {
                 const promises = componentReadyChecks.map(readyCheck => readyCheck());
                 const results = await Promise.all(promises);
-                const componentIsReady = results.every(result => result);
+                const componentIsReady = results.every(isReady => isReady);
                 const menuNotReadyClass = 'notReady';
                 if (componentIsReady) {
                     htmlElement.classList.remove(menuNotReadyClass);
