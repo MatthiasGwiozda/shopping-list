@@ -12,12 +12,9 @@ export default class Menu {
         this.menuRouteReadyChecker = new MenuRouteReadyChecker(this.menuItems);
     }
 
-    public injectMenuElementsAndOpenDefaultComponent() {
+    public addMenuToDocument() {
         this.createMenuDivElement();
-        const menuHtmlElements = this.menuItems.map(menuItem => menuItem.htmlElement);
-        menuHtmlElements.forEach(
-            node => document.getElementById(constants.menuId).appendChild(node)
-        );
+        this.addMenuHtmlElementsToMenu();
         this.openDefaultComponent();
         this.menuRouteReadyChecker.applyReadyChecks();
     }
@@ -42,6 +39,13 @@ export default class Menu {
         const menu = document.createElement('div');
         menu.id = constants.menuId;
         document.getElementById(constants.containerId).prepend(menu);
+    }
+
+    private addMenuHtmlElementsToMenu() {
+        const menuHtmlElements = this.menuItems.map(menuItem => menuItem.htmlElement);
+        menuHtmlElements.forEach(
+            node => document.getElementById(constants.menuId).appendChild(node)
+        );
     }
 
     private openDefaultComponent() {
