@@ -98,11 +98,27 @@
       --- refreshReadyMenuComponents
       - [x] create a readyCheck - property in MenuRoute
       - [x] migrate to new structure
+      - [x] create MenuRouteReadyChecker - class
+      - [x] move refreshReadyMenuComponents - function to MenuRouteReadyChecker
 
-      - [] create MenuRouteReadyChecker - class
-      - [] move refreshReadyMenuComponents - function to MenuRouteReadyChecker
-      - [] ??
-      - [] remove old refreshReadyMenuComponents - calls in components
+      - [] create interface "ObserverSubject" with functions 
+        - [] notifyObservers
+        - [] registerObserver
+      - [] create interface "Observer" with function 
+        - [] ObserverSubjectUpdated
+      - [] create new "MenuObserverComponent" abstract class, which is of type "Component extends ObserverSubject"
+
+      - [] extend from MenuObserverComponent in the ObserverSubject components
+      - [] replace old refreshReadyMenuComponents - calls in ObserverSubjects with notifyObservers - function
+
+      - [] create a new "MenuObserverComponentFactory" class, which returns a MenuObserverComponent
+      - [] use the MenuObserverComponentFactory for all components, which implement ObserverSubject
+      - [] make MenuRoute generic <menuFactoryType extends MenuComponentFactory | MenuObserverComponentFactory>
+        - [] let the componentFactory be of Type menuFactoryType
+      
+      - [] implement Observer interface in Menu
+      - [] check in menu if a MenuComponentFactory or MenuObserverComponentFactory is used
+      - [] use registerObserver function when a MenuObserverComponentFactory is used
 
       
       
