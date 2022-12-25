@@ -12,19 +12,13 @@ export default class Menu {
         this.menuRouteReadyChecker = new MenuRouteReadyChecker(this.menuItems);
     }
 
-    /**
-     * creates the menu and injects it into the
-     * document.
-     * additionally opens the default component
-     */
-    public injectMenuElements() {
+    public injectMenuElementsAndOpenDefaultComponent() {
         this.createMenuDivElement();
         const menuHtmlElements = this.menuItems.map(menuItem => menuItem.htmlElement);
         menuHtmlElements.forEach(
             node => document.getElementById(constants.menuId).appendChild(node)
         );
-        // now open the default - component
-        this.goToRoute(this.menuItems[0]);
+        this.openDefaultComponent();
         this.menuRouteReadyChecker.applyReadyChecks();
     }
 
@@ -48,6 +42,10 @@ export default class Menu {
         const menu = document.createElement('div');
         menu.id = constants.menuId;
         document.getElementById(constants.containerId).prepend(menu);
+    }
+
+    private openDefaultComponent() {
+        this.goToRoute(this.menuItems[0]);
     }
 
     private goToRoute(menuItem: MenuItem) {

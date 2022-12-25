@@ -16,7 +16,7 @@ window.addEventListener('DOMContentLoaded', async () => {
    */
   await Database.initializeDatabase();
   const menu = getMenu();
-  menu.injectMenuElements();
+  menu.injectMenuElementsAndOpenDefaultComponent();
 })
 
 /**
