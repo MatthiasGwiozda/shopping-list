@@ -3,11 +3,11 @@ import constants from '../constants';
 import Database from '../Database';
 import ComponentReadyChecks from './types/ComponentReadyChecks';
 import MenuRoute from './types/MenuRoute';
-import ShoppingListFactory from '../factories/components/menuComponents/ShoppingListFactory';
-import ItemsFactory from '../factories/components/menuComponents/ItemsFactory';
-import CategoriesFactory from '../factories/components/menuComponents/CategoriesFactory';
-import ShopsFactory from '../factories/components/menuComponents/ShopsFactory';
-import MealsFactory from '../factories/components/menuComponents/MealsFactory';
+import ShoppingListFactory from '../factories/components/menuComponents/implementations/ShoppingListFactory';
+import ItemsFactory from '../factories/components/menuComponents/implementations/ItemsFactory';
+import CategoriesFactory from '../factories/components/menuComponents/implementations/CategoriesFactory';
+import ShopsFactory from '../factories/components/menuComponents/implementations/ShopsFactory';
+import MealsFactory from '../factories/components/menuComponents/implementations/MealsFactory';
 
 const itemsWithFoodCheck = "itemsWithFoodCheck";
 
