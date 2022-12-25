@@ -1,12 +1,15 @@
 import constants from '../constants';
+import MenuRouteReadyChecker from './MenuRouteReadyChecker';
 import MenuItem from './types/MenuItem';
 import MenuRoute from './types/MenuRoute';
 
 export default class Menu {
     private menuItems: MenuItem[];
+    private menuRouteReadyChecker: MenuRouteReadyChecker;
 
     constructor(menuRoutes: MenuRoute[]) {
         this.menuItems = this.createMenuItems(menuRoutes);
+        this.menuRouteReadyChecker = new MenuRouteReadyChecker(this.menuItems);
     }
 
     /**
@@ -22,32 +25,7 @@ export default class Menu {
         );
         // now open the default - component
         this.goToRoute(this.menuItems[0]);
-        this.refreshReadyMenuComponents();
-    }
-
-    /**
-     * The menu indicates wether certain menu - elements may be used.
-     * This function checks, if the menu elements may be used and sets
-     * the ready - state for each menu element
-     */
-    public async refreshReadyMenuComponents() {
-        for (const menuItem of this.menuItems) {
-            const { menuRoute, htmlElement } = menuItem;
-            const { checks, message } = menuRoute.readyCheck;
-            if (checks != null) {
-                const promises = checks.map(readyCheck => readyCheck());
-                const results = await Promise.all(promises);
-                const componentIsReady = results.every(isReady => isReady);
-                const menuNotReadyClass = 'notReady';
-                if (componentIsReady) {
-                    htmlElement.classList.remove(menuNotReadyClass);
-                    htmlElement.removeAttribute('title');
-                } else {
-                    htmlElement.classList.add(menuNotReadyClass);
-                    htmlElement.title = message;
-                }
-            }
-        }
+        this.menuRouteReadyChecker.applyReadyChecks();
     }
 
     private createMenuItems(menuRoutes: MenuRoute[]): MenuItem[] {
