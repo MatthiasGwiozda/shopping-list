@@ -1,7 +1,10 @@
 import ComponentReadyCheck from "./ComponentReadyCheck";
 
 type ComponentReadyChecks = {
-    [key: string]: ComponentReadyCheck;
+    categories: ComponentReadyCheck;
+    shops: ComponentReadyCheck;
+    items: ComponentReadyCheck;
+    itemsWithFood: ComponentReadyCheck;
 };
 
 export default ComponentReadyChecks;
