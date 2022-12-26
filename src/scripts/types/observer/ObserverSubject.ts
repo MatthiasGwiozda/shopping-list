@@ -1,3 +1,4 @@
+import Observer from "./Observer";
 
 export default interface ObserverSubject {
     notifyObservers: () => void;
