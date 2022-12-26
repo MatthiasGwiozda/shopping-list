@@ -1,9 +1,11 @@
-import MenuComponentFactory from "../../../factories/components/menuComponents/interfaces/MenuComponentFactory";
+import MenuComponentFactories from "../../../factories/components/menuComponents/interfaces/MenuComponentFactories";
 import MenuRouteReadyCheck from "./MenuRouteReadyCheck";
 
-export default interface MenuRoute {
+export default interface MenuRoute<
+    FactoryType extends MenuComponentFactories
+> {
     name: string;
-    componentFactory: MenuComponentFactory;
+    componentFactory: FactoryType;
     icon: string;
     readyCheck?: MenuRouteReadyCheck;
 }
