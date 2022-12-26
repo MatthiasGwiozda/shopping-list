@@ -1,11 +1,11 @@
 import Database from "../../scripts/Database";
-import MenuObserverComponent from "../../scripts/menu/MenuObserverComponent";
+import ObserverableComponent from "../../scripts/menu/ObserverableComponent";
 import Category from "../../scripts/types/Category";
 import { EditableListParams, PossibleInputTypes } from "../../scripts/types/components/editableList";
 import EditableList from "../editableList/scripts";
 import categoriesPartials from "./categoriesPartials";
 
-export default class Categories extends MenuObserverComponent {
+export default class Categories extends ObserverableComponent {
 
     constructor(container: HTMLElement) {
         super(container);

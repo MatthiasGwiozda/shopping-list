@@ -1,13 +1,13 @@
 import constants from "../../scripts/constants";
 import Database from "../../scripts/Database";
 import SortableCategoriesAdditionalActionFactory from "../../scripts/factories/components/editableList/additionalAction/implementations/SortableCategoriesAdditionalActionFactory";
-import MenuObserverComponent from "../../scripts/menu/MenuObserverComponent";
+import ObserverableComponent from "../../scripts/menu/ObserverableComponent";
 import { EditableListParams, PossibleInputTypes } from "../../scripts/types/components/editableList";
 import Shop from "../../scripts/types/Shop";
 import EditableList from "../editableList/scripts";
 import shopsPartials from "./shopsPartials";
 
-export default class Shops extends MenuObserverComponent {
+export default class Shops extends ObserverableComponent {
 
     constructor(container: HTMLElement) {
         super(container);
