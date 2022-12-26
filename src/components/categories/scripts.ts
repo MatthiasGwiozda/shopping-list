@@ -1,12 +1,11 @@
 import Database from "../../scripts/Database";
-import { refreshReadyMenuComponents } from "../../scripts/menu/Menu";
+import MenuObserverComponent from "../../scripts/menu/MenuObserverComponent";
 import Category from "../../scripts/types/Category";
 import { EditableListParams, PossibleInputTypes } from "../../scripts/types/components/editableList";
-import Component from "../Component";
 import EditableList from "../editableList/scripts";
 import categoriesPartials from "./categoriesPartials";
 
-export default class Categories extends Component {
+export default class Categories extends MenuObserverComponent {
 
     constructor(container: HTMLElement) {
         super(container);
@@ -21,23 +20,23 @@ export default class Categories extends Component {
     private async createEditableList() {
         const params: EditableListParams<Category> = {
             getTableContent: async () => await Database.selectAllCategories(),
-            deleteElement: async function (category) {
+            deleteElement: async (category) => {
                 const result = await Database.deleteCategory(category);
-                refreshReadyMenuComponents();
+                this.notifyObservers();
                 return {
                     result,
                     message: result ? null : 'The category could not be deleted. Maybe it is used in an item. Change the category of the items first'
                 }
             },
-            insertElement: async function (category) {
+            insertElement: async (category) => {
                 const result = await Database.insertCategory(category);
-                refreshReadyMenuComponents();
+                this.notifyObservers();
                 return {
                     result,
                     message: result ? null : 'An error occoured while saving the category. Maybe the category already exists?'
                 }
             },
-            updateElement: async function (oldCategory, newCategory) {
+            updateElement: async (oldCategory, newCategory) => {
                 const result = await Database.updateCategory(oldCategory, newCategory);
                 return {
                     result,
