@@ -1,10 +1,11 @@
 import constants from '../constants';
 import MenuComponentFactories from '../factories/components/menuComponents/interfaces/MenuComponentFactories';
+import Observer from '../types/observer/Observer';
 import MenuRouteReadyChecker from './MenuRouteReadyChecker';
 import MenuItem from './types/MenuItem';
 import MenuRoute from './types/menuRoute/MenuRoute';
 
-export default class Menu {
+export default class Menu implements Observer {
     private menuItems: MenuItem[];
     private menuRouteReadyChecker: MenuRouteReadyChecker;
 
@@ -17,6 +18,10 @@ export default class Menu {
         this.createMenuDivElement();
         this.addMenuHtmlElementsToMenu();
         this.openDefaultComponent();
+        this.menuRouteReadyChecker.applyReadyChecks();
+    }
+
+    public observerSubjectUpdated(): void {
         this.menuRouteReadyChecker.applyReadyChecks();
     }
 
