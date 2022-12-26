@@ -1,4 +1,4 @@
-export type ComponentReadyCheck = () => Promise<boolean>;
+import ComponentReadyCheck from "./ComponentReadyCheck";
 
 type ComponentReadyChecks = {
     [key: string]: ComponentReadyCheck;

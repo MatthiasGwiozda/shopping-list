@@ -1,4 +1,4 @@
-import { ComponentReadyCheck } from "./types/readyCheck/ComponentReadyChecks";
+import ComponentReadyCheck from "./types/readyCheck/ComponentReadyCheck";
 import MenuItem from "./types/MenuItem";
 
 export default class MenuRouteReadyChecker {
