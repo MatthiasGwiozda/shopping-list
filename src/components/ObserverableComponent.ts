@@ -1,6 +1,6 @@
-import Component from "../../components/Component";
-import Observer from "../types/observer/Observer";
-import ObserverSubject from "../types/observer/ObserverSubject";
+import Component from "./Component";
+import Observer from "../scripts/types/observer/Observer";
+import ObserverSubject from "../scripts/types/observer/ObserverSubject";
 
 export default abstract class ObserverableComponent extends Component implements ObserverSubject {
     private observers: Observer[];

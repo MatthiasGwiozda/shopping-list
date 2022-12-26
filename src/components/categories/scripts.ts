@@ -1,5 +1,5 @@
 import Database from "../../scripts/Database";
-import ObserverableComponent from "../../scripts/menu/ObserverableComponent";
+import ObserverableComponent from "../ObserverableComponent";
 import Category from "../../scripts/types/Category";
 import { EditableListParams, PossibleInputTypes } from "../../scripts/types/components/editableList";
 import EditableList from "../editableList/scripts";
