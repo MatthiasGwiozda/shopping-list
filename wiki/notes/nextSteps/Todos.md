@@ -100,21 +100,26 @@
       - [x] migrate to new structure
       - [x] create MenuRouteReadyChecker - class
       - [x] move refreshReadyMenuComponents - function to MenuRouteReadyChecker
-
-      - [] create interface "ObserverSubject" with functions 
-        - [] notifyObservers
-        - [] registerObserver
-      - [] create interface "Observer" with function 
-        - [] ObserverSubjectUpdated
-      - [] create new "MenuObserverComponent" abstract class, which is of type "Component extends ObserverSubject"
-
-      - [] extend from MenuObserverComponent in the ObserverSubject components
-      - [] replace old refreshReadyMenuComponents - calls in ObserverSubjects with notifyObservers - function
+      - [x] create interface "ObserverSubject" with functions 
+        - [x] notifyObservers
+        - [x] registerObserver
+      - [x] create interface "Observer" with function 
+        - [x] ObserverSubjectUpdated
+      - [x] create new abstract class "MenuObserverComponent", which is of type "Component implements ObserverSubject"
+      --- use MenuObserverComponent
+      - [x] extend from MenuObserverComponent in the ObserverSubject components
+      - [x] replace old refreshReadyMenuComponents - calls in ObserverSubjects with notifyObservers - function
+        - [x] categories
+        - [x] items
+        - [x] shops
+      --- refactoring
+      - [x] rename ObserverableComponent to ObserverComponent
+      - [x] move ObserverableComponent in components folder
 
       - [] create a new "MenuObserverComponentFactory" class, which returns a MenuObserverComponent
       - [] use the MenuObserverComponentFactory for all components, which implement ObserverSubject
-      - [] make MenuRoute generic <menuFactoryType extends MenuComponentFactory | MenuObserverComponentFactory>
-        - [] let the componentFactory be of Type menuFactoryType
+      - [] make MenuRoute generic <FactoryType extends MenuComponentFactory | MenuObserverComponentFactory>
+        - [] let the componentFactory be of Type FactoryType
       
       - [] implement Observer interface in Menu
       - [] check in menu if a MenuComponentFactory or MenuObserverComponentFactory is used
