@@ -63,109 +63,96 @@
     - [x] use AdditionalActionFactory in editableList
 
 
-  - [] fix menu.ts
-    - [] refactoring
-      - [x] move menu.ts in menu - folder
-      - [x] extract types in separate files
-      - [x] extract ComponentRoutes from menu.ts
-      - [x] rename componentRoutes to ApplicationMenuRoutes
-      --- Menu Class creation
-      - [x] make Menu - class out of current functions
-      - [x] rename menu.ts to Menu.ts
-      -- create a factory
-      - [x] create MenuFactory
-      -- change references to use the instance - functions of Menu
-      - [x] injectMenuElements
-      --- Component factories for menu
-      - [x] pass ComponentFactory in component property of MenuRoute
-      - [x] create factories for the MenuComponents
-        - [x] categories
-        - [x] items
-        - [x] meals
-        - [x] shoppingList
-        - [x] shops
-      - [x] use ComponentFactories in ApplicationMenuRoutes
-      - [x] use the factories in Menu.ts
-      - [x] rename componentRoute to MenuRoute
-      - [x] get MenuRoutes[] in constructor of Menu.ts
-      - [x] pass ApplicationMenuRoutes in MenuFactory
-      - [x] separate the HtmlElement property from MenuRoute to separate interface
-        - [x] create MenuItem interface (holds htmlElement + MenuRoute)
-        - [x] remove private MenuRoute - property in Menu class
-        - [x] use createMenuRouteElements in constructor
-        - [x] pass MenuRoutes parameter in createMenuRouteElements
+  - [x] fix menu.ts
+    - [x] move menu.ts in menu - folder
+    - [x] extract types in separate files
+    - [x] extract ComponentRoutes from menu.ts
+    - [x] rename componentRoutes to ApplicationMenuRoutes
+    --- Menu Class creation
+    - [x] make Menu - class out of current functions
+    - [x] rename menu.ts to Menu.ts
+    -- create a factory
+    - [x] create MenuFactory
+    -- change references to use the instance - functions of Menu
+    - [x] injectMenuElements
+    --- Component factories for menu
+    - [x] pass ComponentFactory in component property of MenuRoute
+    - [x] create factories for the MenuComponents
+      - [x] categories
+      - [x] items
+      - [x] meals
+      - [x] shoppingList
+      - [x] shops
+    - [x] use ComponentFactories in ApplicationMenuRoutes
+    - [x] use the factories in Menu.ts
+    - [x] rename componentRoute to MenuRoute
+    - [x] get MenuRoutes[] in constructor of Menu.ts
+    - [x] pass ApplicationMenuRoutes in MenuFactory
+    - [x] separate the HtmlElement property from MenuRoute to separate interface
+      - [x] create MenuItem interface (holds htmlElement + MenuRoute)
+      - [x] remove private MenuRoute - property in Menu class
+      - [x] use createMenuRouteElements in constructor
+      - [x] pass MenuRoutes parameter in createMenuRouteElements
 
-      --- refreshReadyMenuComponents
-      - [x] create a readyCheck - property in MenuRoute
-      - [x] migrate to new structure
-      - [x] create MenuRouteReadyChecker - class
-      - [x] move refreshReadyMenuComponents - function to MenuRouteReadyChecker
-      - [x] create interface "ObserverSubject" with functions 
-        - [x] notifyObservers
-        - [x] registerObserver
-      - [x] create interface "Observer" with function 
-        - [x] ObserverSubjectUpdated
-      - [x] create new abstract class "MenuObserverComponent", which is of type "Component implements ObserverSubject"
-      --- use MenuObserverComponent
-      - [x] extend from MenuObserverComponent in the ObserverSubject components
-      - [x] replace old refreshReadyMenuComponents - calls in ObserverSubjects with notifyObservers - function
-        - [x] categories
-        - [x] items
-        - [x] shops
-      --- refactoring
-      - [x] rename ObserverableComponent to ObserverComponent
-      - [x] move ObserverableComponent in components folder
-
-      - [] create a new "MenuObserverComponentFactory" class, which returns a MenuObserverComponent
-      - [] use the MenuObserverComponentFactory for all components, which implement ObserverSubject
-      - [] make MenuRoute generic <FactoryType extends MenuComponentFactory | MenuObserverComponentFactory>
-        - [] let the componentFactory be of Type FactoryType
-      
-      - [] implement Observer interface in Menu
-      - [] check in menu if a MenuComponentFactory or MenuObserverComponentFactory is used
-      - [] use registerObserver function when a MenuObserverComponentFactory is used
-
-      
-      
-
-
-    - [] don't use Components - enum to instanciate a Component
-    - [] make MenuComponents type obsolete
-    - [] make ReadyCheckComponents obsolete
-  
-
-  - [] Delete the Components - enum
+    --- refreshReadyMenuComponents
+    - [x] create a readyCheck - property in MenuRoute
+    - [x] migrate to new structure
+    - [x] create MenuRouteReadyChecker - class
+    - [x] move refreshReadyMenuComponents - function to MenuRouteReadyChecker
+    - [x] create interface "ObserverSubject" with functions 
+      - [x] notifyObservers
+      - [x] registerObserver
+    - [x] create interface "Observer" with function 
+      - [x] ObserverSubjectUpdated
+    - [x] create new abstract class "MenuObserverComponent", which is of type "Component implements ObserverSubject"
+    --- use MenuObserverComponent
+    - [x] extend from MenuObserverComponent in the ObserverSubject components
+    - [x] replace old refreshReadyMenuComponents - calls in ObserverSubjects with notifyObservers - function
+      - [x] categories
+      - [x] items
+      - [x] shops
+    --- refactoring
+    - [x] rename ObserverableComponent to ObserverComponent
+    - [x] move ObserverableComponent in components folder
+    - [x] create a new "ObserverableMenuComponentFactory" class, which returns a ObserverableComponent
+    - [x] make MenuRoute generic <FactoryType extends MenuComponentFactory | ObserverableMenuComponentFactory>
+      - [x] let the componentFactory be of Type FactoryType
+    - [x] use the ObserverableMenuComponentFactory for all components, which implement ObserverSubject
+      - [x] categories
+      - [x] items
+      - [x] shops
+    - [x] implement Observer interface in Menu
+    - [x] check in menu if a ObserverableComponent is used
+    - [x] use registerObserver function when a ObserverableComponent is used
+  - [x] make ReadyCheckComponents obsolete
+  - [x] don't use Components - enum
+  - [x] Delete the Components - enum
 
 
-
---- refactoring#
-- [] don't call "injectHtmlToElement" in Component.ts in constructor. Let the instanciator call this function whenever he wants
+--- refactoring
 - [] Rename component - files from index.ts to proper component - names
--- Menu Class refactoring
-- [] remove comments
-- [] use better names
--- ApplicationMenuRoutes.ts
-- [] make a class of ApplicationMenuRoutes
+- [] move components - folder into scripts
 
+--- SQL - files in TypeScript files
+- [] move sql - files to TypeScript (dont import sql files with fileUtilities)
 
-
-
-- move components - folder into scripts
-- move sql - files to JavaScript
-
+--- Deployment - Script
 - change deployment - Script
     - Dont copy html - files manually in deployment
     - Dont copy sql - files in deployment
     - Dont ignore ts - files anymore when copying folders
+
+
+
 
 - Test
   - getRootNode - references with partials
   - AdditionalActionFactory
   - deployment
   - componentReadyChecks in Menu
+  - structure.sql - file
 
 - Docs
   - change injectComponent - docs
-
 
 - merge branch to main
