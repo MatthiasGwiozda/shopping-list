@@ -1,4 +1,3 @@
-import { Components } from '../types/components/Components';
 import constants from '../constants';
 import Database from '../Database';
 import ComponentReadyChecks from './types/readyCheck/ComponentReadyChecks';
@@ -10,26 +9,24 @@ import ShopsFactory from '../factories/components/menuComponents/implementations
 import MealsFactory from '../factories/components/menuComponents/implementations/MealsFactory';
 import MenuComponentFactories from '../factories/components/menuComponents/interfaces/MenuComponentFactories';
 
-const itemsWithFoodCheck = "itemsWithFoodCheck";
-
 function hasAtLeasOneElement(arr: any[]): boolean {
     return arr.length > 0;
 }
 
 const componentReadyChecks: ComponentReadyChecks = {
-    [Components.categories]: async () => {
+    categories: async () => {
         const elements = await Database.selectAllCategories();
         return hasAtLeasOneElement(elements);
     },
-    [Components.shops]: async () => {
+    shops: async () => {
         const elements = await Database.selectAllShops();
         return hasAtLeasOneElement(elements);
     },
-    [Components.items]: async () => {
+    items: async () => {
         const elements = await Database.selectAllItems();
         return hasAtLeasOneElement(elements);
     },
-    [itemsWithFoodCheck]: async () => {
+    itemsWithFood: async () => {
         let items = await Database.selectAllItems();
         items = items.filter(item => item.food);
         return hasAtLeasOneElement(items);
@@ -43,8 +40,8 @@ const ApplicationMenuRoutes: MenuRoute<MenuComponentFactories>[] = [
         icon: '📝',
         readyCheck: {
             checks: [
-                componentReadyChecks[Components.items],
-                componentReadyChecks[Components.shops]
+                componentReadyChecks.items,
+                componentReadyChecks.shops
             ],
             message: 'Please add items and at least one shop to generate shopping lists'
         }
@@ -55,7 +52,7 @@ const ApplicationMenuRoutes: MenuRoute<MenuComponentFactories>[] = [
         icon: constants.icons.item,
         readyCheck: {
             checks: [
-                componentReadyChecks[Components.categories]
+                componentReadyChecks.categories
             ],
             message: 'Please add categories before you add items'
         }
@@ -71,7 +68,7 @@ const ApplicationMenuRoutes: MenuRoute<MenuComponentFactories>[] = [
         icon: constants.icons.shop,
         readyCheck: {
             checks: [
-                componentReadyChecks[Components.categories]
+                componentReadyChecks.categories
             ],
             message: 'Please add categories before you define shops. Every shop may have it\'s own order for categories'
         }
@@ -82,7 +79,7 @@ const ApplicationMenuRoutes: MenuRoute<MenuComponentFactories>[] = [
         icon: '🥗',
         readyCheck: {
             checks: [
-                componentReadyChecks[itemsWithFoodCheck]
+                componentReadyChecks.itemsWithFood
             ],
             message: 'Please add at least one "food - item" to create meals'
         }
