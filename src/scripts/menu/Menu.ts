@@ -1,3 +1,5 @@
+import Component from '../../components/Component';
+import ObserverableComponent from '../../components/ObserverableComponent';
 import constants from '../constants';
 import MenuComponentFactories from '../factories/components/menuComponents/interfaces/MenuComponentFactories';
 import Observer from '../types/observer/Observer';
@@ -62,9 +64,14 @@ export default class Menu implements Observer {
         const { menuRoute, htmlElement } = menuItem;
         const { componentFactory } = menuRoute;
         const container = document.getElementById(constants.contentId);
-        // currently the Component iconstructor injects the Component html by itself
-        componentFactory.getComponent(container);
+        this.injectComponentAndRegisterObserver(componentFactory, container);
         this.setActiveMenuItem(htmlElement);
+    }
+
+    private injectComponentAndRegisterObserver(componentFactory: MenuComponentFactories, container: HTMLElement) {
+        // currently the Component constructor injects the Component html by itself
+        const component = componentFactory.getComponent(container);
+        this.registerObserver(component);
     }
 
     private setActiveMenuItem(routeEl: HTMLElement) {
@@ -74,5 +81,11 @@ export default class Menu implements Observer {
             anchor.classList.remove(activeClass);
         })
         routeEl.classList.add(activeClass);
+    }
+
+    private registerObserver(component: Component) {
+        if (component instanceof ObserverableComponent) {
+            component.registerObserver(this);
+        }
     }
 }
