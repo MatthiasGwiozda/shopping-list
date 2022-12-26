@@ -1,6 +1,6 @@
 import Observer from "./Observer";
 
 export default interface ObserverSubject {
-    notifyObservers: () => void;
-    registerObserver: (observer: Observer) => void
+    notifyObservers(): void;
+    registerObserver(observer: Observer): void
 }
