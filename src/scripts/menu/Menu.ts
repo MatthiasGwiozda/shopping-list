@@ -1,4 +1,5 @@
 import constants from '../constants';
+import MenuComponentFactories from '../factories/components/menuComponents/interfaces/MenuComponentFactories';
 import MenuRouteReadyChecker from './MenuRouteReadyChecker';
 import MenuItem from './types/MenuItem';
 import MenuRoute from './types/menuRoute/MenuRoute';
@@ -7,7 +8,7 @@ export default class Menu {
     private menuItems: MenuItem[];
     private menuRouteReadyChecker: MenuRouteReadyChecker;
 
-    constructor(menuRoutes: MenuRoute[]) {
+    constructor(menuRoutes: MenuRoute<MenuComponentFactories>[]) {
         this.menuItems = this.createMenuItems(menuRoutes);
         this.menuRouteReadyChecker = new MenuRouteReadyChecker(this.menuItems);
     }
@@ -19,7 +20,7 @@ export default class Menu {
         this.menuRouteReadyChecker.applyReadyChecks();
     }
 
-    private createMenuItems(menuRoutes: MenuRoute[]): MenuItem[] {
+    private createMenuItems(menuRoutes: MenuRoute<MenuComponentFactories>[]): MenuItem[] {
         return menuRoutes.map(menuRoute => {
             const { icon, name } = menuRoute;
             const routeEl = document.createElement('a');

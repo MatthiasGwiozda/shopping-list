@@ -8,6 +8,7 @@ import ItemsFactory from '../factories/components/menuComponents/implementations
 import CategoriesFactory from '../factories/components/menuComponents/implementations/CategoriesFactory';
 import ShopsFactory from '../factories/components/menuComponents/implementations/ShopsFactory';
 import MealsFactory from '../factories/components/menuComponents/implementations/MealsFactory';
+import MenuComponentFactories from '../factories/components/menuComponents/interfaces/MenuComponentFactories';
 
 const itemsWithFoodCheck = "itemsWithFoodCheck";
 
@@ -35,7 +36,7 @@ const componentReadyChecks: ComponentReadyChecks = {
     }
 };
 
-const ApplicationMenuRoutes: MenuRoute[] = [
+const ApplicationMenuRoutes: MenuRoute<MenuComponentFactories>[] = [
     {
         name: 'Shopping List',
         componentFactory: new ShoppingListFactory(),
