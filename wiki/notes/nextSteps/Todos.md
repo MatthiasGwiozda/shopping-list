@@ -130,17 +130,18 @@
 
 
 --- refactoring
-- [] Rename component - files from index.ts to proper component - names
+- [x] Rename component - files from index.ts to proper component - names
 - [] move components - folder into scripts
 
 --- SQL - files in TypeScript files
-- [] move sql - files to TypeScript (dont import sql files with fileUtilities)
+- [] move sql - files to 
+  - []? TypeScript (dont import sql files with fileUtilities)
+  - []? assets folder (The deployment must copy the asstets anyways)
 
 --- Deployment - Script
-- change deployment - Script
-    - Dont copy html - files manually in deployment
-    - Dont copy sql - files in deployment
-    - Dont ignore ts - files anymore when copying folders
+- Dont copy html - files manually in deployment
+- Dont copy sql - files manually in deployment
+- Dont ignore ts - files anymore when copying folders
 
 
 
