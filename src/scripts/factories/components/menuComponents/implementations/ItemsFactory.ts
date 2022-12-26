@@ -1,7 +1,7 @@
 import Items from "../../../../../components/items/scripts";
-import MenuComponentFactory from "../interfaces/MenuComponentFactory";
+import ObserverableMenuComponentFactory from "../interfaces/ObserverableMenuComponentFactory";
 
-export default class ItemsFactory implements MenuComponentFactory {
+export default class ItemsFactory implements ObserverableMenuComponentFactory {
 
     getComponent(container: HTMLElement): Items {
         return new Items(container);
