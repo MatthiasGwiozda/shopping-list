@@ -1,7 +1,7 @@
 import constants from '../constants';
 import MenuRouteReadyChecker from './MenuRouteReadyChecker';
 import MenuItem from './types/MenuItem';
-import MenuRoute from './types/MenuRoute';
+import MenuRoute from './types/menuRoute/MenuRoute';
 
 export default class Menu {
     private menuItems: MenuItem[];

@@ -2,7 +2,7 @@ import { Components } from '../types/components/Components';
 import constants from '../constants';
 import Database from '../Database';
 import ComponentReadyChecks from './types/ComponentReadyChecks';
-import MenuRoute from './types/MenuRoute';
+import MenuRoute from './types/menuRoute/MenuRoute';
 import ShoppingListFactory from '../factories/components/menuComponents/implementations/ShoppingListFactory';
 import ItemsFactory from '../factories/components/menuComponents/implementations/ItemsFactory';
 import CategoriesFactory from '../factories/components/menuComponents/implementations/CategoriesFactory';
