@@ -1,14 +1,13 @@
 import constants from "../../scripts/constants";
 import Database from "../../scripts/Database";
 import GoodsShopAssignementAdditionalActionFactory from "../../scripts/factories/components/editableList/additionalAction/implementations/GoodsShopAssignementAdditionalActionFactory";
-import { refreshReadyMenuComponents } from "../../scripts/menu/Menu";
+import MenuObserverComponent from "../../scripts/menu/MenuObserverComponent";
 import { EditableListParams, PossibleInputTypes } from "../../scripts/types/components/editableList";
 import Item from "../../scripts/types/Item";
-import Component from "../Component";
 import EditableList from "../editableList/scripts";
 import itemsPartials from "./itemsPartials";
 
-export default class Items extends Component {
+export default class Items extends MenuObserverComponent {
 
     constructor(container: HTMLElement) {
         super(container);
@@ -22,26 +21,26 @@ export default class Items extends Component {
     private async createEditableList() {
         const params: EditableListParams<Item> = {
             getTableContent: async () => await Database.selectAllItems(),
-            deleteElement: async function (item) {
+            deleteElement: async (item) => {
                 const result = await Database.deleteItem(item);
-                refreshReadyMenuComponents();
+                this.notifyObservers();
                 return {
                     result,
                     message: result ? null : 'The item could not be deleted.'
                 }
             },
-            insertElement: async function (item) {
+            insertElement: async (item) => {
                 const result = await Database.insertItem(item);
-                refreshReadyMenuComponents();
+                this.notifyObservers();
                 return {
                     result,
                     message: result ? null : 'An error occoured while saving the item. Maybe the item already exists?'
                 }
             },
-            updateElement: async function (oldItem, newItem) {
+            updateElement: async (oldItem, newItem) => {
                 const result = await Database.updateItem(oldItem, newItem);
-                // This refresh is for the itemsWithFoodCheck in `menu.ts`
-                refreshReadyMenuComponents();
+                // This notification is for the itemsWithFoodCheck in `menu.ts`
+                this.notifyObservers();
                 return {
                     result,
                     message: result ? null : 'An error occoured. Maybe the item already exists?'
