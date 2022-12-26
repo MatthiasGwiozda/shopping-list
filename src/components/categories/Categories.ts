@@ -2,7 +2,7 @@ import Database from "../../scripts/Database";
 import ObserverableComponent from "../ObserverableComponent";
 import Category from "../../scripts/types/Category";
 import { EditableListParams, PossibleInputTypes } from "../../scripts/types/components/editableList";
-import EditableList from "../editableList/scripts";
+import EditableList from "../editableList/EditableList";
 import categoriesPartials from "./categoriesPartials";
 
 export default class Categories extends ObserverableComponent {

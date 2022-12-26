@@ -5,7 +5,7 @@ import InputUtilities from "../../scripts/utilities/InputUtilities";
 import Component from "../Component";
 import HtmlUtilities from "../../scripts/utilities/HtmlUtilities";
 import shoppingListCollectionPartials from "./shoppingListCollectionPartials";
-import ItemCollection from "../itemCollection/scripts";
+import ItemCollection from "../itemCollection/ItemCollection";
 import ItemCollectionParams from "../../scripts/types/components/itemCollection";
 
 export default class ShoppingListCollection extends Component {

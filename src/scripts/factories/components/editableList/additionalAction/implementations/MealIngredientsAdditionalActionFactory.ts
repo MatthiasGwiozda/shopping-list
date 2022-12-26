@@ -1,4 +1,4 @@
-import MealIngredients from "../../../../../../components/MealIngredients/scripts";
+import MealIngredients from "../../../../../../components/mealIngredients/MealIngredients";
 import Meal from "../../../../../types/Meal";
 import AdditionalActionFactory from "../AdditionalActionFactory";
 

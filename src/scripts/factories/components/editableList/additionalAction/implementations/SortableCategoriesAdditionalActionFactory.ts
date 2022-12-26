@@ -1,4 +1,4 @@
-import SortableCategories from "../../../../../../components/SortableCategories/scripts";
+import SortableCategories from "../../../../../../components/sortableCategories/SortableCategories";
 import Shop from "../../../../../types/Shop";
 import AdditionalActionFactory from "../AdditionalActionFactory";
 

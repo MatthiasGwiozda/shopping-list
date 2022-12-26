@@ -5,7 +5,7 @@ import Meal from "../../scripts/types/Meal";
 import Component from "../Component";
 import DialogUtilities from '../../scripts/utilities/DialogUtilities';
 import mealsPartials from "./MealsPartials";
-import EditableList from "../editableList/scripts";
+import EditableList from "../editableList/EditableList";
 import MealIngredientsAdditionalActionFactory from "../../scripts/factories/components/editableList/additionalAction/implementations/MealIngredientsAdditionalActionFactory";
 
 export default class Meals extends Component {

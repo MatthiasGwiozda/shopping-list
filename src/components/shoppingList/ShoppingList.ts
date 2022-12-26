@@ -1,7 +1,7 @@
 import Database from "../../scripts/Database";
 import Component from "../Component";
-import MealCollection from "../mealCollection/scripts";
-import ShoppingListCollection from "../shoppingListCollection/scripts";
+import MealCollection from "../mealCollection/MealCollection";
+import ShoppingListCollection from "../shoppingListCollection/ShoppingListCollection";
 import shoppingListPartials from "./shoppingListPartials";
 
 enum TextAreas {

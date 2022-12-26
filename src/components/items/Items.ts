@@ -4,7 +4,7 @@ import GoodsShopAssignementAdditionalActionFactory from "../../scripts/factories
 import ObserverableComponent from "../ObserverableComponent";
 import { EditableListParams, PossibleInputTypes } from "../../scripts/types/components/editableList";
 import Item from "../../scripts/types/Item";
-import EditableList from "../editableList/scripts";
+import EditableList from "../editableList/EditableList";
 import itemsPartials from "./itemsPartials";
 
 export default class Items extends ObserverableComponent {

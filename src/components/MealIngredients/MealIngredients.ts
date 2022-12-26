@@ -2,7 +2,7 @@ import Database from "../../scripts/Database";
 import ItemCollectionParams, { CurrentItems } from "../../scripts/types/components/itemCollection";
 import Meal from "../../scripts/types/Meal";
 import Component from "../Component";
-import ItemCollection from "../itemCollection/scripts";
+import ItemCollection from "../itemCollection/ItemCollection";
 import mealIngredientsPartials from "./mealIngredientsPartials";
 
 export default class MealIngredients extends Component {

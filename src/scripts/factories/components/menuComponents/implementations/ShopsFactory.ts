@@ -1,4 +1,4 @@
-import Shops from "../../../../../components/shops/scripts";
+import Shops from "../../../../../components/shops/Shops";
 import ObserverableMenuComponentFactory from "../interfaces/ObserverableMenuComponentFactory";
 
 export default class ShopsFactory implements ObserverableMenuComponentFactory {
