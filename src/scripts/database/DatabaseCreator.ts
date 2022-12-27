@@ -18,13 +18,12 @@ export default class DatabaseCreator {
     }
 
     private async createDatabase() {
-        const structureSql = this.getDatabaseStructure();
-        for (let singleQuery of structureSql) {
-            await this.queryExecutor.runQuery(singleQuery);
+        for (let structureStatement of this.getStructureStatements()) {
+            await this.queryExecutor.runQuery(structureStatement);
         }
     }
 
-    private getDatabaseStructure(): string[] {
+    private getStructureStatements(): string[] {
         const allQueries = FileUtilities.getFileContent(Files.structureSql);
         return allQueries
             .split(';')
