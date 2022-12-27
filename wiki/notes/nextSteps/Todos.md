@@ -127,20 +127,32 @@
   - [x] make ReadyCheckComponents obsolete
   - [x] don't use Components - enum
   - [x] Delete the Components - enum
-
-
 --- refactoring
 - [x] Rename component - files from index.ts to proper component - names
-- [] move components - folder into scripts
+- [x] move components - folder into scripts
+- [x] make Mealingredients - folder to lower case
+- [x] make sortableCategories - folder to lower case
+
 
 --- SQL - files in TypeScript files
-- [] move sql - files to 
-  - []? TypeScript (dont import sql files with fileUtilities)
-  - []? assets folder (The deployment must copy the asstets anyways)
+- [x] create folder "databaseCreator" in database
+- [x] move sql - folder in assets
+- [x] change folder in FileUtilities
+
+- [x] create class "DatabaseCreator"
+- [x] move getDatabaseStructure from Database.ts in DatabaseCreator (private)
+- [x] create public function "createDatabaseIfNotExistent" in DatabaseCreator
+- [x] rename getDatabaseStructure in "getStructureStatements"
+- [x] use DatabaseCreator.createDatabaseIfNotExistent in Database.ts
+
+--- Test
+- [x] does the application run? --> yes, but i forgot some null - checks😖
 
 --- Deployment - Script
-- Dont copy html - files manually in deployment
-- Dont copy sql - files manually in deployment
+- Dont copy html - files manually in deployment 
+  - [] remove './src/components' in $folders
+- Dont copy sql - folder manually in deployment 
+  - [] remove './src/sql', in $folders
 - Dont ignore ts - files anymore when copying folders
 
 
@@ -151,7 +163,7 @@
   - AdditionalActionFactory
   - deployment
   - componentReadyChecks in Menu
-  - structure.sql - file
+  - structure.sql - file (creation of new Database if not existent)
 
 - Docs
   - change injectComponent - docs
