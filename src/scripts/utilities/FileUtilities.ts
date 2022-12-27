@@ -14,7 +14,7 @@ export enum Files {
 
 export default class FileUtilities {
 
-    public static getFilePath(file: string): string {
+    public static getFilePath(file: Files): string {
         return PathUtilities.getPath(file);
     }
 
@@ -22,7 +22,7 @@ export default class FileUtilities {
      * @param file the path of the file relative from the project root - directory.
      * @returns the content of the file.
      */
-    static getFileContent(file: string): string {
+    static getFileContent(file: Files): string {
         const filePath = FileUtilities.getFilePath(file);
         if (existsSync(filePath)) {
             const data = readFileSync(filePath);
