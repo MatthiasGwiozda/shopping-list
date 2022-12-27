@@ -17,8 +17,8 @@ export default class MenuRouteReadyChecker {
 
     private async applyReadyCheckForMenuItem(menuItem: MenuItem) {
         const { menuRoute, htmlElement } = menuItem;
-        const { checks, message } = menuRoute.readyCheck;
-        if (checks != null) {
+        if (menuRoute.readyCheck != null) {
+            const { checks, message } = menuRoute.readyCheck;
             if (await this.isComponentReady(checks)) {
                 this.removeMenuNotReadyClassAndTitle(htmlElement);
             } else {
