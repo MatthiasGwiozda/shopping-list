@@ -1,4 +1,4 @@
-import Items from "../../../../../components/items/Items";
+import Items from "../../../../components/items/Items";
 import ObserverableMenuComponentFactory from "../interfaces/ObserverableMenuComponentFactory";
 
 export default class ItemsFactory implements ObserverableMenuComponentFactory {

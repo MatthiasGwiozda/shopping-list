@@ -1,12 +1,12 @@
-import constants from "../../scripts/constants";
-import Database from "../../scripts/Database";
-import DialogUtilities from "../../scripts/utilities/DialogUtilities";
-import InputUtilities from "../../scripts/utilities/InputUtilities";
+import constants from "../../constants";
+import Database from "../../Database";
+import DialogUtilities from "../../utilities/DialogUtilities";
+import InputUtilities from "../../utilities/InputUtilities";
 import Component from "../Component";
-import HtmlUtilities from "../../scripts/utilities/HtmlUtilities";
+import HtmlUtilities from "../../utilities/HtmlUtilities";
 import shoppingListCollectionPartials from "./shoppingListCollectionPartials";
 import ItemCollection from "../itemCollection/ItemCollection";
-import ItemCollectionParams from "../../scripts/types/components/itemCollection";
+import ItemCollectionParams from "../../types/components/itemCollection";
 
 export default class ShoppingListCollection extends Component {
 

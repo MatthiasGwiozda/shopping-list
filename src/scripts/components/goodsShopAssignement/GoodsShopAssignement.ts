@@ -1,8 +1,8 @@
 import Component from "../Component";
-import Database from "../../scripts/Database"
-import Shop from "../../scripts/types/Shop";
-import GoodsShops from "../../scripts/types/GoodsShops";
-import Item from "../../scripts/types/Item";
+import Database from "../../Database"
+import Shop from "../../types/Shop";
+import GoodsShops from "../../types/GoodsShops";
+import Item from "../../types/Item";
 import goodsShopAssignementPartials from "./goodsShopAssignementPartials";
 
 export default class GoodsShopAssignement extends Component {

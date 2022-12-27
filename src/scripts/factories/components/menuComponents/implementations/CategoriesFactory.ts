@@ -1,4 +1,4 @@
-import Categories from "../../../../../components/categories/Categories";
+import Categories from "../../../../components/categories/Categories";
 import ObserverableMenuComponentFactory from "../interfaces/ObserverableMenuComponentFactory";
 
 export default class CategoriesFactory implements ObserverableMenuComponentFactory {

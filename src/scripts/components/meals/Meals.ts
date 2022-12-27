@@ -1,12 +1,12 @@
-import constants from "../../scripts/constants";
-import Database from "../../scripts/Database";
-import { EditableListParams, PossibleInputTypes } from "../../scripts/types/components/editableList";
-import Meal from "../../scripts/types/Meal";
+import constants from "../../constants";
+import Database from "../../Database";
+import { EditableListParams, PossibleInputTypes } from "../../types/components/editableList";
+import Meal from "../../types/Meal";
 import Component from "../Component";
-import DialogUtilities from '../../scripts/utilities/DialogUtilities';
+import DialogUtilities from '../../utilities/DialogUtilities';
 import mealsPartials from "./MealsPartials";
 import EditableList from "../editableList/EditableList";
-import MealIngredientsAdditionalActionFactory from "../../scripts/factories/components/editableList/additionalAction/implementations/MealIngredientsAdditionalActionFactory";
+import MealIngredientsAdditionalActionFactory from "../../factories/components/editableList/additionalAction/implementations/MealIngredientsAdditionalActionFactory";
 
 export default class Meals extends Component {
 

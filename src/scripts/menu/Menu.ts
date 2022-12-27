@@ -1,5 +1,5 @@
-import Component from '../../components/Component';
-import ObserverableComponent from '../../components/ObserverableComponent';
+import Component from '../components/Component';
+import ObserverableComponent from '../components/ObserverableComponent';
 import constants from '../constants';
 import MenuComponentFactories from '../factories/components/menuComponents/interfaces/MenuComponentFactories';
 import Observer from '../types/observer/Observer';

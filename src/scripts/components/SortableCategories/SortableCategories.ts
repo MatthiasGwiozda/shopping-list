@@ -1,6 +1,6 @@
 import Component from "../Component";
-import Database from "../../scripts/Database"
-import Shop from "../../scripts/types/Shop";
+import Database from "../../Database"
+import Shop from "../../types/Shop";
 import sortableCategoriesPartials from "./sortableCategoriesPartials";
 
 export default class SortableCategories extends Component {

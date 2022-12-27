@@ -1,9 +1,9 @@
-import constants from "../../scripts/constants";
-import DialogUtilities from "../../scripts/utilities/DialogUtilities";
-import HtmlUtilities from "../../scripts/utilities/htmlUtilities";
-import InputUtilities from "../../scripts/utilities/InputUtilities";
-import UniqueUtilities from "../../scripts/utilities/UniqueUtilities";
-import { ActionResult, ColumnMeta, EditableListParams, PossibleInputTypes } from "../../scripts/types/components/editableList";
+import constants from "../../constants";
+import DialogUtilities from "../../utilities/DialogUtilities";
+import HtmlUtilities from "../../utilities/htmlUtilities";
+import InputUtilities from "../../utilities/InputUtilities";
+import UniqueUtilities from "../../utilities/UniqueUtilities";
+import { ActionResult, ColumnMeta, EditableListParams, PossibleInputTypes } from "../../types/components/editableList";
 import Component from "../Component";
 import editableListPartials from "./EditableListPartials";
 

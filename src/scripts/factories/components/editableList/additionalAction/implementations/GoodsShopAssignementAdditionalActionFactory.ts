@@ -1,4 +1,4 @@
-import GoodsShopAssignement from "../../../../../../components/goodsShopAssignement/GoodsShopAssignement";
+import GoodsShopAssignement from "../../../../../components/goodsShopAssignement/GoodsShopAssignement";
 import Item from "../../../../../types/Item";
 import AdditionalActionFactory from "../AdditionalActionFactory";
 

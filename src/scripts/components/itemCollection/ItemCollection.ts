@@ -1,12 +1,12 @@
-import Database from "../../scripts/Database";
-import DialogUtilities from "../../scripts/utilities/DialogUtilities";
-import InputUtilities from "../../scripts/utilities/InputUtilities";
-import UniqueUtilities from "../../scripts/utilities/UniqueUtilities";
-import Item from "../../scripts/types/Item";
+import Database from "../../Database";
+import DialogUtilities from "../../utilities/DialogUtilities";
+import InputUtilities from "../../utilities/InputUtilities";
+import UniqueUtilities from "../../utilities/UniqueUtilities";
+import Item from "../../types/Item";
 import Component from "../Component";
-import HtmlUtilities from "../../scripts/utilities/HtmlUtilities";
+import HtmlUtilities from "../../utilities/HtmlUtilities";
 import itemCollectionPartials from "./itemCollectionPartials";
-import ItemCollectionParams from "../../scripts/types/components/itemCollection";
+import ItemCollectionParams from "../../types/components/itemCollection";
 
 export default class ItemCollection extends Component {
     private readonly optgroupTagName = 'optgroup';

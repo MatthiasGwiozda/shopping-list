@@ -1,10 +1,10 @@
-import Database from "../../scripts/Database";
-import DialogUtilities from "../../scripts/utilities/DialogUtilities";
-import InputUtilities from "../../scripts/utilities/InputUtilities";
-import Meal from "../../scripts/types/Meal";
-import MealInformation from "../../scripts/types/MealInformation";
+import Database from "../../Database";
+import DialogUtilities from "../../utilities/DialogUtilities";
+import InputUtilities from "../../utilities/InputUtilities";
+import Meal from "../../types/Meal";
+import MealInformation from "../../types/MealInformation";
 import Component from "../Component";
-import HtmlUtilities from "../../scripts/utilities/HtmlUtilities";
+import HtmlUtilities from "../../utilities/HtmlUtilities";
 import mealCollectionPartials from "./mealCollectionPartials";
 
 export default class MealCollection extends Component {

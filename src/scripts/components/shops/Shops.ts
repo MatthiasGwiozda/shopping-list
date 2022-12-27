@@ -1,9 +1,9 @@
-import constants from "../../scripts/constants";
-import Database from "../../scripts/Database";
-import SortableCategoriesAdditionalActionFactory from "../../scripts/factories/components/editableList/additionalAction/implementations/SortableCategoriesAdditionalActionFactory";
+import constants from "../../constants";
+import Database from "../../Database";
+import SortableCategoriesAdditionalActionFactory from "../../factories/components/editableList/additionalAction/implementations/SortableCategoriesAdditionalActionFactory";
 import ObserverableComponent from "../ObserverableComponent";
-import { EditableListParams, PossibleInputTypes } from "../../scripts/types/components/editableList";
-import Shop from "../../scripts/types/Shop";
+import { EditableListParams, PossibleInputTypes } from "../../types/components/editableList";
+import Shop from "../../types/Shop";
 import EditableList from "../editableList/EditableList";
 import shopsPartials from "./shopsPartials";
 

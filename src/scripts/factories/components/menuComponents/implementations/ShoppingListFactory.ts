@@ -1,4 +1,4 @@
-import ShoppingList from "../../../../../components/shoppingList/ShoppingList";
+import ShoppingList from "../../../../components/shoppingList/ShoppingList";
 import MenuComponentFactory from "../interfaces/MenuComponentFactory";
 
 export default class ShoppingListFactory implements MenuComponentFactory {

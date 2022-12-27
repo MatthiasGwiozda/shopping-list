@@ -1,9 +1,9 @@
-import constants from "../../scripts/constants";
-import Database from "../../scripts/Database";
-import GoodsShopAssignementAdditionalActionFactory from "../../scripts/factories/components/editableList/additionalAction/implementations/GoodsShopAssignementAdditionalActionFactory";
+import constants from "../../constants";
+import Database from "../../Database";
+import GoodsShopAssignementAdditionalActionFactory from "../../factories/components/editableList/additionalAction/implementations/GoodsShopAssignementAdditionalActionFactory";
 import ObserverableComponent from "../ObserverableComponent";
-import { EditableListParams, PossibleInputTypes } from "../../scripts/types/components/editableList";
-import Item from "../../scripts/types/Item";
+import { EditableListParams, PossibleInputTypes } from "../../types/components/editableList";
+import Item from "../../types/Item";
 import EditableList from "../editableList/EditableList";
 import itemsPartials from "./itemsPartials";
 
