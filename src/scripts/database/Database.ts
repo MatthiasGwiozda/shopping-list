@@ -1,4 +1,5 @@
 import * as sqlite3 from 'sqlite3';
+import DatabaseCreatorFactorySqlite from '../factories/database/DatabaseCreatorFactorySqlite';
 import CategoriesShopOrder from '../types/CategoriesShopOrder';
 import Category from '../types/Category';
 import { CurrentItems } from '../types/components/itemCollection';
@@ -10,30 +11,15 @@ import Shop from '../types/Shop';
 import ShoppingListItem from '../types/ShoppingListItem';
 import ShoppingListMeal from '../types/ShoppingListMeal';
 import FileUtilities, { Files } from '../utilities/FileUtilities';
+import QueryExecutorSqlite from './queryExecutor/QueryExecutorSqlite';
 
 export default class Database {
 
     private static db: sqlite3.Database;
 
-    private static getDatabaseStructure(): string[] {
-        const allQueries = FileUtilities.getFileContent(Files.structureSql);
-        return allQueries
-            .split(';')
-            .filter(query => query != '' && query != '\r\n' && query != '\n');
-    }
-
     private static runQuery<T>(query, params: any[] = []): Promise<T[]> {
-        return new Promise(function (resolve, reject) {
-            Database.db.serialize(function () {
-                Database.db.all(query, params, (err, rows) => {
-                    if (err != null) {
-                        reject(err)
-                    } else {
-                        resolve(rows);
-                    }
-                });
-            });
-        });
+        return new QueryExecutorSqlite(Database.db)
+            .runQuery(query, params);
     }
 
     /**
@@ -42,21 +28,21 @@ export default class Database {
      * Additionally instanciates the sqlite3 Database - instance.
      */
     static async initializeDatabase() {
-        const databaseMissing = FileUtilities.getFileContent(Files.database) == null;
         const databasePath = FileUtilities.getFilePath(Files.database)
         Database.db = new sqlite3.Database(databasePath);
         /**
          * for some insane reason foreign key checks are not enabled by default in the
          * sqlite3 - package.
          * @see https://github.com/mapbox/node-sqlite3/issues/896#issuecomment-337873296
-         */
+        */
         await this.runQuery("PRAGMA foreign_keys = ON");
-        if (databaseMissing) {
-            const structureSql = Database.getDatabaseStructure();
-            for (let singleQuery of structureSql) {
-                await Database.runQuery(singleQuery);
-            }
-        }
+        Database.createDatabaseIfNotExistent();
+    }
+
+    private static createDatabaseIfNotExistent() {
+        new DatabaseCreatorFactorySqlite(Database.db)
+            .getDatabaseCreator()
+            .createDatabaseIfNotExistent();
     }
 
     static async selectAllCategories(): Promise<Category[]> {
