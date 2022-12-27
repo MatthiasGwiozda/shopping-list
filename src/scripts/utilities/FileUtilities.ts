@@ -8,7 +8,7 @@ import PathUtilities from './PathUtilities';
  * In this case you don't need this enum.
  */
 export enum Files {
-    structureSql = 'src/sql/structure.sql',
+    structureSql = 'src/assets/structure.sql',
     database = 'groceryList.db'
 }
 
