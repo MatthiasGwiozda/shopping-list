@@ -3,7 +3,7 @@ import Observer from "../types/observer/Observer";
 import ObserverSubject from "../types/observer/ObserverSubject";
 
 export default abstract class ObserverableComponent extends Component implements ObserverSubject {
-    private observers: Observer[];
+    private observers: Observer[] = [];
 
     public notifyObservers() {
         this.observers.forEach(
