@@ -1,4 +1,4 @@
-import Database from "../../Database";
+import Database from "../../database/Database";
 import Component from "../Component";
 import MealCollection from "../mealCollection/MealCollection";
 import ShoppingListCollection from "../shoppingListCollection/ShoppingListCollection";

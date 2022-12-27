@@ -1,4 +1,4 @@
-import Database from "../../Database";
+import Database from "../../database/Database";
 import DialogUtilities from "../../utilities/DialogUtilities";
 import InputUtilities from "../../utilities/InputUtilities";
 import Meal from "../../types/Meal";

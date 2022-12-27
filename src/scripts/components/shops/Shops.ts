@@ -1,5 +1,5 @@
 import constants from "../../constants";
-import Database from "../../Database";
+import Database from "../../database/Database";
 import SortableCategoriesAdditionalActionFactory from "../../factories/components/editableList/additionalAction/implementations/SortableCategoriesAdditionalActionFactory";
 import ObserverableComponent from "../ObserverableComponent";
 import { EditableListParams, PossibleInputTypes } from "../../types/components/editableList";

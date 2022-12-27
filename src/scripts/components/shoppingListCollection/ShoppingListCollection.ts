@@ -1,5 +1,5 @@
 import constants from "../../constants";
-import Database from "../../Database";
+import Database from "../../database/Database";
 import DialogUtilities from "../../utilities/DialogUtilities";
 import InputUtilities from "../../utilities/InputUtilities";
 import Component from "../Component";

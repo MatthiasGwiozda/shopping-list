@@ -1,5 +1,5 @@
 import constants from '../constants';
-import Database from '../Database';
+import Database from '../database/Database';
 import ComponentReadyChecks from './types/readyCheck/ComponentReadyChecks';
 import MenuRoute from './types/menuRoute/MenuRoute';
 import ShoppingListFactory from '../factories/components/menuComponents/implementations/ShoppingListFactory';

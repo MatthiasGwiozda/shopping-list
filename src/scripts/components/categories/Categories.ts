@@ -1,4 +1,4 @@
-import Database from "../../Database";
+import Database from "../../database/Database";
 import ObserverableComponent from "../ObserverableComponent";
 import Category from "../../types/Category";
 import { EditableListParams, PossibleInputTypes } from "../../types/components/editableList";

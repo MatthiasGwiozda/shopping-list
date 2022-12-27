@@ -1,5 +1,5 @@
 import Component from "../Component";
-import Database from "../../Database"
+import Database from "../../database/Database"
 import Shop from "../../types/Shop";
 import sortableCategoriesPartials from "./sortableCategoriesPartials";
 

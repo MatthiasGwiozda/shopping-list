@@ -1,5 +1,5 @@
 // All of the Node.js APIs are available in the preload process.
-import Database from "./Database";
+import Database from "./database/Database";
 import { ipcRenderer } from 'electron';
 import constants from "./constants";
 import MenuFactory from "./factories/menu/MenuFactory";

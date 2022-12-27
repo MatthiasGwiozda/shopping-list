@@ -1,5 +1,5 @@
 import constants from "../../constants";
-import Database from "../../Database";
+import Database from "../../database/Database";
 import { EditableListParams, PossibleInputTypes } from "../../types/components/editableList";
 import Meal from "../../types/Meal";
 import Component from "../Component";

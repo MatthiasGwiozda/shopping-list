@@ -1,15 +1,15 @@
 import * as sqlite3 from 'sqlite3';
-import CategoriesShopOrder from './types/CategoriesShopOrder';
-import Category from './types/Category';
-import { CurrentItems } from './types/components/itemCollection';
-import GoodsShops from './types/GoodsShops';
-import Item from './types/Item';
-import Meal, { MealWithoutComponent } from './types/Meal';
-import MealInformation from './types/MealInformation';
-import Shop from './types/Shop';
-import ShoppingListItem from './types/ShoppingListItem';
-import ShoppingListMeal from './types/ShoppingListMeal';
-import FileUtilities, { Files } from './utilities/FileUtilities';
+import CategoriesShopOrder from '../types/CategoriesShopOrder';
+import Category from '../types/Category';
+import { CurrentItems } from '../types/components/itemCollection';
+import GoodsShops from '../types/GoodsShops';
+import Item from '../types/Item';
+import Meal, { MealWithoutComponent } from '../types/Meal';
+import MealInformation from '../types/MealInformation';
+import Shop from '../types/Shop';
+import ShoppingListItem from '../types/ShoppingListItem';
+import ShoppingListMeal from '../types/ShoppingListMeal';
+import FileUtilities, { Files } from '../utilities/FileUtilities';
 
 export default class Database {
 

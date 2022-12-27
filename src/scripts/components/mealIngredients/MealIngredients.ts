@@ -1,4 +1,4 @@
-import Database from "../../Database";
+import Database from "../../database/Database";
 import ItemCollectionParams, { CurrentItems } from "../../types/components/itemCollection";
 import Meal from "../../types/Meal";
 import Component from "../Component";
