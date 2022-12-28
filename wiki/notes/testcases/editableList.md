@@ -28,3 +28,6 @@
 
 - Edit an element. Click on "Esc" while the input - field is focused.
     - The original unedited element should be shown.
+
+- click on the delete button. Klick "OK"
+    - The item is deleted
