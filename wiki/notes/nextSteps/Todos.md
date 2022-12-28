@@ -148,6 +148,12 @@
 --- Test
 - [x] does the application run? --> yes, but i forgot some null - checks😖
 
+
+--- bugfix (DatabaseInstanciator)
+- [x] create DatabaseInstanciator
+- [x] let the DatabaseCreator just create the sqlite database
+- [x] use DatabaseInstanciator in Database.ts
+
 --- Deployment - Script
 - Dont copy html - files manually in deployment 
   - [] remove './src/components' in $folders
