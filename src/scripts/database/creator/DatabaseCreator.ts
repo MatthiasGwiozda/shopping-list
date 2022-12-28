@@ -7,17 +7,7 @@ export default class DatabaseCreator {
         private queryExecutor: QueryExecutor
     ) { }
 
-    public async createDatabaseIfNotExistent(): Promise<void> {
-        if (this.isDatabaseMissing()) {
-            await this.createDatabase();
-        }
-    }
-
-    private isDatabaseMissing() {
-        return FileUtilities.getFileContent(Files.database) == null;
-    }
-
-    private async createDatabase() {
+    public async createDatabase() {
         for (let structureStatement of this.getStructureStatements()) {
             await this.queryExecutor.runQuery(structureStatement);
         }
