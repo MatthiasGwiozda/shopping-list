@@ -163,15 +163,17 @@
 
 
 
+- [x] Test
+  - [x] all editableList tests
+  - [x] getRootNode - references with partials
+  - [x] AdditionalActionFactory
+  - [x] componentReadyChecks in Menu (menu.md - tests)
+  - [x] creation of shopping lists
+  - [x] structure.sql - file (creation of new Database if not existent)
+  - [x] deployment
 
-- Test
-  - getRootNode - references with partials
-  - AdditionalActionFactory
-  - deployment
-  - componentReadyChecks in Menu
-  - structure.sql - file (creation of new Database if not existent)
+- [] Docs
+  - [] change injectComponent - docs
 
-- Docs
-  - change injectComponent - docs
-
-- merge branch to main
+- [] merge branch to main
+- [] make a new release
