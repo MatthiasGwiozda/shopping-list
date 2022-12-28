@@ -10,7 +10,7 @@ import MealInformation from '../types/MealInformation';
 import Shop from '../types/Shop';
 import ShoppingListItem from '../types/ShoppingListItem';
 import ShoppingListMeal from '../types/ShoppingListMeal';
-import FileUtilities, { Files } from '../utilities/FileUtilities';
+import DatabaseInstanciator from './creator/DatabaseInstanciator';
 import QueryExecutorSqlite from './queryExecutor/QueryExecutorSqlite';
 
 export default class Database {
@@ -28,21 +28,18 @@ export default class Database {
      * Additionally instanciates the sqlite3 Database - instance.
      */
     static async initializeDatabase() {
-        const databasePath = FileUtilities.getFilePath(Files.database)
-        Database.db = new sqlite3.Database(databasePath);
+        await Database.setDb();
         /**
          * for some insane reason foreign key checks are not enabled by default in the
          * sqlite3 - package.
          * @see https://github.com/mapbox/node-sqlite3/issues/896#issuecomment-337873296
         */
         await this.runQuery("PRAGMA foreign_keys = ON");
-        await Database.createDatabaseIfNotExistent();
     }
 
-    private static createDatabaseIfNotExistent(): Promise<void> {
-        return new DatabaseCreatorFactorySqlite(Database.db)
-            .getDatabaseCreator()
-            .createDatabaseIfNotExistent();
+    private static async setDb() {
+        Database.db = await new DatabaseInstanciator()
+            .getInstance();
     }
 
     static async selectAllCategories(): Promise<Category[]> {
