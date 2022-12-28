@@ -172,8 +172,8 @@
   - [x] structure.sql - file (creation of new Database if not existent)
   - [x] deployment
 
-- [] Docs
-  - [] change injectComponent - docs
+- [x] Docs
+  - [x] change injectComponent - docs
 
 - [] merge branch to main
 - [] make a new release
