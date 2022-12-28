@@ -7,3 +7,4 @@ To update to a newer version Version use this checklist:
 - [] open the folder `recources/app`
 - [] copy the file `groceryList.db`
 - [] paste `groceryList.db` into the **new installation** directory in `resources/app`
+- [] delete the old installation directory
