@@ -8,8 +8,8 @@
     - Example: v1.0.0
 1. [] change the version in the package.json to the next version
 1. [] create a release in github.
-    - [] add the generated zip - file in the release.
     - [] Link the release with the previously created tag
     - [] add the title. Example: v1.0.0 - First useable version
     - [] describe the changes
+    - [] add the generated zip - file in the release.
 1. [] delete the local zip - file
