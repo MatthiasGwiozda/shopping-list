@@ -14,7 +14,6 @@ $folders = @(
     './src/assets',
     'lib',
     'node_modules',
-    './src/sql',
     './src/styles'
 )
 
