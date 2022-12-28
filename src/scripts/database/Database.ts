@@ -36,11 +36,11 @@ export default class Database {
          * @see https://github.com/mapbox/node-sqlite3/issues/896#issuecomment-337873296
         */
         await this.runQuery("PRAGMA foreign_keys = ON");
-        Database.createDatabaseIfNotExistent();
+        await Database.createDatabaseIfNotExistent();
     }
 
-    private static createDatabaseIfNotExistent() {
-        new DatabaseCreatorFactorySqlite(Database.db)
+    private static createDatabaseIfNotExistent(): Promise<void> {
+        return new DatabaseCreatorFactorySqlite(Database.db)
             .getDatabaseCreator()
             .createDatabaseIfNotExistent();
     }
