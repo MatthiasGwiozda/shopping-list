@@ -12,10 +12,8 @@ $shoppingListExeFilename = 'shopping-list.exe'
 
 $folders = @(
     './src/assets',
-    './src/components',
     'lib',
     'node_modules',
-    './src/sql',
     './src/styles'
 )
 

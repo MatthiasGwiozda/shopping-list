@@ -8,13 +8,13 @@ import PathUtilities from './PathUtilities';
  * In this case you don't need this enum.
  */
 export enum Files {
-    structureSql = 'src/sql/structure.sql',
+    structureSql = 'src/assets/structure.sql',
     database = 'groceryList.db'
 }
 
 export default class FileUtilities {
 
-    public static getFilePath(file: string): string {
+    public static getFilePath(file: Files): string {
         return PathUtilities.getPath(file);
     }
 
@@ -22,7 +22,7 @@ export default class FileUtilities {
      * @param file the path of the file relative from the project root - directory.
      * @returns the content of the file.
      */
-    static getFileContent(file: string): string {
+    static getFileContent(file: Files): string {
         const filePath = FileUtilities.getFilePath(file);
         if (existsSync(filePath)) {
             const data = readFileSync(filePath);

@@ -1,4 +1,4 @@
-import { Components } from "./Components";
+import AdditionalActionFactory from "../../factories/components/editableList/additionalAction/AdditionalActionFactory";
 
 export interface ActionResult {
     /**
@@ -21,6 +21,37 @@ export enum PossibleInputTypes {
 }
 
 type ManipulationFunction<ElementType> = (element: ElementType) => Promise<ActionResult>;
+
+export interface ColumnMeta {
+    /**
+     * the name of the column in the editable list.
+     */
+    columnName: string;
+    inputType: PossibleInputTypes;
+    /**
+     * When using PossibleInputTypes.select, you must provide this property
+     * to define the values, which can be selected in the input - field.
+     */
+    selectInputValues?: string[];
+    /**
+     * When using PossibleInputTypes.checkbox, you can control
+     * if the checkbox should be checked when creating a new
+     * element through this property.
+     * The default-value is "false".
+     */
+    checkboxCheckedInitialy?: boolean;
+    /**
+     * When using PossibleInputTypes.text, you can define a placeholder
+     * as an example input for the user.
+     */
+    placeholder?: string;
+    /**
+     * You can describe the column throught this property.
+     * The description will be shown in the column as a title
+     * when hovering on the columnname with the mouse.
+     */
+    description?: string;
+};
 
 export interface EditableListParams<ElementType> {
     /**
@@ -51,49 +82,10 @@ export interface EditableListParams<ElementType> {
      * editableList.
      */
     elementKeys: {
-        [key in keyof ElementType]?: {
-            /**
-             * the name of the column in the editable list.
-             */
-            columnName: string;
-            inputType: PossibleInputTypes,
-            /**
-             * When using PossibleInputTypes.select, you must provide this property
-             * to define the values, which can be selected in the input - field.
-             */
-            selectInputValues?: string[],
-            /**
-             * When using PossibleInputTypes.checkbox, you can control
-             * if the checkbox should be checked when creating a new
-             * element through this property.
-             * The default-value is "false".
-             */
-            checkboxCheckedInitialy?: boolean
-            /**
-             * When using PossibleInputTypes.text, you can define a placeholder
-             * as an example input for the user.
-             */
-            placeholder?: string,
-            /**
-             * You can describe the column throught this property.
-             * The description will be shown in the column as a title
-             * when hovering on the columnname with the mouse.
-             */
-            description?: string
-        }
+        [key in keyof ElementType]?: ColumnMeta
     };
     additionalEditableListActions?: {
-        /**
-         * The component, which will get the
-         * element (ElementType) as componentParameter.
-         * 
-         * Please take care of the fact, that the component used here
-         * may only get the element to be edited as parameter.
-         * 
-         * This component will be rendered right under the element for
-         * which the action - button was clicked.
-         */
-        component: Components,
+        factory: AdditionalActionFactory<ElementType>,
         buttonIcon: string,
         buttonTitle: string
     }[];
