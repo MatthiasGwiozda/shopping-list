@@ -14,8 +14,7 @@ function copyFolders() {
     foreach ($folder in $folders) {
         $source = Join-Path -Path $sourcePath -ChildPath $folder
         $destination = Join-Path -Path $destinationPath -ChildPath $folder
-        # ts files should not be copied as they are not relevant for production usage:
-        Copy-Item -Path $source -Destination $destination -Recurse -Exclude '*.ts'
+        Copy-Item -Path $source -Destination $destination -Recurse
     }
 }
 
