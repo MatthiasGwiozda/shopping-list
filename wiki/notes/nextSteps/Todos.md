@@ -155,11 +155,11 @@
 - [x] use DatabaseInstanciator in Database.ts
 
 --- Deployment - Script
-- Dont copy html - files manually in deployment 
-  - [] remove './src/components' in $folders
-- Dont copy sql - folder manually in deployment 
-  - [] remove './src/sql', in $folders
-- Dont ignore ts - files anymore when copying folders
+- [x] Dont copy html - files manually in deployment 
+  - [x] remove './src/components' in $folders
+- [x] Dont copy sql - folder manually in deployment 
+  - [x] remove './src/sql', in $folders
+- [x] Dont ignore ts - files anymore when copying folders
 
 
 
