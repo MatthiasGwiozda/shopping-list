@@ -32,7 +32,7 @@ export default class DatabaseInstanciator {
         this.setSqliteInstance();
         return new DatabaseCreatorFactorySqlite(this.sqliteInstance)
             .getDatabaseCreator()
-            .createDatabaseIfNotExistent();
+            .createDatabase();
     }
 
     private setSqliteInstance() {
