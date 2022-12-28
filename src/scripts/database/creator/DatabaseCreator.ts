@@ -1,5 +1,5 @@
-import FileUtilities, { Files } from "../utilities/FileUtilities";
-import QueryExecutor from "./queryExecutor/QueryExecutor";
+import FileUtilities, { Files } from "../../utilities/FileUtilities";
+import QueryExecutor from "../queryExecutor/QueryExecutor";
 
 export default class DatabaseCreator {
 

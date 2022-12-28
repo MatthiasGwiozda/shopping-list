@@ -1,4 +1,4 @@
-import DatabaseCreator from "../../database/DatabaseCreator";
+import DatabaseCreator from "../../database/creator/DatabaseCreator";
 import QueryExecutorSqlite from "../../database/queryExecutor/QueryExecutorSqlite";
 import * as sqlite3 from 'sqlite3';
 
