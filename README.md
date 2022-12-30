@@ -11,4 +11,4 @@ Here are some features of the shopping-list:
 - Creation of the shopping list in the order of the shop, in which the items will be bought in
 
 # Documentation
-The installation and users manual can be found [here](https://github.com/MatthiasGwiozda/shopping-list-wiki/tree/main/documentation).
+The installation and users manual can be found [here](https://github.com/MatthiasGwiozda/shopping-list-wiki/).
