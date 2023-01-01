@@ -1,10 +1,12 @@
 import ComponentReadyCheck from "./ComponentReadyCheck";
 
+type ReadyCheckReturnType = ReturnType<ComponentReadyCheck>;
+
 interface ComponentReadyChecks {
-    categories: ComponentReadyCheck;
-    shops: ComponentReadyCheck;
-    items: ComponentReadyCheck;
-    itemsWithFood: ComponentReadyCheck;
+    categories(): ReadyCheckReturnType;
+    shops(): ReadyCheckReturnType;
+    items(): ReadyCheckReturnType;
+    itemsWithFood(): ReadyCheckReturnType;
 };
 
 export default ComponentReadyChecks;
