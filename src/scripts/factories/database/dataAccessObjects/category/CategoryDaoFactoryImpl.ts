@@ -5,7 +5,7 @@ import CategoryDaoFactory from "./CategoryDaoFactory";
 
 export default class CategoryDaoFactoryImpl extends QueryExecutorUser implements CategoryDaoFactory {
 
-    async getCategoryDao(): Promise<CategoryDao> {
+    getCategoryDao(): CategoryDao {
         return new CategoryDaoImpl(this.queryExecutor);
     }
 }
