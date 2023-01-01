@@ -1,6 +1,6 @@
 import ComponentReadyCheck from "./ComponentReadyCheck";
 
-type ComponentReadyChecks = {
+interface ComponentReadyChecks {
     categories: ComponentReadyCheck;
     shops: ComponentReadyCheck;
     items: ComponentReadyCheck;
