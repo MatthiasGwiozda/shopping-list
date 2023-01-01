@@ -11,6 +11,7 @@ import Shop from '../types/Shop';
 import ShoppingListItem from '../types/ShoppingListItem';
 import ShoppingListMeal from '../types/ShoppingListMeal';
 import DatabaseInstanciator from './creator/DatabaseInstanciator';
+import CategoryDaoImpl from './dataAccessObjects/category/CategoryDaoImpl';
 import ItemDaoImpl from './dataAccessObjects/item/ItemDaoImpl';
 import ShopDaoImpl from './dataAccessObjects/shop/ShopDaoImpl';
 import QueryExecutorSqlite from './queryExecutor/QueryExecutorSqlite';
@@ -50,10 +51,8 @@ export default class Database {
     }
 
     static async selectAllCategories(): Promise<Category[]> {
-        return await Database.runQuery(`
-        SELECT *
-            FROM goods_categories;
-        `);
+        return new CategoryDaoImpl(this.queryExecutor)
+            .selectAllCategories();
     }
 
     static async deleteCategory(categoryObject: Category): Promise<boolean> {
