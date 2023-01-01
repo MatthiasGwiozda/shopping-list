@@ -13,6 +13,9 @@ import ShoppingListMeal from '../types/ShoppingListMeal';
 import DatabaseInstanciator from './creator/DatabaseInstanciator';
 import QueryExecutorSqlite from './queryExecutor/QueryExecutorSqlite';
 
+/**
+ * @deprecated use DataAccessObjects instead
+ */
 export default class Database {
 
     private static db: sqlite3.Database;
