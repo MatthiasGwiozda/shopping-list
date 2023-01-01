@@ -1,5 +1,4 @@
 import * as sqlite3 from 'sqlite3';
-import DatabaseCreatorFactorySqlite from '../factories/database/DatabaseCreatorFactorySqlite';
 import CategoriesShopOrder from '../types/CategoriesShopOrder';
 import Category from '../types/Category';
 import { CurrentItems } from '../types/components/itemCollection';
