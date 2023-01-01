@@ -11,6 +11,7 @@ import Shop from '../types/Shop';
 import ShoppingListItem from '../types/ShoppingListItem';
 import ShoppingListMeal from '../types/ShoppingListMeal';
 import DatabaseInstanciator from './creator/DatabaseInstanciator';
+import ItemDaoImpl from './dataAccessObjects/item/ItemDaoImpl';
 import QueryExecutorSqlite from './queryExecutor/QueryExecutorSqlite';
 
 /**
@@ -19,9 +20,10 @@ import QueryExecutorSqlite from './queryExecutor/QueryExecutorSqlite';
 export default class Database {
 
     private static db: sqlite3.Database;
+    private static queryExecutor: QueryExecutorSqlite;
 
     private static runQuery<T>(query, params: any[] = []): Promise<T[]> {
-        return new QueryExecutorSqlite(Database.db)
+        return this.queryExecutor
             .runQuery(query, params);
     }
 
@@ -32,6 +34,7 @@ export default class Database {
      */
     static async initializeDatabase() {
         await Database.setDb();
+        this.queryExecutor = new QueryExecutorSqlite(Database.db);
         /**
          * for some insane reason foreign key checks are not enabled by default in the
          * sqlite3 - package.
@@ -344,17 +347,8 @@ export default class Database {
     }
 
     static async selectAllItems(): Promise<Item[]> {
-        const items: Item[] = await Database.runQuery(`
-        SELECT goods.name, goods.category, food.name IS NOT NULL AS food
-            FROM goods
-                LEFT JOIN food ON food.name = goods.name;
-        `);
-        return items.map(item => {
-            /**
-             * food should be a boolean in the application - context.
-             */
-            return { ...item, food: !!item.food }
-        })
+        return new ItemDaoImpl(this.queryExecutor)
+            .selectAllItems();
     }
 
     static async deleteItem(item: Item): Promise<boolean> {
