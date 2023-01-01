@@ -12,6 +12,7 @@ import ShoppingListItem from '../types/ShoppingListItem';
 import ShoppingListMeal from '../types/ShoppingListMeal';
 import DatabaseInstanciator from './creator/DatabaseInstanciator';
 import ItemDaoImpl from './dataAccessObjects/item/ItemDaoImpl';
+import ShopDaoImpl from './dataAccessObjects/shop/ShopDaoImpl';
 import QueryExecutorSqlite from './queryExecutor/QueryExecutorSqlite';
 
 /**
@@ -260,10 +261,8 @@ export default class Database {
     }
 
     static async selectAllShops(): Promise<Shop[]> {
-        return await Database.runQuery(`
-        SELECT shop_name, street, house_number, postal_code, shop_id
-            FROM shops;
-        `);
+        return new ShopDaoImpl(this.queryExecutor)
+            .selectAllShops();
     }
 
     static async deleteShop(shop: Shop): Promise<boolean> {
