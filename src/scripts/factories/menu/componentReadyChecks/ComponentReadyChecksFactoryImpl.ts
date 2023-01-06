@@ -1,22 +1,22 @@
-import CategoryDaoImpl from "../../../database/dataAccessObjects/category/CategoryDaoImpl";
-import ItemDaoImpl from "../../../database/dataAccessObjects/item/ItemDaoImpl";
-import ShopDaoImpl from "../../../database/dataAccessObjects/shop/ShopDaoImpl";
-import QueryExecutor from "../../../database/queryExecutor/QueryExecutor";
-import ComponentReadyChecks from "../../../menu/types/readyCheck/ComponentReadyChecks";
+import CategoryDao from "../../../database/dataAccessObjects/category/CategoryDao";
+import ItemDao from "../../../database/dataAccessObjects/item/ItemDao";
+import ShopDao from "../../../database/dataAccessObjects/shop/ShopDao";
 import ComponentReadyChecksImpl from "../../../menu/types/readyCheck/ComponentReadyChecksImpl";
 import ComponentReadyChecksFactory from "./ComponentReadyChecksFactory";
 
 export default class ComponentReadyChecksFactoryImpl implements ComponentReadyChecksFactory {
 
     constructor(
-        private queryExecutor: QueryExecutor
+        private categoryDao: CategoryDao,
+        private shopDao: ShopDao,
+        private itemDao: ItemDao
     ) { }
 
-    getReadyChecks(): ComponentReadyChecks {
+    getReadyChecks(): ComponentReadyChecksImpl {
         return new ComponentReadyChecksImpl(
-            new CategoryDaoImpl(this.queryExecutor),
-            new ShopDaoImpl(this.queryExecutor),
-            new ItemDaoImpl(this.queryExecutor)
+            this.categoryDao,
+            this.shopDao,
+            this.itemDao
         )
     }
 }
