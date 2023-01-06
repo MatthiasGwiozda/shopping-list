@@ -8,6 +8,7 @@ import CategoriesFactory from '../factories/components/menuComponents/implementa
 import ShopsFactory from '../factories/components/menuComponents/implementations/ShopsFactory';
 import MealsFactory from '../factories/components/menuComponents/implementations/MealsFactory';
 import MenuComponentFactories from '../factories/components/menuComponents/interfaces/MenuComponentFactories';
+import NamedIcon from './types/menuRoute/NamedIcon';
 
 function hasAtLeasOneElement(arr: any[]): boolean {
     return arr.length > 0;
@@ -35,6 +36,7 @@ const componentReadyChecks: ComponentReadyChecks = {
 
 const ApplicationMenuRoutes: MenuRoute<MenuComponentFactories>[] = [
     {
+        namedIcon: new NamedIcon('Shopping List', '📝'),
         name: 'Shopping List',
         componentFactory: new ShoppingListFactory(),
         icon: '📝',
@@ -47,6 +49,7 @@ const ApplicationMenuRoutes: MenuRoute<MenuComponentFactories>[] = [
         }
     },
     {
+        namedIcon: new NamedIcon('Items', constants.icons.item),
         name: 'Items',
         componentFactory: new ItemsFactory(),
         icon: constants.icons.item,
@@ -58,11 +61,13 @@ const ApplicationMenuRoutes: MenuRoute<MenuComponentFactories>[] = [
         }
     },
     {
+        namedIcon: new NamedIcon('Categories', constants.icons.category),
         name: 'Categories',
         componentFactory: new CategoriesFactory(),
         icon: constants.icons.category
     },
     {
+        namedIcon: new NamedIcon('Shops', constants.icons.shop),
         name: 'Shops',
         componentFactory: new ShopsFactory(),
         icon: constants.icons.shop,
@@ -74,6 +79,7 @@ const ApplicationMenuRoutes: MenuRoute<MenuComponentFactories>[] = [
         }
     },
     {
+        namedIcon: new NamedIcon('Meals', '🥗'),
         name: 'Meals',
         componentFactory: new MealsFactory(),
         icon: '🥗',

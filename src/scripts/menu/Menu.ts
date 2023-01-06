@@ -29,7 +29,7 @@ export default class Menu implements Observer {
 
     private createMenuItems(menuRoutes: MenuRoute<MenuComponentFactories>[]): MenuItem[] {
         return menuRoutes.map(menuRoute => {
-            const { icon, name } = menuRoute;
+            const { icon, name } = menuRoute.namedIcon;
             const routeEl = document.createElement('a');
             const menuItem: MenuItem = {
                 menuRoute,
