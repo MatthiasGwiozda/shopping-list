@@ -1,5 +1,5 @@
 import MenuComponentFactories from "../../../factories/components/menuComponents/interfaces/MenuComponentFactories";
-import MenuRouteReadyCheck from "./MenuRouteReadyCheck";
+import MenuRouteReadyCheck from "../readyCheck/MenuRouteReadyCheck";
 
 export default interface MenuRoute<
     FactoryType extends MenuComponentFactories
