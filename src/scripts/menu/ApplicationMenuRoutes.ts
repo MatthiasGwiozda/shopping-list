@@ -35,9 +35,9 @@ const componentReadyChecks: ComponentReadyChecks = {
 };
 
 const ApplicationMenuRoutes: MenuRoute[] = [
-    {
-        namedIcon: new NamedIcon('Shopping List', '📝'),
-        behavior: new MenuRouteBehavior(
+    new MenuRoute(
+        new NamedIcon('Shopping List', '📝'),
+        new MenuRouteBehavior(
             new ShoppingListFactory(),
             {
                 checks: [
@@ -47,10 +47,10 @@ const ApplicationMenuRoutes: MenuRoute[] = [
                 message: 'Please add items and at least one shop to generate shopping lists'
             }
         )
-    },
-    {
-        namedIcon: new NamedIcon('Items', constants.icons.item),
-        behavior: new MenuRouteBehavior(
+    ),
+    new MenuRoute(
+        new NamedIcon('Items', constants.icons.item),
+        new MenuRouteBehavior(
             new ItemsFactory(),
             {
                 checks: [
@@ -59,16 +59,16 @@ const ApplicationMenuRoutes: MenuRoute[] = [
                 message: 'Please add categories before you add items'
             }
         )
-    },
-    {
-        namedIcon: new NamedIcon('Categories', constants.icons.category),
-        behavior: new MenuRouteBehavior(
+    ),
+    new MenuRoute(
+        new NamedIcon('Categories', constants.icons.category),
+        new MenuRouteBehavior(
             new CategoriesFactory(),
         )
-    },
-    {
-        namedIcon: new NamedIcon('Shops', constants.icons.shop),
-        behavior: new MenuRouteBehavior(
+    ),
+    new MenuRoute(
+        new NamedIcon('Shops', constants.icons.shop),
+        new MenuRouteBehavior(
             new ShopsFactory(),
             {
                 checks: [
@@ -77,10 +77,10 @@ const ApplicationMenuRoutes: MenuRoute[] = [
                 message: 'Please add categories before you define shops. Every shop may have it\'s own order for categories'
             }
         )
-    },
-    {
-        namedIcon: new NamedIcon('Meals', '🥗'),
-        behavior: new MenuRouteBehavior(
+    ),
+    new MenuRoute(
+        new NamedIcon('Meals', '🥗'),
+        new MenuRouteBehavior(
             new MealsFactory(),
             {
                 checks: [
@@ -89,7 +89,7 @@ const ApplicationMenuRoutes: MenuRoute[] = [
                 message: 'Please add at least one "food - item" to create meals'
             }
         )
-    }
+    )
 ];
 
 export default ApplicationMenuRoutes;
