@@ -5,10 +5,10 @@ import NamedIcon from "../types/menuRoute/NamedIcon";
 
 export default abstract class MenuRouteCreator {
 
-    abstract getNamedIcon(): NamedIcon;
-    abstract getRouteBehavior(): MenuRouteBehavior<MenuComponentFactories>
+    protected abstract getNamedIcon(): NamedIcon;
+    protected abstract getRouteBehavior(): MenuRouteBehavior<MenuComponentFactories>
 
-    getMenuRoute(): MenuRoute {
+    public getMenuRoute(): MenuRoute {
         return new MenuRoute(
             this.getNamedIcon(),
             this.getRouteBehavior()
