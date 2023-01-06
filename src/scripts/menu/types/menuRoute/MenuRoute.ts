@@ -6,8 +6,6 @@ export default interface MenuRoute<
     FactoryType extends MenuComponentFactories
 > {
     namedIcon: NamedIcon;
-    name: string;
     componentFactory: FactoryType;
-    icon: string;
     readyCheck?: MenuRouteReadyCheck;
 }

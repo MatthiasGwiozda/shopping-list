@@ -37,9 +37,7 @@ const componentReadyChecks: ComponentReadyChecks = {
 const ApplicationMenuRoutes: MenuRoute<MenuComponentFactories>[] = [
     {
         namedIcon: new NamedIcon('Shopping List', '📝'),
-        name: 'Shopping List',
         componentFactory: new ShoppingListFactory(),
-        icon: '📝',
         readyCheck: {
             checks: [
                 componentReadyChecks.items,
@@ -50,9 +48,7 @@ const ApplicationMenuRoutes: MenuRoute<MenuComponentFactories>[] = [
     },
     {
         namedIcon: new NamedIcon('Items', constants.icons.item),
-        name: 'Items',
         componentFactory: new ItemsFactory(),
-        icon: constants.icons.item,
         readyCheck: {
             checks: [
                 componentReadyChecks.categories
@@ -62,15 +58,11 @@ const ApplicationMenuRoutes: MenuRoute<MenuComponentFactories>[] = [
     },
     {
         namedIcon: new NamedIcon('Categories', constants.icons.category),
-        name: 'Categories',
         componentFactory: new CategoriesFactory(),
-        icon: constants.icons.category
     },
     {
         namedIcon: new NamedIcon('Shops', constants.icons.shop),
-        name: 'Shops',
         componentFactory: new ShopsFactory(),
-        icon: constants.icons.shop,
         readyCheck: {
             checks: [
                 componentReadyChecks.categories
@@ -80,9 +72,7 @@ const ApplicationMenuRoutes: MenuRoute<MenuComponentFactories>[] = [
     },
     {
         namedIcon: new NamedIcon('Meals', '🥗'),
-        name: 'Meals',
         componentFactory: new MealsFactory(),
-        icon: '🥗',
         readyCheck: {
             checks: [
                 componentReadyChecks.itemsWithFood
