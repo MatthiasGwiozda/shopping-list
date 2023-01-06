@@ -3,7 +3,7 @@ import ObserverableComponent from '../components/ObserverableComponent';
 import constants from '../constants';
 import MenuComponentFactories from '../factories/components/menuComponents/interfaces/MenuComponentFactories';
 import Observer from '../types/observer/Observer';
-import MenuRouteReadyChecker from './MenuRouteReadyChecker';
+import MenuRouteReadyChecker from './readyCheck/MenuRouteReadyChecker';
 import MenuItem from './types/MenuItem';
 import MenuRoute from './types/menuRoute/MenuRoute';
 
