@@ -11,7 +11,7 @@ export default class Menu implements Observer {
     private menuItems: MenuItem[];
     private menuRouteReadyChecker: MenuRouteReadyChecker;
 
-    constructor(menuRoutes: MenuRoute<MenuComponentFactories>[]) {
+    constructor(menuRoutes: MenuRoute[]) {
         this.menuItems = this.createMenuItems(menuRoutes);
         this.menuRouteReadyChecker = new MenuRouteReadyChecker(this.menuItems);
     }
@@ -27,7 +27,7 @@ export default class Menu implements Observer {
         this.menuRouteReadyChecker.applyReadyChecks();
     }
 
-    private createMenuItems(menuRoutes: MenuRoute<MenuComponentFactories>[]): MenuItem[] {
+    private createMenuItems(menuRoutes: MenuRoute[]): MenuItem[] {
         return menuRoutes.map(menuRoute => {
             const { icon, name } = menuRoute.namedIcon;
             const routeEl = document.createElement('a');

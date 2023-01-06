@@ -7,7 +7,6 @@ import ItemsFactory from '../factories/components/menuComponents/implementations
 import CategoriesFactory from '../factories/components/menuComponents/implementations/CategoriesFactory';
 import ShopsFactory from '../factories/components/menuComponents/implementations/ShopsFactory';
 import MealsFactory from '../factories/components/menuComponents/implementations/MealsFactory';
-import MenuComponentFactories from '../factories/components/menuComponents/interfaces/MenuComponentFactories';
 import NamedIcon from './types/menuRoute/NamedIcon';
 import MenuRouteBehavior from './types/menuRoute/MenuRouteBehavior';
 
@@ -35,7 +34,7 @@ const componentReadyChecks: ComponentReadyChecks = {
     }
 };
 
-const ApplicationMenuRoutes: MenuRoute<MenuComponentFactories>[] = [
+const ApplicationMenuRoutes: MenuRoute[] = [
     {
         namedIcon: new NamedIcon('Shopping List', '📝'),
         behavior: new MenuRouteBehavior(
@@ -47,15 +46,7 @@ const ApplicationMenuRoutes: MenuRoute<MenuComponentFactories>[] = [
                 ],
                 message: 'Please add items and at least one shop to generate shopping lists'
             }
-        ),
-        componentFactory: new ShoppingListFactory(),
-        readyCheck: {
-            checks: [
-                componentReadyChecks.items,
-                componentReadyChecks.shops
-            ],
-            message: 'Please add items and at least one shop to generate shopping lists'
-        }
+        )
     },
     {
         namedIcon: new NamedIcon('Items', constants.icons.item),
@@ -67,21 +58,13 @@ const ApplicationMenuRoutes: MenuRoute<MenuComponentFactories>[] = [
                 ],
                 message: 'Please add categories before you add items'
             }
-        ),
-        componentFactory: new ItemsFactory(),
-        readyCheck: {
-            checks: [
-                componentReadyChecks.categories
-            ],
-            message: 'Please add categories before you add items'
-        }
+        )
     },
     {
         namedIcon: new NamedIcon('Categories', constants.icons.category),
         behavior: new MenuRouteBehavior(
             new CategoriesFactory(),
-        ),
-        componentFactory: new CategoriesFactory(),
+        )
     },
     {
         namedIcon: new NamedIcon('Shops', constants.icons.shop),
@@ -93,14 +76,7 @@ const ApplicationMenuRoutes: MenuRoute<MenuComponentFactories>[] = [
                 ],
                 message: 'Please add categories before you define shops. Every shop may have it\'s own order for categories'
             }
-        ),
-        componentFactory: new ShopsFactory(),
-        readyCheck: {
-            checks: [
-                componentReadyChecks.categories
-            ],
-            message: 'Please add categories before you define shops. Every shop may have it\'s own order for categories'
-        }
+        )
     },
     {
         namedIcon: new NamedIcon('Meals', '🥗'),
@@ -112,14 +88,7 @@ const ApplicationMenuRoutes: MenuRoute<MenuComponentFactories>[] = [
                 ],
                 message: 'Please add at least one "food - item" to create meals'
             }
-        ),
-        componentFactory: new MealsFactory(),
-        readyCheck: {
-            checks: [
-                componentReadyChecks.itemsWithFood
-            ],
-            message: 'Please add at least one "food - item" to create meals'
-        }
+        )
     }
 ];
 
