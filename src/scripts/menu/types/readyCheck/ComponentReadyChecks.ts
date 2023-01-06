@@ -23,7 +23,7 @@ interface ShopsReadyCheck {
     shops(): ReadyCheckReturnType;
 }
 
-interface ItemsWithFoodReadyCheck {
+export interface ItemsWithFoodReadyCheck {
     itemsWithFood(): ReadyCheckReturnType;
 }
 
