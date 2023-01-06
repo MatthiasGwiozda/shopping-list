@@ -15,7 +15,7 @@ interface ItemsReadyCheck {
     items(): ReadyCheckReturnType;
 }
 
-interface CategoriesReadyCheck {
+export interface CategoriesReadyCheck {
     categories(): ReadyCheckReturnType;
 }
 
