@@ -62,7 +62,7 @@ export default class Menu implements Observer {
 
     private goToRoute(menuItem: MenuItem) {
         const { menuRoute, htmlElement } = menuItem;
-        const { componentFactory } = menuRoute;
+        const { componentFactory } = menuRoute.behavior;
         const container = document.getElementById(constants.contentId);
         this.injectComponentAndRegisterObserver(componentFactory, container);
         this.setActiveMenuItem(htmlElement);
