@@ -1,7 +1,7 @@
 import CategoryDao from "../../../database/dataAccessObjects/category/CategoryDao";
 import ItemDao from "../../../database/dataAccessObjects/item/ItemDao";
 import ShopDao from "../../../database/dataAccessObjects/shop/ShopDao";
-import ComponentReadyChecksImpl from "../../../menu/types/readyCheck/ComponentReadyChecksImpl";
+import ComponentReadyChecksImpl from "../../../menu/readyCheck/ComponentReadyChecksImpl";
 import ComponentReadyChecksFactory from "./ComponentReadyChecksFactory";
 
 export default class ComponentReadyChecksFactoryImpl implements ComponentReadyChecksFactory {

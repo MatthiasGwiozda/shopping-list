@@ -1,9 +1,9 @@
 
-import CategoryDao from "../../../database/dataAccessObjects/category/CategoryDao";
-import ItemDao from "../../../database/dataAccessObjects/item/ItemDao";
-import ShopDao from "../../../database/dataAccessObjects/shop/ShopDao";
-import Item from "../../../types/Item";
-import ComponentReadyChecks from "./ComponentReadyChecks";
+import CategoryDao from "../../database/dataAccessObjects/category/CategoryDao";
+import ItemDao from "../../database/dataAccessObjects/item/ItemDao";
+import ShopDao from "../../database/dataAccessObjects/shop/ShopDao";
+import Item from "../../types/Item";
+import ComponentReadyChecks from "../types/readyCheck/ComponentReadyChecks";
 
 export default class ComponentReadyChecksImpl implements ComponentReadyChecks {
 
