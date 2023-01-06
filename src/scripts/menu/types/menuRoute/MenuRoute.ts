@@ -2,7 +2,10 @@ import MenuComponentFactories from "../../../factories/components/menuComponents
 import MenuRouteBehavior from "./MenuRouteBehavior";
 import NamedIcon from "./NamedIcon";
 
-export default interface MenuRoute {
-    namedIcon: NamedIcon;
-    behavior: MenuRouteBehavior<MenuComponentFactories>;
+export default class MenuRoute {
+
+    constructor(
+        public namedIcon: NamedIcon,
+        public behavior: MenuRouteBehavior<MenuComponentFactories>
+    ) { }
 }
