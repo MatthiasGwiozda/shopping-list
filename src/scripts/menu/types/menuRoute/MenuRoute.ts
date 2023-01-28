@@ -1,11 +1,11 @@
 import MenuComponentFactories from "../../../factories/components/menuComponents/interfaces/MenuComponentFactories";
-import MenuRouteReadyCheck from "./MenuRouteReadyCheck";
+import MenuRouteBehavior from "./MenuRouteBehavior";
+import NamedIcon from "./NamedIcon";
 
-export default interface MenuRoute<
-    FactoryType extends MenuComponentFactories
-> {
-    name: string;
-    componentFactory: FactoryType;
-    icon: string;
-    readyCheck?: MenuRouteReadyCheck;
+export default class MenuRoute {
+
+    constructor(
+        public namedIcon: NamedIcon,
+        public behavior: MenuRouteBehavior<MenuComponentFactories>
+    ) { }
 }

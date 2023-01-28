@@ -1,5 +1,5 @@
-import ComponentReadyCheck from "./types/readyCheck/ComponentReadyCheck";
-import MenuItem from "./types/MenuItem";
+import ComponentReadyCheck from "../types/readyCheck/ComponentReadyCheck";
+import MenuItem from "../types/MenuItem";
 
 export default class MenuRouteReadyChecker {
 
@@ -17,8 +17,8 @@ export default class MenuRouteReadyChecker {
 
     private async applyReadyCheckForMenuItem(menuItem: MenuItem) {
         const { menuRoute, htmlElement } = menuItem;
-        if (menuRoute.readyCheck != null) {
-            const { checks, message } = menuRoute.readyCheck;
+        if (menuRoute.behavior.readyCheck != null) {
+            const { checks, message } = menuRoute.behavior.readyCheck;
             if (await this.isComponentReady(checks)) {
                 this.removeMenuNotReadyClassAndTitle(htmlElement);
             } else {

@@ -1,4 +1,4 @@
-import ComponentReadyCheck from "../readyCheck/ComponentReadyCheck";
+import ComponentReadyCheck from "./ComponentReadyCheck";
 
 export default interface MenuRouteReadyCheck {
     checks: ComponentReadyCheck[];

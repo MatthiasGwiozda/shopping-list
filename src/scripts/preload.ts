@@ -2,8 +2,7 @@
 import Database from "./database/Database";
 import { ipcRenderer } from 'electron';
 import constants from "./constants";
-import MenuFactory from "./factories/menu/MenuFactory";
-import Menu from "./menu/Menu";
+import InstanceContainer from "./instances/InstanceContainer";
 
 // It has the same sandbox as a Chrome extension.
 window.addEventListener('DOMContentLoaded', async () => {
@@ -15,7 +14,9 @@ window.addEventListener('DOMContentLoaded', async () => {
    * when the database is initialized in the main.ts.
    */
   await Database.initializeDatabase();
-  const menu = getMenu();
+  const instanceContainer = new InstanceContainer();
+  await instanceContainer.createInstances();
+  const menu = instanceContainer.getMenu();
   menu.addMenuToDocument();
 })
 
@@ -42,8 +43,3 @@ window.addEventListener('keyup', function (e) {
     button?.click?.();
   }
 })
-
-function getMenu(): Menu {
-  const menuFactory = new MenuFactory();
-  return menuFactory.getMenu();
-}

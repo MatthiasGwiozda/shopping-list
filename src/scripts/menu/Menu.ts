@@ -3,7 +3,7 @@ import ObserverableComponent from '../components/ObserverableComponent';
 import constants from '../constants';
 import MenuComponentFactories from '../factories/components/menuComponents/interfaces/MenuComponentFactories';
 import Observer from '../types/observer/Observer';
-import MenuRouteReadyChecker from './MenuRouteReadyChecker';
+import MenuRouteReadyChecker from './readyCheck/MenuRouteReadyChecker';
 import MenuItem from './types/MenuItem';
 import MenuRoute from './types/menuRoute/MenuRoute';
 
@@ -11,7 +11,7 @@ export default class Menu implements Observer {
     private menuItems: MenuItem[];
     private menuRouteReadyChecker: MenuRouteReadyChecker;
 
-    constructor(menuRoutes: MenuRoute<MenuComponentFactories>[]) {
+    constructor(menuRoutes: MenuRoute[]) {
         this.menuItems = this.createMenuItems(menuRoutes);
         this.menuRouteReadyChecker = new MenuRouteReadyChecker(this.menuItems);
     }
@@ -27,9 +27,9 @@ export default class Menu implements Observer {
         this.menuRouteReadyChecker.applyReadyChecks();
     }
 
-    private createMenuItems(menuRoutes: MenuRoute<MenuComponentFactories>[]): MenuItem[] {
+    private createMenuItems(menuRoutes: MenuRoute[]): MenuItem[] {
         return menuRoutes.map(menuRoute => {
-            const { icon, name } = menuRoute;
+            const { icon, name } = menuRoute.namedIcon;
             const routeEl = document.createElement('a');
             const menuItem: MenuItem = {
                 menuRoute,
@@ -62,7 +62,7 @@ export default class Menu implements Observer {
 
     private goToRoute(menuItem: MenuItem) {
         const { menuRoute, htmlElement } = menuItem;
-        const { componentFactory } = menuRoute;
+        const { componentFactory } = menuRoute.behavior;
         const container = document.getElementById(constants.contentId);
         this.injectComponentAndRegisterObserver(componentFactory, container);
         this.setActiveMenuItem(htmlElement);

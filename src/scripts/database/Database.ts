@@ -1,5 +1,4 @@
 import * as sqlite3 from 'sqlite3';
-import DatabaseCreatorFactorySqlite from '../factories/database/DatabaseCreatorFactorySqlite';
 import CategoriesShopOrder from '../types/CategoriesShopOrder';
 import Category from '../types/Category';
 import { CurrentItems } from '../types/components/itemCollection';
@@ -11,14 +10,21 @@ import Shop from '../types/Shop';
 import ShoppingListItem from '../types/ShoppingListItem';
 import ShoppingListMeal from '../types/ShoppingListMeal';
 import DatabaseInstanciator from './creator/DatabaseInstanciator';
+import CategoryDaoImpl from './dataAccessObjects/category/CategoryDaoImpl';
+import ItemDaoImpl from './dataAccessObjects/item/ItemDaoImpl';
+import ShopDaoImpl from './dataAccessObjects/shop/ShopDaoImpl';
 import QueryExecutorSqlite from './queryExecutor/QueryExecutorSqlite';
 
+/**
+ * @deprecated use DataAccessObjects instead
+ */
 export default class Database {
 
     private static db: sqlite3.Database;
+    private static queryExecutor: QueryExecutorSqlite;
 
     private static runQuery<T>(query, params: any[] = []): Promise<T[]> {
-        return new QueryExecutorSqlite(Database.db)
+        return this.queryExecutor
             .runQuery(query, params);
     }
 
@@ -29,6 +35,7 @@ export default class Database {
      */
     static async initializeDatabase() {
         await Database.setDb();
+        this.queryExecutor = new QueryExecutorSqlite(Database.db);
         /**
          * for some insane reason foreign key checks are not enabled by default in the
          * sqlite3 - package.
@@ -43,10 +50,8 @@ export default class Database {
     }
 
     static async selectAllCategories(): Promise<Category[]> {
-        return await Database.runQuery(`
-        SELECT *
-            FROM goods_categories;
-        `);
+        return new CategoryDaoImpl(this.queryExecutor)
+            .selectAllCategories();
     }
 
     static async deleteCategory(categoryObject: Category): Promise<boolean> {
@@ -254,10 +259,8 @@ export default class Database {
     }
 
     static async selectAllShops(): Promise<Shop[]> {
-        return await Database.runQuery(`
-        SELECT shop_name, street, house_number, postal_code, shop_id
-            FROM shops;
-        `);
+        return new ShopDaoImpl(this.queryExecutor)
+            .selectAllShops();
     }
 
     static async deleteShop(shop: Shop): Promise<boolean> {
@@ -341,17 +344,8 @@ export default class Database {
     }
 
     static async selectAllItems(): Promise<Item[]> {
-        const items: Item[] = await Database.runQuery(`
-        SELECT goods.name, goods.category, food.name IS NOT NULL AS food
-            FROM goods
-                LEFT JOIN food ON food.name = goods.name;
-        `);
-        return items.map(item => {
-            /**
-             * food should be a boolean in the application - context.
-             */
-            return { ...item, food: !!item.food }
-        })
+        return new ItemDaoImpl(this.queryExecutor)
+            .selectAllItems();
     }
 
     static async deleteItem(item: Item): Promise<boolean> {
