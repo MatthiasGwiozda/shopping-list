@@ -1,22 +1,12 @@
-import constants from '../../constants';
-import Database from '../../database/Database';
 import ComponentReadyChecks from '../../menu/types/readyCheck/ComponentReadyChecks';
 import MenuRoute from '../../menu/types/menuRoute/MenuRoute';
-import ShoppingListFactory from '../components/menuComponents/implementations/ShoppingListFactory';
-import ItemsFactory from '../components/menuComponents/implementations/ItemsFactory';
-import CategoriesFactory from '../components/menuComponents/implementations/CategoriesFactory';
-import ShopsFactory from '../components/menuComponents/implementations/ShopsFactory';
-import MealsFactory from '../components/menuComponents/implementations/MealsFactory';
-import NamedIcon from '../../menu/types/menuRoute/NamedIcon';
-import MenuRouteBehavior from '../../menu/types/menuRoute/MenuRouteBehavior';
 import ShoppingListMenuRoute from '../../menu/menuRouteCreators/implementations/ShoppingListMenuRoute';
 import ItemsMenuRoute from '../../menu/menuRouteCreators/implementations/ItemsMenuRoute';
 import CategoriesMenuRoute from '../../menu/menuRouteCreators/implementations/CategoriesMenuRoute';
 import ShopsMenuRoute from '../../menu/menuRouteCreators/implementations/ShopsMenuRoute';
 import MealsMenuRoute from '../../menu/menuRouteCreators/implementations/MealsMenuRoute';
 
-
-class MenuRoutesFactory {
+export default class MenuRoutesFactory {
 
     constructor(
         private readyChecks: ComponentReadyChecks
@@ -37,89 +27,3 @@ class MenuRoutesFactory {
         ]
     }
 }
-
-
-
-function hasAtLeasOneElement(arr: any[]): boolean {
-    return arr.length > 0;
-}
-
-const componentReadyChecks: ComponentReadyChecks = {
-    categories: async () => {
-        const elements = await Database.selectAllCategories();
-        return hasAtLeasOneElement(elements);
-    },
-    shops: async () => {
-        const elements = await Database.selectAllShops();
-        return hasAtLeasOneElement(elements);
-    },
-    items: async () => {
-        const elements = await Database.selectAllItems();
-        return hasAtLeasOneElement(elements);
-    },
-    itemsWithFood: async () => {
-        let items = await Database.selectAllItems();
-        items = items.filter(item => item.food);
-        return hasAtLeasOneElement(items);
-    }
-};
-
-const ApplicationMenuRoutes: MenuRoute[] = [
-    new MenuRoute(
-        new NamedIcon('Shopping List', '📝'),
-        new MenuRouteBehavior(
-            new ShoppingListFactory(),
-            {
-                checks: [
-                    componentReadyChecks.items,
-                    componentReadyChecks.shops
-                ],
-                message: 'Please add items and at least one shop to generate shopping lists'
-            }
-        )
-    ),
-    new MenuRoute(
-        new NamedIcon('Items', constants.icons.item),
-        new MenuRouteBehavior(
-            new ItemsFactory(),
-            {
-                checks: [
-                    componentReadyChecks.categories
-                ],
-                message: 'Please add categories before you add items'
-            }
-        )
-    ),
-    new MenuRoute(
-        new NamedIcon('Categories', constants.icons.category),
-        new MenuRouteBehavior(
-            new CategoriesFactory(),
-        )
-    ),
-    new MenuRoute(
-        new NamedIcon('Shops', constants.icons.shop),
-        new MenuRouteBehavior(
-            new ShopsFactory(),
-            {
-                checks: [
-                    componentReadyChecks.categories
-                ],
-                message: 'Please add categories before you define shops. Every shop may have it\'s own order for categories'
-            }
-        )
-    ),
-    new MenuRoute(
-        new NamedIcon('Meals', '🥗'),
-        new MenuRouteBehavior(
-            new MealsFactory(),
-            {
-                checks: [
-                    componentReadyChecks.itemsWithFood
-                ],
-                message: 'Please add at least one "food - item" to create meals'
-            }
-        )
-    )
-];
-
-export default ApplicationMenuRoutes;
