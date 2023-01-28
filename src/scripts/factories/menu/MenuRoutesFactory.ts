@@ -9,10 +9,33 @@ import ShopsFactory from '../components/menuComponents/implementations/ShopsFact
 import MealsFactory from '../components/menuComponents/implementations/MealsFactory';
 import NamedIcon from '../../menu/types/menuRoute/NamedIcon';
 import MenuRouteBehavior from '../../menu/types/menuRoute/MenuRouteBehavior';
+import ShoppingListMenuRoute from '../../menu/menuRouteCreators/implementations/ShoppingListMenuRoute';
+import ItemsMenuRoute from '../../menu/menuRouteCreators/implementations/ItemsMenuRoute';
+import CategoriesMenuRoute from '../../menu/menuRouteCreators/implementations/CategoriesMenuRoute';
+import ShopsMenuRoute from '../../menu/menuRouteCreators/implementations/ShopsMenuRoute';
+import MealsMenuRoute from '../../menu/menuRouteCreators/implementations/MealsMenuRoute';
 
 
 class MenuRoutesFactory {
-    
+
+    constructor(
+        private readyChecks: ComponentReadyChecks
+    ) { }
+
+    public getRoutes(): MenuRoute[] {
+        return [
+            new ShoppingListMenuRoute(this.readyChecks)
+                .getMenuRoute(),
+            new ItemsMenuRoute(this.readyChecks)
+                .getMenuRoute(),
+            new CategoriesMenuRoute()
+                .getMenuRoute(),
+            new ShopsMenuRoute(this.readyChecks)
+                .getMenuRoute(),
+            new MealsMenuRoute(this.readyChecks)
+                .getMenuRoute()
+        ]
+    }
 }
 
 
