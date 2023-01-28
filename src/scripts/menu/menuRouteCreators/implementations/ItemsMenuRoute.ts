@@ -23,7 +23,7 @@ export default class ItemsMenuRoute extends MenuRouteCreator {
             new ItemsFactory(),
             {
                 checks: [
-                    this.readyChecks.categories
+                    () => this.readyChecks.categories()
                 ],
                 message: 'Please add categories before you add items'
             }

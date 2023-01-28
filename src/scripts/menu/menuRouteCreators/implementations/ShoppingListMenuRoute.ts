@@ -22,8 +22,8 @@ export default class ShoppingListMenuRoute extends MenuRouteCreator {
             new ShoppingListFactory(),
             {
                 checks: [
-                    this.readyChecks.items,
-                    this.readyChecks.shops
+                    () => this.readyChecks.shops(),
+                    () => this.readyChecks.items()
                 ],
                 message: 'Please add items and at least one shop to generate shopping lists'
             }

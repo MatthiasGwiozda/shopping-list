@@ -22,7 +22,7 @@ export default class MealsMenuRoute extends MenuRouteCreator {
             new MealsFactory(),
             {
                 checks: [
-                    this.readyChecks.itemsWithFood
+                    () => this.readyChecks.itemsWithFood()
                 ],
                 message: 'Please add at least one "food - item" to create meals'
             }

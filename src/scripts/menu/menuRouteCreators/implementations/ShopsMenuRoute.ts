@@ -23,7 +23,7 @@ export default class ShopsMenuRoute extends MenuRouteCreator {
             new ShopsFactory(),
             {
                 checks: [
-                    this.readyChecks.categories
+                    () => this.readyChecks.categories()
                 ],
                 message: 'Please add categories before you define shops. Every shop may have it\'s own order for categories'
             }
