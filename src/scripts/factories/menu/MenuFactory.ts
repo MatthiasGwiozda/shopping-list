@@ -1,4 +1,4 @@
-import ApplicationMenuRoutes from "../../menu/MenuRoutesFactory";
+import ApplicationMenuRoutes from "./MenuRoutesFactory";
 import Menu from "../../menu/Menu";
 
 export default class MenuFactory {

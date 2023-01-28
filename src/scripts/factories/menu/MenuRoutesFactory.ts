@@ -1,14 +1,14 @@
-import constants from '../constants';
-import Database from '../database/Database';
-import ComponentReadyChecks from './types/readyCheck/ComponentReadyChecks';
-import MenuRoute from './types/menuRoute/MenuRoute';
-import ShoppingListFactory from '../factories/components/menuComponents/implementations/ShoppingListFactory';
-import ItemsFactory from '../factories/components/menuComponents/implementations/ItemsFactory';
-import CategoriesFactory from '../factories/components/menuComponents/implementations/CategoriesFactory';
-import ShopsFactory from '../factories/components/menuComponents/implementations/ShopsFactory';
-import MealsFactory from '../factories/components/menuComponents/implementations/MealsFactory';
-import NamedIcon from './types/menuRoute/NamedIcon';
-import MenuRouteBehavior from './types/menuRoute/MenuRouteBehavior';
+import constants from '../../constants';
+import Database from '../../database/Database';
+import ComponentReadyChecks from '../../menu/types/readyCheck/ComponentReadyChecks';
+import MenuRoute from '../../menu/types/menuRoute/MenuRoute';
+import ShoppingListFactory from '../components/menuComponents/implementations/ShoppingListFactory';
+import ItemsFactory from '../components/menuComponents/implementations/ItemsFactory';
+import CategoriesFactory from '../components/menuComponents/implementations/CategoriesFactory';
+import ShopsFactory from '../components/menuComponents/implementations/ShopsFactory';
+import MealsFactory from '../components/menuComponents/implementations/MealsFactory';
+import NamedIcon from '../../menu/types/menuRoute/NamedIcon';
+import MenuRouteBehavior from '../../menu/types/menuRoute/MenuRouteBehavior';
 
 
 class MenuRoutesFactory {
