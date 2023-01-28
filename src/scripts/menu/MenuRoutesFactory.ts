@@ -10,6 +10,13 @@ import MealsFactory from '../factories/components/menuComponents/implementations
 import NamedIcon from './types/menuRoute/NamedIcon';
 import MenuRouteBehavior from './types/menuRoute/MenuRouteBehavior';
 
+
+class MenuRoutesFactory {
+    
+}
+
+
+
 function hasAtLeasOneElement(arr: any[]): boolean {
     return arr.length > 0;
 }
