@@ -2,9 +2,6 @@ import CategoryDaoImpl from "../database/dataAccessObjects/category/CategoryDaoI
 import ItemDaoImpl from "../database/dataAccessObjects/item/ItemDaoImpl"
 import ShopDaoImpl from "../database/dataAccessObjects/shop/ShopDaoImpl"
 import QueryExecutorSqlite from "../database/queryExecutor/QueryExecutorSqlite"
-import CategoryDaoFactoryImpl from "../factories/database/dataAccessObjects/category/CategoryDaoFactoryImpl"
-import ItemDaoFactoryImpl from "../factories/database/dataAccessObjects/item/ItemDaoFactoryImpl"
-import ShopDaoFactoryImpl from "../factories/database/dataAccessObjects/shop/ShopDaoFactoryImpl"
 import QueryExecutorFactorySqlite from "../factories/database/queryExecutor/QueryExecutorFactorySqlite"
 import ComponentReadyChecksFactoryImpl from "../factories/menu/componentReadyChecks/ComponentReadyChecksFactoryImpl"
 import MenuFactory from "../factories/menu/MenuFactory"
@@ -40,12 +37,9 @@ export default class InstanceContainer {
     }
 
     private instanciateDaos() {
-        this.categoryDao = new CategoryDaoFactoryImpl(this.queryExecutor)
-            .getDao();
-        this.shopDao = new ShopDaoFactoryImpl(this.queryExecutor)
-            .getDao();
-        this.itemDao = new ItemDaoFactoryImpl(this.queryExecutor)
-            .getDao();
+        this.categoryDao = new CategoryDaoImpl(this.queryExecutor);
+        this.shopDao = new ShopDaoImpl(this.queryExecutor);
+        this.itemDao = new ItemDaoImpl(this.queryExecutor);
     }
 
     private instanciateReadyChecks() {
