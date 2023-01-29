@@ -3,7 +3,6 @@ import ItemDaoImpl from "../database/dataAccessObjects/item/ItemDaoImpl"
 import ShopDaoImpl from "../database/dataAccessObjects/shop/ShopDaoImpl"
 import QueryExecutorSqlite from "../database/queryExecutor/QueryExecutorSqlite"
 import QueryExecutorFactorySqlite from "../factories/database/queryExecutor/QueryExecutorFactorySqlite"
-import ComponentReadyChecksFactoryImpl from "../factories/menu/componentReadyChecks/ComponentReadyChecksFactoryImpl"
 import MenuFactory from "../factories/menu/MenuFactory"
 import MenuRoutesFactory from "../factories/menu/MenuRoutesFactory"
 import Menu from "../menu/Menu"
@@ -43,11 +42,11 @@ export default class InstanceContainer {
     }
 
     private instanciateReadyChecks() {
-        this.readyChecks = new ComponentReadyChecksFactoryImpl(
+        this.readyChecks = new ComponentReadyChecksImpl(
             this.categoryDao,
             this.shopDao,
             this.itemDao
-        ).getReadyChecks()
+        )
     }
 
     private instanciateMenuRoutes() {
