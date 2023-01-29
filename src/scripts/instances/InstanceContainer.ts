@@ -3,7 +3,6 @@ import ItemDaoImpl from "../database/dataAccessObjects/item/ItemDaoImpl"
 import ShopDaoImpl from "../database/dataAccessObjects/shop/ShopDaoImpl"
 import QueryExecutorSqlite from "../database/queryExecutor/QueryExecutorSqlite"
 import QueryExecutorFactorySqlite from "../factories/database/queryExecutor/QueryExecutorFactorySqlite"
-import MenuFactory from "../factories/menu/MenuFactory"
 import MenuRoutesFactory from "../factories/menu/MenuRoutesFactory"
 import Menu from "../menu/Menu"
 import ComponentReadyChecksImpl from "../menu/readyCheck/ComponentReadyChecksImpl"
@@ -54,7 +53,6 @@ export default class InstanceContainer {
     }
 
     private instanciateMenu() {
-        const menuFactory = new MenuFactory(this.menuRoutes)
-        this.menu = menuFactory.getMenu()
+        this.menu = new Menu(this.menuRoutes);
     }
 }
