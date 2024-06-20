@@ -3,7 +3,8 @@
         "module": "commonjs",
         "outDir": "./lib",
         "inlineSourceMap": true,
-        "inlineSources": true
+        "inlineSources": true,
+        "forceConsistentCasingInFileNames": false
     },
     "exclude": [
         "node_modules"
