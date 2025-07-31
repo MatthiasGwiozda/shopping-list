@@ -1,3 +1,4 @@
+import DatabaseInstanciator from "../database/creator/DatabaseInstanciator"
 import CategoryDaoImpl from "../database/dataAccessObjects/category/CategoryDaoImpl"
 import ItemDaoImpl from "../database/dataAccessObjects/item/ItemDaoImpl"
 import ShopDaoImpl from "../database/dataAccessObjects/shop/ShopDaoImpl"
@@ -10,7 +11,8 @@ import MenuRoute from "../menu/types/menuRoute/MenuRoute"
 
 export default class InstanceContainer {
 
-    queryExecutorSqliteNode: QueryExecutorSqliteNode;
+    queryExecutor: QueryExecutorSqliteNode;
+    databaseInstanciator: DatabaseInstanciator
     private categoryDao: CategoryDaoImpl;
     private shopDao: ShopDaoImpl;
     private itemDao: ItemDaoImpl;
@@ -31,14 +33,15 @@ export default class InstanceContainer {
     }
 
     private async instanciateQueryExecutor() {
-        this.queryExecutorSqliteNode = new QueryExecutorSqliteNode()
-        Database.injectQueryExecutor(this.queryExecutorSqliteNode);
+        this.queryExecutor = new QueryExecutorSqliteNode()
+        Database.injectQueryExecutor(this.queryExecutor);
+        this.databaseInstanciator = new DatabaseInstanciator(this)
     }
 
     private instanciateDaos() {
-        this.categoryDao = new CategoryDaoImpl(this.queryExecutorSqliteNode);
-        this.shopDao = new ShopDaoImpl(this.queryExecutorSqliteNode);
-        this.itemDao = new ItemDaoImpl(this.queryExecutorSqliteNode);
+        this.categoryDao = new CategoryDaoImpl(this.queryExecutor);
+        this.shopDao = new ShopDaoImpl(this.queryExecutor);
+        this.itemDao = new ItemDaoImpl(this.queryExecutor);
     }
 
     private instanciateReadyChecks() {

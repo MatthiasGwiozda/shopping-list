@@ -1,26 +1,18 @@
-import * as sqlite3 from 'sqlite3';
 import DatabaseCreatorFactorySqlite from '../../factories/database/DatabaseCreatorFactorySqlite';
 import FileUtilities, { Files } from '../../utilities/FileUtilities';
+import QueryExecutor from '../queryExecutor/QueryExecutor';
+
+export interface DatabaseInstanciatorDeps {
+    queryExecutor: QueryExecutor;
+}
 
 export default class DatabaseInstanciator {
 
-    private sqliteInstance: sqlite3.Database;
+    constructor(private deps: DatabaseInstanciatorDeps) { }
 
-    async getInstance(): Promise<sqlite3.Database> {
-        await this.createDatabaseIfNotExistent();
-        this.setSqliteInstanceIfNotAlreadySet();
-        return this.sqliteInstance;
-    }
-
-    private async createDatabaseIfNotExistent() {
+    async createDatabaseIfNotExistent() {
         if (this.isDatabaseNotExistent()) {
             await this.createDatabase();
-        }
-    }
-
-    private setSqliteInstanceIfNotAlreadySet(): void {
-        if (this.sqliteInstance == null) {
-            this.setSqliteInstance();
         }
     }
 
@@ -29,14 +21,8 @@ export default class DatabaseInstanciator {
     }
 
     private async createDatabase() {
-        this.setSqliteInstance();
-        return new DatabaseCreatorFactorySqlite(this.sqliteInstance)
+        return new DatabaseCreatorFactorySqlite(this.deps.queryExecutor)
             .getDatabaseCreator()
             .createDatabase();
-    }
-
-    private setSqliteInstance() {
-        const databasePath = FileUtilities.getFilePath(Files.database);
-        this.sqliteInstance = new sqlite3.Database(databasePath);
     }
 }

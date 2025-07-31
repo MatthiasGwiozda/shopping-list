@@ -1,15 +1,13 @@
 import DatabaseCreator from "../../database/creator/DatabaseCreator";
-import QueryExecutorSqlite from "../../database/queryExecutor/QueryExecutorSqlite";
-import * as sqlite3 from 'sqlite3';
+import QueryExecutor from "../../database/queryExecutor/QueryExecutor";
 
 export default class DatabaseCreatorFactorySqlite {
 
     constructor(
-        private sqliteDatabase: sqlite3.Database
+        private queryExecutor: QueryExecutor,
     ) { }
 
     getDatabaseCreator(): DatabaseCreator {
-        const queryExecutor = new QueryExecutorSqlite(this.sqliteDatabase);
-        return new DatabaseCreator(queryExecutor);
+        return new DatabaseCreator(this.queryExecutor);
     }
 }
