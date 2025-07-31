@@ -1,6 +1,7 @@
 import CategoryDaoImpl from "../database/dataAccessObjects/category/CategoryDaoImpl"
 import ItemDaoImpl from "../database/dataAccessObjects/item/ItemDaoImpl"
 import ShopDaoImpl from "../database/dataAccessObjects/shop/ShopDaoImpl"
+import Database from "../database/Database"
 import QueryExecutorSqliteNode from "../database/queryExecutor/QueryExecutorSqliteNode"
 import MenuRoutesFactory from "../factories/menu/MenuRoutesFactory"
 import Menu from "../menu/Menu"
@@ -31,6 +32,7 @@ export default class InstanceContainer {
 
     private async instanciateQueryExecutor() {
         this.queryExecutorSqliteNode = new QueryExecutorSqliteNode()
+        Database.injectQueryExecutor(this.queryExecutorSqliteNode);
     }
 
     private instanciateDaos() {

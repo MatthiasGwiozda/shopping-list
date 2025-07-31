@@ -1,4 +1,3 @@
-import * as sqlite3 from 'sqlite3';
 import CategoriesShopOrder from '../types/CategoriesShopOrder';
 import Category from '../types/Category';
 import { CurrentItems } from '../types/components/itemCollection';
@@ -9,44 +8,25 @@ import MealInformation from '../types/MealInformation';
 import Shop from '../types/Shop';
 import ShoppingListItem from '../types/ShoppingListItem';
 import ShoppingListMeal from '../types/ShoppingListMeal';
-import DatabaseInstanciator from './creator/DatabaseInstanciator';
 import CategoryDaoImpl from './dataAccessObjects/category/CategoryDaoImpl';
 import ItemDaoImpl from './dataAccessObjects/item/ItemDaoImpl';
 import ShopDaoImpl from './dataAccessObjects/shop/ShopDaoImpl';
-import QueryExecutorSqlite from './queryExecutor/QueryExecutorSqlite';
+import QueryExecutor from './queryExecutor/QueryExecutor';
 
 /**
  * @deprecated use DataAccessObjects instead
  */
 export default class Database {
 
-    private static db: sqlite3.Database;
-    private static queryExecutor: QueryExecutorSqlite;
+    private static queryExecutor: QueryExecutor;
 
     private static runQuery<T>(query, params: any[] = []): Promise<T[]> {
         return this.queryExecutor
             .runQuery(query, params);
     }
 
-    /**
-     * initializes the database with the structure if
-     * there was no database - file found.
-     * Additionally instanciates the sqlite3 Database - instance.
-     */
-    static async initializeDatabase() {
-        await Database.setDb();
-        this.queryExecutor = new QueryExecutorSqlite(Database.db);
-        /**
-         * for some insane reason foreign key checks are not enabled by default in the
-         * sqlite3 - package.
-         * @see https://github.com/mapbox/node-sqlite3/issues/896#issuecomment-337873296
-        */
-        await this.runQuery("PRAGMA foreign_keys = ON");
-    }
-
-    private static async setDb() {
-        Database.db = await new DatabaseInstanciator()
-            .getInstance();
+    static injectQueryExecutor(queryExecutor: QueryExecutor) {
+        this.queryExecutor = queryExecutor;
     }
 
     static async selectAllCategories(): Promise<Category[]> {
