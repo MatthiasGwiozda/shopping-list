@@ -8,7 +8,7 @@
     "prestart": "npm run build",
     "build": "tsc",
     "build:production": "tsc --project ./tsconfigs/production",
-    "test": "jest --config=src/test/config/jest.config.mjs",
+    "test": "node --test --experimental-test-isolation=none",
     "pretest": "npm run build"
   },
   "devDependencies": {
