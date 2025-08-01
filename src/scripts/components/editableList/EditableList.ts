@@ -270,8 +270,8 @@ export default class EditableList<EditableListElement> extends Component {
         let actions = [editButton, deleteButton];
         // now handle the additional actions
         const additionalActionButtons = this.getAdditionalActionButtons(element, tr, [editButton, deleteButton]);
-        this.additionalActionButtons.push(...additionalActionButtons);
         if (additionalActionButtons != null) {
+            this.additionalActionButtons.push(...additionalActionButtons);
             actions = actions.concat(additionalActionButtons);
         }
         this.addToTableRow(actions, tr);
