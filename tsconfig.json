@@ -1,6 +1,11 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
+        "module": "nodenext",
+        "moduleResolution": "nodenext",
+        "lib": [
+            "ESNext",
+            "DOM"
+        ],
         "outDir": "./lib",
         "inlineSourceMap": true,
         "inlineSources": true,

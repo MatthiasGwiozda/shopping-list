@@ -8,16 +8,12 @@
     "prestart": "npm run build",
     "build": "tsc",
     "build:production": "tsc --project ./tsconfigs/production",
-    "test": "jest --config=src/test/config/jest.config.mjs",
+    "test": "node --test --experimental-test-isolation=none",
     "pretest": "npm run build"
   },
   "devDependencies": {
-    "@types/sqlite3": "^5.1.0",
-    "electron": "^36.1.0",
+    "electron": "^37.2.5",
     "typescript": "^5.4.5"
-  },
-  "dependencies": {
-    "sqlite3": "^5.0.4"
   },
   "engines": {
     "node": ">=18.13.0"
