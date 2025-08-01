@@ -4,7 +4,7 @@ import TestInstanceContainer from "../../../instanceContainer/TestInstanceContai
 
 const { queryExecutorSqliteNode: queryExecutor } = new TestInstanceContainer();
 
-test.skip("Database", async (t) => {
+test.skip("QueryExecutorSqliteNode", async (t) => {
 
     await t.test("run select query with parameters", async () => {
         const result = await queryExecutor.runQuery("SELECT * FROM meals WHERE name")
