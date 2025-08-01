@@ -1,3 +1,4 @@
+import DatabaseCreator from "../database/creator/DatabaseCreator"
 import DatabaseInstanciator from "../database/creator/DatabaseInstanciator"
 import CategoryDaoImpl from "../database/dataAccessObjects/category/CategoryDaoImpl"
 import ItemDaoImpl from "../database/dataAccessObjects/item/ItemDaoImpl"
@@ -19,6 +20,7 @@ export default class InstanceContainer {
     private readyChecks: ComponentReadyChecksImpl;
     private menuRoutes: MenuRoute[];
     private menu: Menu;
+    databaseCreator: DatabaseCreator
 
     public async createInstances() {
         await this.instanciateQueryExecutor()
@@ -35,6 +37,7 @@ export default class InstanceContainer {
     private async instanciateQueryExecutor() {
         this.queryExecutor = new QueryExecutorSqliteNode()
         Database.injectQueryExecutor(this.queryExecutor);
+        this.databaseCreator = new DatabaseCreator(this.queryExecutor);
         this.databaseInstanciator = new DatabaseInstanciator(this)
     }
 

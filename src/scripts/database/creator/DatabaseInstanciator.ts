@@ -1,9 +1,8 @@
 import FileUtilities, { Files } from '../../utilities/FileUtilities';
-import QueryExecutor from '../queryExecutor/QueryExecutor';
 import DatabaseCreator from './DatabaseCreator';
 
 export interface DatabaseInstanciatorDeps {
-    queryExecutor: QueryExecutor;
+    databaseCreator: DatabaseCreator;
 }
 
 export default class DatabaseInstanciator {
@@ -12,16 +11,11 @@ export default class DatabaseInstanciator {
 
     async createDatabaseIfNotExistent() {
         if (this.isDatabaseNotExistent()) {
-            await this.createDatabase();
+            await this.deps.databaseCreator.createDatabase();
         }
     }
 
     private isDatabaseNotExistent() {
         return FileUtilities.getFileContent(Files.database) == null;
-    }
-
-    private async createDatabase() {
-        new DatabaseCreator(this.deps.queryExecutor).
-            createDatabase();
     }
 }
