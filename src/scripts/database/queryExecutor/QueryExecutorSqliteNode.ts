@@ -17,6 +17,8 @@ export default class QueryExecutorSqliteNode implements QueryExecutor {
         return params.map(param => {
             if (typeof param === "boolean") {
                 return param ? 1 : 0;
+            } else if (param === undefined) {
+                return null;
             }
             return param;
         })
