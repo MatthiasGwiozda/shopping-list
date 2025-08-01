@@ -1,6 +1,6 @@
-import DatabaseCreatorFactorySqlite from '../../factories/database/DatabaseCreatorFactorySqlite';
 import FileUtilities, { Files } from '../../utilities/FileUtilities';
 import QueryExecutor from '../queryExecutor/QueryExecutor';
+import DatabaseCreator from './DatabaseCreator';
 
 export interface DatabaseInstanciatorDeps {
     queryExecutor: QueryExecutor;
@@ -21,8 +21,7 @@ export default class DatabaseInstanciator {
     }
 
     private async createDatabase() {
-        return new DatabaseCreatorFactorySqlite(this.deps.queryExecutor)
-            .getDatabaseCreator()
-            .createDatabase();
+        new DatabaseCreator(this.deps.queryExecutor).
+            createDatabase();
     }
 }
