@@ -12,12 +12,8 @@
     "pretest": "npm run build"
   },
   "devDependencies": {
-    "@types/sqlite3": "^5.1.0",
     "electron": "^36.1.0",
     "typescript": "^5.4.5"
-  },
-  "dependencies": {
-    "sqlite3": "^5.0.4"
   },
   "engines": {
     "node": ">=18.13.0"
