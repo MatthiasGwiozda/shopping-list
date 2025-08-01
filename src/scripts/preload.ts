@@ -6,10 +6,8 @@ import InstanceContainer from "./instances/InstanceContainer";
 // It has the same sandbox as a Chrome extension.
 window.addEventListener('DOMContentLoaded', async () => {
   const instanceContainer = new InstanceContainer();
-  await instanceContainer.createInstances();
   await instanceContainer.databaseInstanciator.createDatabaseIfNotExistent();
-  const menu = instanceContainer.getMenu();
-  menu.addMenuToDocument();
+  instanceContainer.menu.addMenuToDocument();
 })
 
 /**

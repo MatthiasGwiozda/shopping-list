@@ -7,7 +7,6 @@ export default class TestInstanceContainer {
 
     constructor() {
         this.instanceContainer = new InstanceContainer();
-        this.instanceContainer.createInstances();
         this.queryExecutorSqliteNode = this.instanceContainer.queryExecutor;
     }
 }

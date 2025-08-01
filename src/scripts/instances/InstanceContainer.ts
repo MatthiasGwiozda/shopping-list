@@ -14,52 +14,28 @@ export default class InstanceContainer {
 
     queryExecutor: QueryExecutorSqliteNode;
     databaseInstanciator: DatabaseInstanciator
-    private categoryDao: CategoryDaoImpl;
-    private shopDao: ShopDaoImpl;
-    private itemDao: ItemDaoImpl;
-    private readyChecks: ComponentReadyChecksImpl;
-    private menuRoutes: MenuRoute[];
-    private menu: Menu;
+    categoryDao: CategoryDaoImpl;
+    shopDao: ShopDaoImpl;
+    itemDao: ItemDaoImpl;
+    readyChecks: ComponentReadyChecksImpl;
+    menuRoutes: MenuRoute[];
+    menu: Menu;
     databaseCreator: DatabaseCreator
 
-    public async createInstances() {
-        await this.instanciateQueryExecutor()
-        this.instanciateDaos()
-        this.instanciateReadyChecks()
-        this.instanciateMenuRoutes()
-        this.instanciateMenu()
-    }
-
-    public getMenu(): Menu {
-        return this.menu;
-    }
-
-    private async instanciateQueryExecutor() {
+    constructor() {
         this.queryExecutor = new QueryExecutorSqliteNode()
         Database.injectQueryExecutor(this.queryExecutor);
         this.databaseCreator = new DatabaseCreator(this.queryExecutor);
         this.databaseInstanciator = new DatabaseInstanciator(this)
-    }
-
-    private instanciateDaos() {
         this.categoryDao = new CategoryDaoImpl(this.queryExecutor);
         this.shopDao = new ShopDaoImpl(this.queryExecutor);
         this.itemDao = new ItemDaoImpl(this.queryExecutor);
-    }
-
-    private instanciateReadyChecks() {
         this.readyChecks = new ComponentReadyChecksImpl(
             this.categoryDao,
             this.shopDao,
             this.itemDao
         )
-    }
-
-    private instanciateMenuRoutes() {
         this.menuRoutes = new MenuRoutesFactory(this.readyChecks).getRoutes()
-    }
-
-    private instanciateMenu() {
         this.menu = new Menu(this.menuRoutes);
     }
 }
