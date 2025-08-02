@@ -1,5 +1,6 @@
 import DatabaseCreator from "../database/creator/DatabaseCreator"
 import DatabaseInstanciator from "../database/creator/DatabaseInstanciator"
+import { CategoryAccessObject, ShopAccessObject } from "../database/dataAccessObjects/AccessObjects"
 import CategoryDaoImpl from "../database/dataAccessObjects/category/CategoryDaoImpl"
 import ItemDaoImpl from "../database/dataAccessObjects/item/ItemDaoImpl"
 import ShopDaoImpl from "../database/dataAccessObjects/shop/ShopDaoImpl"
@@ -44,8 +45,8 @@ export default class InstanceContainer {
     shoppingListFactory: ShoppingListFactory
     categoriesFactory: CategoriesFactory
     goodsShopAssignementAdditionalActionFactory: GoodsShopAssignementAdditionalActionFactory
-    shopAccessObject: typeof Database;
-    categoryAccessObject: typeof Database;
+    shopAccessObject: ShopAccessObject;
+    categoryAccessObject: CategoryAccessObject;
 
     constructor() {
         this.queryExecutor = new QueryExecutorSqliteNode()
