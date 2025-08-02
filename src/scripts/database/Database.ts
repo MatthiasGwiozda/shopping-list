@@ -231,7 +231,7 @@ export default class Database {
         return true;
     }
 
-    static async updateCategory(oldCategory: Category, newCategory: Category) {
+    static async updateCategory(oldCategory: Category, newCategory: Category): Promise<boolean> {
         try {
             await this.runQuery(`
             UPDATE goods_categories

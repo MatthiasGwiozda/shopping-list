@@ -46,6 +46,9 @@ export default class InstanceContainer {
     constructor() {
         this.queryExecutor = new QueryExecutorSqliteNode()
         Database.injectDependencies(this);
+        const databaseAccessObject = {
+            categoryAccessObject: Database
+        }
         this.databaseCreator = new DatabaseCreator(this);
         this.databaseInstanciator = new DatabaseInstanciator(this)
         this.categoryDao = new CategoryDaoImpl(this);
@@ -60,7 +63,7 @@ export default class InstanceContainer {
         this.shopsFactory = new ShopsFactory();
         this.itemsFactory = new ItemsFactory();
         this.shoppingListFactory = new ShoppingListFactory();
-        this.categoriesFactory = new CategoriesFactory();
+        this.categoriesFactory = new CategoriesFactory(databaseAccessObject);
 
         this.shoppingListMenuRoute = new ShoppingListMenuRoute(this);
         this.itemsMenuRoute = new ItemsMenuRoute(this);
