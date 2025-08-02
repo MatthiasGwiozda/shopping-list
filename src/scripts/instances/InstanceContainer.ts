@@ -58,11 +58,7 @@ export default class InstanceContainer {
         this.categoryDao = new CategoryDaoImpl(this);
         this.shopDao = new ShopDaoImpl(this);
         this.itemDao = new ItemDaoImpl(this);
-        this.readyChecks = new ComponentReadyChecksImpl(
-            this.categoryDao,
-            this.shopDao,
-            this.itemDao
-        )
+        this.readyChecks = new ComponentReadyChecksImpl(this)
         this.mealsFactory = new MealsFactory();
         this.shopsFactory = new ShopsFactory();
         this.goodsShopAssignementAdditionalActionFactory =
