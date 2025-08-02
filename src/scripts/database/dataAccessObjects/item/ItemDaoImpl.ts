@@ -1,8 +1,12 @@
 import Item from "../../../types/Item";
-import QueryExecutorUser from "../../queryExecutor/QueryExecutorUser";
+import QueryExecutor from "../../queryExecutor/QueryExecutor";
 import ItemDao from "./ItemDao";
 
-export default class ItemDaoImpl extends QueryExecutorUser implements ItemDao {
+export default class ItemDaoImpl implements ItemDao {
+
+    constructor(
+        private queryExecutor: QueryExecutor,
+    ) { }
 
     async selectAllItems(): Promise<Item[]> {
         const items = await this.queryExecutor.runQuery<Item>(`

@@ -1,7 +1,11 @@
 import FileUtilities, { Files } from "../../utilities/FileUtilities";
-import QueryExecutorUser from "../queryExecutor/QueryExecutorUser";
+import QueryExecutor from "../queryExecutor/QueryExecutor";
 
-export default class DatabaseCreator extends QueryExecutorUser {
+export default class DatabaseCreator {
+
+    constructor(
+        private queryExecutor: QueryExecutor,
+    ) { }
 
     public async createDatabase() {
         for (let structureStatement of this.getStructureStatements()) {
