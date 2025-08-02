@@ -7,7 +7,8 @@ import InstanceContainer from "./instances/InstanceContainer";
 window.addEventListener('DOMContentLoaded', async () => {
   const instanceContainer = new InstanceContainer();
   await instanceContainer.databaseInstanciator.createDatabaseIfNotExistent();
-  instanceContainer.menu.createMenuItems(instanceContainer.menuRoutes);
+  const menuRoutes = instanceContainer.menuRouteCreators.map(creator => creator.getMenuRoute());
+  instanceContainer.menu.createMenuItems(menuRoutes);
   instanceContainer.menu.addMenuToDocument();
 })
 

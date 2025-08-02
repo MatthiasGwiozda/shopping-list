@@ -18,7 +18,6 @@ import ShopsMenuRoute from "../menu/menuRouteCreators/implementations/ShopsMenuR
 import MenuRouteCreator from "../menu/menuRouteCreators/MenuRouteCreator"
 import ComponentReadyChecksImpl from "../menu/readyCheck/ComponentReadyChecksImpl"
 import MenuRouteReadyChecker from "../menu/readyCheck/MenuRouteReadyChecker"
-import MenuRoute from "../menu/types/menuRoute/MenuRoute"
 
 export default class InstanceContainer {
 
@@ -28,7 +27,6 @@ export default class InstanceContainer {
     shopDao: ShopDaoImpl;
     itemDao: ItemDaoImpl;
     readyChecks: ComponentReadyChecksImpl;
-    menuRoutes: MenuRoute[];
     menu: Menu;
     databaseCreator: DatabaseCreator
     shoppingListMenuRoute: ShoppingListMenuRoute
@@ -73,7 +71,6 @@ export default class InstanceContainer {
             this.shopsMenuRoute,
             this.mealsMenuRoute,
         ]
-        this.menuRoutes = this.menuRouteCreators.map(creator => creator.getMenuRoute());
         this.menuRouteReadyChecker = new MenuRouteReadyChecker();
         this.menu = new Menu(this);
     }
