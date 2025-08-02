@@ -8,16 +8,13 @@ import MenuItem from './types/MenuItem';
 import MenuRoute from './types/menuRoute/MenuRoute';
 
 interface MenuDeps {
-    menuRoutes: MenuRoute[],
     menuRouteReadyChecker: MenuRouteReadyChecker,
 }
 
 export default class Menu implements Observer {
     private menuItems: MenuItem[];
 
-    constructor(public deps: MenuDeps) {
-        this.menuItems = this.createMenuItems(deps.menuRoutes);
-    }
+    constructor(public deps: MenuDeps) { }
 
     public addMenuToDocument() {
         this.createMenuDivElement();
@@ -30,8 +27,8 @@ export default class Menu implements Observer {
         this.deps.menuRouteReadyChecker.applyReadyChecks(this.menuItems);
     }
 
-    private createMenuItems(menuRoutes: MenuRoute[]): MenuItem[] {
-        return menuRoutes.map(menuRoute => {
+    public createMenuItems(menuRoutes: MenuRoute[]) {
+        const menuItems = menuRoutes.map(menuRoute => {
             const { icon, name } = menuRoute.namedIcon;
             const routeEl = document.createElement('a');
             const menuItem: MenuItem = {
@@ -44,6 +41,7 @@ export default class Menu implements Observer {
             }
             return menuItem;
         });
+        this.menuItems = menuItems;
     }
 
     private createMenuDivElement() {
