@@ -48,7 +48,7 @@ export default class InstanceContainer {
         Database.injectDependencies(this);
         this.databaseCreator = new DatabaseCreator(this);
         this.databaseInstanciator = new DatabaseInstanciator(this)
-        this.categoryDao = new CategoryDaoImpl(this.queryExecutor);
+        this.categoryDao = new CategoryDaoImpl(this);
         this.shopDao = new ShopDaoImpl(this.queryExecutor);
         this.itemDao = new ItemDaoImpl(this.queryExecutor);
         this.readyChecks = new ComponentReadyChecksImpl(
