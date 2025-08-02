@@ -13,6 +13,7 @@ import ShoppingListMenuRoute from "../menu/menuRouteCreators/implementations/Sho
 import ShopsMenuRoute from "../menu/menuRouteCreators/implementations/ShopsMenuRoute"
 import MenuRouteCreator from "../menu/menuRouteCreators/MenuRouteCreator"
 import ComponentReadyChecksImpl from "../menu/readyCheck/ComponentReadyChecksImpl"
+import MenuRouteReadyChecker from "../menu/readyCheck/MenuRouteReadyChecker"
 import MenuRoute from "../menu/types/menuRoute/MenuRoute"
 
 export default class InstanceContainer {
@@ -32,6 +33,7 @@ export default class InstanceContainer {
     shopsMenuRoute: ShopsMenuRoute
     mealsMenuRoute: MealsMenuRoute
     menuRouteCreators: MenuRouteCreator[];
+    menuRouteReadyChecker: MenuRouteReadyChecker
 
     constructor() {
         this.queryExecutor = new QueryExecutorSqliteNode()
@@ -60,6 +62,7 @@ export default class InstanceContainer {
             this.mealsMenuRoute,
         ]
         this.menuRoutes = this.menuRouteCreators.map(creator => creator.getMenuRoute());
-        this.menu = new Menu(this.menuRoutes);
+        this.menuRouteReadyChecker = new MenuRouteReadyChecker();
+        this.menu = new Menu(this);
     }
 }
