@@ -9,7 +9,7 @@ import Shop from '../types/Shop';
 import ShoppingListItem from '../types/ShoppingListItem';
 import ShoppingListMeal from '../types/ShoppingListMeal';
 import CategoryDao from './dataAccessObjects/category/CategoryDao';
-import ItemDaoImpl from './dataAccessObjects/item/ItemDaoImpl';
+import ItemDao from './dataAccessObjects/item/ItemDao';
 import ShopDao from './dataAccessObjects/shop/ShopDao';
 import QueryExecutor from './queryExecutor/QueryExecutor';
 
@@ -17,6 +17,7 @@ interface DatabaseDeps {
     queryExecutor: QueryExecutor;
     categoryDao: CategoryDao;
     shopDao: ShopDao;
+    itemDao: ItemDao;
 }
 
 /**
@@ -328,8 +329,7 @@ export default class Database {
     }
 
     static async selectAllItems(): Promise<Item[]> {
-        return new ItemDaoImpl(this.deps.queryExecutor)
-            .selectAllItems();
+        return this.deps.itemDao.selectAllItems();
     }
 
     static async deleteItem(item: Item): Promise<boolean> {
