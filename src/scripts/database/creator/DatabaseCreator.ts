@@ -1,15 +1,17 @@
 import FileUtilities, { Files } from "../../utilities/FileUtilities";
 import QueryExecutor from "../queryExecutor/QueryExecutor";
 
+interface Deps {
+    queryExecutor: QueryExecutor;
+}
+
 export default class DatabaseCreator {
 
-    constructor(
-        private queryExecutor: QueryExecutor,
-    ) { }
+    constructor(private deps: Deps) { }
 
     public async createDatabase() {
         for (let structureStatement of this.getStructureStatements()) {
-            await this.queryExecutor.runQuery(structureStatement);
+            await this.deps.queryExecutor.runQuery(structureStatement);
         }
     }
 

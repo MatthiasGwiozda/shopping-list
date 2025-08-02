@@ -46,7 +46,7 @@ export default class InstanceContainer {
     constructor() {
         this.queryExecutor = new QueryExecutorSqliteNode()
         Database.injectDependencies(this);
-        this.databaseCreator = new DatabaseCreator(this.queryExecutor);
+        this.databaseCreator = new DatabaseCreator(this);
         this.databaseInstanciator = new DatabaseInstanciator(this)
         this.categoryDao = new CategoryDaoImpl(this.queryExecutor);
         this.shopDao = new ShopDaoImpl(this.queryExecutor);
