@@ -7,9 +7,13 @@ import Item from "../../types/Item";
 import EditableList from "../editableList/EditableList";
 import itemsPartials from "./itemsPartials";
 
+export interface ItemsDeps {
+    goodsShopAssignementAdditionalActionFactory: GoodsShopAssignementAdditionalActionFactory;
+}
+
 export default class Items extends ObserverableComponent {
 
-    constructor(container: HTMLElement) {
+    constructor(container: HTMLElement, private deps: ItemsDeps) {
         super(container);
         this.createEditableList();
     }
@@ -67,7 +71,7 @@ export default class Items extends ObserverableComponent {
             additionalEditableListActions: [{
                 buttonIcon: constants.icons.shop,
                 buttonTitle: 'Set availability of the item in shops',
-                factory: new GoodsShopAssignementAdditionalActionFactory()
+                factory: this.deps.goodsShopAssignementAdditionalActionFactory
             }]
         }
 

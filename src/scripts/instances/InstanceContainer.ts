@@ -5,6 +5,7 @@ import ItemDaoImpl from "../database/dataAccessObjects/item/ItemDaoImpl"
 import ShopDaoImpl from "../database/dataAccessObjects/shop/ShopDaoImpl"
 import Database from "../database/Database"
 import QueryExecutorSqliteNode from "../database/queryExecutor/QueryExecutorSqliteNode"
+import GoodsShopAssignementAdditionalActionFactory from "../factories/components/editableList/additionalAction/implementations/GoodsShopAssignementAdditionalActionFactory"
 import CategoriesFactory from "../factories/components/menuComponents/implementations/CategoriesFactory"
 import ItemsFactory from "../factories/components/menuComponents/implementations/ItemsFactory"
 import MealsFactory from "../factories/components/menuComponents/implementations/MealsFactory"
@@ -42,13 +43,15 @@ export default class InstanceContainer {
     itemsFactory: ItemsFactory
     shoppingListFactory: ShoppingListFactory
     categoriesFactory: CategoriesFactory
+    goodsShopAssignementAdditionalActionFactory: GoodsShopAssignementAdditionalActionFactory
+    shopAccessObject: typeof Database;
+    categoryAccessObject: typeof Database;
 
     constructor() {
         this.queryExecutor = new QueryExecutorSqliteNode()
         Database.injectDependencies(this);
-        const databaseAccessObject = {
-            categoryAccessObject: Database
-        }
+        this.categoryAccessObject = Database;
+        this.shopAccessObject = Database;
         this.databaseCreator = new DatabaseCreator(this);
         this.databaseInstanciator = new DatabaseInstanciator(this)
         this.categoryDao = new CategoryDaoImpl(this);
@@ -61,9 +64,11 @@ export default class InstanceContainer {
         )
         this.mealsFactory = new MealsFactory();
         this.shopsFactory = new ShopsFactory();
-        this.itemsFactory = new ItemsFactory();
+        this.goodsShopAssignementAdditionalActionFactory =
+            new GoodsShopAssignementAdditionalActionFactory(this)
+        this.itemsFactory = new ItemsFactory(this);
         this.shoppingListFactory = new ShoppingListFactory();
-        this.categoriesFactory = new CategoriesFactory(databaseAccessObject);
+        this.categoriesFactory = new CategoriesFactory(this);
 
         this.shoppingListMenuRoute = new ShoppingListMenuRoute(this);
         this.itemsMenuRoute = new ItemsMenuRoute(this);

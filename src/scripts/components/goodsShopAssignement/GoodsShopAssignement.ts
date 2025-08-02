@@ -1,15 +1,20 @@
 import Component from "../Component";
-import Database from "../../database/Database"
 import Shop from "../../types/Shop";
 import GoodsShops from "../../types/GoodsShops";
 import Item from "../../types/Item";
 import goodsShopAssignementPartials from "./goodsShopAssignementPartials";
+import { ShopAccessObject } from "../../database/dataAccessObjects/AccessObjects";
+
+export interface GoodsShopAssignementDeps {
+    shopAccessObject: ShopAccessObject
+}
 
 export default class GoodsShopAssignement extends Component {
 
     constructor(
         container: HTMLElement,
-        private item: Item
+        private item: Item,
+        private deps: GoodsShopAssignementDeps,
     ) {
         super(container);
         this.insertShops();
@@ -35,17 +40,18 @@ export default class GoodsShopAssignement extends Component {
         }
         checkbox.onchange = () => {
             if (checkbox.checked) {
-                Database.addShopToItem(shop, this.item);
+                this.deps.shopAccessObject.addShopToItem(shop, this.item);
             } else {
-                Database.removeShopFromItem(shop, this.item);
+                this.deps.shopAccessObject.removeShopFromItem(shop, this.item);
             }
         }
         return checkbox;
     }
 
     private async insertShops() {
-        const shops = await Database.selectAllShops();
-        const goodsShops = (await Database.selectGoodsShops()).filter(shop => shop.name == this.item.name);
+        const shops = await this.deps.shopAccessObject.selectAllShops();
+        const allGoodsShops = await this.deps.shopAccessObject.selectGoodsShops();
+        const goodsShops = allGoodsShops.filter(shop => shop.name == this.item.name);
         const container = this.container.querySelector('.goodsShopAssignement');
         for (const shop of shops) {
             const label = document.createElement('label');
