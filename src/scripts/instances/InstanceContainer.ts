@@ -5,8 +5,13 @@ import ItemDaoImpl from "../database/dataAccessObjects/item/ItemDaoImpl"
 import ShopDaoImpl from "../database/dataAccessObjects/shop/ShopDaoImpl"
 import Database from "../database/Database"
 import QueryExecutorSqliteNode from "../database/queryExecutor/QueryExecutorSqliteNode"
-import MenuRoutesFactory from "../factories/menu/MenuRoutesFactory"
 import Menu from "../menu/Menu"
+import CategoriesMenuRoute from "../menu/menuRouteCreators/implementations/CategoriesMenuRoute"
+import ItemsMenuRoute from "../menu/menuRouteCreators/implementations/ItemsMenuRoute"
+import MealsMenuRoute from "../menu/menuRouteCreators/implementations/MealsMenuRoute"
+import ShoppingListMenuRoute from "../menu/menuRouteCreators/implementations/ShoppingListMenuRoute"
+import ShopsMenuRoute from "../menu/menuRouteCreators/implementations/ShopsMenuRoute"
+import MenuRouteCreator from "../menu/menuRouteCreators/MenuRouteCreator"
 import ComponentReadyChecksImpl from "../menu/readyCheck/ComponentReadyChecksImpl"
 import MenuRoute from "../menu/types/menuRoute/MenuRoute"
 
@@ -21,6 +26,12 @@ export default class InstanceContainer {
     menuRoutes: MenuRoute[];
     menu: Menu;
     databaseCreator: DatabaseCreator
+    shoppingListMenuRoute: ShoppingListMenuRoute
+    itemsMenuRoute: ItemsMenuRoute
+    categoriesMenuRoute: CategoriesMenuRoute
+    shopsMenuRoute: ShopsMenuRoute
+    mealsMenuRoute: MealsMenuRoute
+    menuRouteCreators: MenuRouteCreator[];
 
     constructor() {
         this.queryExecutor = new QueryExecutorSqliteNode()
@@ -35,7 +46,20 @@ export default class InstanceContainer {
             this.shopDao,
             this.itemDao
         )
-        this.menuRoutes = new MenuRoutesFactory(this.readyChecks).getRoutes()
+
+        this.shoppingListMenuRoute = new ShoppingListMenuRoute(this.readyChecks);
+        this.itemsMenuRoute = new ItemsMenuRoute(this.readyChecks);
+        this.categoriesMenuRoute = new CategoriesMenuRoute();
+        this.shopsMenuRoute = new ShopsMenuRoute(this.readyChecks);
+        this.mealsMenuRoute = new MealsMenuRoute(this.readyChecks);
+        this.menuRouteCreators = [
+            this.shoppingListMenuRoute,
+            this.itemsMenuRoute,
+            this.categoriesMenuRoute,
+            this.shopsMenuRoute,
+            this.mealsMenuRoute,
+        ]
+        this.menuRoutes = this.menuRouteCreators.map(creator => creator.getMenuRoute());
         this.menu = new Menu(this.menuRoutes);
     }
 }
