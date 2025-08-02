@@ -24,9 +24,9 @@ export default class InstanceContainer {
 
     queryExecutor: QueryExecutorSqliteNode;
     databaseInstanciator: DatabaseInstanciator
-    categoryDaoImpl: CategoryDaoImpl;
-    shopDaoImpl: ShopDaoImpl;
-    itemDaoImpl: ItemDaoImpl;
+    categoryDao: CategoryDaoImpl;
+    shopDao: ShopDaoImpl;
+    itemDao: ItemDaoImpl;
     readyChecks: ComponentReadyChecksImpl;
     menuRoutes: MenuRoute[];
     menu: Menu;
@@ -48,13 +48,13 @@ export default class InstanceContainer {
         Database.injectDependencies(this);
         this.databaseCreator = new DatabaseCreator(this.queryExecutor);
         this.databaseInstanciator = new DatabaseInstanciator(this)
-        this.categoryDaoImpl = new CategoryDaoImpl(this.queryExecutor);
-        this.shopDaoImpl = new ShopDaoImpl(this.queryExecutor);
-        this.itemDaoImpl = new ItemDaoImpl(this.queryExecutor);
+        this.categoryDao = new CategoryDaoImpl(this.queryExecutor);
+        this.shopDao = new ShopDaoImpl(this.queryExecutor);
+        this.itemDao = new ItemDaoImpl(this.queryExecutor);
         this.readyChecks = new ComponentReadyChecksImpl(
-            this.categoryDaoImpl,
-            this.shopDaoImpl,
-            this.itemDaoImpl
+            this.categoryDao,
+            this.shopDao,
+            this.itemDao
         )
         this.mealsFactory = new MealsFactory();
         this.shopsFactory = new ShopsFactory();

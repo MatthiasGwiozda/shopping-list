@@ -8,14 +8,15 @@ import MealInformation from '../types/MealInformation';
 import Shop from '../types/Shop';
 import ShoppingListItem from '../types/ShoppingListItem';
 import ShoppingListMeal from '../types/ShoppingListMeal';
-import CategoryDaoImpl from './dataAccessObjects/category/CategoryDaoImpl';
+import CategoryDao from './dataAccessObjects/category/CategoryDao';
 import ItemDaoImpl from './dataAccessObjects/item/ItemDaoImpl';
-import ShopDaoImpl from './dataAccessObjects/shop/ShopDaoImpl';
+import ShopDao from './dataAccessObjects/shop/ShopDao';
 import QueryExecutor from './queryExecutor/QueryExecutor';
 
 interface DatabaseDeps {
     queryExecutor: QueryExecutor;
-    categoryDaoImpl: CategoryDaoImpl;
+    categoryDao: CategoryDao;
+    shopDao: ShopDao;
 }
 
 /**
@@ -35,7 +36,7 @@ export default class Database {
     }
 
     static async selectAllCategories(): Promise<Category[]> {
-        return this.deps.categoryDaoImpl.selectAllCategories();
+        return this.deps.categoryDao.selectAllCategories();
     }
 
     static async deleteCategory(categoryObject: Category): Promise<boolean> {
@@ -243,8 +244,7 @@ export default class Database {
     }
 
     static async selectAllShops(): Promise<Shop[]> {
-        return new ShopDaoImpl(this.deps.queryExecutor)
-            .selectAllShops();
+        return this.deps.shopDao.selectAllShops();
     }
 
     static async deleteShop(shop: Shop): Promise<boolean> {
