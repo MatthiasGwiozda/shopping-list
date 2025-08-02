@@ -6,6 +6,7 @@ import ShopDaoImpl from "../database/dataAccessObjects/shop/ShopDaoImpl"
 import Database from "../database/Database"
 import QueryExecutorSqliteNode from "../database/queryExecutor/QueryExecutorSqliteNode"
 import MealsFactory from "../factories/components/menuComponents/implementations/MealsFactory"
+import ShopsFactory from "../factories/components/menuComponents/implementations/ShopsFactory"
 import Menu from "../menu/Menu"
 import CategoriesMenuRoute from "../menu/menuRouteCreators/implementations/CategoriesMenuRoute"
 import ItemsMenuRoute from "../menu/menuRouteCreators/implementations/ItemsMenuRoute"
@@ -36,6 +37,7 @@ export default class InstanceContainer {
     menuRouteCreators: MenuRouteCreator[];
     menuRouteReadyChecker: MenuRouteReadyChecker
     mealsFactory: MealsFactory
+    shopsFactory: ShopsFactory
 
     constructor() {
         this.queryExecutor = new QueryExecutorSqliteNode()
@@ -51,11 +53,12 @@ export default class InstanceContainer {
             this.itemDao
         )
         this.mealsFactory = new MealsFactory();
-        
+        this.shopsFactory = new ShopsFactory();
+
         this.shoppingListMenuRoute = new ShoppingListMenuRoute(this.readyChecks);
         this.itemsMenuRoute = new ItemsMenuRoute(this.readyChecks);
         this.categoriesMenuRoute = new CategoriesMenuRoute();
-        this.shopsMenuRoute = new ShopsMenuRoute(this.readyChecks);
+        this.shopsMenuRoute = new ShopsMenuRoute(this);
         this.mealsMenuRoute = new MealsMenuRoute(this);
         this.menuRouteCreators = [
             this.shoppingListMenuRoute,
