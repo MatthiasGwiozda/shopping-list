@@ -13,25 +13,29 @@ import ItemDaoImpl from './dataAccessObjects/item/ItemDaoImpl';
 import ShopDaoImpl from './dataAccessObjects/shop/ShopDaoImpl';
 import QueryExecutor from './queryExecutor/QueryExecutor';
 
+interface DatabaseDeps {
+    queryExecutor: QueryExecutor;
+    categoryDaoImpl: CategoryDaoImpl;
+}
+
 /**
  * @deprecated use DataAccessObjects instead
  */
 export default class Database {
 
-    private static queryExecutor: QueryExecutor;
+    private static deps: DatabaseDeps;
 
     private static runQuery<T>(query, params: any[] = []): Promise<T[]> {
-        return this.queryExecutor
+        return this.deps.queryExecutor
             .runQuery(query, params);
     }
 
-    static injectQueryExecutor(queryExecutor: QueryExecutor) {
-        this.queryExecutor = queryExecutor;
+    static injectDependencies(deps: DatabaseDeps) {
+        this.deps = deps;
     }
 
     static async selectAllCategories(): Promise<Category[]> {
-        return new CategoryDaoImpl(this.queryExecutor)
-            .selectAllCategories();
+        return this.deps.categoryDaoImpl.selectAllCategories();
     }
 
     static async deleteCategory(categoryObject: Category): Promise<boolean> {
@@ -239,7 +243,7 @@ export default class Database {
     }
 
     static async selectAllShops(): Promise<Shop[]> {
-        return new ShopDaoImpl(this.queryExecutor)
+        return new ShopDaoImpl(this.deps.queryExecutor)
             .selectAllShops();
     }
 
@@ -324,7 +328,7 @@ export default class Database {
     }
 
     static async selectAllItems(): Promise<Item[]> {
-        return new ItemDaoImpl(this.queryExecutor)
+        return new ItemDaoImpl(this.deps.queryExecutor)
             .selectAllItems();
     }
 
