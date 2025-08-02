@@ -50,7 +50,7 @@ export default class InstanceContainer {
         this.databaseInstanciator = new DatabaseInstanciator(this)
         this.categoryDao = new CategoryDaoImpl(this);
         this.shopDao = new ShopDaoImpl(this);
-        this.itemDao = new ItemDaoImpl(this.queryExecutor);
+        this.itemDao = new ItemDaoImpl(this);
         this.readyChecks = new ComponentReadyChecksImpl(
             this.categoryDao,
             this.shopDao,
