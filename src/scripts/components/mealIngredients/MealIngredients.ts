@@ -1,15 +1,20 @@
 import Database from "../../database/Database";
+import ItemCollectionFactory from "../../factories/components/itemCollection/ItemCollectionFactory";
 import ItemCollectionParams, { CurrentItems } from "../../types/components/itemCollection";
 import Meal from "../../types/Meal";
 import Component from "../Component";
-import ItemCollection from "../itemCollection/ItemCollection";
 import mealIngredientsPartials from "./mealIngredientsPartials";
+
+export interface MealIngredientsDeps {
+    itemCollectionFactory: ItemCollectionFactory,
+}
 
 export default class MealIngredients extends Component {
 
     constructor(
         container: HTMLElement,
-        private meal: Meal
+        private meal: Meal,
+        private deps: MealIngredientsDeps,
     ) {
         super(container);
         this.initializeItemCollection();
@@ -30,7 +35,7 @@ export default class MealIngredients extends Component {
             filter: (item) => item.food,
             currentItems: await this.getCurrentItems()
         };
-        new ItemCollection(container, params);
+        this.deps.itemCollectionFactory.create(container, params)
     }
 
     private getMealName() {

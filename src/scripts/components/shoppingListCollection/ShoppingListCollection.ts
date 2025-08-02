@@ -5,12 +5,16 @@ import InputUtilities from "../../utilities/InputUtilities";
 import Component from "../Component";
 import HtmlUtilities from "../../utilities/HtmlUtilities";
 import shoppingListCollectionPartials from "./shoppingListCollectionPartials";
-import ItemCollection from "../itemCollection/ItemCollection";
 import ItemCollectionParams from "../../types/components/itemCollection";
+import ItemCollectionFactory from "../../factories/components/itemCollection/ItemCollectionFactory";
+
+export interface ShoppingListCollectionDeps {
+    itemCollectionFactory: ItemCollectionFactory;
+}
 
 export default class ShoppingListCollection extends Component {
 
-    constructor(container: HTMLElement) {
+    constructor(container: HTMLElement, private deps: ShoppingListCollectionDeps) {
         super(container);
         this.insertCurrentShoppingLists();
         this.initializeAddListAction();
@@ -78,7 +82,7 @@ export default class ShoppingListCollection extends Component {
                         return Database.updateShoppingListItemQuantity(itemName, label.innerText, quantity);
                     }
                 };
-                new ItemCollection(itemCollectionContainer, itemCollectionParams);
+                this.deps.itemCollectionFactory.create(itemCollectionContainer, itemCollectionParams)
             }
         }
         return editButton;

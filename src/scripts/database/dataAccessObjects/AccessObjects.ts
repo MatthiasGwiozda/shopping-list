@@ -16,3 +16,7 @@ export interface ShopAccessObject {
     selectAllShops(): Promise<Shop[]>;
     selectGoodsShops(): Promise<GoodsShops[]>;
 }
+
+export interface ItemAccessObject {
+    selectAllItems(): Promise<Item[]>;
+}

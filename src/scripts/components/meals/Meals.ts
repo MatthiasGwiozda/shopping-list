@@ -8,9 +8,13 @@ import mealsPartials from "./MealsPartials";
 import EditableList from "../editableList/EditableList";
 import MealIngredientsAdditionalActionFactory from "../../factories/components/editableList/additionalAction/implementations/MealIngredientsAdditionalActionFactory";
 
+export interface MealsDeps {
+    mealIngredientsAdditionalActionFactory: MealIngredientsAdditionalActionFactory;
+}
+
 export default class Meals extends Component {
 
-    constructor(container: HTMLElement) {
+    constructor(container: HTMLElement, private deps: MealsDeps) {
         super(container);
         this.createEditableList()
     }
@@ -83,7 +87,7 @@ export default class Meals extends Component {
             additionalEditableListActions: [{
                 buttonIcon: constants.icons.item,
                 buttonTitle: 'Edit ingredients, recipe and more',
-                factory: new MealIngredientsAdditionalActionFactory()
+                factory: this.deps.mealIngredientsAdditionalActionFactory
             }]
         }
 

@@ -1,4 +1,3 @@
-import Database from "../../database/Database";
 import DialogUtilities from "../../utilities/DialogUtilities";
 import InputUtilities from "../../utilities/InputUtilities";
 import UniqueUtilities from "../../utilities/UniqueUtilities";
@@ -7,6 +6,11 @@ import Component from "../Component";
 import HtmlUtilities from "../../utilities/HtmlUtilities";
 import itemCollectionPartials from "./itemCollectionPartials";
 import ItemCollectionParams from "../../types/components/itemCollection";
+import { ItemAccessObject } from "../../database/dataAccessObjects/AccessObjects";
+
+export interface ItemCollectionDeps {
+    itemAccessObject: ItemAccessObject;
+}
 
 export default class ItemCollection extends Component {
     private readonly optgroupTagName = 'optgroup';
@@ -14,7 +18,8 @@ export default class ItemCollection extends Component {
 
     constructor(
         container: HTMLElement,
-        private params: ItemCollectionParams
+        private params: ItemCollectionParams,
+        private deps: ItemCollectionDeps,
     ) {
         super(container);
         this.initializeItemCollection()
@@ -25,7 +30,7 @@ export default class ItemCollection extends Component {
     }
 
     private async getItems(): Promise<Item[]> {
-        let items = await Database.selectAllItems();
+        let items = await this.deps.itemAccessObject.selectAllItems();
         const { filter } = this.params;
         if (filter != null) {
             items = items.filter(item => filter(item));

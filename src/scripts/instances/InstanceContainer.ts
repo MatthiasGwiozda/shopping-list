@@ -1,12 +1,14 @@
 import DatabaseCreator from "../database/creator/DatabaseCreator"
 import DatabaseInstanciator from "../database/creator/DatabaseInstanciator"
-import { CategoryAccessObject, ShopAccessObject } from "../database/dataAccessObjects/AccessObjects"
+import { CategoryAccessObject, ItemAccessObject, ShopAccessObject } from "../database/dataAccessObjects/AccessObjects"
 import CategoryDaoImpl from "../database/dataAccessObjects/category/CategoryDaoImpl"
 import ItemDaoImpl from "../database/dataAccessObjects/item/ItemDaoImpl"
 import ShopDaoImpl from "../database/dataAccessObjects/shop/ShopDaoImpl"
 import Database from "../database/Database"
 import QueryExecutorSqliteNode from "../database/queryExecutor/QueryExecutorSqliteNode"
 import GoodsShopAssignementAdditionalActionFactory from "../factories/components/editableList/additionalAction/implementations/GoodsShopAssignementAdditionalActionFactory"
+import MealIngredientsAdditionalActionFactory from "../factories/components/editableList/additionalAction/implementations/MealIngredientsAdditionalActionFactory"
+import ItemCollectionFactory from "../factories/components/itemCollection/ItemCollectionFactory"
 import CategoriesFactory from "../factories/components/menuComponents/implementations/CategoriesFactory"
 import ItemsFactory from "../factories/components/menuComponents/implementations/ItemsFactory"
 import MealsFactory from "../factories/components/menuComponents/implementations/MealsFactory"
@@ -47,24 +49,31 @@ export default class InstanceContainer {
     goodsShopAssignementAdditionalActionFactory: GoodsShopAssignementAdditionalActionFactory
     shopAccessObject: ShopAccessObject;
     categoryAccessObject: CategoryAccessObject;
+    itemCollectionFactory: ItemCollectionFactory;
+    itemAccessObject: ItemAccessObject;
+    mealIngredientsAdditionalActionFactory: MealIngredientsAdditionalActionFactory
 
     constructor() {
         this.queryExecutor = new QueryExecutorSqliteNode()
         Database.injectDependencies(this);
         this.categoryAccessObject = Database;
         this.shopAccessObject = Database;
+        this.itemAccessObject = Database;
+
         this.databaseCreator = new DatabaseCreator(this);
         this.databaseInstanciator = new DatabaseInstanciator(this)
         this.categoryDao = new CategoryDaoImpl(this);
         this.shopDao = new ShopDaoImpl(this);
         this.itemDao = new ItemDaoImpl(this);
         this.readyChecks = new ComponentReadyChecksImpl(this);
-        this.mealsFactory = new MealsFactory();
+        this.itemCollectionFactory = new ItemCollectionFactory(this);
+        this.mealIngredientsAdditionalActionFactory = new MealIngredientsAdditionalActionFactory(this);
+        this.mealsFactory = new MealsFactory(this);
         this.shopsFactory = new ShopsFactory();
         this.goodsShopAssignementAdditionalActionFactory =
             new GoodsShopAssignementAdditionalActionFactory(this)
         this.itemsFactory = new ItemsFactory(this);
-        this.shoppingListFactory = new ShoppingListFactory();
+        this.shoppingListFactory = new ShoppingListFactory({ shoppingListCollectionDeps: this });
         this.categoriesFactory = new CategoriesFactory(this);
 
         this.shoppingListMenuRoute = new ShoppingListMenuRoute(this);
