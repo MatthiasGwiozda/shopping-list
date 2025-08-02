@@ -14,6 +14,7 @@ import ItemsFactory from "../factories/components/menuComponents/implementations
 import MealsFactory from "../factories/components/menuComponents/implementations/MealsFactory"
 import ShoppingListFactory from "../factories/components/menuComponents/implementations/ShoppingListFactory"
 import ShopsFactory from "../factories/components/menuComponents/implementations/ShopsFactory"
+import ShoppingListCollectionFactory from "../factories/components/shoppingListCollection/ShoppingListCollectionFactory"
 import Menu from "../menu/Menu"
 import CategoriesMenuRoute from "../menu/menuRouteCreators/implementations/CategoriesMenuRoute"
 import ItemsMenuRoute from "../menu/menuRouteCreators/implementations/ItemsMenuRoute"
@@ -52,6 +53,7 @@ export default class InstanceContainer {
     itemCollectionFactory: ItemCollectionFactory;
     itemAccessObject: ItemAccessObject;
     mealIngredientsAdditionalActionFactory: MealIngredientsAdditionalActionFactory
+    shoppingListCollectionFactory: ShoppingListCollectionFactory
 
     constructor() {
         this.queryExecutor = new QueryExecutorSqliteNode()
@@ -73,7 +75,8 @@ export default class InstanceContainer {
         this.goodsShopAssignementAdditionalActionFactory =
             new GoodsShopAssignementAdditionalActionFactory(this)
         this.itemsFactory = new ItemsFactory(this);
-        this.shoppingListFactory = new ShoppingListFactory({ shoppingListCollectionDeps: this });
+        this.shoppingListCollectionFactory = new ShoppingListCollectionFactory(this);
+        this.shoppingListFactory = new ShoppingListFactory(this);
         this.categoriesFactory = new CategoriesFactory(this);
 
         this.shoppingListMenuRoute = new ShoppingListMenuRoute(this);
