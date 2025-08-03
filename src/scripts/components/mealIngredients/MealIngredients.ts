@@ -1,4 +1,4 @@
-import Database from "../../database/Database";
+import { MealAccessObject } from "../../database/dataAccessObjects/AccessObjects";
 import ItemCollectionFactory from "../../factories/components/itemCollection/ItemCollectionFactory";
 import ItemCollectionParams, { CurrentItems } from "../../types/components/itemCollection";
 import Meal from "../../types/Meal";
@@ -7,6 +7,7 @@ import mealIngredientsPartials from "./mealIngredientsPartials";
 
 export interface MealIngredientsDeps {
     itemCollectionFactory: ItemCollectionFactory,
+    mealAccessObject: MealAccessObject,
 }
 
 export default class MealIngredients extends Component {
@@ -43,19 +44,19 @@ export default class MealIngredients extends Component {
     }
 
     private async getCurrentItems(): Promise<CurrentItems[]> {
-        return Database.selectMealFood(this.getMealName());
+        return this.deps.mealAccessObject.selectMealFood(this.getMealName());
     }
 
     private async insertItem(itemName: string): Promise<boolean> {
-        return Database.insertMealFood(this.getMealName(), itemName);
+        return this.deps.mealAccessObject.insertMealFood(this.getMealName(), itemName);
     }
 
     private async removeItem(itemName: string): Promise<boolean> {
-        return Database.deleteMealFood(this.getMealName(), itemName);
+        return this.deps.mealAccessObject.deleteMealFood(this.getMealName(), itemName);
     }
 
     private async updateQuantity(itemName: string, quantity: number): Promise<boolean> {
-        return Database.updateMealFoodQuantity(this.getMealName(), itemName, quantity);
+        return this.deps.mealAccessObject.updateMealFoodQuantity(this.getMealName(), itemName, quantity);
     }
 
     /**
@@ -64,7 +65,7 @@ export default class MealIngredients extends Component {
      * the componentParameters.
      */
     private async getCurrentMeal(): Promise<Meal> {
-        const meals = await Database.selectAllMeals();
+        const meals = await this.deps.mealAccessObject.selectAllMeals();
         return meals.find(meal => meal.name == this.meal.name);
     }
 
@@ -79,7 +80,7 @@ export default class MealIngredients extends Component {
              * We can use the currentMeal because the sql - query
              * only uses the mealname to identify the oldMeal.
              */
-            Database.updateMeal(currentMeal, {
+            this.deps.mealAccessObject.updateMeal(currentMeal, {
                 ...currentMeal,
                 recipe: textarea.value
             });
@@ -88,7 +89,7 @@ export default class MealIngredients extends Component {
     }
 
     private async getAllMealComponents() {
-        const meals = await Database.selectAllMeals();
+        const meals = await this.deps.mealAccessObject.selectAllMeals();
         return meals.filter(meal => meal.component);
     }
 
@@ -98,7 +99,7 @@ export default class MealIngredients extends Component {
         if (!component) {
             const mealComponentsContainer = componentsWrapper.querySelector('.mealComponents');
             const mealComponents = await this.getAllMealComponents();
-            const currentRelatedMeals = await Database.selectRelatedMealComponents(name);
+            const currentRelatedMeals = await this.deps.mealAccessObject.selectRelatedMealComponents(name);
             mealComponents.forEach(mealComponent => {
                 const p = document.createElement('p');
                 const label = document.createElement('label');
@@ -110,9 +111,9 @@ export default class MealIngredients extends Component {
                 }
                 checkbox.onchange = () => {
                     if (checkbox.checked) {
-                        Database.setRelatedMealComponent(name, mealComponent.name)
+                        this.deps.mealAccessObject.setRelatedMealComponent(name, mealComponent.name)
                     } else {
-                        Database.deleteRelatedMealComponent(name, mealComponent.name)
+                        this.deps.mealAccessObject.deleteRelatedMealComponent(name, mealComponent.name)
                     }
                 }
                 label.prepend(checkbox);

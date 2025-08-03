@@ -1,4 +1,5 @@
 import Category from "../../types/Category";
+import { CurrentItems } from "../../types/components/itemCollection";
 import GoodsShops from "../../types/GoodsShops";
 import Item from "../../types/Item";
 import Meal from "../../types/Meal";
@@ -29,7 +30,15 @@ export interface ItemAccessObject {
 
 export interface MealAccessObject {
     selectAllMeals(): Promise<Meal[]>;
+    updateMeal(oldMeal: Meal, newMeal: Meal, updateRecipe?: boolean): Promise<boolean>
     selectMealsInformation(): Promise<MealInformation[]>;
+    selectMealFood(mealName: string): Promise<CurrentItems[]>;
+    insertMealFood(mealName: string, foodName: string): Promise<boolean>;
+    deleteMealFood(mealName: string, foodName: string): Promise<boolean>;
+    updateMealFoodQuantity(mealName: string, foodName: string, quantity: number): Promise<boolean>;
+    selectRelatedMealComponents(mealName: string): Promise<string[]>;
+    setRelatedMealComponent(mealName: string, componentMealName: string): Promise<boolean>;
+    deleteRelatedMealComponent(mealName: string, componentMealName: string): Promise<boolean>;
 }
 
 export interface ShoppingListAccessObject {

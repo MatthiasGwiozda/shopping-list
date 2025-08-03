@@ -515,7 +515,7 @@ export default class Database {
      * @param updateRecipe when set to false, this function will not update the recipe
      * of the meal.
      */
-    static async updateMeal(oldMeal: Meal, newMeal: Meal, updateRecipe = true) {
+    static async updateMeal(oldMeal: Meal, newMeal: Meal, updateRecipe = true): Promise<boolean> {
         try {
             if (updateRecipe) {
                 await this.runQuery(`
