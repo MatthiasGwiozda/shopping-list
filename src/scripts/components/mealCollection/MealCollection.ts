@@ -1,4 +1,3 @@
-import Database from "../../database/Database";
 import DialogUtilities from "../../utilities/DialogUtilities";
 import InputUtilities from "../../utilities/InputUtilities";
 import Meal from "../../types/Meal";
@@ -6,12 +5,18 @@ import MealInformation from "../../types/MealInformation";
 import Component from "../Component";
 import HtmlUtilities from "../../utilities/HtmlUtilities";
 import mealCollectionPartials from "./mealCollectionPartials";
+import { MealAccessObject, ShoppingListAccessObject } from "../../database/dataAccessObjects/AccessObjects";
+
+export interface MealCollectionDeps {
+    mealAccessObject: MealAccessObject;
+    shoppingListAccessObject: ShoppingListAccessObject;
+}
 
 export default class MealCollection extends Component {
     private select: HTMLSelectElement;
     private readonly selectName = 'selectedMeal';
 
-    constructor(container: HTMLElement) {
+    constructor(container: HTMLElement, private deps: MealCollectionDeps) {
         super(container);
         this.rendered();
     }
@@ -41,8 +46,8 @@ export default class MealCollection extends Component {
     }
 
     async insertMealsToSelect() {
-        const meals = await Database.selectAllMeals();
-        const mealsInformation = await Database.selectMealsInformation();
+        const meals = await this.deps.mealAccessObject.selectAllMeals();
+        const mealsInformation = await this.deps.mealAccessObject.selectMealsInformation();
         const useableMeals = this.filterMeals(meals, mealsInformation, true);
         const unusableMeals = this.filterMeals(meals, mealsInformation, false);
         // Get the names of the meals as arrays
@@ -94,7 +99,7 @@ export default class MealCollection extends Component {
         // delete - button functionality
         const deleteButton = itemHTML.querySelector('button');
         deleteButton.onclick = async () => {
-            const deleted = await Database.deleteMealFromShoppingList(mealName);
+            const deleted = await this.deps.shoppingListAccessObject.deleteMealFromShoppingList(mealName);
             if (deleted) {
                 itemHTML.remove();
             } else {
@@ -107,7 +112,9 @@ export default class MealCollection extends Component {
         quantityInput.value = quantity.toString();
         quantityInput.oninput = async () => {
             if (quantityInput.validity.valid) {
-                await Database.updateMealShoppingListQuantity(mealName, parseInt(quantityInput.value));
+                await this.deps.shoppingListAccessObject.updateMealShoppingListQuantity(
+                    mealName, parseInt(quantityInput.value)
+                );
             }
         }
         // add the label for the meal
@@ -118,7 +125,7 @@ export default class MealCollection extends Component {
     }
 
     async showCurrentMeals() {
-        const currentMeals = await Database.selectAllMealShoppingList();
+        const currentMeals = await this.deps.shoppingListAccessObject.selectAllMealShoppingList();
         currentMeals.forEach(mealInfo => {
             this.addMealToCollection(mealInfo.meal, mealInfo.quantity)
         })
@@ -130,7 +137,7 @@ export default class MealCollection extends Component {
             e.preventDefault();
             const formData = new FormData(form);
             const mealName = formData.get(this.selectName).toString();
-            const inserted = await Database.insertMealToShoppingList(mealName);
+            const inserted = await this.deps.shoppingListAccessObject.insertMealToShoppingList(mealName);
             if (inserted) {
                 this.addMealToCollection(mealName);
             } else {

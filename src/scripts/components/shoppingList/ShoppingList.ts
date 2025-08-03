@@ -1,7 +1,7 @@
 import Database from "../../database/Database";
 import ShoppingListCollectionFactory from "../../factories/components/shoppingListCollection/ShoppingListCollectionFactory";
 import Component from "../Component";
-import MealCollection from "../mealCollection/MealCollection";
+import MealCollectionFactory from "../mealCollection/MealCollectionFactory";
 import shoppingListPartials from "./shoppingListPartials";
 
 enum TextAreas {
@@ -12,6 +12,7 @@ enum TextAreas {
 
 export interface ShoppingListDeps {
     shoppingListCollectionFactory: ShoppingListCollectionFactory;
+    mealCollectionFactory: MealCollectionFactory;
 }
 
 export default class ShoppingList extends Component {
@@ -33,7 +34,7 @@ export default class ShoppingList extends Component {
 
     private rendered() {
         const mealCollectionContainer = this.container.querySelector<HTMLElement>(".mealsList .container");
-        new MealCollection(mealCollectionContainer);
+        this.deps.mealCollectionFactory.create(mealCollectionContainer);
         const shoppingListCollectionContainer = this.container.querySelector<HTMLElement>(".staticList .container");
         this.deps.shoppingListCollectionFactory.create(shoppingListCollectionContainer)
         this.addShoppingListGeneration();

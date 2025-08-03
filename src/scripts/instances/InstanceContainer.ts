@@ -1,6 +1,7 @@
+import MealCollectionFactory from "../components/mealCollection/MealCollectionFactory"
 import DatabaseCreator from "../database/creator/DatabaseCreator"
 import DatabaseInstanciator from "../database/creator/DatabaseInstanciator"
-import { CategoryAccessObject, ItemAccessObject, ShopAccessObject } from "../database/dataAccessObjects/AccessObjects"
+import { CategoryAccessObject, ItemAccessObject, MealAccessObject, ShopAccessObject, ShoppingListAccessObject } from "../database/dataAccessObjects/AccessObjects"
 import CategoryDaoImpl from "../database/dataAccessObjects/category/CategoryDaoImpl"
 import ItemDaoImpl from "../database/dataAccessObjects/item/ItemDaoImpl"
 import ShopDaoImpl from "../database/dataAccessObjects/shop/ShopDaoImpl"
@@ -54,6 +55,9 @@ export default class InstanceContainer {
     itemAccessObject: ItemAccessObject;
     mealIngredientsAdditionalActionFactory: MealIngredientsAdditionalActionFactory
     shoppingListCollectionFactory: ShoppingListCollectionFactory
+    mealCollectionFactory: MealCollectionFactory
+    mealAccessObject: MealAccessObject;
+    shoppingListAccessObject: ShoppingListAccessObject;
 
     constructor() {
         this.queryExecutor = new QueryExecutorSqliteNode()
@@ -61,6 +65,8 @@ export default class InstanceContainer {
         this.categoryAccessObject = Database;
         this.shopAccessObject = Database;
         this.itemAccessObject = Database;
+        this.mealAccessObject = Database;
+        this.shoppingListAccessObject = Database;
 
         this.databaseCreator = new DatabaseCreator(this);
         this.databaseInstanciator = new DatabaseInstanciator(this)
@@ -78,6 +84,7 @@ export default class InstanceContainer {
         this.shoppingListCollectionFactory = new ShoppingListCollectionFactory(this);
         this.shoppingListFactory = new ShoppingListFactory(this);
         this.categoriesFactory = new CategoriesFactory(this);
+        this.mealCollectionFactory = new MealCollectionFactory(this);
 
         this.shoppingListMenuRoute = new ShoppingListMenuRoute(this);
         this.itemsMenuRoute = new ItemsMenuRoute(this);
