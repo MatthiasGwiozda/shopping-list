@@ -19,4 +19,7 @@ export interface ShopAccessObject {
 
 export interface ItemAccessObject {
     selectAllItems(): Promise<Item[]>;
+    deleteItem(item: Item): Promise<boolean>;
+    insertItem(item: Item): Promise<boolean>;
+    updateItem(oldItem: Item, newItem: Item): Promise<boolean>;
 }

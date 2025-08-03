@@ -376,7 +376,7 @@ export default class Database {
         return true;
     }
 
-    static async updateItem(oldItem: Item, newItem: Item) {
+    static async updateItem(oldItem: Item, newItem: Item): Promise<boolean> {
         try {
             await this.runQuery(`
             UPDATE goods

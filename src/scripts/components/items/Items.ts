@@ -1,14 +1,16 @@
 import constants from "../../constants";
-import Database from "../../database/Database";
 import GoodsShopAssignementAdditionalActionFactory from "../../factories/components/editableList/additionalAction/implementations/GoodsShopAssignementAdditionalActionFactory";
 import ObserverableComponent from "../ObserverableComponent";
 import { EditableListParams, PossibleInputTypes } from "../../types/components/editableList";
 import Item from "../../types/Item";
 import EditableList from "../editableList/EditableList";
 import itemsPartials from "./itemsPartials";
+import { CategoryAccessObject, ItemAccessObject } from "../../database/dataAccessObjects/AccessObjects";
 
 export interface ItemsDeps {
     goodsShopAssignementAdditionalActionFactory: GoodsShopAssignementAdditionalActionFactory;
+    categoryAccessObject: CategoryAccessObject;
+    itemAccessObject: ItemAccessObject;
 }
 
 export default class Items extends ObserverableComponent {
@@ -23,10 +25,11 @@ export default class Items extends ObserverableComponent {
     }
 
     private async createEditableList() {
+        const categories = await this.deps.categoryAccessObject.selectAllCategories();
         const params: EditableListParams<Item> = {
-            getTableContent: async () => await Database.selectAllItems(),
+            getTableContent: async () => await this.deps.itemAccessObject.selectAllItems(),
             deleteElement: async (item) => {
-                const result = await Database.deleteItem(item);
+                const result = await this.deps.itemAccessObject.deleteItem(item);
                 this.notifyObservers();
                 return {
                     result,
@@ -34,7 +37,7 @@ export default class Items extends ObserverableComponent {
                 }
             },
             insertElement: async (item) => {
-                const result = await Database.insertItem(item);
+                const result = await this.deps.itemAccessObject.insertItem(item);
                 this.notifyObservers();
                 return {
                     result,
@@ -42,7 +45,7 @@ export default class Items extends ObserverableComponent {
                 }
             },
             updateElement: async (oldItem, newItem) => {
-                const result = await Database.updateItem(oldItem, newItem);
+                const result = await this.deps.itemAccessObject.updateItem(oldItem, newItem);
                 // This notification is for the itemsWithFoodCheck in `menu.ts`
                 this.notifyObservers();
                 return {
@@ -59,7 +62,7 @@ export default class Items extends ObserverableComponent {
                 category: {
                     columnName: "Category",
                     inputType: PossibleInputTypes.select,
-                    selectInputValues: (await Database.selectAllCategories()).map(c => c.category)
+                    selectInputValues: categories.map(c => c.category)
                 },
                 food: {
                     columnName: "Food",
