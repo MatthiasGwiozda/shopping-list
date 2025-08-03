@@ -30,7 +30,9 @@ export interface ItemAccessObject {
 
 export interface MealAccessObject {
     selectAllMeals(): Promise<Meal[]>;
-    updateMeal(oldMeal: Meal, newMeal: Meal, updateRecipe?: boolean): Promise<boolean>
+    insertMeal(meal: Meal): Promise<boolean>;
+    updateMeal(oldMeal: Meal, newMeal: Meal, updateRecipe?: boolean): Promise<boolean>;
+    deleteMeal(meal: Meal): Promise<boolean>;
     selectMealsInformation(): Promise<MealInformation[]>;
     selectMealFood(mealName: string): Promise<CurrentItems[]>;
     insertMealFood(mealName: string, foodName: string): Promise<boolean>;
@@ -39,6 +41,7 @@ export interface MealAccessObject {
     selectRelatedMealComponents(mealName: string): Promise<string[]>;
     setRelatedMealComponent(mealName: string, componentMealName: string): Promise<boolean>;
     deleteRelatedMealComponent(mealName: string, componentMealName: string): Promise<boolean>;
+    selectMealsForComponentMeal(componentMealName: string): Promise<string[]>;
 }
 
 export interface ShoppingListAccessObject {
