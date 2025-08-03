@@ -49,4 +49,6 @@ export interface ShoppingListAccessObject {
     insertMealToShoppingList(mealName: string): Promise<boolean>;
     updateMealShoppingListQuantity(mealName: string, quantity: number): Promise<boolean>;
     deleteMealFromShoppingList(mealName: string): Promise<boolean>;
+    generateShoppingList(shopId: number, availableShopItems: boolean): Promise<string>;
+    getRecipesOfSelectedMeals(): Promise<string>;
 }
