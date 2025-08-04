@@ -8,6 +8,7 @@ import MealInformation from '../types/MealInformation';
 import Shop from '../types/Shop';
 import ShoppingListItem from '../types/ShoppingListItem';
 import ShoppingListMeal from '../types/ShoppingListMeal';
+import { CategoryAccessObject, ItemAccessObject, MealAccessObject, ShopAccessObject, ShoppingListAccessObject } from './dataAccessObjects/AccessObjects';
 import CategoryDao from './dataAccessObjects/category/CategoryDao';
 import ItemDao from './dataAccessObjects/item/ItemDao';
 import ShopDao from './dataAccessObjects/shop/ShopDao';
@@ -23,24 +24,22 @@ interface DatabaseDeps {
 /**
  * @deprecated use DataAccessObjects instead
  */
-export default class Database {
+export default class Database implements
+    CategoryAccessObject, ShopAccessObject,
+    ItemAccessObject, MealAccessObject, ShoppingListAccessObject {
 
-    private static deps: DatabaseDeps;
+    constructor(private deps: DatabaseDeps) { }
 
-    private static runQuery<T>(query, params: any[] = []): Promise<T[]> {
+    private runQuery<T>(query, params: any[] = []): Promise<T[]> {
         return this.deps.queryExecutor
             .runQuery(query, params);
     }
 
-    static injectDependencies(deps: DatabaseDeps) {
-        this.deps = deps;
-    }
-
-    static async selectAllCategories(): Promise<Category[]> {
+    async selectAllCategories(): Promise<Category[]> {
         return this.deps.categoryDao.selectAllCategories();
     }
 
-    static async deleteCategory(categoryObject: Category): Promise<boolean> {
+    async deleteCategory(categoryObject: Category): Promise<boolean> {
         try {
             await this.runQuery(`
             DELETE FROM goods_categories
@@ -52,7 +51,7 @@ export default class Database {
         return true;
     }
 
-    private static async assignAllShopsToNewCategory(categoryObject: Category): Promise<void> {
+    private async assignAllShopsToNewCategory(categoryObject: Category): Promise<void> {
         await this.runQuery(`
         INSERT INTO goods_categories_shop_order (shop_id, category, \`order\`)
             SELECT shops.shop_id, ? AS category, COALESCE(orders.next, 1) AS 'order'
@@ -71,7 +70,7 @@ export default class Database {
      * For example when creating new shops, the id is generated in the
      * database. Through this function you can get the current id of the shop.
      */
-    private static async selectShopId(shop: Shop): Promise<number> {
+    private async selectShopId(shop: Shop): Promise<number> {
         const res = await this.runQuery<{ shop_id: number }>(`
         SELECT shop_id
             FROM shops
@@ -83,7 +82,7 @@ export default class Database {
         return res[0]?.shop_id;
     }
 
-    static async selectGoodsCategoriesShopOrder(shop: Shop): Promise<CategoriesShopOrder[]> {
+    async selectGoodsCategoriesShopOrder(shop: Shop): Promise<CategoriesShopOrder[]> {
         const shopId = await this.selectShopId(shop);
         const categoriesShopOrder = await this.runQuery<CategoriesShopOrder>(`
         SELECT category, \`order\`
@@ -94,7 +93,7 @@ export default class Database {
         return categoriesShopOrder;
     }
 
-    private static async moveCategoryShopOrderDown(fromCategory: string, toCategory: string, shopId: number): Promise<boolean> {
+    private async moveCategoryShopOrderDown(fromCategory: string, toCategory: string, shopId: number): Promise<boolean> {
         try {
             await this.runQuery(`
             WITH shopId AS (
@@ -127,7 +126,7 @@ export default class Database {
         return true;
     }
 
-    private static async moveCategoryShopOrderUp(fromCategory: string, toCategory: string, shopId: number): Promise<boolean> {
+    private async moveCategoryShopOrderUp(fromCategory: string, toCategory: string, shopId: number): Promise<boolean> {
         try {
 
             /**
@@ -188,7 +187,7 @@ export default class Database {
         return true;
     }
 
-    private static async getOrderOfCategory(category: string, shop: Shop): Promise<number> {
+    private async getOrderOfCategory(category: string, shop: Shop): Promise<number> {
         const categories = await this.selectGoodsCategoriesShopOrder(shop);
         return categories.find(
             (c) => c.category == category
@@ -198,7 +197,7 @@ export default class Database {
     /**
      * moves the "fromCategory" to the top of "toCategory".
      */
-    static async moveCategoryShopOrder(fromCategory: string, toCategory: string, shop: Shop): Promise<boolean> {
+    async moveCategoryShopOrder(fromCategory: string, toCategory: string, shop: Shop): Promise<boolean> {
         const fromOrder = await this.getOrderOfCategory(fromCategory, shop);
         const toOrder = await this.getOrderOfCategory(toCategory, shop);
         const shopId = await this.selectShopId(shop);
@@ -213,7 +212,7 @@ export default class Database {
      * creates a new category. Additionally adds the categories
      * to all shops in the goods_categories_shop_order - table.
      */
-    static async insertCategory(categoryObject: Category): Promise<boolean> {
+    async insertCategory(categoryObject: Category): Promise<boolean> {
         try {
             await this.runQuery(`
             INSERT INTO goods_categories (category)
@@ -231,7 +230,7 @@ export default class Database {
         return true;
     }
 
-    static async updateCategory(oldCategory: Category, newCategory: Category): Promise<boolean> {
+    async updateCategory(oldCategory: Category, newCategory: Category): Promise<boolean> {
         try {
             await this.runQuery(`
             UPDATE goods_categories
@@ -244,11 +243,11 @@ export default class Database {
         return true;
     }
 
-    static async selectAllShops(): Promise<Shop[]> {
+    async selectAllShops(): Promise<Shop[]> {
         return this.deps.shopDao.selectAllShops();
     }
 
-    static async deleteShop(shop: Shop): Promise<boolean> {
+    async deleteShop(shop: Shop): Promise<boolean> {
         try {
             await this.runQuery(`
             DELETE FROM shops
@@ -263,7 +262,7 @@ export default class Database {
         return true;
     }
 
-    private static async assignAllCategoriesToNewShop(shop: Shop) {
+    private async assignAllCategoriesToNewShop(shop: Shop) {
         await this.runQuery(`
         INSERT INTO goods_categories_shop_order (shop_id, category, \`order\`)
             SELECT 
@@ -280,7 +279,7 @@ export default class Database {
             `, [shop.house_number, shop.postal_code, shop.shop_name, shop.street]);
     }
 
-    private static async assignAllItemsToNewShop(shop: Shop) {
+    private async assignAllItemsToNewShop(shop: Shop) {
         await this.runQuery(`
         INSERT INTO goods_shops(name, shop_id)
             SELECT name, ?
@@ -292,7 +291,7 @@ export default class Database {
      * creates a new shop.
      * Additionaly assignes all the current categories to this new shop.
      */
-    static async insertShop(shop: Shop): Promise<boolean> {
+    async insertShop(shop: Shop): Promise<boolean> {
         try {
             await this.runQuery(`
             INSERT INTO shops (house_number, postal_code, shop_name, street)
@@ -306,7 +305,7 @@ export default class Database {
         return true;
     }
 
-    static async updateShop(oldShop: Shop, newShop: Shop): Promise<boolean> {
+    async updateShop(oldShop: Shop, newShop: Shop): Promise<boolean> {
         try {
             await this.runQuery(`
             UPDATE shops
@@ -328,11 +327,11 @@ export default class Database {
         return true;
     }
 
-    static async selectAllItems(): Promise<Item[]> {
+    async selectAllItems(): Promise<Item[]> {
         return this.deps.itemDao.selectAllItems();
     }
 
-    static async deleteItem(item: Item): Promise<boolean> {
+    async deleteItem(item: Item): Promise<boolean> {
         try {
             await this.runQuery(`
             DELETE FROM goods
@@ -344,14 +343,14 @@ export default class Database {
         return true;
     }
 
-    static async setItemAsFood(item: Item) {
+    async setItemAsFood(item: Item) {
         await this.runQuery(`
         INSERT INTO food (name)
             VALUES (?);
         `, [item.name]);
     }
 
-    private static async assignAllShopsToNewItem(item: Item) {
+    private async assignAllShopsToNewItem(item: Item) {
         await this.runQuery(`
         INSERT INTO goods_shops (name, shop_id)
             SELECT ?, shop_id
@@ -359,7 +358,7 @@ export default class Database {
         `, [item.name]);
     }
 
-    static async insertItem(item: Item): Promise<boolean> {
+    async insertItem(item: Item): Promise<boolean> {
         try {
             await this.runQuery(`
             INSERT INTO goods (name, category)
@@ -376,7 +375,7 @@ export default class Database {
         return true;
     }
 
-    static async updateItem(oldItem: Item, newItem: Item): Promise<boolean> {
+    async updateItem(oldItem: Item, newItem: Item): Promise<boolean> {
         try {
             await this.runQuery(`
             UPDATE goods
@@ -402,14 +401,14 @@ export default class Database {
         return true;
     }
 
-    static async selectGoodsShops(): Promise<GoodsShops[]> {
+    async selectGoodsShops(): Promise<GoodsShops[]> {
         return await this.runQuery(`
         SELECT *
             FROM goods_shops
         `)
     }
 
-    static async addShopToItem(shop: Shop, item: Item): Promise<boolean> {
+    async addShopToItem(shop: Shop, item: Item): Promise<boolean> {
         try {
             await this.runQuery(`
             INSERT INTO goods_shops (name, shop_id)
@@ -424,7 +423,7 @@ export default class Database {
         return true;
     }
 
-    static async removeShopFromItem(shop: Shop, item: Item): Promise<boolean> {
+    async removeShopFromItem(shop: Shop, item: Item): Promise<boolean> {
         try {
             await this.runQuery(`
             DELETE FROM goods_shops 
@@ -440,8 +439,8 @@ export default class Database {
         return true;
     }
 
-    static async selectAllMeals(): Promise<Meal[]> {
-        const meals: Meal[] = await Database.runQuery(`
+    async selectAllMeals(): Promise<Meal[]> {
+        const meals: Meal[] = await this.runQuery(`
         SELECT meals.name, recipe, meals_components.name IS NOT NULL AS component
             FROM meals
                 LEFT JOIN meals_components
@@ -456,7 +455,7 @@ export default class Database {
         })
     }
 
-    static async deleteMeal(meal: Meal): Promise<boolean> {
+    async deleteMeal(meal: Meal): Promise<boolean> {
         try {
             await this.runQuery(`
             DELETE FROM meals
@@ -474,7 +473,7 @@ export default class Database {
      * by setting this paramter to false. When this parameter is set to true,
      * the meal will be set as a component.
      */
-    static async setMealComponent(meal: Meal, isComponent: boolean) {
+    async setMealComponent(meal: Meal, isComponent: boolean) {
         let query: string;
         if (!isComponent) {
             query = `
@@ -495,7 +494,7 @@ export default class Database {
         await this.runQuery(query, [meal.name]);
     }
 
-    static async insertMeal(meal: Meal): Promise<boolean> {
+    async insertMeal(meal: Meal): Promise<boolean> {
         try {
             await this.runQuery(`
             INSERT INTO meals (name, recipe)
@@ -515,7 +514,7 @@ export default class Database {
      * @param updateRecipe when set to false, this function will not update the recipe
      * of the meal.
      */
-    static async updateMeal(oldMeal: Meal, newMeal: Meal, updateRecipe = true): Promise<boolean> {
+    async updateMeal(oldMeal: Meal, newMeal: Meal, updateRecipe = true): Promise<boolean> {
         try {
             if (updateRecipe) {
                 await this.runQuery(`
@@ -542,7 +541,7 @@ export default class Database {
         return true;
     }
 
-    static async selectMealsInformation(): Promise<MealInformation[]> {
+    async selectMealsInformation(): Promise<MealInformation[]> {
         const mealInformation = await this.runQuery<MealInformation>(`
             SELECT *, hasRelatedMeals | hasMealsFood AS useableMeal
                 FROM v_meals
@@ -558,7 +557,7 @@ export default class Database {
         })
     }
 
-    static async selectMealFood(mealName: string): Promise<CurrentItems[]> {
+    async selectMealFood(mealName: string): Promise<CurrentItems[]> {
         return await this.runQuery(`
             SELECT food AS itemName, quantity
                 FROM meals_food
@@ -566,7 +565,7 @@ export default class Database {
             `, [mealName]);
     }
 
-    static async insertMealFood(mealName: string, foodName: string): Promise<boolean> {
+    async insertMealFood(mealName: string, foodName: string): Promise<boolean> {
         try {
             await this.runQuery(`
             INSERT INTO meals_food (meal, food) 
@@ -578,7 +577,7 @@ export default class Database {
         return true;
     }
 
-    static async deleteMealFood(mealName: string, foodName: string): Promise<boolean> {
+    async deleteMealFood(mealName: string, foodName: string): Promise<boolean> {
         try {
             await this.runQuery(`
             DELETE FROM meals_food 
@@ -591,7 +590,7 @@ export default class Database {
         return true;
     }
 
-    static async updateMealFoodQuantity(mealName: string, foodName: string, quantity: number): Promise<boolean> {
+    async updateMealFoodQuantity(mealName: string, foodName: string, quantity: number): Promise<boolean> {
         try {
             await this.runQuery(`
             UPDATE meals_food 
@@ -608,7 +607,7 @@ export default class Database {
     /**
      * @returns all the names of the related meal components for the given non component meal.
      */
-    static async selectRelatedMealComponents(mealName: string): Promise<string[]> {
+    async selectRelatedMealComponents(mealName: string): Promise<string[]> {
         const relatedMeals = await this.runQuery<{ related_meal: string }>(`
         SELECT related_meal
             FROM meals_related_component
@@ -621,7 +620,7 @@ export default class Database {
      * @returns all the meals, which are related to the given
      * componentMealName.
      */
-    static async selectMealsForComponentMeal(componentMealName: string): Promise<string[]> {
+    async selectMealsForComponentMeal(componentMealName: string): Promise<string[]> {
         const relatedMeals = await this.runQuery<{ meal: string }>(`
         SELECT meal
             FROM meals_related_component
@@ -630,7 +629,7 @@ export default class Database {
         return relatedMeals.map(mealInfo => mealInfo.meal);
     }
 
-    static async setRelatedMealComponent(mealName: string, componentMealName: string): Promise<boolean> {
+    async setRelatedMealComponent(mealName: string, componentMealName: string): Promise<boolean> {
         try {
             await this.runQuery(`
             INSERT INTO meals_related_component (meal, related_meal)
@@ -642,7 +641,7 @@ export default class Database {
         return true;
     }
 
-    static async deleteRelatedMealComponent(mealName: string, componentMealName: string): Promise<boolean> {
+    async deleteRelatedMealComponent(mealName: string, componentMealName: string): Promise<boolean> {
         try {
             await this.runQuery(`
             DELETE FROM meals_related_component
@@ -655,7 +654,7 @@ export default class Database {
         return true;
     }
 
-    static async insertMealToShoppingList(mealName: string): Promise<boolean> {
+    async insertMealToShoppingList(mealName: string): Promise<boolean> {
         try {
             await this.runQuery(`
             INSERT INTO shopping_lists_meals (meal)
@@ -667,7 +666,7 @@ export default class Database {
         return true;
     }
 
-    static async deleteMealFromShoppingList(mealName: string): Promise<boolean> {
+    async deleteMealFromShoppingList(mealName: string): Promise<boolean> {
         try {
             await this.runQuery(`
             DELETE FROM shopping_lists_meals 
@@ -679,7 +678,7 @@ export default class Database {
         return true;
     }
 
-    static async updateMealShoppingListQuantity(mealName: string, quantity: number): Promise<boolean> {
+    async updateMealShoppingListQuantity(mealName: string, quantity: number): Promise<boolean> {
         try {
             await this.runQuery(`
             UPDATE shopping_lists_meals 
@@ -692,14 +691,14 @@ export default class Database {
         return true;
     }
 
-    static async selectAllMealShoppingList(): Promise<ShoppingListMeal[]> {
+    async selectAllMealShoppingList(): Promise<ShoppingListMeal[]> {
         return this.runQuery(`
             SELECT meal, quantity
                 FROM shopping_lists_meals;
             `);
     }
 
-    static async selectAllShoppingLists(): Promise<ShoppingListItem[]> {
+    async selectAllShoppingLists(): Promise<ShoppingListItem[]> {
         const shoppingLists = await this.runQuery<ShoppingListItem>(`
             SELECT shoppingListName, active
                 FROM shopping_lists;
@@ -713,7 +712,7 @@ export default class Database {
         })
     }
 
-    static async insertShoppingList(shoppingListName: string): Promise<boolean> {
+    async insertShoppingList(shoppingListName: string): Promise<boolean> {
         try {
             await this.runQuery(`
             INSERT INTO shopping_lists (shoppingListName)
@@ -725,7 +724,7 @@ export default class Database {
         return true;
     }
 
-    static async updateShoppingListActiveState(shoppingListName: string, active: boolean): Promise<boolean> {
+    async updateShoppingListActiveState(shoppingListName: string, active: boolean): Promise<boolean> {
         try {
             await this.runQuery(`
             UPDATE shopping_lists
@@ -738,7 +737,7 @@ export default class Database {
         return true;
     }
 
-    static async updateShoppingListName(shoppingListName: string, newShoppingListName: string): Promise<boolean> {
+    async updateShoppingListName(shoppingListName: string, newShoppingListName: string): Promise<boolean> {
         try {
             await this.runQuery(`
             UPDATE shopping_lists
@@ -751,7 +750,7 @@ export default class Database {
         return true;
     }
 
-    static async deleteShoppingList(shoppingListName: string): Promise<boolean> {
+    async deleteShoppingList(shoppingListName: string): Promise<boolean> {
         try {
             await this.runQuery(`
             DELETE FROM shopping_lists
@@ -763,7 +762,7 @@ export default class Database {
         return true;
     }
 
-    static async selectShoppingListItems(shoppingListName: string): Promise<CurrentItems[]> {
+    async selectShoppingListItems(shoppingListName: string): Promise<CurrentItems[]> {
         return await this.runQuery(`
         SELECT goodsName AS itemName, quantity
             FROM shopping_lists_goods
@@ -772,7 +771,7 @@ export default class Database {
             `, [shoppingListName]);
     }
 
-    static async insertItemToShoppingList(itemName: string, shoppingListName: string): Promise<boolean> {
+    async insertItemToShoppingList(itemName: string, shoppingListName: string): Promise<boolean> {
         try {
             await this.runQuery(`
             INSERT INTO shopping_lists_goods (shoppingListName, goodsName)
@@ -784,7 +783,7 @@ export default class Database {
         return true;
     }
 
-    static async deleteItemFromShoppingList(itemName: string, shoppingListName: string): Promise<boolean> {
+    async deleteItemFromShoppingList(itemName: string, shoppingListName: string): Promise<boolean> {
         try {
             await this.runQuery(`
             DELETE FROM shopping_lists_goods
@@ -797,7 +796,7 @@ export default class Database {
         return true;
     }
 
-    static async updateShoppingListItemQuantity(itemName: string, shoppingListName: string, quantity: number): Promise<boolean> {
+    async updateShoppingListItemQuantity(itemName: string, shoppingListName: string, quantity: number): Promise<boolean> {
         try {
             await this.runQuery(`
             UPDATE shopping_lists_goods
@@ -819,7 +818,7 @@ export default class Database {
      * which are buyable in this shop. When this parameter is set to false, only
      * the items are shown, which are not buyable in this shop.
      */
-    static async generateShoppingList(shopId: number, availableShopItems: boolean): Promise<string> {
+    async generateShoppingList(shopId: number, availableShopItems: boolean): Promise<string> {
         let query = `
         SELECT goodsName || ' X ' || sum(quantity) AS itemWithQuantity
             FROM (
@@ -883,7 +882,7 @@ export default class Database {
      * @returns the recipes of the meals, which are included in
      * the table shopping_lists_meals.
      */
-    static async getRecipesOfSelectedMeals(): Promise<string> {
+    async getRecipesOfSelectedMeals(): Promise<string> {
         const meals: MealWithoutComponent[] = await this.runQuery(`
         SELECT name, coalesce(recipe, '') AS recipe
             FROM meals

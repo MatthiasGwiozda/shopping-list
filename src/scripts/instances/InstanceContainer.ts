@@ -59,16 +59,17 @@ export default class InstanceContainer {
     mealCollectionFactory: MealCollectionFactory
     mealAccessObject: MealAccessObject;
     shoppingListAccessObject: ShoppingListAccessObject;
-    sortableCategoriesAdditionalActionFactory: SortableCategoriesAdditionalActionFactory
+    sortableCategoriesAdditionalActionFactory: SortableCategoriesAdditionalActionFactory;
+    database: Database;
 
     constructor() {
-        this.queryExecutor = new QueryExecutorSqliteNode()
-        Database.injectDependencies(this);
-        this.categoryAccessObject = Database;
-        this.shopAccessObject = Database;
-        this.itemAccessObject = Database;
-        this.mealAccessObject = Database;
-        this.shoppingListAccessObject = Database;
+        this.queryExecutor = new QueryExecutorSqliteNode();
+        this.database = new Database(this);
+        this.categoryAccessObject = this.database;
+        this.shopAccessObject = this.database;
+        this.itemAccessObject = this.database;
+        this.mealAccessObject = this.database;
+        this.shoppingListAccessObject = this.database;
 
         this.databaseCreator = new DatabaseCreator(this);
         this.databaseInstanciator = new DatabaseInstanciator(this)
