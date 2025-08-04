@@ -306,7 +306,7 @@ export default class Database {
         return true;
     }
 
-    static async updateShop(oldShop: Shop, newShop: Shop) {
+    static async updateShop(oldShop: Shop, newShop: Shop): Promise<boolean> {
         try {
             await this.runQuery(`
             UPDATE shops

@@ -19,6 +19,9 @@ export interface ShopAccessObject {
     addShopToItem(shop: Shop, item: Item): Promise<boolean>;
     removeShopFromItem(shop: Shop, item: Item): Promise<boolean>;
     selectAllShops(): Promise<Shop[]>;
+    deleteShop(shop: Shop): Promise<boolean>;
+    insertShop(shop: Shop): Promise<boolean>;
+    updateShop(oldShop: Shop, newShop: Shop): Promise<boolean>;
     selectGoodsShops(): Promise<GoodsShops[]>;
 }
 

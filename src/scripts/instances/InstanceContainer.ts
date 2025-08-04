@@ -77,7 +77,7 @@ export default class InstanceContainer {
         this.itemCollectionFactory = new ItemCollectionFactory(this);
         this.mealIngredientsAdditionalActionFactory = new MealIngredientsAdditionalActionFactory(this);
         this.mealsFactory = new MealsFactory(this);
-        this.shopsFactory = new ShopsFactory();
+        this.shopsFactory = new ShopsFactory(this);
         this.goodsShopAssignementAdditionalActionFactory =
             new GoodsShopAssignementAdditionalActionFactory(this)
         this.itemsFactory = new ItemsFactory(this);
