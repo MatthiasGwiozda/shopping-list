@@ -9,6 +9,7 @@ import { ShopAccessObject } from "../../database/dataAccessObjects/AccessObjects
 
 export interface ShopsDeps {
     shopAccessObject: ShopAccessObject;
+    sortableCategoriesAdditionalActionFactory: SortableCategoriesAdditionalActionFactory;
 }
 
 export default class Shops extends ObserverableComponent {
@@ -69,7 +70,7 @@ export default class Shops extends ObserverableComponent {
             additionalEditableListActions: [{
                 buttonIcon: constants.icons.category,
                 buttonTitle: 'Edit categories - order',
-                factory: new SortableCategoriesAdditionalActionFactory()
+                factory: this.deps.sortableCategoriesAdditionalActionFactory,
             }]
         }
 

@@ -1,3 +1,4 @@
+import CategoriesShopOrder from "../../types/CategoriesShopOrder";
 import Category from "../../types/Category";
 import { CurrentItems } from "../../types/components/itemCollection";
 import GoodsShops from "../../types/GoodsShops";
@@ -23,6 +24,8 @@ export interface ShopAccessObject {
     insertShop(shop: Shop): Promise<boolean>;
     updateShop(oldShop: Shop, newShop: Shop): Promise<boolean>;
     selectGoodsShops(): Promise<GoodsShops[]>;
+    moveCategoryShopOrder(fromCategory: string, toCategory: string, shop: Shop): Promise<boolean>;
+    selectGoodsCategoriesShopOrder(shop: Shop): Promise<CategoriesShopOrder[]>;
 }
 
 export interface ItemAccessObject {

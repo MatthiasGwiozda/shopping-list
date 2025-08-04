@@ -9,6 +9,7 @@ import Database from "../database/Database"
 import QueryExecutorSqliteNode from "../database/queryExecutor/QueryExecutorSqliteNode"
 import GoodsShopAssignementAdditionalActionFactory from "../factories/components/editableList/additionalAction/implementations/GoodsShopAssignementAdditionalActionFactory"
 import MealIngredientsAdditionalActionFactory from "../factories/components/editableList/additionalAction/implementations/MealIngredientsAdditionalActionFactory"
+import SortableCategoriesAdditionalActionFactory from "../factories/components/editableList/additionalAction/implementations/SortableCategoriesAdditionalActionFactory"
 import ItemCollectionFactory from "../factories/components/itemCollection/ItemCollectionFactory"
 import CategoriesFactory from "../factories/components/menuComponents/implementations/CategoriesFactory"
 import ItemsFactory from "../factories/components/menuComponents/implementations/ItemsFactory"
@@ -58,6 +59,7 @@ export default class InstanceContainer {
     mealCollectionFactory: MealCollectionFactory
     mealAccessObject: MealAccessObject;
     shoppingListAccessObject: ShoppingListAccessObject;
+    sortableCategoriesAdditionalActionFactory: SortableCategoriesAdditionalActionFactory
 
     constructor() {
         this.queryExecutor = new QueryExecutorSqliteNode()
@@ -76,6 +78,7 @@ export default class InstanceContainer {
         this.readyChecks = new ComponentReadyChecksImpl(this);
         this.itemCollectionFactory = new ItemCollectionFactory(this);
         this.mealIngredientsAdditionalActionFactory = new MealIngredientsAdditionalActionFactory(this);
+        this.sortableCategoriesAdditionalActionFactory = new SortableCategoriesAdditionalActionFactory(this);
         this.mealsFactory = new MealsFactory(this);
         this.shopsFactory = new ShopsFactory(this);
         this.goodsShopAssignementAdditionalActionFactory =
