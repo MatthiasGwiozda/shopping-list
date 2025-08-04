@@ -5,6 +5,7 @@ import Item from "../../types/Item";
 import Meal from "../../types/Meal";
 import MealInformation from "../../types/MealInformation";
 import Shop from "../../types/Shop";
+import ShoppingListItem from "../../types/ShoppingListItem";
 import ShoppingListMeal from "../../types/ShoppingListMeal";
 
 export interface CategoryAccessObject {
@@ -45,6 +46,15 @@ export interface MealAccessObject {
 }
 
 export interface ShoppingListAccessObject {
+    selectAllShoppingLists(): Promise<ShoppingListItem[]>;
+    updateShoppingListName(shoppingListName: string, newShoppingListName: string): Promise<boolean>;
+    insertItemToShoppingList(itemName: string, shoppingListName: string): Promise<boolean>;
+    deleteItemFromShoppingList(itemName: string, shoppingListName: string): Promise<boolean>;
+    updateShoppingListItemQuantity(itemName: string, shoppingListName: string, quantity: number): Promise<boolean>;
+    updateShoppingListActiveState(shoppingListName: string, active: boolean): Promise<boolean>;
+    insertShoppingList(shoppingListName: string): Promise<boolean>;
+    deleteShoppingList(shoppingListName: string): Promise<boolean>;
+    selectShoppingListItems(shoppingListName: string): Promise<CurrentItems[]>;
     selectAllMealShoppingList(): Promise<ShoppingListMeal[]>;
     insertMealToShoppingList(mealName: string): Promise<boolean>;
     updateMealShoppingListQuantity(mealName: string, quantity: number): Promise<boolean>;
