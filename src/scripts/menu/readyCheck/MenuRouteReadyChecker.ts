@@ -5,12 +5,8 @@ export default class MenuRouteReadyChecker {
 
     private readonly menuNotReadyClass = 'notReady';
 
-    constructor(
-        private menuItems: MenuItem[]
-    ) { }
-
-    public async applyReadyChecks(): Promise<void> {
-        for (const menuItem of this.menuItems) {
+    public async applyReadyChecks(menuItems: MenuItem[]): Promise<void> {
+        for (const menuItem of menuItems) {
             await this.applyReadyCheckForMenuItem(menuItem);
         }
     }

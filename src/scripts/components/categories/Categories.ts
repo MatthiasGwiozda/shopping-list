@@ -1,13 +1,20 @@
-import Database from "../../database/Database";
 import ObserverableComponent from "../ObserverableComponent";
 import Category from "../../types/Category";
 import { EditableListParams, PossibleInputTypes } from "../../types/components/editableList";
 import EditableList from "../editableList/EditableList";
 import categoriesPartials from "./categoriesPartials";
+import { CategoryAccessObject } from "../../database/dataAccessObjects/AccessObjects";
+
+export interface CategoriesDeps {
+    categoryAccessObject: CategoryAccessObject;
+}
 
 export default class Categories extends ObserverableComponent {
 
-    constructor(container: HTMLElement) {
+    constructor(
+        container: HTMLElement,
+        private deps: CategoriesDeps,
+    ) {
         super(container);
         this.createEditableList();
     }
@@ -19,9 +26,9 @@ export default class Categories extends ObserverableComponent {
     // create editableList for categories
     private async createEditableList() {
         const params: EditableListParams<Category> = {
-            getTableContent: async () => await Database.selectAllCategories(),
+            getTableContent: async () => await this.deps.categoryAccessObject.selectAllCategories(),
             deleteElement: async (category) => {
-                const result = await Database.deleteCategory(category);
+                const result = await this.deps.categoryAccessObject.deleteCategory(category);
                 this.notifyObservers();
                 return {
                     result,
@@ -29,7 +36,7 @@ export default class Categories extends ObserverableComponent {
                 }
             },
             insertElement: async (category) => {
-                const result = await Database.insertCategory(category);
+                const result = await this.deps.categoryAccessObject.insertCategory(category);
                 this.notifyObservers();
                 return {
                     result,
@@ -37,7 +44,7 @@ export default class Categories extends ObserverableComponent {
                 }
             },
             updateElement: async (oldCategory, newCategory) => {
-                const result = await Database.updateCategory(oldCategory, newCategory);
+                const result = await this.deps.categoryAccessObject.updateCategory(oldCategory, newCategory);
                 return {
                     result,
                     message: result ? null : 'An error occoured. Maybe the category already exists?'

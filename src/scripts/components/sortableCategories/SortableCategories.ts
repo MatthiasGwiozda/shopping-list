@@ -1,7 +1,11 @@
 import Component from "../Component";
-import Database from "../../database/Database"
 import Shop from "../../types/Shop";
 import sortableCategoriesPartials from "./sortableCategoriesPartials";
+import { ShopAccessObject } from "../../database/dataAccessObjects/AccessObjects";
+
+export interface SortableCategoriesDeps {
+    shopAccessObject: ShopAccessObject,
+}
 
 export default class SortableCategories extends Component {
     private static currentDraggedElement: HTMLParagraphElement;
@@ -14,7 +18,8 @@ export default class SortableCategories extends Component {
 
     constructor(
         container: HTMLElement,
-        private shop: Shop
+        private shop: Shop,
+        private deps: SortableCategoriesDeps,
     ) {
         super(container);
         this.showCategories();
@@ -48,13 +53,14 @@ export default class SortableCategories extends Component {
         p.ondragleave = function () {
             p.classList.remove(SortableCategories.dragoverClass);
         }
-        p.ondrop = async function () {
+        p.ondrop = async () => {
             p.classList.remove(SortableCategories.dragoverClass);
             const fromElement = SortableCategories.currentDraggedElement;
             const toElement = p;
             if (fromElement != toElement) {
                 // switch the order
-                const res = await Database.moveCategoryShopOrder(fromElement.innerText, toElement.innerText, shop);
+                const res = await this.deps.shopAccessObject.
+                    moveCategoryShopOrder(fromElement.innerText, toElement.innerText, shop);
                 if (res) {
                     toElement.before(fromElement);
                 }
@@ -74,7 +80,7 @@ export default class SortableCategories extends Component {
     }
 
     private async showCategories() {
-        const categories = await Database.selectGoodsCategoriesShopOrder(this.shop);
+        const categories = await this.deps.shopAccessObject.selectGoodsCategoriesShopOrder(this.shop);
         // create Html
         const categoryOrderContainer = this.container.querySelector('.categoryOrder');
         categories.forEach((categoryInfo) => {

@@ -5,11 +5,14 @@ import NamedIcon from "../../types/menuRoute/NamedIcon";
 import { ItemsWithFoodReadyCheck } from "../../types/readyCheck/ComponentReadyChecks";
 import MenuRouteCreator from "../MenuRouteCreator";
 
+interface MealsMenuRouteDeps {
+    readyChecks: ItemsWithFoodReadyCheck;
+    mealsFactory: MealsFactory;
+}
+
 export default class MealsMenuRoute extends MenuRouteCreator {
 
-    constructor(
-        private readyChecks: ItemsWithFoodReadyCheck
-    ) {
+    constructor(private deps: MealsMenuRouteDeps) {
         super();
     }
 
@@ -19,10 +22,10 @@ export default class MealsMenuRoute extends MenuRouteCreator {
 
     protected getRouteBehavior(): MenuRouteBehavior<MenuComponentFactories> {
         return new MenuRouteBehavior(
-            new MealsFactory(),
+            this.deps.mealsFactory,
             {
                 checks: [
-                    () => this.readyChecks.itemsWithFood()
+                    () => this.deps.readyChecks.itemsWithFood()
                 ],
                 message: 'Please add at least one "food - item" to create meals'
             }

@@ -1,16 +1,21 @@
 import constants from "../../constants";
-import Database from "../../database/Database";
 import DialogUtilities from "../../utilities/DialogUtilities";
 import InputUtilities from "../../utilities/InputUtilities";
 import Component from "../Component";
 import HtmlUtilities from "../../utilities/HtmlUtilities";
 import shoppingListCollectionPartials from "./shoppingListCollectionPartials";
-import ItemCollection from "../itemCollection/ItemCollection";
 import ItemCollectionParams from "../../types/components/itemCollection";
+import ItemCollectionFactory from "../../factories/components/itemCollection/ItemCollectionFactory";
+import { ShoppingListAccessObject } from "../../database/dataAccessObjects/AccessObjects";
+
+export interface ShoppingListCollectionDeps {
+    itemCollectionFactory: ItemCollectionFactory;
+    shoppingListAccessObject: ShoppingListAccessObject;
+}
 
 export default class ShoppingListCollection extends Component {
 
-    constructor(container: HTMLElement) {
+    constructor(container: HTMLElement, private deps: ShoppingListCollectionDeps) {
         super(container);
         this.insertCurrentShoppingLists();
         this.initializeAddListAction();
@@ -25,7 +30,7 @@ export default class ShoppingListCollection extends Component {
     }
 
     private async insertCurrentShoppingLists() {
-        const shoppingLists = await Database.selectAllShoppingLists();
+        const shoppingLists = await this.deps.shoppingListAccessObject.selectAllShoppingLists();
         for (const shoppingList of shoppingLists) {
             const { active, shoppingListName } = shoppingList;
             this.addNewList(shoppingListName, active);
@@ -38,7 +43,8 @@ export default class ShoppingListCollection extends Component {
         input.value = label.innerText;
         input.oninput = async () => {
             const { value } = input;
-            const updated = await Database.updateShoppingListName(label.innerText, value);
+            const updated = await this.deps.shoppingListAccessObject.
+                updateShoppingListName(label.innerText, value);
             // Currently there is no handling for non - successful change of the name.
             if (updated) {
                 label.innerText = value;
@@ -47,7 +53,11 @@ export default class ShoppingListCollection extends Component {
         label.replaceWith(input);
     }
 
-    private createEditButton(label: HTMLLabelElement, shoppingListParagraph: HTMLParagraphElement, deleteButton: HTMLButtonElement): HTMLButtonElement {
+    private createEditButton(
+        label: HTMLLabelElement,
+        shoppingListParagraph: HTMLParagraphElement,
+        deleteButton: HTMLButtonElement,
+    ): HTMLButtonElement {
         const editButton: HTMLButtonElement = HtmlUtilities.getRootNode(shoppingListCollectionPartials.editButton);
         let itemCollectionContainer: HTMLParagraphElement;
         editButton.onclick = async () => {
@@ -67,40 +77,52 @@ export default class ShoppingListCollection extends Component {
                 shoppingListParagraph.after(itemCollectionContainer);
 
                 const itemCollectionParams: ItemCollectionParams = {
-                    currentItems: await Database.selectShoppingListItems(label.innerText),
+                    currentItems: await this.deps.shoppingListAccessObject.
+                        selectShoppingListItems(label.innerText),
                     insertItem: async (itemName) => {
-                        return Database.insertItemToShoppingList(itemName, label.innerText);
+                        return this.deps.shoppingListAccessObject.
+                            insertItemToShoppingList(itemName, label.innerText);
                     },
                     removeItem: async (itemName) => {
-                        return Database.deleteItemFromShoppingList(itemName, label.innerText);
+                        return this.deps.shoppingListAccessObject.
+                            deleteItemFromShoppingList(itemName, label.innerText);
                     },
                     updateQuantity: async (itemName, quantity) => {
-                        return Database.updateShoppingListItemQuantity(itemName, label.innerText, quantity);
+                        return this.deps.shoppingListAccessObject.
+                            updateShoppingListItemQuantity(itemName, label.innerText, quantity);
                     }
                 };
-                new ItemCollection(itemCollectionContainer, itemCollectionParams);
+                this.deps.itemCollectionFactory.create(itemCollectionContainer, itemCollectionParams)
             }
         }
         return editButton;
     }
 
-    private createActiveToggler(label: HTMLLabelElement, currentlyActive: boolean, paragraphContainer: HTMLParagraphElement): HTMLInputElement {
+    private createActiveToggler(
+        label: HTMLLabelElement,
+        currentlyActive: boolean,
+        paragraphContainer: HTMLParagraphElement,
+    ): HTMLInputElement {
         const checkbox = document.createElement('input');
         checkbox.type = 'checkbox';
         checkbox.checked = currentlyActive;
         checkbox.onchange = () => {
-            Database.updateShoppingListActiveState(label.innerText, checkbox.checked);
+            this.deps.shoppingListAccessObject.
+                updateShoppingListActiveState(label.innerText, checkbox.checked);
             this.toggleInactiveClass(paragraphContainer);
         }
         return checkbox;
     }
 
     private getDeleteButton(label: HTMLLabelElement) {
-        const button = HtmlUtilities.getRootNode<HTMLButtonElement>(shoppingListCollectionPartials.deleteButton);
+        const button = HtmlUtilities.getRootNode<HTMLButtonElement>(
+            shoppingListCollectionPartials.deleteButton
+        );
         button.onclick = async () => {
-            const confirmation = DialogUtilities.confirm(`Do you want to delete the list "${label.innerText}"?`);
+            const confirmation = DialogUtilities.
+                confirm(`Do you want to delete the list "${label.innerText}"?`);
             if (confirmation) {
-                const deleted = await Database.deleteShoppingList(label.innerText);
+                const deleted = await this.deps.shoppingListAccessObject.deleteShoppingList(label.innerText);
                 if (deleted) {
                     label.parentElement.remove();
                 }
@@ -135,7 +157,8 @@ export default class ShoppingListCollection extends Component {
             e.preventDefault();
             const formData = new FormData(form);
             const shoppingListName = (formData.get('listName')).toString();
-            const inserted = await Database.insertShoppingList(shoppingListName);
+            const inserted = await this.deps.shoppingListAccessObject.
+                insertShoppingList(shoppingListName);
             if (inserted) {
                 this.addNewList(shoppingListName, true);
                 input.value = '';

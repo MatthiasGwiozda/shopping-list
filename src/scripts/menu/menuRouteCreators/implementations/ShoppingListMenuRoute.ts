@@ -5,11 +5,14 @@ import NamedIcon from "../../types/menuRoute/NamedIcon";
 import { ShopWithItemsReadyChecks } from "../../types/readyCheck/ComponentReadyChecks";
 import MenuRouteCreator from "../MenuRouteCreator";
 
+interface ShoppingListMenuRouteDeps {
+    readyChecks: ShopWithItemsReadyChecks;
+    shoppingListFactory: ShoppingListFactory;
+}
+
 export default class ShoppingListMenuRoute extends MenuRouteCreator {
 
-    constructor(
-        private readyChecks: ShopWithItemsReadyChecks
-    ) {
+    constructor(private deps: ShoppingListMenuRouteDeps) {
         super();
     }
 
@@ -19,11 +22,11 @@ export default class ShoppingListMenuRoute extends MenuRouteCreator {
 
     protected getRouteBehavior(): MenuRouteBehavior<MenuComponentFactories> {
         return new MenuRouteBehavior(
-            new ShoppingListFactory(),
+            this.deps.shoppingListFactory,
             {
                 checks: [
-                    () => this.readyChecks.shops(),
-                    () => this.readyChecks.items()
+                    () => this.deps.readyChecks.shops(),
+                    () => this.deps.readyChecks.items()
                 ],
                 message: 'Please add items and at least one shop to generate shopping lists'
             }

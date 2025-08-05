@@ -1,5 +1,4 @@
 import constants from "../../constants";
-import Database from "../../database/Database";
 import { EditableListParams, PossibleInputTypes } from "../../types/components/editableList";
 import Meal from "../../types/Meal";
 import Component from "../Component";
@@ -7,10 +6,16 @@ import DialogUtilities from '../../utilities/DialogUtilities';
 import mealsPartials from "./MealsPartials";
 import EditableList from "../editableList/EditableList";
 import MealIngredientsAdditionalActionFactory from "../../factories/components/editableList/additionalAction/implementations/MealIngredientsAdditionalActionFactory";
+import { MealAccessObject } from "../../database/dataAccessObjects/AccessObjects";
+
+export interface MealsDeps {
+    mealIngredientsAdditionalActionFactory: MealIngredientsAdditionalActionFactory;
+    mealAccessObject: MealAccessObject;
+}
 
 export default class Meals extends Component {
 
-    constructor(container: HTMLElement) {
+    constructor(container: HTMLElement, private deps: MealsDeps) {
         super(container);
         this.createEditableList()
     }
@@ -27,16 +32,16 @@ export default class Meals extends Component {
 
     private async createEditableList() {
         const params: EditableListParams<Meal> = {
-            getTableContent: async () => await Database.selectAllMeals(),
-            deleteElement: async function (meal) {
-                const result = await Database.deleteMeal(meal);
+            getTableContent: async () => await this.deps.mealAccessObject.selectAllMeals(),
+            deleteElement: async (meal) => {
+                const result = await this.deps.mealAccessObject.deleteMeal(meal);
                 return {
                     result,
                     message: result ? null : 'The meal could not be deleted.'
                 }
             },
-            insertElement: async function (meal) {
-                const result = await Database.insertMeal(meal);
+            insertElement: async (meal) => {
+                const result = await this.deps.mealAccessObject.insertMeal(meal);
                 return {
                     result,
                     message: result ? null : 'An error occoured while saving the meal. Maybe the meal already exists?'
@@ -45,14 +50,14 @@ export default class Meals extends Component {
             updateElement: async (oldMeal, newMeal) => {
                 let update = true;
                 if (!oldMeal.component && newMeal.component) {
-                    const meals = await Database.selectRelatedMealComponents(oldMeal.name);
+                    const meals = await this.deps.mealAccessObject.selectRelatedMealComponents(oldMeal.name);
                     if (meals.length > 0) {
                         const relatedMeals = this.getBulletPointList(meals);
                         const confirmMessage = this.getChangeToComponentMessage(newMeal.name, relatedMeals);
                         update = DialogUtilities.confirm(confirmMessage);
                     }
                 } else if (oldMeal.component && !newMeal.component) {
-                    const meals = await Database.selectMealsForComponentMeal(oldMeal.name);
+                    const meals = await this.deps.mealAccessObject.selectMealsForComponentMeal(oldMeal.name);
                     if (meals.length > 0) {
                         const relatedMeals = this.getBulletPointList(meals);
                         const confirmMessage = this.getChangeToFullMealMessage(relatedMeals);
@@ -60,7 +65,7 @@ export default class Meals extends Component {
                     }
                 }
                 if (update) {
-                    const result = await Database.updateMeal(oldMeal, newMeal, false);
+                    const result = await this.deps.mealAccessObject.updateMeal(oldMeal, newMeal, false);
                     return {
                         result,
                         message: result ? null : 'An error occoured. Maybe the meal already exists?'
@@ -83,7 +88,7 @@ export default class Meals extends Component {
             additionalEditableListActions: [{
                 buttonIcon: constants.icons.item,
                 buttonTitle: 'Edit ingredients, recipe and more',
-                factory: new MealIngredientsAdditionalActionFactory()
+                factory: this.deps.mealIngredientsAdditionalActionFactory
             }]
         }
 

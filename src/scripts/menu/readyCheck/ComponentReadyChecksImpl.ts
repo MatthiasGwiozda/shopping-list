@@ -5,21 +5,23 @@ import ShopDao from "../../database/dataAccessObjects/shop/ShopDao";
 import Item from "../../types/Item";
 import ComponentReadyChecks from "../types/readyCheck/ComponentReadyChecks";
 
+interface Deps {
+    categoryDao: CategoryDao;
+    shopDao: ShopDao;
+    itemDao: ItemDao;
+}
+
 export default class ComponentReadyChecksImpl implements ComponentReadyChecks {
 
-    constructor(
-        private categoryDao: CategoryDao,
-        private shopDao: ShopDao,
-        private itemDao: ItemDao
-    ) { }
+    constructor(private deps: Deps) { }
 
     async categories(): Promise<boolean> {
-        const categories = await this.categoryDao.selectAllCategories()
+        const categories = await this.deps.categoryDao.selectAllCategories()
         return this.hasAtLeastOneElement(categories);
     }
 
     async shops(): Promise<boolean> {
-        const shops = await this.shopDao.selectAllShops();
+        const shops = await this.deps.shopDao.selectAllShops();
         return this.hasAtLeastOneElement(shops);
     }
 
@@ -38,7 +40,7 @@ export default class ComponentReadyChecksImpl implements ComponentReadyChecks {
     }
 
     private selectAllItems(): Promise<Item[]> {
-        return this.itemDao.selectAllItems();
+        return this.deps.itemDao.selectAllItems();
     }
 
     private async selectAllFoodItems(): Promise<Item[]> {

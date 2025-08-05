@@ -6,11 +6,14 @@ import NamedIcon from "../../types/menuRoute/NamedIcon";
 import { CategoriesReadyCheck } from "../../types/readyCheck/ComponentReadyChecks";
 import MenuRouteCreator from "../MenuRouteCreator";
 
+interface ItemsMenuRouteDeps {
+    readyChecks: CategoriesReadyCheck;
+    itemsFactory: ItemsFactory;
+}
+
 export default class ItemsMenuRoute extends MenuRouteCreator {
 
-    constructor(
-        private readyChecks: CategoriesReadyCheck
-    ) {
+    constructor(private deps: ItemsMenuRouteDeps) {
         super();
     }
 
@@ -20,10 +23,10 @@ export default class ItemsMenuRoute extends MenuRouteCreator {
 
     protected getRouteBehavior(): MenuRouteBehavior<MenuComponentFactories> {
         return new MenuRouteBehavior(
-            new ItemsFactory(),
+            this.deps.itemsFactory,
             {
                 checks: [
-                    () => this.readyChecks.categories()
+                    () => this.deps.readyChecks.categories()
                 ],
                 message: 'Please add categories before you add items'
             }

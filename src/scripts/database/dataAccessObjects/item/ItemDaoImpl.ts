@@ -1,11 +1,17 @@
 import Item from "../../../types/Item";
-import QueryExecutorUser from "../../queryExecutor/QueryExecutorUser";
+import QueryExecutor from "../../queryExecutor/QueryExecutor";
 import ItemDao from "./ItemDao";
 
-export default class ItemDaoImpl extends QueryExecutorUser implements ItemDao {
+interface Deps {
+    queryExecutor: QueryExecutor;
+}
+
+export default class ItemDaoImpl implements ItemDao {
+
+    constructor(private deps: Deps) { }
 
     async selectAllItems(): Promise<Item[]> {
-        const items = await this.queryExecutor.runQuery<Item>(`
+        const items = await this.deps.queryExecutor.runQuery<Item>(`
         SELECT goods.name, goods.category, food.name IS NOT NULL AS food
             FROM goods
                 LEFT JOIN food ON food.name = goods.name;

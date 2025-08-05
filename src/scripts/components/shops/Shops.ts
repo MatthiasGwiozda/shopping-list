@@ -1,15 +1,20 @@
 import constants from "../../constants";
-import Database from "../../database/Database";
 import SortableCategoriesAdditionalActionFactory from "../../factories/components/editableList/additionalAction/implementations/SortableCategoriesAdditionalActionFactory";
 import ObserverableComponent from "../ObserverableComponent";
 import { EditableListParams, PossibleInputTypes } from "../../types/components/editableList";
 import Shop from "../../types/Shop";
 import EditableList from "../editableList/EditableList";
 import shopsPartials from "./shopsPartials";
+import { ShopAccessObject } from "../../database/dataAccessObjects/AccessObjects";
+
+export interface ShopsDeps {
+    shopAccessObject: ShopAccessObject;
+    sortableCategoriesAdditionalActionFactory: SortableCategoriesAdditionalActionFactory;
+}
 
 export default class Shops extends ObserverableComponent {
 
-    constructor(container: HTMLElement) {
+    constructor(container: HTMLElement, private deps: ShopsDeps) {
         super(container);
         this.rendered();
     }
@@ -20,9 +25,9 @@ export default class Shops extends ObserverableComponent {
 
     private rendered() {
         const params: EditableListParams<Shop> = {
-            getTableContent: async () => await Database.selectAllShops(),
+            getTableContent: async () => await this.deps.shopAccessObject.selectAllShops(),
             deleteElement: async (shop) => {
-                const result = await Database.deleteShop(shop);
+                const result = await this.deps.shopAccessObject.deleteShop(shop);
                 this.notifyObservers();
                 return {
                     result,
@@ -30,7 +35,7 @@ export default class Shops extends ObserverableComponent {
                 }
             },
             insertElement: async (shop) => {
-                const result = await Database.insertShop(shop);
+                const result = await this.deps.shopAccessObject.insertShop(shop);
                 this.notifyObservers();
                 return {
                     result,
@@ -38,7 +43,7 @@ export default class Shops extends ObserverableComponent {
                 }
             },
             updateElement: async (oldShop, newShop) => {
-                const result = await Database.updateShop(oldShop, newShop);
+                const result = await this.deps.shopAccessObject.updateShop(oldShop, newShop);
                 return {
                     result,
                     message: result ? null : 'An error occoured. Maybe the shop already exists?'
@@ -65,7 +70,7 @@ export default class Shops extends ObserverableComponent {
             additionalEditableListActions: [{
                 buttonIcon: constants.icons.category,
                 buttonTitle: 'Edit categories - order',
-                factory: new SortableCategoriesAdditionalActionFactory()
+                factory: this.deps.sortableCategoriesAdditionalActionFactory,
             }]
         }
 

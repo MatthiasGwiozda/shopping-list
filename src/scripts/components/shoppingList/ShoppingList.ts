@@ -1,13 +1,20 @@
-import Database from "../../database/Database";
+import { ShopAccessObject, ShoppingListAccessObject } from "../../database/dataAccessObjects/AccessObjects";
+import ShoppingListCollectionFactory from "../../factories/components/shoppingListCollection/ShoppingListCollectionFactory";
 import Component from "../Component";
-import MealCollection from "../mealCollection/MealCollection";
-import ShoppingListCollection from "../shoppingListCollection/ShoppingListCollection";
+import MealCollectionFactory from "../mealCollection/MealCollectionFactory";
 import shoppingListPartials from "./shoppingListPartials";
 
 enum TextAreas {
     availableItemsInShop = 'availableItemsInShop',
     unavailableItemsInShop = 'unavailableItemsInShop',
     recipe = 'recipe'
+}
+
+export interface ShoppingListDeps {
+    shoppingListCollectionFactory: ShoppingListCollectionFactory;
+    mealCollectionFactory: MealCollectionFactory;
+    shopAccessObject: ShopAccessObject;
+    shoppingListAccessObject: ShoppingListAccessObject;
 }
 
 export default class ShoppingList extends Component {
@@ -18,7 +25,7 @@ export default class ShoppingList extends Component {
         recipe: 'Recipes'
     }
 
-    constructor(container: HTMLElement) {
+    constructor(container: HTMLElement, private deps: ShoppingListDeps) {
         super(container);
         this.rendered()
     }
@@ -29,9 +36,9 @@ export default class ShoppingList extends Component {
 
     private rendered() {
         const mealCollectionContainer = this.container.querySelector<HTMLElement>(".mealsList .container");
-        new MealCollection(mealCollectionContainer);
+        this.deps.mealCollectionFactory.create(mealCollectionContainer);
         const shoppingListCollectionContainer = this.container.querySelector<HTMLElement>(".staticList .container");
-        new ShoppingListCollection(shoppingListCollectionContainer);
+        this.deps.shoppingListCollectionFactory.create(shoppingListCollectionContainer)
         this.addShoppingListGeneration();
     }
 
@@ -60,7 +67,7 @@ export default class ShoppingList extends Component {
         const shoppingListGenerationContainer = this.getShoppingListGenerationContainer();
         const button: HTMLButtonElement = shoppingListGenerationContainer.querySelector('button');
         const select = shoppingListGenerationContainer.querySelector('select');
-        const shops = await Database.selectAllShops();
+        const shops = await this.deps.shopAccessObject.selectAllShops();
         for (const shop of shops) {
             const option = document.createElement('option');
             option.value = shop.shop_id.toString();
@@ -69,9 +76,10 @@ export default class ShoppingList extends Component {
         }
         button.onclick = async () => {
             const shopId = parseInt(select.value);
-            const shoppingListAvailableInShop = await Database.generateShoppingList(shopId, true);
-            const shoppingListUnAvailableInShop = await Database.generateShoppingList(shopId, false);
-            const recipe = await Database.getRecipesOfSelectedMeals();
+            const shoppingListAccessObject = this.deps.shoppingListAccessObject;
+            const shoppingListAvailableInShop = await shoppingListAccessObject.generateShoppingList(shopId, true);
+            const shoppingListUnAvailableInShop = await shoppingListAccessObject.generateShoppingList(shopId, false);
+            const recipe = await this.deps.shoppingListAccessObject.getRecipesOfSelectedMeals();
             this.setTextAreaValue(TextAreas.availableItemsInShop, shoppingListAvailableInShop);
             this.setTextAreaValue(TextAreas.unavailableItemsInShop, shoppingListUnAvailableInShop);
             this.setTextAreaValue(TextAreas.recipe, recipe);

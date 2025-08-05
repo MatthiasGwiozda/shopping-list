@@ -7,28 +7,28 @@ import MenuRouteReadyChecker from './readyCheck/MenuRouteReadyChecker';
 import MenuItem from './types/MenuItem';
 import MenuRoute from './types/menuRoute/MenuRoute';
 
+interface MenuDeps {
+    menuRouteReadyChecker: MenuRouteReadyChecker,
+}
+
 export default class Menu implements Observer {
     private menuItems: MenuItem[];
-    private menuRouteReadyChecker: MenuRouteReadyChecker;
 
-    constructor(menuRoutes: MenuRoute[]) {
-        this.menuItems = this.createMenuItems(menuRoutes);
-        this.menuRouteReadyChecker = new MenuRouteReadyChecker(this.menuItems);
-    }
+    constructor(public deps: MenuDeps) { }
 
     public addMenuToDocument() {
         this.createMenuDivElement();
         this.addMenuHtmlElementsToMenu();
         this.openDefaultComponent();
-        this.menuRouteReadyChecker.applyReadyChecks();
+        this.deps.menuRouteReadyChecker.applyReadyChecks(this.menuItems);
     }
 
     public observerSubjectUpdated(): void {
-        this.menuRouteReadyChecker.applyReadyChecks();
+        this.deps.menuRouteReadyChecker.applyReadyChecks(this.menuItems);
     }
 
-    private createMenuItems(menuRoutes: MenuRoute[]): MenuItem[] {
-        return menuRoutes.map(menuRoute => {
+    public createMenuItems(menuRoutes: MenuRoute[]) {
+        const menuItems = menuRoutes.map(menuRoute => {
             const { icon, name } = menuRoute.namedIcon;
             const routeEl = document.createElement('a');
             const menuItem: MenuItem = {
@@ -41,6 +41,7 @@ export default class Menu implements Observer {
             }
             return menuItem;
         });
+        this.menuItems = menuItems;
     }
 
     private createMenuDivElement() {
