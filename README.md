@@ -1,5 +1,5 @@
 # Introduction
-Shopping-list is an **Windows desktop application** which helps you to create shopping lists.
+Shopping-list is a **Windows desktop application** which helps you to create shopping lists.
 First some data must be provided so that `shopping-list` helps you later to save time.
 The time saving is expecially great when you buy the items for the whole week.
 
