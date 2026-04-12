@@ -103,7 +103,7 @@ const menu = Menu.buildFromTemplate(
         {
           label: 'Read the documentation',
           click: async () => {
-            await shell.openExternal('https://github.com/MatthiasGwiozda/shopping-list/tree/main/documentation')
+            await shell.openExternal('https://github.com/MatthiasGwiozda/shopping-list-wiki/')
           }
         }
       ]

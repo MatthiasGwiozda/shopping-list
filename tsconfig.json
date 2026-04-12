@@ -1,5 +1,6 @@
 {
     "compilerOptions": {
+        "strict": false,
         "module": "nodenext",
         "moduleResolution": "nodenext",
         "lib": [
@@ -7,6 +8,7 @@
             "DOM"
         ],
         "outDir": "./lib",
+        "rootDir": "./src",
         "inlineSourceMap": true,
         "inlineSources": true,
         "forceConsistentCasingInFileNames": false
